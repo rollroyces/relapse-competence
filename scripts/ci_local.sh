@@ -11,6 +11,9 @@ cd "$ROOT"
 
 PY="${PYTHON:-python3}"
 
+# Run against the source tree without requiring an install.
+export PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+
 echo "==> ruff"
 "$PY" -m ruff check src tests
 
