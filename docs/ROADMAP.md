@@ -97,17 +97,18 @@ detection.
 
 ### Longer term — the biological question
 
-8. **Relapse-competent state classifier** on methylation and mutation channels
+9. **Relapse-competent state classifier** on methylation and mutation channels
    jointly, with lineage-resolved validation.
-9. **Tumour-informed vs tumour-naive panels.** The current model assumes a
-   tumour-informed panel. A tumour-naive design changes the depth/lead-time
-   trade-off completely and deserves its own sweep.
+10. **Tumour-informed vs tumour-naive panels.** The current model assumes a
+    tumour-informed panel. A tumour-naive design changes the depth/lead-time
+    trade-off completely and deserves its own sweep.
 
 ## Dependencies, ordered by lead time
 
 | Dependency | Why | Lead time | Start |
 |---|---|---|---|
 | **Serial NSCLC cohort access** (PLCO via CDAS, or Taizhou via EGA) | Every empirical claim | Months | **First. Start now.** |
+| **GitHub Actions billing** | Continuous machine-checking of every push | Hours, once the account is unlocked | Now |
 | Multi-clone model | Realism of lead time | Days | Alongside |
 | Split-model validation | Bounds the simulation gap | Days | After multi-clone |
 | Lineage-resolved assay design | The actual scientific question | Months | After cohort access |
@@ -115,6 +116,14 @@ detection.
 The dataset applications dominate the critical path because they are
 application-gated and measured in months, while the modelling work is measured
 in days.
+
+**The Actions billing lock is diagnosed, not guessed.** Every job in every
+repository on this account fails within a few seconds with no runner and no
+log; GitHub's own annotation reads *"The job was not started because your
+account is locked due to a billing issue."* The repository's own workflow
+configuration is not the cause — Actions permissions are enabled and allow all
+actions. Until the account is unlocked, `scripts/ci_local.sh` runs the same
+checks locally, so no verification is lost, only the automatic trigger.
 
 ## Pivot conditions
 
