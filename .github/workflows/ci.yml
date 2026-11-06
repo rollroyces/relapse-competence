@@ -35,6 +35,9 @@ jobs:
       - name: Report consistency
         run: python scripts/verify_report_consistency.py
 
+      - name: Audit findings disposition
+        run: python scripts/audit_findings_disposition.py
+
   benchmark:
     runs-on: ubuntu-latest
     steps:

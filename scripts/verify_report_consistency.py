@@ -420,6 +420,31 @@ def main(argv: list[str] | None = None) -> int:
             "f_state" in report,
         )
 
+    # --- the findings disposition artefact must exist and agree ---
+    disposition_path = Path("results/audit_findings_disposition.json")
+    chk("audit findings disposition artefact exists", disposition_path.exists())
+    if disposition_path.exists():
+        disp = json.loads(disposition_path.read_text())
+        chk(
+            "every audited finding is dispositioned as resolved",
+            disp["disposition"]["all_resolved"] is True,
+            str(disp["disposition"]),
+        )
+        chk(
+            "the disposition covers all four findings",
+            len(disp["findings"]) == 4,
+            str(len(disp["findings"])),
+        )
+        for finding in disp["findings"]:
+            chk(
+                f"finding {finding['id']} is resolved with evidence",
+                finding["resolved"] and bool(finding["evidence"]),
+            )
+        chk(
+            "the gap audit report links the disposition artefact",
+            "audit_findings_disposition.json" in report,
+        )
+
     # --- source errors must be surfaced ---
     chk("audit log records zero source errors", log.get("errors") == [], str(log.get("errors")))
 

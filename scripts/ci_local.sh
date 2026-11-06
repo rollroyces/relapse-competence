@@ -20,6 +20,9 @@ echo "==> ruff"
 echo "==> pytest"
 "$PY" -m pytest
 
+echo "==> audit findings disposition"
+"$PY" scripts/audit_findings_disposition.py
+
 echo "==> report consistency"
 "$PY" scripts/verify_report_consistency.py
 

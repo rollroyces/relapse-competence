@@ -1,0 +1,65 @@
+{
+  "disposition": {
+    "generated_by": "scripts/audit_findings_disposition.py",
+    "repository_head": "4a4adbca8a9847465c03db9861eb46a5b2290e28",
+    "findings_total": 4,
+    "findings_resolved": 4,
+    "all_resolved": true
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "Section B.5 claimed '2,418 retrieved / 100% of the union / 0 errors', but the union was larger than the screened set and four records were silently dropped by a parser that only matched <PubmedArticle>.",
+      "fixed_in": "ba05fce, 615f331",
+      "resolved": true,
+      "disposition": "Every PMID returned by esearch is now reconciled against the parsed set, and the four book records the old parser discarded are parsed and screened.",
+      "evidence": [
+        "audit_log.retrieval_reconciliation: union=2427, parsed=2427, not_parsed=0, coverage=100.0%",
+        "recovered book records present in the screening table: 4/4",
+        "report states the current union (2,427): True; states the coverage percentage: True"
+      ]
+    },
+    {
+      "id": "F2",
+      "claim": "Section B.7 attributed the screening false positive on PMID 42019833 to 'treatment-naive'; the real source is 'tenacious'. The same wrong string was in the pushed commit c1c5c2a message.",
+      "fixed_in": "ba05fce",
+      "resolved": true,
+      "disposition": "Re-derived from the source record: 'tenacious' is the only word in the abstract containing 'enac'. The pushed commit message is left intact and the report carries the correction of record.",
+      "evidence": [
+        "withdrawn explanation appears only inside correction lines: yes",
+        "report names the true source 'tenacious': True",
+        "report carries a correction notice: True",
+        "words in the source abstract containing 'enac': ['tenacious']; 'treatment-naive' contains 'enac': False"
+      ]
+    },
+    {
+      "id": "F3",
+      "claim": "Section G.3 described adding a 'third channel', but the simulator had a single channel only; and the 'rho' parameterisation it described was never implemented.",
+      "fixed_in": "ba05fce (accuracy), c98d4c5 (D1 executed), 4a4adbc (design sync)",
+      "resolved": true,
+      "disposition": "The report now describes what the code implements: a bulk electrical channel, a latent relapse-competent fraction, and the PERSISTENT arm.",
+      "evidence": [
+        "simulator config exposes n_electrical_loci: True",
+        "simulator models a latent state_fraction: True",
+        "config defines the PERSISTENT arm: True",
+        "report no longer describes an unimplemented parameterisation: True",
+        "report describes the parameterisation that was built: True",
+        "report links the executed D1 report: True"
+      ]
+    },
+    {
+      "id": "F4",
+      "claim": "The report advised diffing the two audit files between runs, but sort=relevance ordering is unstable, so a textual diff produces ordering noise.",
+      "fixed_in": "ba05fce",
+      "resolved": true,
+      "disposition": "Comparison is set-based. Measured across two runs, zero of 25 query hit counts changed and zero core hits moved, while the union set moved by 45 PMIDs purely from relevance-ranking instability at the retmax boundary.",
+      "evidence": [
+        "report recommends a set-wise comparison: True",
+        "report warns against textual diffing: True",
+        "audit script implements compare_runs: True",
+        "comparison artefact committed: True",
+        "measured across two runs: 0 of 25 queries changed hit count; core hits added=0 removed=0; core+lung added=0 removed=0; PubMed union moved +25 /-20"
+      ]
+    }
+  ]
+}
