@@ -48,9 +48,16 @@ and is emitted into each results file under `calibration`.
 ## Performance
 
 See the README for the full table. Headline: at 50,000× depth on a 50-locus
-panel, simulated post-treatment MRD reaches 51.5% sensitivity at 98.5%
-specificity with a 41-day median lead time; reaching the 104-day published
-bar requires roughly 200,000× depth on a 200-locus panel.
+panel, simulated post-treatment MRD reaches 52.1% sensitivity with a 39-day
+median lead time; reaching the 104-day published bar requires roughly 200,000×
+depth on a 200-locus panel.
+
+**Specificity is not a single number, and the figure above does not say which
+one it is.** Against patients with no residual disease the same panel is
+specific at 0.990; against MRD-positive patients who do not relapse it is
+0.726, and 26% of MRD-positive patients are in that group. The sensitivity
+and specificity in the table are measured against the *responder* population.
+See [`D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md).
 
 **These are simulation outputs under stated parameters. They are not
 measurements of any assay.**

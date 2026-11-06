@@ -387,6 +387,39 @@ def main(argv: list[str] | None = None) -> int:
                         f"results={match['auc_electrical_enrichment_within_mrd_positive']}",
                     )
 
+    # --- documentation must not carry superseded numbers or designs ---
+    readme_path = Path(args.readme)
+    model_card = Path("MODEL_CARD.md")
+    d1_doc_path = Path(args.d1_doc)
+
+    if readme_path.exists():
+        readme_text = readme_path.read_text()
+        chk("README states the current audit record count", "2,427 records screened" in readme_text)
+        chk("README does not state the superseded record count", "2,418 records screened" not in readme_text)
+        chk("README states the current MRD headline numbers", "39 days" in readme_text)
+        chk("README does not state the superseded MRD headline numbers", "41 days" not in readme_text)
+
+    if model_card.exists():
+        card = model_card.read_text()
+        chk("MODEL_CARD states the current MRD sensitivity", "52.1% sensitivity" in card)
+        chk("MODEL_CARD does not state the superseded MRD sensitivity", "51.5% sensitivity" not in card)
+        chk("MODEL_CARD states the current MRD lead time", "39-day" in card)
+        chk("MODEL_CARD does not state the superseded MRD lead time", "41-day" not in card)
+        chk("MODEL_CARD carries the specificity decomposition", "not a single number" in card)
+        chk("MODEL_CARD links the D1 report", "D1-CHANNEL-ALLOCATION.md" in card)
+
+    if d1_doc_path.exists():
+        chk("gap audit links the executed D1 report", "D1-CHANNEL-ALLOCATION.md" in report)
+        chk(
+            "gap audit no longer describes an unimplemented information-theoretic "
+            "parameterisation",
+            "mutual information" not in report,
+        )
+        chk(
+            "gap audit records the biological parameterisation that was built",
+            "f_state" in report,
+        )
+
     # --- source errors must be surfaced ---
     chk("audit log records zero source errors", log.get("errors") == [], str(log.get("errors")))
 

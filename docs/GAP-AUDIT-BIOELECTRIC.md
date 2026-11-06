@@ -264,6 +264,8 @@ Why it wins:
 - **Credibility.** It is the only candidate that directly attacks the named open question in the lung field (a relapse-competent population defined in 2026, with a DNA readout already working) while using a mechanism that is *already demonstrated in four other tumours*, so it is not a speculative bolt-on.
 - **Novelty.** It is the first to make the electrical phenotype a *plasma-derived*, *plasma-serialised* quantity rather than a tissue or microscopy observation. The audit's core-hit table shows that no other study occupies this cell.
 - **Feasibility.** The pieces exist and are already owned: `deepcatch`'s methylation channel, `mrnavax`'s `variant-regulatory` (AlphaGenome Atlas AVI, covering the 98% of the genome where AlphaMissense is silent), and the `relapse-competence` benchmark engine, which can compute whether an added channel is worth the read budget **before any cohort exists**.
+
+**Status: the simulation half of this recommendation (D1) has since been executed** — see [`D1-CHANNEL-ALLOCATION.md`](D1-CHANNEL-ALLOCATION.md). It confirmed that the state signal survives bulk dilution (enrichment AUC 0.85–0.95 within the MRD-positive population), quantified the cost (a 25% electrical allocation costs ~3 points of MRD sensitivity at 200 loci, ~12 at 50 loci), and reframed the claim from *detection* to *refinement* of the MRD-positive population. The empirical half (D2, D3) remains open and is now the critical path, because it needs a serial cohort that no open dataset provides.
 - **Project value.** It publishes even if the biology disappoints: a rigorous negative ("the electrical signature carries no information beyond the mutation channel in lung") is a result, and it would be the first such measurement.
 
 Opportunity 2 is deliberately *not* the lead: it depends on Opportunity 1 defining the phenotype, and on LUNAR-2's readout landing.
@@ -310,7 +312,7 @@ Opportunity 2 is deliberately *not* the lead: it depends on Opportunity 1 defini
 
 | Design | Answers | Sample / data | Key endpoint | Falsifiable if |
 |---|---|---|---|---|
-| **D1. Simulation feasibility (do this first, no cohort needed)** | Is an added methylation-derived electrical channel worth the read budget? | `relapse-competence` simulator, extended with an "electrical signature" channel with assumed mutual information to the relapse-competent state | Δmedian lead time vs mutation channel alone, across depth × channel-count grids | Δlead time ≤ 0 at every grid point |
+| **D1. Simulation feasibility — EXECUTED, see [`D1-CHANNEL-ALLOCATION.md`](D1-CHANNEL-ALLOCATION.md)** | Does a bulk ion-channel channel earn the read budget it takes from the mutation panel? | `relapse-competence` simulator, extended with a bulk electrical channel whose signal is boosted by a modelled relapse-competent fraction `f_state` | MRD sensitivity cost vs within-MRD+ PPV gain and state-specific AUC, across depth × allocation grids | The channel adds no information once tumour burden is divided out |
 | **D2. Retrospective cohort, tissue-anchored** | Does the electrical↔methylation coupling exist in lung, as it does in GBM/ESCC/gastric/thyroid? | Paired primary + recurrent lung tumour tissue, methylation arrays, RNA-seq, ion-channel panel | Concordance between methylation-derived and measured ion-channel expression; methylation delta at relapse | Coupling absent in lung while present in the four published tumours |
 | **D3. Retrospective cohort, plasma** | Is the electrical signature readable from plasma, and does it predict relapse? | Serial plasma cfDNA (methylation + mutation) from treated lung cancer patients with known relapse timing | Δlead time over mutation channel alone; sensitivity at 98.5% specificity | Electrical signature adds nothing beyond mutation trajectory |
 | **D4. Prospective, MRD-guided** | Does using the electrical signature change decisions? | MRD- and electrical-stratified randomisation of electroceutical escalation | Relapse-free survival | No benefit from electrical-stratified escalation |
@@ -320,41 +322,40 @@ Opportunity 2 is deliberately *not* the lead: it depends on Opportunity 1 defini
 
 ### G.3 Minimum executable plan for D1
 
-This is the step that fits the existing repository — but it is **not** a one-line
-extension, and the report should not imply otherwise.
+**D1 has since been executed.** The full write-up, with the measured numbers
+and the honest limits, is in [`D1-CHANNEL-ALLOCATION.md`](D1-CHANNEL-ALLOCATION.md).
+What was actually built differs from the sketch below in one important way, and
+the difference is worth recording.
 
-**Current state of `src/relapse_competence/simulator.py`:** the simulator has
-**one** measurement channel. Tumour volume drives a single tumour-derived VAF,
-which is Poisson-sampled into mutant reads at the tracked loci, and that read
-count is what `MrdThresholdDetector` thresholds. There is **no** fragmentomics
-channel and **no** methylation channel in this package. Those channels exist in
-the sibling `deepcatch` repository but were never ported here;
-`relapse-competence` was written from scratch around the mutation channel.
+**What was planned.** A multi-channel refactor followed by an electrical channel
+whose information content about the relapse-competent state was to be swept as
+an abstract "amount of information" parameter.
 
-D1 therefore requires two pieces of work, in this order:
+**What was built.** The same multi-channel refactor, but the electrical channel
+is parameterised **biologically** rather than information-theoretically: a
+latent `f_state` — the fraction of the tumour that is relapse-competent — with
+overlapping distributions for relapsers (0.25 ± 0.12) and persistent
+non-relapsers (0.10 ± 0.12). The channel's per-locus signal is
+`c · V · shedding · (1 + κ · f_state)`. Two scores are reported, because the
+distinction is the whole point: a **raw** score that is a burden proxy, and a
+**burden-normalised enrichment ratio** that isolates the state.
 
-1. **Make the measurement model multi-channel.** Refactor the read-count
-   generator so each channel contributes its own signal to its own observation,
-   and the detector consumes a vector of channel scores rather than a single
-   read count. This is a structural change to `simulator.py` and `detectors.py`,
-   not a parameter addition.
-2. **Add the electrical channel** on top of that structure: a signature whose
-   mutual information with the relapse-competent state is a parameter `rho`.
+The biological parameterisation replaced the information-theoretic one for a
+reason that only became visible during implementation: an abstract "information
+content" parameter cannot distinguish *state* information from *burden*
+information, and those two are exactly what the hypothesis is about. Sweeping
+one would have hidden the key distinction instead of exposing it.
 
-Only once (1) exists does (2) mean anything. Note that the existing "mutation
-channel" is, in the simulator's terms, not an independent assay but a *function
-of tumour burden* — which is exactly why the simulator can be extended
-honestly, and also exactly why a genuinely orthogonal channel (one carrying
-information about the *state* rather than the *amount*) is the thing worth
-adding.
+**What D1 found.** The state signal does survive bulk dilution — enrichment
+AUC 0.85–0.95 within the MRD-positive population — but the *raw* score
+discriminates better (0.99–1.00) precisely because it is a growth proxy. And
+the cost is real: a 25% electrical allocation costs ~3 points of MRD
+sensitivity at 200 loci and ~12 points at 50 loci.
 
-3. Sweep `rho` from 0 (no information) to the mutation channel's level, and
-   depth × loci as already implemented.
-4. Report **Δmedian lead time** and **Δsensitivity at fixed specificity**, with
-   thresholds calibrated on a held-out split exactly as the existing code does.
-5. If Δlead time is ≤ 0 across the whole grid, **stop** — the biological
-   programme is not worth funding on read-budget grounds, and that conclusion is
-   itself publishable.
+**What this changes for D2.** The tissue-level readout must be the
+**burden-normalised enrichment ratio**, not raw ion-channel abundance. A tissue
+study measuring raw abundance would re-confirm the growth signal and say
+nothing about the relapse-competent state.
 
 This is the "combine DNA and bioelectricity" done honestly: it is a decision, not a demonstration.
 

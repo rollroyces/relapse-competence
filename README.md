@@ -36,8 +36,8 @@ calibrated on a **held-out split**, evaluated against the published bar of a
 **Two findings worth acting on.**
 
 1. **At a conventional tumour-informed MRD configuration — 50,000× depth, a
-   50-locus panel — the modelled median lead time is 41 days and sensitivity
-   51.5%.** That is well short of the 104-day bar that published MRD assays
+   50-locus panel — the modelled median lead time is 39 days and sensitivity
+   52.1%.** That is well short of the 104-day bar that published MRD assays
    report. Reaching the bar requires roughly **200,000× depth on a 200-locus
    panel — 40 million reads per draw**, sixteen times the read budget of the
    conventional configuration.
@@ -217,7 +217,7 @@ consecutive signal-consistent elevations and a trend bonus for a rising slope.
 ## Documentation
 
 - [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
-- [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,418 records screened; the target intersection holds **one** record, and it is a review
+- [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,427 records screened; the target intersection holds **one** record, and it is a review
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
 - [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
