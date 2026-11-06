@@ -32,11 +32,23 @@ EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 USER_AGENT = "relapse-competence-audit-disposition/0.1"
 
 
+#: The commit that first published the audit report. Every retracted wording
+#: must still be findable here -- otherwise the "finding" was never real.
+FIRST_PUBLISHED_COMMIT = "c1c5c2a"
+
+#: Path of the report inside the repository.
+REPORT_PATH = "docs/GAP-AUDIT-BIOELECTRIC.md"
+
+
 @dataclass
 class Finding:
     finding_id: str
     claim: str
     fixed_in: str
+    retracted_wording: str = ""
+    """The wording that appeared in the first published report and must now be
+    absent from the authoritative document."""
+
     evidence: list[str] = field(default_factory=list)
     resolved: bool = False
     detail: str = ""
@@ -56,6 +68,46 @@ def _git(*args: str) -> str:
         return ""
 
 
+def _report_at(commit: str, root: Path) -> str:
+    """The report as it stood at ``commit``. Empty string if unavailable."""
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(root), "show", f"{commit}:{REPORT_PATH}"],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    return out.stdout if out.returncode == 0 else ""
+
+
+def _two_sided_check(
+    finding: Finding, root: Path, current_report: str
+) -> tuple[bool, list[str]]:
+    """Prove the finding was real AND that it is fixed.
+
+    A finding is only credible if the retracted wording is demonstrably
+    present in the first published version and demonstrably absent from the
+    current one. Either half alone is weak: the first half proves the defect
+    existed, the second proves it is gone, and the retraction record itself
+    lives in git history rather than in the authoritative document.
+    """
+    if not finding.retracted_wording:
+        return True, []
+    historical = _report_at(FIRST_PUBLISHED_COMMIT, root)
+    present_then = finding.retracted_wording in historical
+    absent_now = finding.retracted_wording not in current_report
+    evidence = [
+        f"retracted wording present in the first published version "
+        f"({FIRST_PUBLISHED_COMMIT}): {present_then}",
+        f"retracted wording absent from the current report: {absent_now}",
+        f"retraction record retained in git history at {FIRST_PUBLISHED_COMMIT}",
+    ]
+    return (present_then and absent_now), evidence
+
+
 def _fetch_abstract(pmid: str) -> str | None:
     """Fetch a PubMed abstract. Returns None if the network is unavailable."""
     url = (
@@ -73,6 +125,7 @@ def finding_coverage(root: Path) -> Finding:
     """§B.5 claimed 2,418 / 100% of the union while records were being dropped."""
     f = Finding(
         finding_id="F1",
+        retracted_wording="2,418",
         claim=(
             "Section B.5 claimed '2,418 retrieved / 100% of the union / 0 errors', but "
             "the union was larger than the screened set and four records were "
@@ -123,12 +176,16 @@ def finding_coverage(root: Path) -> Finding:
         f"{'yes' if superseded_claim_absent else 'no'}"
     )
 
+    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
+    f.evidence.extend(two_sided_evidence)
+
     f.resolved = (
         recon["n_not_parsed"] == 0
         and len(recovered) == len(dropped)
         and states_current
         and states_pct
         and superseded_claim_absent
+        and two_sided
     )
     f.detail = (
         "Every PMID returned by esearch is now reconciled against the parsed set, "
@@ -145,6 +202,7 @@ def finding_attribution(root: Path) -> Finding:
     """§B.7 attributed the false positive to 'treatment-naive' rather than 'tenacious'."""
     f = Finding(
         finding_id="F2",
+        retracted_wording="treatme|nac|e-naive",
         claim=(
             "Section B.7 attributed the screening false positive on PMID 42019833 to "
             "'treatment-naive'; the real source is 'tenacious'. The same wrong string "
@@ -196,8 +254,14 @@ def finding_attribution(root: Path) -> Finding:
         )
         return f
 
+    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
+    f.evidence.extend(two_sided_evidence)
+
     f.resolved = (
-        wrong not in report and "tenacious" in report and "Correction notice" in report
+        wrong not in report
+        and "tenacious" in report
+        and "Correction notice" in report
+        and two_sided
     )
     f.detail = "Attribution corrected in the report; the source record could not be re-fetched."
     return f
@@ -207,6 +271,7 @@ def finding_g3(root: Path) -> Finding:
     """§G.3 described a 'third channel' that the simulator did not implement."""
     f = Finding(
         finding_id="F3",
+        retracted_wording="third channel",
         claim=(
             "Section G.3 described adding a 'third channel', but the simulator had a "
             "single channel only; and the 'rho' parameterisation it described was "
@@ -234,6 +299,9 @@ def finding_g3(root: Path) -> Finding:
     f.evidence.append(f"report describes the parameterisation that was built: {describes_built_design}")
     f.evidence.append(f"report links the executed D1 report: {links_d1}")
 
+    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
+    f.evidence.extend(two_sided_evidence)
+
     f.resolved = (
         has_channel
         and has_state
@@ -241,6 +309,7 @@ def finding_g3(root: Path) -> Finding:
         and no_unimplemented_param
         and describes_built_design
         and links_d1
+        and two_sided
     )
     f.detail = (
         "The report now describes what the code implements: a bulk electrical "
@@ -253,6 +322,7 @@ def finding_diff_advice(root: Path) -> Finding:
     """The report advised a textual diff, which is noisy under sort=relevance."""
     f = Finding(
         finding_id="F4",
+        retracted_wording="diffing the two files",
         claim=(
             "The report advised diffing the two audit files between runs, but "
             "sort=relevance ordering is unstable, so a textual diff produces "
@@ -285,7 +355,16 @@ def finding_diff_advice(root: Path) -> Finding:
             f"/-{cmp['pubmed_union']['n_removed']}"
         )
 
-    f.resolved = advises_setwise and warns_against_text and has_compare and artefact.exists()
+    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
+    f.evidence.extend(two_sided_evidence)
+
+    f.resolved = (
+        advises_setwise
+        and warns_against_text
+        and has_compare
+        and artefact.exists()
+        and two_sided
+    )
     f.detail = (
         "Comparison is set-based. Measured across two runs, zero of 25 query hit "
         "counts changed and zero core hits moved, while the union set moved by "

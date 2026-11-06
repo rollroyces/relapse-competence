@@ -1,7 +1,7 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "841dc2299314262f0b46247801d586246679a7d9",
+    "repository_head": "6bffa57173cdfd7badf6606436a42ea55eddb00d",
     "findings_total": 4,
     "findings_resolved": 4,
     "all_resolved": true
@@ -17,7 +17,10 @@
         "audit_log.retrieval_reconciliation: union=2427, parsed=2427, not_parsed=0, coverage=100.0%",
         "recovered book records present in the screening table: 4/4",
         "report states the current union (2,427): True; states the coverage percentage: True",
-        "the report does not restate the superseded coverage claim: yes"
+        "the report does not restate the superseded coverage claim: yes",
+        "retracted wording present in the first published version (c1c5c2a): True",
+        "retracted wording absent from the current report: True",
+        "retraction record retained in git history at c1c5c2a"
       ]
     },
     {
@@ -46,7 +49,10 @@
         "config defines the PERSISTENT arm: True",
         "report no longer describes an unimplemented parameterisation: True",
         "report describes the parameterisation that was built: True",
-        "report links the executed D1 report: True"
+        "report links the executed D1 report: True",
+        "retracted wording present in the first published version (c1c5c2a): True",
+        "retracted wording absent from the current report: True",
+        "retraction record retained in git history at c1c5c2a"
       ]
     },
     {
@@ -60,7 +66,10 @@
         "report warns against textual diffing: True",
         "audit script implements compare_runs: True",
         "comparison artefact committed: True",
-        "measured across two runs: 0 of 25 queries changed hit count; core hits added=0 removed=0; core+lung added=0 removed=0; PubMed union moved +25 /-20"
+        "measured across two runs: 0 of 25 queries changed hit count; core hits added=0 removed=0; core+lung added=0 removed=0; PubMed union moved +25 /-20",
+        "retracted wording present in the first published version (c1c5c2a): True",
+        "retracted wording absent from the current report: True",
+        "retraction record retained in git history at c1c5c2a"
       ]
     }
   ]

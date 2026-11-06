@@ -444,6 +444,20 @@ def main(argv: list[str] | None = None) -> int:
             "audit_findings_disposition.json" in report,
         )
 
+    # --- the report must carry its own revision history and provenance ---
+    chk(
+        "the gap audit carries a revision history section",
+        "Revision history and provenance" in report,
+    )
+    chk(
+        "the revision history names the first published commit",
+        "c1c5c2a" in report,
+    )
+    chk(
+        "the revision history points at the machine-generated disposition",
+        "audit_findings_disposition.json" in report,
+    )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

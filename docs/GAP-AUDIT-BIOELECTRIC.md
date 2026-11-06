@@ -8,6 +8,35 @@
 
 ---
 
+## Revision history and provenance
+
+This report was first published at commit `c1c5c2a` and has been corrected
+several times since. The table records what changed and when.
+
+| Commit | Change | Where the retracted wording now lives |
+|---|---|---|
+| `c1c5c2a` | First publication — **this is the version that contained the defects below** | — |
+| `ba05fce` | Parser reconciliation; attribution corrected; G.3 rewritten; set-based comparison recommended | git history at `c1c5c2a` |
+| `615f331` | The four silently dropped book records identified and recovered | git history at `c1c5c2a` |
+| `4a4adbc` | Documentation synchronised with the executed D1 | — |
+| `b32221e` | Machine-generated findings disposition added | `results/audit_findings_disposition.json` |
+| `841dc22` | Licence migrated to AGPL-3.0-or-later + commercial; retracted wording removed from this document's body | git history at `c1c5c2a` |
+| `6bffa57` | Executable research plan added | — |
+
+**Editorial rule now in force.** This document states the current truth. It
+does **not** restate retracted claims inline, because a superseded sentence
+sitting in an authoritative document can be mistaken for a live one — by a
+reader, and by an automated check. The retraction record lives in two places:
+git history at `c1c5c2a`, and the machine-generated
+`results/audit_findings_disposition.json`.
+
+`scripts/audit_findings_disposition.py` verifies **both directions** on every
+run: the retracted wording must still be findable in `c1c5c2a` (so the
+finding is demonstrably real) and must be absent from this file (so it is
+demonstrably fixed).
+
+---
+
 ## A. Topic Framing
 
 ### The question put to the audit
