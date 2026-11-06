@@ -1,0 +1,486 @@
+{
+  "metadata": {
+    "mode": "simulated",
+    "generated_at": "2026-11-06T11:14:53.183292+00:00",
+    "git_commit": "2f9b8edeb20b548bd8e5eb60279fc3cca00446bf",
+    "package": "relapse_competence",
+    "python": "3.14.4"
+  },
+  "claim_scope": "Simulated. A detector fitted on the published model is applied, without refitting, to each fidelity model; the difference bounds the performance that the published model was hiding.",
+  "config": {
+    "regime": "post_treatment",
+    "seed": 20261106,
+    "sequencing_depth": 200000,
+    "n_loci": 200,
+    "genome_equivalents_per_ml": 300.0,
+    "ge_cv": 0.267,
+    "background_vaf_mean": 1e-06,
+    "background_vaf_sd": 2e-07,
+    "chip_prevalence": 0.1,
+    "chip_vaf": 0.001,
+    "chip_filtered": true,
+    "tumor_vaf_per_mm3": 4.5e-10,
+    "doubling_time_days": 200.0,
+    "doubling_time_cv": 0.35,
+    "residual_fraction": 0.02,
+    "residual_fraction_sd": 0.015,
+    "resistant_doubling_time_days": 60.0,
+    "relapse_volume_threshold_mm3": 10000.0,
+    "baseline_volume_mm3": 20000.0,
+    "max_tumour_volume_mm3": 5000000.0,
+    "baseline_volume_cv": 0.9,
+    "n_electrical_loci": 50,
+    "electrical_fold_change": 3.0,
+    "state_fraction_resistant": 0.25,
+    "state_fraction_resistant_sd": 0.12,
+    "state_fraction_persistent": 0.1,
+    "state_fraction_persistent_sd": 0.12,
+    "state_fraction_responder": 0.0,
+    "mutation_clonal_fraction": 1.0,
+    "n_patients_per_arm": 800,
+    "sampling_interval_days": 90,
+    "n_draws": 12,
+    "shedding_cv": 0.45,
+    "screening_baseline_mm3": 3000.0,
+    "n_clones": 1,
+    "clone_residual_fraction_sd": 0.0,
+    "clone_doubling_time_cv": 0.35,
+    "clone_shedding_sd": 0.0,
+    "growth_model": "exponential",
+    "relapse_sites": [
+      [
+        "lung",
+        0.4,
+        1.0
+      ],
+      [
+        "bone",
+        0.2,
+        0.6
+      ],
+      [
+        "liver",
+        0.2,
+        1.5
+      ],
+      [
+        "brain",
+        0.15,
+        3.0
+      ],
+      [
+        "other",
+        0.05,
+        1.0
+      ]
+    ],
+    "site_shedding_enabled": false,
+    "per_locus_background_log_sd": 0.0
+  },
+  "calibration": {
+    "cfdna_concentration_healthy": {
+      "value": 5.5,
+      "source": "Cristiano 2019 (Nature 570:385); Bettegowda 2014 (Sci Transl Med 6:224ra24)",
+      "note": "Median; reported range 3.4-9.5 ng/mL."
+    },
+    "cfdna_concentration_cancer": {
+      "value": 8.2,
+      "source": "Cristiano 2019 (Nature 570:385); Bettegowda 2014 (Sci Transl Med 6:224ra24)",
+      "note": "Median; reported range 4.5-17.0 ng/mL."
+    },
+    "genome_equivalents_per_ml": {
+      "value": 300.0,
+      "source": "Snyder 2016 (Cell 164:57)",
+      "note": "300 +/- 80 per mL."
+    },
+    "stage_i_median_vaf": {
+      "value": 0.0006,
+      "source": "Phallen 2017 (Sci Transl Med 9:eaan2415); Bettegowda 2014 (Sci Transl Med 6:224ra24)",
+      "note": "Stage I 0.0006%, II 0.002%, III 0.01%, IV 0.05%."
+    },
+    "ctdna_half_life_min": {
+      "value": 30.0,
+      "source": "Diehl 2008 (Nat Med 14:985)",
+      "note": "Reported range 16-120 minutes."
+    },
+    "tumor_doubling_time_days": {
+      "value": 200.0,
+      "source": "Braun 2015 (Lancet 385:1116); range 50-350 days",
+      "note": ""
+    },
+    "mrd_lead_time_days": {
+      "value": 104.0,
+      "source": "Guardant Reveal post-treatment MRD, as catalogued in the predecessor benchmark registry",
+      "note": "The clinical bar this project aims at."
+    },
+    "mrd_sensitivity": {
+      "value": 0.813,
+      "source": "Guardant Reveal post-treatment MRD",
+      "note": ""
+    },
+    "mrd_specificity": {
+      "value": 0.985,
+      "source": "Guardant Reveal post-treatment MRD",
+      "note": ""
+    },
+    "stage_i_sensitivity_grail": {
+      "value": 0.167,
+      "source": "Liu 2020 (Ann Oncol 31:745) CCGA sub-study",
+      "note": ""
+    },
+    "lucas_sensitivity": {
+      "value": 0.82,
+      "source": "Mathios 2021 (Nat Commun 12:5060)",
+      "note": ""
+    },
+    "chip_prevalence_over_60": {
+      "value": 0.1,
+      "source": "Jaiswal 2014 (NEJM 371:2488)",
+      "note": ""
+    },
+    "chip_vaf": {
+      "value": 0.001,
+      "source": "Welch 2012 (NEJM 367:885); Genovese 2014 (NEJM 371:2488)",
+      "note": "Persistent 0.1-2% VAF."
+    },
+    "tumor_vaf_per_mm3": {
+      "value": 4.5e-10,
+      "source": "Derived: stage I burden ~14,000 mm3 -> 6e-6 VAF (Phallen 2017); stage IV ~1e6 mm3 -> 5e-4 VAF",
+      "note": "VAF = tumor_vaf_per_mm3 * tumour_volume_mm3."
+    }
+  },
+  "reference_benchmarks": [
+    {
+      "assay": "Guardant Reveal (MRD)",
+      "regime": "post_treatment",
+      "sensitivity": 0.813,
+      "specificity": 0.985,
+      "median_lead_time_days": 104.0,
+      "source": "Guardant Reveal post-treatment MRD, as catalogued in the predecessor benchmark registry"
+    },
+    {
+      "assay": "Grail Galleri (CCGA)",
+      "regime": "screening",
+      "stage_i_sensitivity": 0.167,
+      "specificity": 0.995,
+      "source": "Liu 2020 (Ann Oncol 31:745) CCGA sub-study"
+    },
+    {
+      "assay": "DELFI LUCAS (lung)",
+      "regime": "screening",
+      "sensitivity": 0.82,
+      "specificity": 0.87,
+      "source": "Mathios 2021 (Nat Commun 12:5060)"
+    }
+  ],
+  "results": {
+    "task": "the MRD detector: flag residual disease before radiographic relapse, and separate the MRD-positive stratum into relapsers and persistent non-relapsers",
+    "train_model": "published",
+    "published_model_published_detector": {
+      "n_evaluation": 1200,
+      "n_relapsed": 395,
+      "mrd_sensitivity": 0.9367088607594937,
+      "mrd_specificity_vs_responders": 0.9725,
+      "mrd_specificity_vs_persistent": 0.6010230179028133,
+      "persistent_share_of_mrd_positive": 0.3021978021978022,
+      "n_mrd_positive": 546,
+      "ppv_within_mrd_positive": 0.6776556776556777,
+      "median_lead_time_days": 109.00529329652957,
+      "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+      "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+    },
+    "evaluations": [
+      {
+        "variant": "multi_clone",
+        "description": "Three resistant clones with different fitness and different shedding, splitting the residual burden unevenly.",
+        "read_threshold_published": 73,
+        "read_threshold_refit": 73,
+        "published_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9367088607594937,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6010230179028133,
+          "persistent_share_of_mrd_positive": 0.3021978021978022,
+          "n_mrd_positive": 546,
+          "ppv_within_mrd_positive": 0.6776556776556777,
+          "median_lead_time_days": 109.00529329652957,
+          "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+        },
+        "variant_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 400,
+          "mrd_sensitivity": 0.915,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.5404040404040404,
+          "persistent_share_of_mrd_positive": 0.3315508021390374,
+          "n_mrd_positive": 561,
+          "ppv_within_mrd_positive": 0.6524064171122995,
+          "median_lead_time_days": 108.39589007945413,
+          "auc_electrical_raw_within_mrd_positive": 0.9985498108448928,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9365559759002382
+        },
+        "variant_model_refitted_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 400,
+          "mrd_sensitivity": 0.915,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.5404040404040404,
+          "persistent_share_of_mrd_positive": 0.3315508021390374,
+          "n_mrd_positive": 561,
+          "ppv_within_mrd_positive": 0.6524064171122995,
+          "median_lead_time_days": 108.39589007945413,
+          "auc_electrical_raw_within_mrd_positive": 0.9985498108448928,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9365559759002382
+        },
+        "cost_of_not_recalibrating": {
+          "mrd_sensitivity": 0.0,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": 0.0,
+          "median_lead_time_days": 0.0,
+          "ppv_within_mrd_positive": 0.0
+        },
+        "model_gap_with_detector_held_fixed": {
+          "mrd_sensitivity": -0.02170886075949363,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": -0.060618977498772875,
+          "median_lead_time_days": -0.6094032170754389
+        }
+      },
+      {
+        "variant": "gompertzian",
+        "description": "Gompertzian growth, calibrated so the initial doubling time is unchanged and growth decelerates towards the carrying capacity.",
+        "read_threshold_published": 73,
+        "read_threshold_refit": 73,
+        "published_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9367088607594937,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6010230179028133,
+          "persistent_share_of_mrd_positive": 0.3021978021978022,
+          "n_mrd_positive": 546,
+          "ppv_within_mrd_positive": 0.6776556776556777,
+          "median_lead_time_days": 109.00529329652957,
+          "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+        },
+        "variant_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 374,
+          "mrd_sensitivity": 0.9786096256684492,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "persistent_share_of_mrd_positive": 0.29676258992805754,
+          "n_mrd_positive": 556,
+          "ppv_within_mrd_positive": 0.658273381294964,
+          "median_lead_time_days": 110.72749735616068,
+          "auc_electrical_raw_within_mrd_positive": 0.9987920621225194,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9240652861662353
+        },
+        "variant_model_refitted_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 374,
+          "mrd_sensitivity": 0.9786096256684492,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "persistent_share_of_mrd_positive": 0.29676258992805754,
+          "n_mrd_positive": 556,
+          "ppv_within_mrd_positive": 0.658273381294964,
+          "median_lead_time_days": 110.72749735616068,
+          "auc_electrical_raw_within_mrd_positive": 0.9987920621225194,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9240652861662353
+        },
+        "cost_of_not_recalibrating": {
+          "mrd_sensitivity": 0.0,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": 0.0,
+          "median_lead_time_days": 0.0,
+          "ppv_within_mrd_positive": 0.0
+        },
+        "model_gap_with_detector_held_fixed": {
+          "mrd_sensitivity": 0.04190076490895556,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": -0.006086309042053872,
+          "median_lead_time_days": 1.7222040596311103
+        }
+      },
+      {
+        "variant": "site_dependent_shedding",
+        "description": "Each patient relapses at a drawn metastatic site, with that site's own ctDNA shedding multiplier.",
+        "read_threshold_published": 73,
+        "read_threshold_refit": 73,
+        "published_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9367088607594937,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6010230179028133,
+          "persistent_share_of_mrd_positive": 0.3021978021978022,
+          "n_mrd_positive": 546,
+          "ppv_within_mrd_positive": 0.6776556776556777,
+          "median_lead_time_days": 109.00529329652957,
+          "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+        },
+        "variant_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9443037974683545,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6060606060606061,
+          "persistent_share_of_mrd_positive": 0.29250457038391225,
+          "n_mrd_positive": 547,
+          "ppv_within_mrd_positive": 0.6819012797074955,
+          "median_lead_time_days": 122.74755279278267,
+          "auc_electrical_raw_within_mrd_positive": 0.9997611783920373,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9334381066839235
+        },
+        "variant_model_refitted_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9443037974683545,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6060606060606061,
+          "persistent_share_of_mrd_positive": 0.29250457038391225,
+          "n_mrd_positive": 547,
+          "ppv_within_mrd_positive": 0.6819012797074955,
+          "median_lead_time_days": 122.74755279278267,
+          "auc_electrical_raw_within_mrd_positive": 0.9997611783920373,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9334381066839235
+        },
+        "cost_of_not_recalibrating": {
+          "mrd_sensitivity": 0.0,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": 0.0,
+          "median_lead_time_days": 0.0,
+          "ppv_within_mrd_positive": 0.0
+        },
+        "model_gap_with_detector_held_fixed": {
+          "mrd_sensitivity": 0.0075949367088608,
+          "mrd_specificity_vs_responders": 0.0,
+          "mrd_specificity_vs_persistent": 0.005037588157792761,
+          "median_lead_time_days": 13.742259496253098
+        }
+      },
+      {
+        "variant": "per_locus_background",
+        "description": "The background floor varies across tracked loci, so the mutant read count is over-dispersed relative to a single Poisson.",
+        "read_threshold_published": 73,
+        "read_threshold_refit": 124,
+        "published_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9367088607594937,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6010230179028133,
+          "persistent_share_of_mrd_positive": 0.3021978021978022,
+          "n_mrd_positive": 546,
+          "ppv_within_mrd_positive": 0.6776556776556777,
+          "median_lead_time_days": 109.00529329652957,
+          "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+        },
+        "variant_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 390,
+          "mrd_sensitivity": 0.9974358974358974,
+          "mrd_specificity_vs_responders": 0.0175,
+          "mrd_specificity_vs_persistent": 0.007614213197969543,
+          "persistent_share_of_mrd_positive": 0.33389402859545836,
+          "n_mrd_positive": 1189,
+          "ppv_within_mrd_positive": 0.32716568544995794,
+          "median_lead_time_days": 244.22771435729837,
+          "auc_electrical_raw_within_mrd_positive": 0.9997172236503856,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9703116966580977
+        },
+        "variant_model_refitted_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 390,
+          "mrd_sensitivity": 0.8333333333333334,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.7766497461928934,
+          "persistent_share_of_mrd_positive": 0.22014051522248243,
+          "n_mrd_positive": 427,
+          "ppv_within_mrd_positive": 0.7611241217798594,
+          "median_lead_time_days": 67.9824147909774,
+          "auc_electrical_raw_within_mrd_positive": 0.9976470588235294,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9276923076923077
+        },
+        "cost_of_not_recalibrating": {
+          "mrd_sensitivity": -0.16410256410256407,
+          "mrd_specificity_vs_responders": 0.9675,
+          "mrd_specificity_vs_persistent": 0.7690355329949239,
+          "median_lead_time_days": -176.24529956632097,
+          "ppv_within_mrd_positive": 0.4339584363299015
+        },
+        "model_gap_with_detector_held_fixed": {
+          "mrd_sensitivity": 0.06072703667640378,
+          "mrd_specificity_vs_responders": -0.9550000000000001,
+          "mrd_specificity_vs_persistent": -0.5934088047048438,
+          "median_lead_time_days": 135.2224210607688
+        }
+      },
+      {
+        "variant": "combined",
+        "description": "All four extensions at once.",
+        "read_threshold_published": 73,
+        "read_threshold_refit": 121,
+        "published_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 395,
+          "mrd_sensitivity": 0.9367088607594937,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6010230179028133,
+          "persistent_share_of_mrd_positive": 0.3021978021978022,
+          "n_mrd_positive": 546,
+          "ppv_within_mrd_positive": 0.6776556776556777,
+          "median_lead_time_days": 109.00529329652957,
+          "auc_electrical_raw_within_mrd_positive": 0.9988636363636364,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9306050368550368
+        },
+        "variant_model_published_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 380,
+          "mrd_sensitivity": 1.0,
+          "mrd_specificity_vs_responders": 0.015,
+          "mrd_specificity_vs_persistent": 0.0,
+          "persistent_share_of_mrd_positive": 0.33500837520938026,
+          "n_mrd_positive": 1194,
+          "ppv_within_mrd_positive": 0.31825795644891125,
+          "median_lead_time_days": 237.2867618159221,
+          "auc_electrical_raw_within_mrd_positive": 0.9982881805250227,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9590036208457261
+        },
+        "variant_model_refitted_detector": {
+          "n_evaluation": 1200,
+          "n_relapsed": 380,
+          "mrd_sensitivity": 0.9078947368421053,
+          "mrd_specificity_vs_responders": 0.9725,
+          "mrd_specificity_vs_persistent": 0.6564885496183206,
+          "persistent_share_of_mrd_positive": 0.2823061630218688,
+          "n_mrd_positive": 503,
+          "ppv_within_mrd_positive": 0.6858846918489065,
+          "median_lead_time_days": 90.17234592424653,
+          "auc_electrical_raw_within_mrd_positive": 0.9936525408181985,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9154650522839846
+        },
+        "cost_of_not_recalibrating": {
+          "mrd_sensitivity": -0.09210526315789469,
+          "mrd_specificity_vs_responders": 0.9575,
+          "mrd_specificity_vs_persistent": 0.6564885496183206,
+          "median_lead_time_days": -147.11441589167555,
+          "ppv_within_mrd_positive": 0.3676267353999953
+        },
+        "model_gap_with_detector_held_fixed": {
+          "mrd_sensitivity": 0.06329113924050633,
+          "mrd_specificity_vs_responders": -0.9575,
+          "mrd_specificity_vs_persistent": -0.6010230179028133,
+          "median_lead_time_days": 128.28146851939252
+        }
+      }
+    ],
+    "note": "Three evaluations per variant. 'published' is the headline: the detector fitted on the published model, applied to the published model. 'transfer' applies that same detector, without refitting, to the variant's model -- the model gap with the detector held fixed. 'refit' recalibrates the threshold on the variant's model, so the difference between refit and transfer is what holding the published detector costs. The two differences answer different questions and are reported separately for that reason."
+  }
+}

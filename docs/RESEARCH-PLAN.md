@@ -191,6 +191,14 @@ tumour tissue, and does the Piezo1→YAP/TEAD link hold in tumour cells?
   quantity D1 specified. Raw ion-channel abundance is explicitly *not* the
   primary endpoint, because it tracks burden and would re-confirm the growth
   signal.
+- **Electrical endpoint (added by the D0 audit).** Channel expression *per cell
+  type* within the same tumour — state-bearing fraction vs non-state fraction
+  vs tumour-infiltrating immune cells — and the **state-to-immune ratio** for
+  each candidate channel. This is the measurement that decides whether the
+  drug arm survives, because D0 could not decide conditional selectivity on
+  bulk normal tissue: the state-to-immune ratio is what "conditionally
+  selective" means when the condition is a state.
+  See [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md) §6–§7.
 **Exit.** (i) A reproducible methylation delta at ion-channel loci between
 state-bearing and non-state fractions in the *same* tumour (this is the
 burden-free comparison D2 is built for); (ii) that delta is larger in
@@ -300,9 +308,10 @@ D4. **They should be submitted in parallel with D0, not after it.**
 | The state is not present in NSCLC (only SCLC) | Medium | High | Run D2 with NSCLC and SCLC arms separately | Restrict to SCLC, where the YAP1 population is already anchored |
 | The state is real but not plasma-readable | Medium | High | D3 with a lower detection threshold; accept a longer lead time | Use tissue-anchored selection to enrich the plasma cohort |
 | Piezo1 direction is context-dependent | **High** (it is a tumour suppressor in one lung context) | High | D0 + D5 test both directions before any trial | Abandon Piezo1 as a drug target; keep it as a mechanism readout |
-| KCa3.1 window too narrow | High | High | Conditional selectivity (inflamed niche) may rescue it; senicapoc-BODIPY gives a way to test selectivity | Drop the drug arm; keep the biomarker |
+| KCa3.1 window too narrow | **High** — D0 measured it: lung expression is 12× below minor salivary gland | High | Conditional selectivity (inflamed niche) may rescue it; senicapoc-BODIPY gives a way to test selectivity; D0 concluded that a *systemic* blocker is not supportable and the modality must be tumour-directed or local | Drop the drug arm; keep the biomarker |
 | MRD+ stratum too small for a trial | Medium | High | Use a biomarker-stratified platform trial | Enrich at D2, then re-stratify |
 | Modelling assumptions fail (the state fractions were assumed, not fitted) | **Certain to be partly wrong** | Medium | D1's numbers are explicitly conditional | Recompute with D2-measured effect sizes |
+| The error floor varies across loci, not only in level | **Unknown, and consequential** — the fidelity audit shows a threshold calibrated on a flat floor collapses to 1.8% specificity under a per-locus-varying floor | **High** | Measure the per-locus background spread of the actual panel; prefer a per-locus-aware statistic (support at *k* independent loci) over an aggregate count | Re-derive the threshold on the measured floor; if the panel cannot support per-locus counts, the mutation channel has to be re-specified |
 
 ---
 

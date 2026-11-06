@@ -102,6 +102,22 @@ endpoint (channel expression per cell type within one tumour).
 sites, in standard 10x format, released 2026-05-15. The experiment that
 decides D0b therefore no longer waits for an access application.
 
+### Near term — model fidelity — **done**
+
+Executed 2026-11-06. See [`MODEL-FIDELITY.md`](MODEL-FIDELITY.md). The
+simulator now models multi-clone resistance, Gompertzian growth,
+site-dependent shedding and per-locus background variation — all **default-off**,
+with a captured reference fixture proving the published numbers do not move.
+
+Headline: the biological extensions move the 200,000× / 200-locus sensitivity
+by at most 5.7 percentage points and the median lead time by at most 5.7 days,
+and their read thresholds are *the same number* as the published one. The
+extension that does break the design is the per-locus background floor: a
+threshold calibrated on a flat floor collapses to 1.8% specificity when the
+floor varies by locus. **The aggregate mutant-read count is conditional on the
+shape of the error floor, not only its level** — a panel-design constraint,
+not a biological one, and a cheap thing to measure.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until

@@ -24,6 +24,12 @@ from .benchmark import (
     run_screening_benchmark,
 )
 from .config import Regime, SimulationConfig
+from .fidelity import (
+    MODEL_VARIANTS,
+    run_fidelity_comparison,
+    run_split_model_validation,
+    summarise,
+)
 from .report import build_report, write_report
 
 __all__ = ["main"]
@@ -113,6 +119,94 @@ def _cmd_sweep(args: argparse.Namespace) -> int:
             f"{lead:>7} {vol:>10.2f} {'yes' if r['target_reached'] else 'NO':>4}"
         )
     print(f"\nwrote {path}")
+    return 0
+
+
+def _cmd_fidelity(args: argparse.Namespace) -> int:
+    """Model-fidelity comparison and split-model validation."""
+    cfg = _config_from_args(args, Regime.POST_TREATMENT)
+
+    # The comparison runs with the electrical channel exactly as the published
+    # sweep ran it, so that its "published" variant reproduces the published
+    # headline rather than a differently-noised cohort. The split-model
+    # validation needs the channel, so it gets one; both arms of that
+    # comparison use it, so the transfer is still apples to apples.
+    comparison = run_fidelity_comparison(
+        cfg,
+        depths=tuple(int(d) for d in args.depths.split(",")),
+        locus_counts=tuple(int(n) for n in args.loci.split(",")),
+        target_specificity=args.target_specificity,
+    )
+    validation_config = (
+        cfg if cfg.n_electrical_loci > 0 else replace(cfg, n_electrical_loci=50)
+    )
+    # The split-model validation runs at the operating point the programme
+    # recommends, so its numbers can be read against the D1 headline.
+    validation_config = replace(
+        validation_config,
+        sequencing_depth=args.split_depth,
+        n_loci=args.split_loci,
+    )
+    validation = run_split_model_validation(
+        validation_config,
+        target_specificity=args.target_specificity,
+        variants=MODEL_VARIANTS[1:],
+    )
+
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    comparison_payload = build_report(
+        mode="simulated",
+        config=cfg,
+        payload=comparison,
+        claim_scope=(
+            "Simulated. Each variant turns on one fidelity extension of the "
+            "published model and recomputes the headline MRD numbers. The "
+            "published configuration is included as the reference, and the "
+            "published numbers do not change: the extensions are default-off."
+        ),
+    )
+    validation_payload = build_report(
+        mode="simulated",
+        config=validation_config,
+        payload=validation,
+        claim_scope=(
+            "Simulated. A detector fitted on the published model is applied, "
+            "without refitting, to each fidelity model; the difference "
+            "bounds the performance that the published model was hiding."
+        ),
+    )
+
+    comparison_path = write_report(comparison_payload, outdir / "model_fidelity.json")
+    validation_path = write_report(
+        validation_payload, outdir / "split_model_validation.json"
+    )
+
+    print(summarise(comparison["variants"]))
+    print()
+    print("split-model validation (detector fitted on the published model):")
+    published = validation["published_model_published_detector"]
+    print(
+        f"  published model          sens={published['mrd_sensitivity']:.3f} "
+        f"spec(resp)={published['mrd_specificity_vs_responders']:.3f} "
+        f"spec(persist)={published['mrd_specificity_vs_persistent']:.3f} "
+        f"auc(enrichment)={published['auc_electrical_enrichment_within_mrd_positive']:.3f}"
+    )
+    for evaluation in validation["evaluations"]:
+        transfer = evaluation["variant_model_published_detector"]
+        refit = evaluation["variant_model_refitted_detector"]
+        print(
+            f"  {evaluation['variant']:<26} transfer: sens={transfer['mrd_sensitivity']:.3f} "
+            f"spec(resp)={transfer['mrd_specificity_vs_responders']:.3f} "
+            f"spec(persist)={transfer['mrd_specificity_vs_persistent']:.3f}  "
+            f"| refit: sens={refit['mrd_sensitivity']:.3f} "
+            f"spec(resp)={refit['mrd_specificity_vs_responders']:.3f} "
+            f"spec(persist)={refit['mrd_specificity_vs_persistent']:.3f} "
+            f"auc(enr)={refit['auc_electrical_enrichment_within_mrd_positive']:.3f}"
+        )
+    print(f"wrote {comparison_path}")
+    print(f"wrote {validation_path}")
     return 0
 
 
@@ -256,6 +350,27 @@ def main(argv: list[str] | None = None) -> int:
     _add_common(p_screen)
     p_screen.add_argument("--out", default="results/screening.json")
     p_screen.set_defaults(func=_cmd_screening)
+
+    p_fidelity = sub.add_parser(
+        "fidelity", help="model-fidelity comparison and split-model validation"
+    )
+    _add_common(p_fidelity)
+    p_fidelity.add_argument("--depths", default="5000,50000,200000,500000")
+    p_fidelity.add_argument("--loci", default="50,200")
+    p_fidelity.add_argument("--outdir", default="results")
+    p_fidelity.add_argument(
+        "--split-depth",
+        type=int,
+        default=200_000,
+        help="depth for the split-model validation",
+    )
+    p_fidelity.add_argument(
+        "--split-loci",
+        type=int,
+        default=200,
+        help="mutation panel size for the split-model validation",
+    )
+    p_fidelity.set_defaults(func=_cmd_fidelity)
 
     p_all = sub.add_parser("all", help="everything")
     _add_common(p_all)

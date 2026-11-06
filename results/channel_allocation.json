@@ -1,8 +1,8 @@
 {
   "metadata": {
     "mode": "simulated",
-    "generated_at": "2026-11-06T09:42:18.628284+00:00",
-    "git_commit": "984bbcd85bd633cd534cbf0bbb6138fb6d4529d4",
+    "generated_at": "2026-11-06T11:06:55.621504+00:00",
+    "git_commit": "2f9b8edeb20b548bd8e5eb60279fc3cca00446bf",
     "package": "relapse_competence",
     "python": "3.14.4"
   },
@@ -41,7 +41,41 @@
     "sampling_interval_days": 90,
     "n_draws": 12,
     "shedding_cv": 0.45,
-    "screening_baseline_mm3": 3000.0
+    "screening_baseline_mm3": 3000.0,
+    "n_clones": 1,
+    "clone_residual_fraction_sd": 0.0,
+    "clone_doubling_time_cv": 0.35,
+    "clone_shedding_sd": 0.0,
+    "growth_model": "exponential",
+    "relapse_sites": [
+      [
+        "lung",
+        0.4,
+        1.0
+      ],
+      [
+        "bone",
+        0.2,
+        0.6
+      ],
+      [
+        "liver",
+        0.2,
+        1.5
+      ],
+      [
+        "brain",
+        0.15,
+        3.0
+      ],
+      [
+        "other",
+        0.05,
+        1.0
+      ]
+    ],
+    "site_shedding_enabled": false,
+    "per_locus_background_log_sd": 0.0
   },
   "calibration": {
     "cfdna_concentration_healthy": {

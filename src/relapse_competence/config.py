@@ -206,6 +206,65 @@ class SimulationConfig:
     screening_baseline_mm3: float = 3_000.0
     """Median baseline burden in the screening regime."""
 
+    # --- model fidelity -----------------------------------------------------
+    # Everything in this block is **default-off**. The published numbers come
+    # from the single-clone, exponential, uniform-shedding model, and turning
+    # any of these knobs on must not move a published figure: the extensions
+    # use their own random streams, so the draws the published numbers depend
+    # on are untouched.
+    n_clones: int = 1
+    """Number of resistant clones carried by each patient.
+
+    ``1`` (the default) is the single-clone model. Above 1, the residual
+    burden is split across clones with different fitness and different
+    shedding, which is how real resistant disease is heterogeneous.
+    """
+
+    clone_residual_fraction_sd: float = 0.0
+    """Log-normal spread of each clone's share of the residual burden."""
+
+    clone_doubling_time_cv: float = 0.35
+    """Across-clone spread of the doubling time."""
+
+    clone_shedding_sd: float = 0.0
+    """Log-normal spread of each clone's shedding multiplier."""
+
+    growth_model: str = "exponential"
+    """``"exponential"`` (the published model) or ``"gompertz"``.
+
+    Gompertzian growth decelerates as the tumour approaches its carrying
+    capacity, which exponential growth with a constant doubling time
+    overstates. The rate is calibrated per patient so that the *initial*
+    doubling time still matches the configured value.
+    """
+
+    relapse_sites: tuple[tuple[str, float, float], ...] = (
+        ("lung", 0.40, 1.0),
+        ("bone", 0.20, 0.6),
+        ("liver", 0.20, 1.5),
+        ("brain", 0.15, 3.0),
+        ("other", 0.05, 1.0),
+    )
+    """Metastatic sites as ``(name, weight, shedding multiplier)``.
+
+    The multipliers are **assumptions for a sensitivity analysis**, not
+    literature estimates: the point of the sweep is to measure how far the
+    conclusions move under plausible heterogeneity, not to assert a fold
+    change that has not been measured.
+    """
+
+    site_shedding_enabled: bool = False
+    """Whether each patient is assigned a relapse site with its own shedding."""
+
+    per_locus_background_log_sd: float = 0.0
+    """Log-normal spread of the background floor across tracked loci.
+
+    Real error floors vary by locus, batch and germline status. Above 0, the
+    per-locus background is drawn and the mutant read count becomes a sum of
+    per-locus Poisson draws, which is over-dispersed relative to a single
+    Poisson on the aggregate.
+    """
+
 
 @dataclass(frozen=True)
 class DetectorConfig:

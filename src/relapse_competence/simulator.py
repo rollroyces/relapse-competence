@@ -2,6 +2,7 @@
 
 Design notes
 ------------
+
 **Multi-locus read counting.** Real tumour-informed MRD panels track tens to
 hundreds of somatic loci and flag on the *total* mutant read count across
 them. Modelling a single locus understates sensitivity by roughly an order of
@@ -21,6 +22,14 @@ But the relapse-competent *state* is a minority subpopulation, so the state
 information the channel carries is diluted by ``state_fraction``. That tension
 -- earlier detection, weaker discrimination -- is the thing the channel
 allocation sweep is built to measure.
+
+**The fidelity extensions are default-off.** Multi-clone resistance,
+site-dependent shedding, Gompertzian growth and per-locus background
+variation are all modelled, and all default to the published behaviour. Each
+extension draws from its own random stream, so enabling one cannot shift the
+draws that the published numbers depend on. The regression fixture
+``tests/fixtures/default_model_reference.json`` is the guard: with the
+default configuration the output must match it exactly.
 """
 
 from __future__ import annotations
@@ -102,6 +111,12 @@ class PatientTrajectory:
     has_chip: bool
     state_fraction: float
 
+    clone_doubling_times: tuple[float, ...] = ()
+    """Doubling time of each resistant clone. One entry in the single-clone model."""
+
+    relapse_site: str = ""
+    """Metastatic site the relapse is assigned to. Empty when site shedding is off."""
+
 
 #: Which arms are simulated in which regime.
 SIMULATION_REGIMES: Final[dict[Regime, tuple[PatientArm, ...]]] = {
@@ -126,6 +141,9 @@ class LongitudinalSimulator:
         self.config = config
         self._rng = np.random.default_rng(config.seed)
         self._state_rngs: dict[PatientArm, np.random.Generator] = {}
+        self._clone_rngs: dict[PatientArm, np.random.Generator] = {}
+        self._site_rngs: dict[PatientArm, np.random.Generator] = {}
+        self._locus_rngs: dict[PatientArm, np.random.Generator] = {}
 
     # ------------------------------------------------------------------
     # public API
@@ -161,6 +179,36 @@ class LongitudinalSimulator:
                 [self.config.seed, zlib.crc32(arm.value.encode()), 7]
             )
         return self._state_rngs[arm]
+
+    def _clone_rng(self, arm: PatientArm):
+        """RNG for the multi-clone structure.
+
+        Only used when ``n_clones > 1``. It is a separate stream so that the
+        patient-level draws -- baseline, residual burden, doubling time,
+        shedding, CHIP -- are identical whether the model has one clone or
+        many.
+        """
+        if arm not in self._clone_rngs:
+            self._clone_rngs[arm] = np.random.default_rng(
+                [self.config.seed, zlib.crc32(arm.value.encode()), 11]
+            )
+        return self._clone_rngs[arm]
+
+    def _site_rng(self, arm: PatientArm):
+        """RNG for the relapse-site assignment."""
+        if arm not in self._site_rngs:
+            self._site_rngs[arm] = np.random.default_rng(
+                [self.config.seed, zlib.crc32(arm.value.encode()), 13]
+            )
+        return self._site_rngs[arm]
+
+    def _locus_rng(self, arm: PatientArm):
+        """RNG for the per-locus background floor."""
+        if arm not in self._locus_rngs:
+            self._locus_rngs[arm] = np.random.default_rng(
+                [self.config.seed, zlib.crc32(arm.value.encode()), 17]
+            )
+        return self._locus_rngs[arm]
 
     def _generate_arm(self, arm: PatientArm) -> list[PatientTrajectory]:
         cfg = self.config
@@ -237,12 +285,31 @@ class LongitudinalSimulator:
                         )
                     )
 
-        volumes = self._volumes(arm, baseline, residual, doubling, resistant_doubling)
-        relapse_draw = self._relapse_draw(volumes)
+        # --- fidelity structure -------------------------------------------------
+        # Clone shares, per-clone doubling times and per-clone shedding. With
+        # the default configuration these are exactly one clone carrying the
+        # whole residual burden, with the patient's own doubling time and no
+        # extra shedding -- so the numbers below are the published ones.
+        shares, clone_doublings, clone_shedding = self._clones(arm, resistant_doubling)
+        relapse_site, site_multiplier = self._site(arm)
+        shedding = shedding * site_multiplier
+
+        volumes = self._volumes(
+            arm, baseline, residual, doubling, shares, clone_doublings, clone_shedding
+        )
+        relapse_draw = self._relapse_draw([volume for volume, _ in volumes])
 
         measurements = tuple(
-            self._measure(draw_index, volume, shedding, has_chip, state_fraction)
-            for draw_index, volume in enumerate(volumes)
+            self._measure(
+                arm,
+                draw_index,
+                volume,
+                shed_volume,
+                shedding,
+                has_chip,
+                state_fraction,
+            )
+            for draw_index, (volume, shed_volume) in enumerate(volumes)
         )
 
         return PatientTrajectory(
@@ -256,7 +323,49 @@ class LongitudinalSimulator:
             ),
             has_chip=has_chip,
             state_fraction=state_fraction,
+            clone_doubling_times=tuple(clone_doublings),
+            relapse_site=relapse_site,
         )
+
+    def _clones(
+        self, arm: PatientArm, resistant_doubling: float
+    ) -> tuple[list[float], list[float], list[float]]:
+        """Clone shares, per-clone doubling times and per-clone shedding.
+
+        The single-clone default returns exactly ``([1.0], [doubling], [1.0])``,
+        so the published volumes are untouched.
+        """
+        cfg = self.config
+        if cfg.n_clones <= 1:
+            return [1.0], [resistant_doubling], [1.0]
+
+        rng = self._clone_rng(arm)
+        raw = np.exp(rng.normal(0.0, cfg.clone_residual_fraction_sd, size=cfg.n_clones))
+        shares = [float(value) for value in raw / raw.sum()]
+        doublings = [
+            float(resistant_doubling * np.exp(rng.normal(0.0, cfg.clone_doubling_time_cv)))
+            for _ in range(cfg.n_clones)
+        ]
+        shedding = [
+            float(np.exp(rng.normal(0.0, cfg.clone_shedding_sd))) for _ in range(cfg.n_clones)
+        ]
+        return shares, doublings, shedding
+
+    def _site(self, arm: PatientArm) -> tuple[str, float]:
+        """The relapse site and its shedding multiplier.
+
+        The multipliers are assumptions for a sensitivity analysis, not
+        literature estimates.
+        """
+        cfg = self.config
+        if not cfg.site_shedding_enabled or not cfg.relapse_sites:
+            return "", 1.0
+        rng = self._site_rng(arm)
+        weights = np.array([w for _, w, _ in cfg.relapse_sites], dtype=float)
+        weights = weights / weights.sum()
+        pick = int(rng.choice(len(cfg.relapse_sites), p=weights))
+        name, _, multiplier = cfg.relapse_sites[pick]
+        return name, float(multiplier)
 
     def _volumes(
         self,
@@ -264,38 +373,72 @@ class LongitudinalSimulator:
         baseline: float,
         residual: float,
         doubling: float,
-        resistant_doubling: float,
-    ) -> list[float]:
+        shares: list[float],
+        clone_doublings: list[float],
+        clone_shedding: list[float],
+    ) -> list[tuple[float, float]]:
+        """Per draw: ``(total tumour volume, shedding-weighted tumour volume)``.
+
+        The second number is the volume that contributes ctDNA: a clone that
+        sheds less contributes less ctDNA even at the same tumour volume. With
+        a single clone and no per-clone shedding the two are equal, which is
+        what the published model used.
+        """
         cfg = self.config
-        volumes: list[float] = []
+        volumes: list[tuple[float, float]] = []
         for draw_index in range(cfg.n_draws):
             day = draw_index * cfg.sampling_interval_days
             if cfg.regime is Regime.SCREENING:
                 if arm is PatientArm.HEALTHY:
-                    volumes.append(0.0)
+                    volumes.append((0.0, 0.0))
                 else:
-                    volumes.append(
-                        min(
-                            baseline * (2.0 ** (day / doubling)),
-                            cfg.max_tumour_volume_mm3,
-                        )
+                    grown = min(
+                        self._growth(baseline, day, doubling),
+                        cfg.max_tumour_volume_mm3,
                     )
+                    volumes.append((grown, grown))
                 continue
 
             if draw_index == 0:
-                volumes.append(baseline)
+                volumes.append((baseline, baseline))
             elif arm is PatientArm.RESPONDER:
-                volumes.append(0.0)
+                volumes.append((0.0, 0.0))
             else:
                 residual_volume = baseline * residual
                 elapsed = day - cfg.sampling_interval_days
-                volumes.append(
-                    min(
-                        residual_volume * (2.0 ** (elapsed / resistant_doubling)),
-                        cfg.max_tumour_volume_mm3,
-                    )
-                )
+                total = 0.0
+                shed = 0.0
+                for share, doubling, multiplier in zip(
+                    shares, clone_doublings, clone_shedding, strict=True
+                ):
+                    clone_volume = self._growth(residual_volume * share, elapsed, doubling)
+                    total += clone_volume
+                    shed += clone_volume * multiplier
+                # The carrying capacity clamps the tumour, and the clamp
+                # applies to the ctDNA contribution as well: without it the
+                # shedding-weighted volume would keep growing past the cap.
+                clamped = min(total, cfg.max_tumour_volume_mm3)
+                if total > 0.0:
+                    shed *= clamped / total
+                volumes.append((clamped, shed))
         return volumes
+
+    def _growth(self, start: float, elapsed: float, doubling: float) -> float:
+        """Growth factor for one clone over ``elapsed`` days.
+
+        Exponential is the published model. Gompertzian growth is calibrated
+        so that the *initial* doubling time still equals the configured value
+        and then decelerates towards the carrying capacity, which exponential
+        growth with a constant doubling time overstates.
+        """
+        cfg = self.config
+        if cfg.growth_model != "gompertz":
+            return start * (2.0 ** (elapsed / doubling))
+        capacity = cfg.max_tumour_volume_mm3
+        if start <= 0.0 or start >= capacity:
+            return start
+        rate = np.log(2.0) / (doubling * np.log(capacity / max(start, 1e-9)))
+        return capacity * (start / capacity) ** float(np.exp(-rate * elapsed))
 
     def _relapse_draw(self, volumes: list[float]) -> int | None:
         """First draw at or above the radiographic threshold.
@@ -314,8 +457,10 @@ class LongitudinalSimulator:
 
     def _measure(
         self,
+        arm: PatientArm,
         draw_index: int,
         volume: float,
+        shed_volume: float,
         shedding: float,
         has_chip: bool,
         state_fraction: float,
@@ -331,16 +476,32 @@ class LongitudinalSimulator:
         if has_chip:
             background = max(background, cfg.chip_vaf)
 
+        # The tumour contribution is the sum over clones of each clone's volume
+        # times its own shedding: a clone that sheds less contributes less
+        # ctDNA even at the same tumour volume. ``shed_volume`` arrives
+        # already weighted.
+
         # --- mutation channel ---
         # A per-locus variant fraction cannot exceed 1. The carrying capacity
         # already keeps this physical, but clamp defensively so no parameter
         # combination can produce an impossible sample.
         true_vaf = min(
-            cfg.tumor_vaf_per_mm3 * volume * shedding * cfg.mutation_clonal_fraction, 1.0
+            cfg.tumor_vaf_per_mm3 * shed_volume * shedding * cfg.mutation_clonal_fraction, 1.0
         )
         total_vaf = true_vaf + background
-        mutant_reads = int(rng.poisson(cfg.sequencing_depth * cfg.n_loci * total_vaf))
         total_reads = cfg.sequencing_depth * cfg.n_loci
+
+        if cfg.per_locus_background_log_sd > 0.0:
+            locus_rng = self._locus_rng(arm)
+            multiplier = np.exp(
+                locus_rng.normal(0.0, cfg.per_locus_background_log_sd, size=cfg.n_loci)
+            )
+            locus_background = background * multiplier
+            mutant_reads = int(
+                locus_rng.poisson(cfg.sequencing_depth * (true_vaf + locus_background)).sum()
+            )
+        else:
+            mutant_reads = int(rng.poisson(cfg.sequencing_depth * cfg.n_loci * total_vaf))
 
         # --- bulk electrical channel ---
         electrical_reads = 0
@@ -351,16 +512,31 @@ class LongitudinalSimulator:
             # state-bearing fraction only, which is where the dilution lives.
             electrical_vaf = min(
                 cfg.tumor_vaf_per_mm3
-                * volume
+                * shed_volume
                 * shedding
                 * (1.0 + cfg.electrical_fold_change * state_fraction),
                 1.0,
             )
             electrical_total_vaf = electrical_vaf + background
-            electrical_reads = int(
-                rng.poisson(cfg.sequencing_depth * cfg.n_electrical_loci * electrical_total_vaf)
-            )
             electrical_total_reads = cfg.sequencing_depth * cfg.n_electrical_loci
+            if cfg.per_locus_background_log_sd > 0.0:
+                locus_rng = self._locus_rng(arm)
+                multiplier = np.exp(
+                    locus_rng.normal(
+                        0.0, cfg.per_locus_background_log_sd, size=cfg.n_electrical_loci
+                    )
+                )
+                electrical_reads = int(
+                    locus_rng.poisson(
+                        cfg.sequencing_depth * (electrical_vaf + background * multiplier)
+                    ).sum()
+                )
+            else:
+                electrical_reads = int(
+                    rng.poisson(
+                        cfg.sequencing_depth * cfg.n_electrical_loci * electrical_total_vaf
+                    )
+                )
 
         day = draw_index * cfg.sampling_interval_days
         is_relapse = volume >= cfg.relapse_volume_threshold_mm3

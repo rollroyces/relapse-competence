@@ -645,6 +645,94 @@ def main(argv: list[str] | None = None) -> int:
             "RESEARCH-PLAN.md" in d0_doc,
         )
 
+    # --- the model-fidelity artefacts must agree with the published sweep ---
+    fidelity_path = Path("results/model_fidelity.json")
+    split_path = Path("results/split_model_validation.json")
+    fidelity_doc_path = Path("docs/MODEL-FIDELITY.md")
+    chk("the model fidelity artefact exists", fidelity_path.exists())
+    chk("the split-model validation artefact exists", split_path.exists())
+    chk("the model fidelity report exists", fidelity_doc_path.exists())
+    if fidelity_path.exists() and split_path.exists():
+        fidelity = json.loads(fidelity_path.read_text())
+        variants = {
+            v["variant"]: v for v in fidelity["results"]["variants"]
+        }
+        chk(
+            "the fidelity comparison covers the published model and every extension",
+            set(variants) == {
+                "published",
+                "multi_clone",
+                "gompertzian",
+                "site_dependent_shedding",
+                "per_locus_background",
+                "combined",
+            },
+            str(sorted(variants)),
+        )
+        # The published variant must reproduce the committed sweep exactly, or
+        # the deltas the report quotes are not comparable with the published
+        # headline.
+        sweep_path = Path(args.sweep)
+        if sweep_path.exists() and "published" in variants:
+            sweep = json.loads(sweep_path.read_text())["results"]["sweep"]
+            reference = next(
+                (
+                    r
+                    for r in sweep
+                    if r["sequencing_depth"] == 200_000 and r["n_loci"] == 200
+                ),
+                None,
+            )
+            published = (variants["published"].get("recommended_200k_200") or {})
+            if reference is not None:
+                chk(
+                    "the fidelity comparison's published variant reproduces the "
+                    "committed sweep sensitivity",
+                    _close_rel(published.get("sensitivity", 0.0), reference["sensitivity"]),
+                    f"fidelity={published.get('sensitivity')} sweep={reference['sensitivity']}",
+                )
+                chk(
+                    "the fidelity comparison's published variant reproduces the "
+                    "committed sweep specificity",
+                    _close_rel(published.get("specificity", 0.0), reference["specificity"]),
+                    f"fidelity={published.get('specificity')} sweep={reference['specificity']}",
+                )
+                chk(
+                    "the fidelity comparison's published variant reproduces the "
+                    "committed sweep lead time",
+                    _close_rel(
+                        published.get("median_lead_time_days") or 0.0,
+                        reference["median_lead_time_days"] or 0.0,
+                    ),
+                    f"fidelity={published.get('median_lead_time_days')} "
+                    f"sweep={reference['median_lead_time_days']}",
+                )
+        split = json.loads(split_path.read_text())["results"]
+        evaluations = split.get("evaluations") or []
+        chk(
+            "the split-model validation evaluates every fidelity variant",
+            {e["variant"] for e in evaluations}
+            == set(variants) - {"published"},
+            str(sorted(e["variant"] for e in evaluations)),
+        )
+        for evaluation in evaluations:
+            chk(
+                f"the split-model validation reports the transfer and refit "
+                f"operating points for {evaluation['variant']}",
+                "variant_model_published_detector" in evaluation
+                and "variant_model_refitted_detector" in evaluation,
+            )
+    if fidelity_doc_path.exists():
+        fidelity_doc = fidelity_doc_path.read_text()
+        chk(
+            "the model fidelity report links the generated artefact",
+            "model_fidelity.json" in fidelity_doc,
+        )
+        chk(
+            "the model fidelity report links the split-model artefact",
+            "split_model_validation.json" in fidelity_doc,
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

@@ -515,6 +515,7 @@ def _auc(scores: list[float], labels: list[bool]) -> float:
 def collect_outcomes(
     config: SimulationConfig,
     target_specificity: float = 0.98,
+    read_threshold: int | None = None,
 ) -> tuple[list[PatientOutcome], int]:
     """Run the mutation channel over a cohort and collect per-patient outcomes.
 
@@ -522,6 +523,10 @@ def collect_outcomes(
     (the false-positive population) and applied to everyone. Each arm is split
     by index parity, so both the calibration and the evaluation halves stay
     arm-balanced.
+
+    Passing ``read_threshold`` applies that threshold instead of calibrating
+    one, which is what the split-model validation needs: a detector fitted on
+    one model has to be applied to another without being refitted.
     """
     cfg = config
     simulator = LongitudinalSimulator(cfg)
@@ -529,9 +534,14 @@ def collect_outcomes(
 
     responders = cohort[PatientArm.RESPONDER]
     calibration_responders = responders[0::2]
-    k = select_read_threshold(calibration_responders, target_specificity, max_k=_max_threshold(cfg))
-    if k is None:
-        k = _max_threshold(cfg)
+    if read_threshold is None:
+        k = select_read_threshold(
+            calibration_responders, target_specificity, max_k=_max_threshold(cfg)
+        )
+        if k is None:
+            k = _max_threshold(cfg)
+    else:
+        k = read_threshold
     detector = MrdThresholdDetector(read_threshold=k)
 
     outcomes: list[PatientOutcome] = []
