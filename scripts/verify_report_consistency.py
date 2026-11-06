@@ -454,9 +454,37 @@ def main(argv: list[str] | None = None) -> int:
         "the gap audit carries a revision history section",
         "Revision history and provenance" in report,
     )
+    first_published = ""
+    try:
+        import subprocess as _sp
+
+        out = _sp.run(
+            [
+                "git",
+                "-C",
+                ".",
+                "log",
+                "--diff-filter=A",
+                "--format=%H",
+                "--",
+                "docs/GAP-AUDIT-BIOELECTRIC.md",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        lines = out.stdout.strip().splitlines()
+        first_published = lines[-1] if lines else ""
+    except Exception:  # noqa: BLE001
+        first_published = ""
+    chk(
+        "the first published commit could be resolved from history",
+        bool(first_published),
+    )
     chk(
         "the revision history names the first published commit",
-        "c1c5c2a" in report,
+        bool(first_published) and first_published[:7] in report,
+        f"resolved {first_published[:7]}" if first_published else "unresolved",
     )
     chk(
         "the revision history points at the machine-generated disposition",

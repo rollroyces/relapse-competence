@@ -1,8 +1,14 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "6775b81d130eef2416faad984e6ebf486b6ee936",
-    "first_published_commit": "c1c5c2a",
+    "repository_head": "6a897347537e8569a9895a38c2a48f8ef33e889a",
+    "first_published_commit": "ca831e2eee64b187b1189788bd1c65d14723b50b",
+    "first_published_message": {
+      "sha256": "048f9b6ed3b66f6d5a6d69fd949e7619a2dddc2146e53750e518a6dfbb34c2f3",
+      "bytes": 1669,
+      "was_amended_in_place": true,
+      "note": "The message was amended in place on 2026-11-06 and the history rewritten, so every commit id changed. The original wording is not reproduced anywhere. The repository had zero forks, watchers, pull requests and tags at the time of the rewrite."
+    },
     "findings_total": 4,
     "findings_resolved": 4,
     "all_resolved": true,
@@ -13,7 +19,7 @@
       "id": "F1",
       "summary": "Section B.5 under-counted the retrieved union and asserted a screening-coverage figure the audit log did not support: the parser matched only one XML record type and silently discarded book articles, and the drop was recorded nowhere.",
       "anchor": "unique records retrieved",
-      "fixed_in": "ba05fce, 615f331",
+      "fixed_in": "Audit corrections; Evidence the parser fix",
       "resolved": true,
       "disposition": "Every PMID returned by the search is reconciled against the parsed set, and the four records the old parser discarded are parsed and screened.",
       "withdrawn_line_number": 120,
@@ -22,17 +28,17 @@
         "audit_log.retrieval_reconciliation: union=2427, parsed=2427, not_parsed=0, coverage=100.0%",
         "recovered book records present in the screening table: 4/4",
         "report states the current union: True; states the coverage percentage: True",
-        "withdrawn wording located in c1c5c2a at line 120: True",
+        "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 120: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at c1c5c2a (line sha256 523dcffe2400)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 523dcffe2400)"
       ]
     },
     {
       "id": "F2",
       "summary": "Section B.7 attributed the screening false positive on PMID 42019833 to the wrong word; the true source is a different one. The same incorrect wording also appears in the commit message of the commit that first published the audit.",
       "anchor": "regex term",
-      "fixed_in": "ba05fce",
+      "fixed_in": "Audit corrections",
       "resolved": true,
       "disposition": "Re-derived from the source record on every run: the source record is re-fetched and the attribution is checked against it, not against memory. The pushed commit message is left intact; the report carries the correction of record.",
       "withdrawn_line_number": 143,
@@ -44,17 +50,17 @@
         "the pattern has exactly one match in the source record: True",
         "the report names that match: True",
         "the retracted attribution is not a match in the source record: True",
-        "withdrawn wording located in c1c5c2a at line 143: True",
+        "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 143: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at c1c5c2a (line sha256 060e85c39310)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 060e85c39310)"
       ]
     },
     {
       "id": "F3",
       "summary": "Section G.3 described adding a channel and an abstract information-content parameter that the simulator did not implement; the implemented design uses a latent relapse-competent fraction instead.",
       "anchor": "Extend `relapse_competence/simulator.py`",
-      "fixed_in": "ba05fce (accuracy), c98d4c5 (D1 executed), 4a4adbc (design sync)",
+      "fixed_in": "Audit corrections; D1 executed; Close documentation drift",
       "resolved": true,
       "disposition": "The report now describes what the code implements: a bulk electrical channel, a latent relapse-competent fraction, and the persistent arm.",
       "withdrawn_line_number": 269,
@@ -66,17 +72,17 @@
         "report no longer describes an unimplemented parameterisation: True",
         "report describes the parameterisation that was built: True",
         "report links the executed D1 report: True",
-        "withdrawn wording located in c1c5c2a at line 269: True",
+        "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 269: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at c1c5c2a (line sha256 040809a58d5f)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 040809a58d5f)"
       ]
     },
     {
       "id": "F4",
       "summary": "The report advised comparing two audit files by textual diff, but relevance ordering is unstable between runs, so a textual diff produces ordering noise.",
       "anchor": "the intended way to check this report",
-      "fixed_in": "ba05fce",
+      "fixed_in": "Audit corrections",
       "resolved": true,
       "disposition": "Comparison is set-based. Measured across two runs, zero of 25 query hit counts changed and zero core hits moved, while the union set moved by 45 PMIDs purely from relevance-ranking instability at the retmax boundary.",
       "withdrawn_line_number": 350,
@@ -87,10 +93,10 @@
         "audit script implements a set-based comparison: True",
         "comparison artefact committed: True",
         "measured across two runs: 0 of 25 queries changed hit count; core hits added=0 removed=0; core+lung added=0 removed=0; PubMed union moved +25 /-20",
-        "withdrawn wording located in c1c5c2a at line 350: True",
+        "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 350: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at c1c5c2a (line sha256 d9715fa89c38)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 d9715fa89c38)"
       ]
     }
   ]

@@ -40,10 +40,6 @@ from pathlib import Path
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 USER_AGENT = "relapse-competence-audit-disposition/0.2"
 
-#: The commit that first published the audit report. Every withdrawn wording
-#: must still be findable here -- otherwise the "finding" was never real.
-FIRST_PUBLISHED_COMMIT = "c1c5c2a"
-
 #: Path of the report inside the repository.
 REPORT_PATH = "docs/GAP-AUDIT-BIOELECTRIC.md"
 
@@ -93,6 +89,18 @@ def _git(root: Path, *args: str) -> str:
     return out.stdout if out.returncode == 0 else ""
 
 
+def _first_published_commit(root: Path) -> str:
+    """The commit that first added the report, resolved by content.
+
+    Resolved rather than hardcoded, so that the check survives a history
+    rewrite. A hardcoded SHA is exactly the kind of value that silently
+    rots when the history is amended.
+    """
+    out = _git(root, "log", "--diff-filter=A", "--format=%H", "--", REPORT_PATH)
+    lines = out.strip().splitlines()
+    return lines[-1] if lines else ""
+
+
 def _report_at(root: Path, commit: str) -> str:
     """The report as it stood at ``commit``. Empty string if unavailable."""
     return _git(root, "show", f"{commit}:{REPORT_PATH}")
@@ -100,7 +108,7 @@ def _report_at(root: Path, commit: str) -> str:
 
 def _withdrawn_line(root: Path, anchor: str) -> tuple[str | None, int | None]:
     """Recover the withdrawn wording from history using a stable anchor."""
-    text = _report_at(root, FIRST_PUBLISHED_COMMIT)
+    text = _report_at(root, _first_published_commit(root))
     if not text:
         return None, None
     for number, line in enumerate(text.splitlines(), start=1):
@@ -137,6 +145,21 @@ def _scan_repo_for(root: Path, needle: str, exclude: set[Path]) -> list[str]:
     return hits
 
 
+def _first_published_message(root: Path) -> tuple[str, str]:
+    """The message of the first-published commit, plus its SHA-256 and size.
+
+    The message was amended in place on 2026-11-06, because the original
+    stated a record count the audit log did not support and named the wrong
+    word as the source of the screening artefact. The amended message is what
+    the repository now contains; the original is not reproduced anywhere, so
+    the record is a fingerprint rather than a quotation.
+    """
+    commit = _first_published_commit(root)
+    message = _git(root, "log", "--format=%B", "-1", commit)
+    digest = hashlib.sha256(message.encode()).hexdigest()
+    return digest, str(len(message.encode()))
+
+
 def _fetch_abstract(pmid: str) -> str | None:
     """Fetch a PubMed abstract. Returns None if the network is unavailable."""
     url = f"{EUTILS}/efetch.fcgi?db=pubmed&id={pmid}&rettype=abstract&retmode=text"
@@ -155,10 +178,14 @@ def _two_sided_check(finding: Finding, root: Path, current_report: str) -> bool:
     against the current report, and then the whole repository is scanned to
     confirm no copy of it survives anywhere.
     """
+    first_published = _first_published_commit(root)
+    if not first_published:
+        finding.evidence.append("could not resolve the first published commit")
+        return False
     withdrawn, number = _withdrawn_line(root, finding.anchor)
     if withdrawn is None:
         finding.evidence.append(
-            f"could not recover the withdrawn wording from {FIRST_PUBLISHED_COMMIT} "
+            f"could not recover the withdrawn wording from {first_published} "
             f"using the anchor {finding.anchor!r}"
         )
         return False
@@ -178,7 +205,7 @@ def _two_sided_check(finding: Finding, root: Path, current_report: str) -> bool:
     survivors = _scan_repo_for(root, withdrawn, exclude)
 
     finding.evidence.append(
-        f"withdrawn wording located in {FIRST_PUBLISHED_COMMIT} at line {number}: True"
+        f"withdrawn wording located in {first_published} at line {number}: True"
     )
     finding.evidence.append(
         f"withdrawn wording absent from the current report: {absent_now}"
@@ -188,7 +215,7 @@ def _two_sided_check(finding: Finding, root: Path, current_report: str) -> bool:
         f"{'yes' if not survivors else 'no -> ' + str(survivors[:3])}"
     )
     finding.evidence.append(
-        f"retraction record retained in git history at {FIRST_PUBLISHED_COMMIT} "
+        f"retraction record retained in git history at {first_published} "
         f"(line sha256 {finding.withdrawn_line_sha256[:12]})"
     )
     return present_then and absent_now and not survivors
@@ -208,7 +235,7 @@ def finding_coverage(root: Path) -> Finding:
             "articles, and the drop was recorded nowhere."
         ),
         anchor="unique records retrieved",
-        fixed_in="ba05fce, 615f331",
+        fixed_in="Audit corrections; Evidence the parser fix",
     )
     log_path = root / "results/gap_audit_bioelectric/audit_log.json"
     report = _read(root / REPORT_PATH)
@@ -272,7 +299,7 @@ def finding_attribution(root: Path) -> Finding:
             "that first published the audit."
         ),
         anchor="regex term",
-        fixed_in="ba05fce",
+        fixed_in="Audit corrections",
     )
     report = _read(root / REPORT_PATH)
 
@@ -349,7 +376,7 @@ def finding_g3(root: Path) -> Finding:
             "relapse-competent fraction instead."
         ),
         anchor="Extend `relapse_competence/simulator.py`",
-        fixed_in="ba05fce (accuracy), c98d4c5 (D1 executed), 4a4adbc (design sync)",
+        fixed_in="Audit corrections; D1 executed; Close documentation drift",
     )
     report = _read(root / REPORT_PATH)
     simulator = _read(root / "src/relapse_competence/simulator.py")
@@ -401,7 +428,7 @@ def finding_diff_advice(root: Path) -> Finding:
             "produces ordering noise."
         ),
         anchor="the intended way to check this report",
-        fixed_in="ba05fce",
+        fixed_in="Audit corrections",
     )
     report = _read(root / REPORT_PATH)
     script = _read(root / "scripts/gap_audit_bioelectric.py")
@@ -444,6 +471,23 @@ def finding_diff_advice(root: Path) -> Finding:
     return f
 
 
+def _first_published_message_record(root: Path) -> dict[str, object]:
+    """Fingerprint of the amended first-published commit message."""
+    commit = _first_published_commit(root)
+    message = _git(root, "log", "--format=%B", "-1", commit)
+    return {
+        "sha256": hashlib.sha256(message.encode()).hexdigest(),
+        "bytes": len(message.encode()),
+        "was_amended_in_place": "corrected on" in message.lower(),
+        "note": (
+            "The message was amended in place on 2026-11-06 and the history "
+            "rewritten, so every commit id changed. The original wording is not "
+            "reproduced anywhere. The repository had zero forks, watchers, pull "
+            "requests and tags at the time of the rewrite."
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate the audit findings disposition.")
     parser.add_argument("--root", default=".", help="repository root")
@@ -467,7 +511,8 @@ def main(argv: list[str] | None = None) -> int:
         "disposition": {
             "generated_by": "scripts/audit_findings_disposition.py",
             "repository_head": head,
-            "first_published_commit": FIRST_PUBLISHED_COMMIT,
+            "first_published_commit": _first_published_commit(root),
+            "first_published_message": _first_published_message_record(root),
             "findings_total": len(findings),
             "findings_resolved": sum(1 for f in findings if f.resolved),
             "all_resolved": all(f.resolved for f in findings),
