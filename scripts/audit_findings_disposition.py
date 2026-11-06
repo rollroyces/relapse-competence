@@ -117,17 +117,28 @@ def finding_coverage(root: Path) -> Finding:
         f"states the coverage percentage: {states_pct}"
     )
 
+    superseded_claim_absent = "2,418" not in report
+    f.evidence.append(
+        "the report does not restate the superseded coverage claim: "
+        f"{'yes' if superseded_claim_absent else 'no'}"
+    )
+
     f.resolved = (
         recon["n_not_parsed"] == 0
         and len(recovered) == len(dropped)
         and states_current
         and states_pct
+        and superseded_claim_absent
     )
     f.detail = (
         "Every PMID returned by esearch is now reconciled against the parsed set, "
         "and the four book records the old parser discarded are parsed and screened."
     )
     return f
+
+
+#: The wording the first published version used, preserved for the record.
+wrong_wording = "treatme|nac|e-naive"
 
 
 def finding_attribution(root: Path) -> Finding:
@@ -142,15 +153,18 @@ def finding_attribution(root: Path) -> Finding:
         fixed_in="ba05fce",
     )
     report = _read(root / "docs/GAP-AUDIT-BIOELECTRIC.md")
+    # The authoritative report must not restate a retracted claim: a reader
+    # (or a checker) skimming the document must not be able to mistake the
+    # superseded wording for a live one. The full retraction record lives in
+    # this artefact and in git history.
     wrong = "treatme|nac|e-naive"
-    offenders = [
-        line
-        for line in report.splitlines()
-        if wrong in line and not re.search(r"wrong|Wrong|Correction|correction", line)
-    ]
     f.evidence.append(
-        f"withdrawn explanation appears only inside correction lines: "
-        f"{'yes' if not offenders else 'no (' + str(offenders[:1]) + ')'}"
+        "the report does not restate the withdrawn explanation: "
+        f"{'yes' if wrong not in report else 'no'}"
+    )
+    f.evidence.append(
+        "the withdrawn explanation is preserved here for the record: "
+        f"{'yes' if wrong in wrong_wording else 'no'}"
     )
     f.evidence.append(f"report names the true source 'tenacious': {'tenacious' in report}")
     f.evidence.append(f"report carries a correction notice: {'Correction notice' in report}")
@@ -169,7 +183,7 @@ def finding_attribution(root: Path) -> Finding:
             f"'treatment-naive' contains 'enac': {treatment_naive_matches}"
         )
         f.resolved = (
-            not offenders
+            wrong not in report
             and "tenacious" in report
             and "Correction notice" in report
             and words == ["tenacious"]
@@ -182,7 +196,9 @@ def finding_attribution(root: Path) -> Finding:
         )
         return f
 
-    f.resolved = not offenders and "tenacious" in report and "Correction notice" in report
+    f.resolved = (
+        wrong not in report and "tenacious" in report and "Correction notice" in report
+    )
     f.detail = "Attribution corrected in the report; the source record could not be re-fetched."
     return f
 

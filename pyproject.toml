@@ -6,15 +6,16 @@ build-backend = "setuptools.build_meta"
 name = "relapse-competence"
 version = "0.1.0"
 description = "Longitudinal cfDNA modelling for the relapse-competent state, with an executable evidence chain."
+keywords = ["cfDNA", "MRD", "liquid-biopsy", "relapse", "longitudinal-monitoring"]
 readme = "README.md"
 requires-python = ">=3.11"
-license = "MIT"
+license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{ name = "Royce Lam" }]
-keywords = ["cfDNA", "MRD", "liquid-biopsy", "relapse", "longitudinal-monitoring"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",

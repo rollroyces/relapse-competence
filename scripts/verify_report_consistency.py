@@ -232,18 +232,17 @@ def main(argv: list[str] | None = None) -> int:
     for nct in REQUIRED_TRIALS:
         chk(f"report cites {nct}", nct in report)
 
-    # --- the report must not repeat the withdrawn false-positive explanation ---
-    # The withdrawn explanation may appear ONLY inside an explicit correction
-    # notice. Any line quoting it must also mark it as wrong.
-    wrong = "treatme|nac|e-naive"
-    offenders = [
-        line for line in report.splitlines()
-        if wrong in line and not re.search(r"wrong|Wrong|Correction|correction", line)
-    ]
+    # --- the authoritative report must not restate a retracted claim at all.
+    # The full retraction record lives in the machine-generated disposition
+    # artefact and in git history, not in the prose of the report, so that no
+    # reader or checker can mistake superseded wording for a live claim.
     chk(
-        "the withdrawn explanation appears only inside a correction notice",
-        not offenders,
-        f"offending lines: {offenders[:2]}",
+        "the report does not restate the withdrawn attribution",
+        "treatme|nac|e-naive" not in report,
+    )
+    chk(
+        "the report does not restate the superseded coverage figure",
+        "2,418" not in report,
     )
     chk("report names the true false-positive source 'tenacious'", "tenacious" in report)
     chk("report carries an explicit correction notice", "Correction notice" in report)
@@ -444,6 +443,28 @@ def main(argv: list[str] | None = None) -> int:
             "the gap audit report links the disposition artefact",
             "audit_findings_disposition.json" in report,
         )
+
+    # --- licence metadata must agree with the licence file ---
+    licence_path = Path("LICENSE")
+    licence_text = licence_path.read_text() if licence_path.exists() else ""
+    chk(
+        "LICENSE carries the GNU Affero General Public License v3 text",
+        "GNU AFFERO GENERAL PUBLIC LICENSE" in licence_text
+        and "Version 3, 19 November 2007" in licence_text,
+    )
+    pyproject_path = Path("pyproject.toml")
+    pyproject = pyproject_path.read_text() if pyproject_path.exists() else ""
+    chk("pyproject declares AGPL-3.0-or-later", 'license = "AGPL-3.0-or-later"' in pyproject)
+    citation_path = Path("CITATION.cff")
+    citation = citation_path.read_text() if citation_path.exists() else ""
+    chk("CITATION.cff declares AGPL-3.0-or-later", "license: AGPL-3.0-or-later" in citation)
+    readme_path = Path(args.readme)
+    readme_licence = readme_path.read_text() if readme_path.exists() else ""
+    chk("README states the dual licence", "AGPL-3.0-or-later" in readme_licence)
+    chk(
+        "COMMERCIAL_LICENSE.md exists for the commercial option",
+        Path("COMMERCIAL_LICENSE.md").exists(),
+    )
 
     # --- source errors must be surfaced ---
     chk("audit log records zero source errors", log.get("errors") == [], str(log.get("errors")))

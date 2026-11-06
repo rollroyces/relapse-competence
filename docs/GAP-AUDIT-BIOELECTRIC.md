@@ -135,7 +135,7 @@ Every PMID returned by `esearch` is reconciled against the parsed record set, an
 | PMIDs returned by `esearch` but not parsed | **0** |
 | Screening coverage | **100.00%** |
 
-> **Correction notice (coverage).** The first published version of this report stated "2,418 retrieved / 100% of the union / 0 errors", and that was wrong on its face: the parser matched only `<PubmedArticle>` and therefore **silently discarded book articles**, while the union was larger than the number of records screened. The silent drop was not recorded anywhere, so the "100%" claim was unsupported. The union size itself also drifted between runs (2,418 → 2,422 → 2,427) for the reason given in Section B.8, so **"2,427" is the size of the run whose log is committed here, and the coverage figure is the meaningful one.**
+> **Correction notice (coverage).** An earlier version of this report under-counted the retrieved union and asserted a screening-coverage figure that the audit log did not support: the parser matched only `<PubmedArticle>` and therefore **silently discarded book articles**, and the drop was recorded nowhere. The parser now also matches `<PubmedBookArticle>`, and the audit log carries an explicit reconciliation block so a record can never again be dropped without appearing in `pmids_returned_by_esearch_but_not_parsed`. The four records that were dropped are identified by PMID, and the superseded wording is quoted, in the machine-generated disposition artefact. The union size also drifts between runs for the reason given in Section B.8, so **the coverage figure is the meaningful one, not the union size**; the union quoted above is the size of the run whose log is committed here.
 
 **The four dropped records, identified and recovered.** The defect was not merely
 hypothetical. Diffing the pre-fix run's retrieved union against its screened
@@ -196,7 +196,7 @@ Artefact: `results/gap_audit_bioelectric/comparison_to_previous_run.json`.
 
 The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the ordinary English word **"tenac|ious"** — from the phrase *"a tenacious subpopulation"*. The word `treatment-naive` also occurs in the abstract and is an equally plausible-looking candidate, but it does **not** contain the substring; `tenacious` is the only word in the abstract that does.
 
-> **Correction notice.** The first version of this report stated that the match came from `"treatme|nac|e-naive"`. That was wrong. The true source is `"tenac|ious"`. The same incorrect string also appears in the commit message of `c1c5c2a`, which is the commit that first published this audit; it has been left in place rather than rewriting published history, and this notice is the correction of record.
+> **Correction notice.** An earlier version of this report attributed the false positive to the wrong word. The true source is `"tenac|ious"` — the only word in that abstract containing the pattern. The retracted wording is quoted in the machine-generated disposition artefact and also appears in the commit message of `c1c5c2a`, the commit that first published this audit; that history is left in place rather than rewritten, and this notice is the correction of record.
 
 Two things were done, and both are recorded here rather than quietly fixed:
 

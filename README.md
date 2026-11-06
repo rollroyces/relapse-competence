@@ -236,4 +236,13 @@ worth the read budget *before* any cohort exists.
 
 ## Licence
 
-MIT — see [`LICENSE`](LICENSE). Cite with [`CITATION.cff`](CITATION.cff).
+**AGPL-3.0-or-later**, with a commercial licence available — the same
+dual-licence arrangement used by this account's other bio tooling
+(`mrnavax`, `mrnavax-rare`, `employee-voice-analytics`, `py-idp`).
+
+- Open source: see [`LICENSE`](LICENSE) for the full GNU Affero General Public
+  License v3.0 text.
+- Commercial: see [`COMMERCIAL_LICENSE.md`](COMMERCIAL_LICENSE.md) for how to
+  obtain a licence that does not carry the AGPL obligations.
+
+Cite with [`CITATION.cff`](CITATION.cff).

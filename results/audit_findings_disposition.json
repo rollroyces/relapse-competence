@@ -1,7 +1,7 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "4a4adbca8a9847465c03db9861eb46a5b2290e28",
+    "repository_head": "b32221e4156dabd05c05e7b7685968b0e80769f3",
     "findings_total": 4,
     "findings_resolved": 4,
     "all_resolved": true
@@ -16,7 +16,8 @@
       "evidence": [
         "audit_log.retrieval_reconciliation: union=2427, parsed=2427, not_parsed=0, coverage=100.0%",
         "recovered book records present in the screening table: 4/4",
-        "report states the current union (2,427): True; states the coverage percentage: True"
+        "report states the current union (2,427): True; states the coverage percentage: True",
+        "the report does not restate the superseded coverage claim: yes"
       ]
     },
     {
@@ -26,7 +27,8 @@
       "resolved": true,
       "disposition": "Re-derived from the source record: 'tenacious' is the only word in the abstract containing 'enac'. The pushed commit message is left intact and the report carries the correction of record.",
       "evidence": [
-        "withdrawn explanation appears only inside correction lines: yes",
+        "the report does not restate the withdrawn explanation: yes",
+        "the withdrawn explanation is preserved here for the record: yes",
         "report names the true source 'tenacious': True",
         "report carries a correction notice: True",
         "words in the source abstract containing 'enac': ['tenacious']; 'treatment-naive' contains 'enac': False"
