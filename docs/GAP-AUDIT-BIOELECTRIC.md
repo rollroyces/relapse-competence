@@ -117,11 +117,40 @@ Meanwhile the two adjacent clusters are **crowded**: electrical↔stemness has 9
 
 ### B.5 Screening
 
-- **2,418** unique records retrieved across the PubMed grid; **2,418** screened (100% of the union — no sampling).
+- **2,427** unique PMIDs in the retrieved union across the PubMed grid; **2,427** parsed and screened.
+- **Screening coverage: 100.00% of the union** — no sampling, no exclusions before screening.
 - Records were fetched as XML and screened mechanically on title + abstract + publication type against the patterns above.
 - Screening rule (pre-registered): a **core hit** must match the electrical axis, the DNA axis, the relapse axis and the oncology axis. A **target hit** additionally matches the lung axis.
 - **Core hits: 10. Target hits (core + lung): 1.**
 - Every core hit was then read in full and adjudicated by hand against the scope. Results in Section B.6.
+
+#### Retrieval reconciliation
+
+Every PMID returned by `esearch` is reconciled against the parsed record set, and the result is written to `audit_log.json` under `retrieval_reconciliation`:
+
+| Quantity | Value |
+|---|---:|
+| PMIDs in the retrieved union | 2,427 |
+| Records parsed | 2,427 |
+| PMIDs returned by `esearch` but not parsed | **0** |
+| Screening coverage | **100.00%** |
+
+> **Correction notice (coverage).** The first published version of this report stated "2,418 retrieved / 100% of the union / 0 errors", and that was wrong on its face: the parser matched only `<PubmedArticle>` and therefore **silently discarded book articles**, while the union was larger than the number of records screened. The silent drop was not recorded anywhere, so the "100%" claim was unsupported. The parser now also matches `<PubmedBookArticle>`, and the audit log carries an explicit reconciliation block so a record can never again be dropped without appearing in `pmids_returned_by_esearch_but_not_parsed`. The union size itself also drifted between runs (2,418 → 2,422 → 2,427) for the reason given in Section B.8, so **"2,427" is the size of the run whose log is committed here, and the coverage figure is the meaningful one.**
+
+### B.8 Reproducibility evidence
+
+The audit was run twice, one day apart, with the same code and the same queries. The comparison is set-based rather than textual, because `sort=relevance` is not a stable ordering (see Section H).
+
+| Quantity | Run 1 | Run 2 | Change |
+|---|---:|---:|---|
+| Queries whose **hit count** changed | — | — | **0 of 25** |
+| Core hits | 10 | 10 | **0 added, 0 removed** |
+| Core hits + lung axis | 1 | 1 | **0 added, 0 removed** |
+| PubMed union (set) | 2,422 | 2,427 | +25 / −20 |
+
+The hit counts are identical across every query, and both the core-hit set and the single target hit are unchanged. The union *set* moved by 45 PMIDs because relevance ranking shifts which records land inside the `retmax=300` window — precisely why a textual diff of the two logs would produce a large volume of ordering noise while the substantive results are unchanged.
+
+Artefact: `results/gap_audit_bioelectric/comparison_to_previous_run.json`.
 
 ### B.6 Adjudication of the 10 core hits
 
@@ -140,7 +169,9 @@ Meanwhile the two adjacent clusters are **crowded**: electrical↔stemness has 9
 
 ### B.7 A screening error that was found and corrected
 
-The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the word **"treatme|nac|e-naive"**.
+The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the ordinary English word **"tenac|ious"** — from the phrase *"a tenacious subpopulation"*. The word `treatment-naive` also occurs in the abstract and is an equally plausible-looking candidate, but it does **not** contain the substring; `tenacious` is the only word in the abstract that does.
+
+> **Correction notice.** The first version of this report stated that the match came from `"treatme|nac|e-naive"`. That was wrong. The true source is `"tenac|ious"`. The same incorrect string also appears in the commit message of `c1c5c2a`, which is the commit that first published this audit; it has been left in place rather than rewriting published history, and this notice is the correction of record.
 
 Two things were done, and both are recorded here rather than quietly fixed:
 
@@ -264,12 +295,41 @@ Opportunity 2 is deliberately *not* the lead: it depends on Opportunity 1 defini
 
 ### G.3 Minimum executable plan for D1
 
-This is the step that fits the existing repository:
+This is the step that fits the existing repository — but it is **not** a one-line
+extension, and the report should not imply otherwise.
 
-1. Extend `relapse_competence/simulator.py` with an optional third channel: an **electrical signature** whose mutual information with the relapse-competent state is a parameter `rho`.
-2. Sweep `rho` from 0 (no information) to the mutation channel's level, and depth × loci as already implemented.
-3. Report **Δmedian lead time** and **Δsensitivity at fixed specificity**, with thresholds calibrated on a held-out split exactly as the existing code does.
-4. If Δlead time is ≤ 0 across the whole grid, **stop** — the biological programme is not worth funding on read-budget grounds, and that conclusion is itself publishable.
+**Current state of `src/relapse_competence/simulator.py`:** the simulator has
+**one** measurement channel. Tumour volume drives a single tumour-derived VAF,
+which is Poisson-sampled into mutant reads at the tracked loci, and that read
+count is what `MrdThresholdDetector` thresholds. There is **no** fragmentomics
+channel and **no** methylation channel in this package. Those channels exist in
+the sibling `deepcatch` repository but were never ported here;
+`relapse-competence` was written from scratch around the mutation channel.
+
+D1 therefore requires two pieces of work, in this order:
+
+1. **Make the measurement model multi-channel.** Refactor the read-count
+   generator so each channel contributes its own signal to its own observation,
+   and the detector consumes a vector of channel scores rather than a single
+   read count. This is a structural change to `simulator.py` and `detectors.py`,
+   not a parameter addition.
+2. **Add the electrical channel** on top of that structure: a signature whose
+   mutual information with the relapse-competent state is a parameter `rho`.
+
+Only once (1) exists does (2) mean anything. Note that the existing "mutation
+channel" is, in the simulator's terms, not an independent assay but a *function
+of tumour burden* — which is exactly why the simulator can be extended
+honestly, and also exactly why a genuinely orthogonal channel (one carrying
+information about the *state* rather than the *amount*) is the thing worth
+adding.
+
+3. Sweep `rho` from 0 (no information) to the mutation channel's level, and
+   depth × loci as already implemented.
+4. Report **Δmedian lead time** and **Δsensitivity at fixed specificity**, with
+   thresholds calibrated on a held-out split exactly as the existing code does.
+5. If Δlead time is ≤ 0 across the whole grid, **stop** — the biological
+   programme is not worth funding on read-budget grounds, and that conclusion is
+   itself publishable.
 
 This is the "combine DNA and bioelectricity" done honestly: it is a decision, not a demonstration.
 
@@ -347,4 +407,21 @@ All metadata below was retrieved directly from NCBI E-utilities or the publisher
 python scripts/gap_audit_bioelectric.py --outdir results/gap_audit_bioelectric
 ```
 
-The script writes `audit_log.json` (every query, timestamp, hit count, retrieved IDs, source errors, screening rules and matched terms) and `screening_table.tsv` (one row per record with per-axis matched terms). Re-running and diffing the two files is the intended way to check this report.
+The script writes `audit_log.json` (every query, timestamp, hit count, retrieved IDs, source errors, screening rules, per-axis matched terms and the retrieval reconciliation) and `screening_table.tsv` (one row per record with per-axis matched terms).
+
+**Compare runs set-wise, not by textual diff.** PubMed retrieval uses
+`sort=relevance`, whose ranking is not stable between runs, so the ordered
+`retrieved_ids` lists can differ in order and in membership at the `retmax`
+boundary — a textual diff of the two files therefore produces a large volume
+of ordering noise. The reproducible comparison is:
+
+```bash
+python scripts/gap_audit_bioelectric.py \
+    --outdir results/gap_audit_bioelectric_rerun \
+    --compare-with results/gap_audit_bioelectric/audit_log.json
+```
+
+which writes `comparison_to_previous_run.json` containing per-query hit-count
+deltas, the added/removed PMID **sets** for the PubMed union, and the added/
+removed core-hit and core+lung sets. Those are the quantities that should not
+change if the literature has not moved; the file ordering is not one of them.

@@ -32,6 +32,9 @@ jobs:
       - name: Test
         run: pytest
 
+      - name: Report consistency
+        run: python scripts/verify_report_consistency.py
+
   benchmark:
     runs-on: ubuntu-latest
     steps:

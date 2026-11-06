@@ -20,6 +20,9 @@ echo "==> ruff"
 echo "==> pytest"
 "$PY" -m pytest
 
+echo "==> report consistency"
+"$PY" scripts/verify_report_consistency.py
+
 echo "==> benchmark"
 "$PY" -m relapse_competence.cli all --patients 800 --outdir results
 

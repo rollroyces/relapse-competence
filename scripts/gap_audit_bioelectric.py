@@ -331,8 +331,14 @@ def pubmed_search(query_id: str, label: str, query: str, purpose: str, limit: in
     )
 
 
-def pubmed_fetch_records(pmids: list[str]) -> dict[str, dict[str, str]]:
-    """Return {pmid: {title, journal, year, abstract, doi, authors, pubtype}}."""
+def pubmed_fetch_records(pmids: list[str]) -> tuple[dict[str, dict[str, str]], list[str]]:
+    """Return ({pmid: record}, [pmids that could not be parsed]).
+
+    The second element exists so that a record can never be dropped silently.
+    An earlier version of this function matched only ``<PubmedArticle>`` and
+    silently discarded book articles; the reconciliation now records every
+    PMID that came back from esearch but produced no record.
+    """
     records: dict[str, dict[str, str]] = {}
     for start in range(0, len(pmids), 100):
         chunk = pmids[start : start + 100]
@@ -347,13 +353,19 @@ def pubmed_fetch_records(pmids: list[str]) -> dict[str, dict[str, str]]:
                 "retmode": "xml",
             },
         ).decode("utf-8", errors="replace")
-        for article in re.findall(r"<PubmedArticle>(.*?)</PubmedArticle>", xml, re.S):
+        articles = re.findall(
+            r"<(PubmedArticle|PubmedBookArticle)>(.*?)</\1>", xml, re.S
+        )
+        for _kind, article in articles:
             pmid = _first(article, r"<PMID[^>]*>(.*?)</PMID>")
             if not pmid:
                 continue
+            title = _first(article, r"<ArticleTitle[^>]*>(.*?)</ArticleTitle>")
+            if not title:
+                title = _first(article, r"<BookTitle[^>]*>(.*?)</BookTitle>")
             records[pmid] = {
                 "pmid": pmid,
-                "title": _clean(_first(article, r"<ArticleTitle>(.*?)</ArticleTitle>")),
+                "title": _clean(title),
                 "journal": _clean(_first(article, r"<Title>(.*?)</Title>")),
                 "year": _clean(_first(article, r"<PubDate>.*?<Year>(\d{4})</Year>")),
                 "doi": _clean(_first(article, r'<ArticleId IdType="doi">(.*?)</ArticleId>')),
@@ -364,7 +376,8 @@ def pubmed_fetch_records(pmids: list[str]) -> dict[str, dict[str, str]]:
                 ),
             }
         time.sleep(0.4)
-    return records
+    unparsed = [pmid for pmid in pmids if pmid not in records]
+    return records, unparsed
 
 
 def _first(text: str, pattern: str, group: bool = False) -> str:
@@ -544,6 +557,76 @@ def screen_record(text: str) -> tuple[bool, list[str], dict[str, list[str]]]:
 
 
 # =============================================================================
+# Run comparison
+# =============================================================================
+def compare_runs(current: dict, previous: dict) -> dict[str, object]:
+    """Set-based comparison of two audit runs.
+
+    Deliberately *not* a textual diff. The PubMed retrieval uses
+    ``sort=relevance``, whose ranking is not stable between runs, so the
+    ordered ``retrieved_ids`` lists can differ in order and in membership at
+    the retmax boundary. Comparing the *sets* of PMIDs and the per-query hit
+    counts is the reproducible comparison.
+    """
+
+    def _by_id(run: dict) -> dict[str, dict]:
+        return {q["query_id"]: q for q in run.get("queries", [])}
+
+    cur_q = _by_id(current)
+    prev_q = _by_id(previous)
+
+    hit_deltas = {}
+    for qid, q in cur_q.items():
+        if qid in prev_q:
+            delta = q["total_hits"] - prev_q[qid]["total_hits"]
+            if delta:
+                hit_deltas[qid] = {
+                    "previous": prev_q[qid]["total_hits"],
+                    "current": q["total_hits"],
+                    "delta": delta,
+                }
+
+    def _union(run: dict) -> set[str]:
+        ids: set[str] = set()
+        for q in run.get("queries", []):
+            if q["source"] == "PubMed":
+                ids.update(q.get("retrieved_ids", []))
+        return ids
+
+    cur_union = _union(current)
+    prev_union = _union(previous)
+
+    cur_screen = current.get("screening", {})
+    prev_screen = previous.get("screening", {})
+    cur_core = set(cur_screen.get("core_hit_pmids", []))
+    prev_core = set(prev_screen.get("core_hit_pmids", []))
+    cur_lung = set(cur_screen.get("core_hit_and_lung_pmids", []))
+    prev_lung = set(prev_screen.get("core_hit_and_lung_pmids", []))
+
+    return {
+        "comparison": "set-based; ordered id lists are not comparable because "
+        "PubMed sort=relevance ranking is not stable across runs",
+        "hit_count_deltas": hit_deltas,
+        "pubmed_union": {
+            "previous_size": len(prev_union),
+            "current_size": len(cur_union),
+            "added": sorted(cur_union - prev_union),
+            "removed": sorted(prev_union - cur_union),
+            "n_added": len(cur_union - prev_union),
+            "n_removed": len(prev_union - cur_union),
+        },
+        "core_hits": {
+            "added": sorted(cur_core - prev_core),
+            "removed": sorted(prev_core - cur_core),
+        },
+        "core_hits_and_lung": {
+            "added": sorted(cur_lung - prev_lung),
+            "removed": sorted(prev_lung - cur_lung),
+        },
+    }
+
+
+# =============================================================================
 # Main
 # =============================================================================
 def main(argv: list[str] | None = None) -> int:
@@ -557,6 +640,11 @@ def main(argv: list[str] | None = None) -> int:
         "--skip-ctgov",
         action="store_true",
         help="skip ClinicalTrials.gov (slowest source)",
+    )
+    parser.add_argument(
+        "--compare-with",
+        default=None,
+        help="path to a previous audit_log.json to compare against (set-based)",
     )
     args = parser.parse_args(argv)
 
@@ -631,8 +719,11 @@ def main(argv: list[str] | None = None) -> int:
                 if pmid not in union_pmids:
                     union_pmids.append(pmid)
     print(f"  union of PubMed PMIDs: {len(union_pmids)}")
-    records = pubmed_fetch_records(union_pmids)
-    print(f"  records fetched: {len(records)}")
+    records, unparsed_pmids = pubmed_fetch_records(union_pmids)
+    print(f"  records parsed:  {len(records)}")
+    print(f"  NOT parsed:      {len(unparsed_pmids)}")
+    if unparsed_pmids:
+        print(f"    unparsed PMIDs (recorded in audit log): {unparsed_pmids}")
 
     # ---- screening ----
     print("== Screening ==")
@@ -686,8 +777,24 @@ def main(argv: list[str] | None = None) -> int:
         },
         "queries": [r.as_dict() for r in results],
         "errors": errors,
+        "retrieval_reconciliation": {
+            "pmids_in_union": len(union_pmids),
+            "records_parsed": len(records),
+            "pmids_returned_by_esearch_but_not_parsed": unparsed_pmids,
+            "n_not_parsed": len(unparsed_pmids),
+            "note": (
+                "Every PMID returned by esearch is reconciled against the parsed "
+                "record set. A non-empty 'pmids_returned_by_esearch_but_not_parsed' "
+                "means those records were screened on title/abstract only if they "
+                "parsed; if this list is non-empty the screening coverage is not "
+                "100% and must be stated."
+            ),
+        },
         "screening": {
             "union_pmids_screened": len(screening_rows),
+            "screening_coverage_pct": (
+                round(100.0 * len(screening_rows) / len(union_pmids), 4) if union_pmids else None
+            ),
             "core_hit_pmids": core_hits,
             "n_core_hits": len(core_hits),
             "core_hit_and_lung_pmids": core_lung_hits,
@@ -722,7 +829,9 @@ def main(argv: list[str] | None = None) -> int:
     for result in results:
         print(f"  {result.query_id:<4} {result.source:<18} {result.label:<45} hits={result.total_hits}")
     print()
-    print(f"  union screened: {len(screening_rows)}")
+    print(f"  union size:      {len(union_pmids)}")
+    print(f"  union screened:  {len(screening_rows)}")
+    print(f"  coverage:        {100.0 * len(screening_rows) / len(union_pmids):.2f}% of union")
     print(f"  CORE HITS (electrical + dna + relapse + oncology): {len(core_hits)}")
     for pmid in core_hits:
         row = next(r for r in screening_rows if r["pmid"] == pmid)
@@ -737,6 +846,31 @@ def main(argv: list[str] | None = None) -> int:
     print()
     print(f"  wrote {outdir / 'audit_log.json'}")
     print(f"  wrote {outdir / 'screening_table.tsv'}")
+
+    if args.compare_with:
+        previous = json.loads(Path(args.compare_with).read_text())
+        comparison = compare_runs(audit, previous)
+        comparison_path = outdir / "comparison_to_previous_run.json"
+        comparison_path.write_text(
+            json.dumps(comparison, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+        print()
+        print("=== COMPARISON TO PREVIOUS RUN (set-based) ===")
+        print(f"  hit-count deltas: {comparison['hit_count_deltas'] or 'none'}")
+        u = comparison["pubmed_union"]
+        print(
+            f"  PubMed union: {u['previous_size']} -> {u['current_size']} "
+            f"(+{u['n_added']} / -{u['n_removed']})"
+        )
+        print(f"  core hits added:   {comparison['core_hits']['added'] or 'none'}")
+        print(f"  core hits removed: {comparison['core_hits']['removed'] or 'none'}")
+        print(
+            f"  core+lung added:   {comparison['core_hits_and_lung']['added'] or 'none'}"
+        )
+        print(
+            f"  core+lung removed: {comparison['core_hits_and_lung']['removed'] or 'none'}"
+        )
+        print(f"  wrote {comparison_path}")
     if errors:
         print(f"  {len(errors)} source(s) reported errors; see audit_log.json")
     return 0
