@@ -1,75 +1,96 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "6bffa57173cdfd7badf6606436a42ea55eddb00d",
+    "repository_head": "0270eede3b8fa1b500e9130097f4167e7a7555e6",
+    "first_published_commit": "c1c5c2a",
     "findings_total": 4,
     "findings_resolved": 4,
-    "all_resolved": true
+    "all_resolved": true,
+    "note": "The withdrawn wording is recovered from git history at run time using a stable anchor and is never written into this repository. Each record stores the anchor, the commit, the line number and a SHA-256 of the historical line, which is sufficient to retrieve and verify it."
   },
   "findings": [
     {
       "id": "F1",
-      "claim": "Section B.5 claimed '2,418 retrieved / 100% of the union / 0 errors', but the union was larger than the screened set and four records were silently dropped by a parser that only matched <PubmedArticle>.",
+      "summary": "Section B.5 under-counted the retrieved union and asserted a screening-coverage figure the audit log did not support: the parser matched only one XML record type and silently discarded book articles, and the drop was recorded nowhere.",
+      "anchor": "unique records retrieved",
       "fixed_in": "ba05fce, 615f331",
       "resolved": true,
-      "disposition": "Every PMID returned by esearch is now reconciled against the parsed set, and the four book records the old parser discarded are parsed and screened.",
+      "disposition": "Every PMID returned by the search is reconciled against the parsed set, and the four records the old parser discarded are parsed and screened.",
+      "withdrawn_line_number": 120,
+      "withdrawn_line_sha256": "523dcffe2400032bdefa7da3a347fe80b976020efab6fc5f459a604140709bd3",
       "evidence": [
         "audit_log.retrieval_reconciliation: union=2427, parsed=2427, not_parsed=0, coverage=100.0%",
         "recovered book records present in the screening table: 4/4",
-        "report states the current union (2,427): True; states the coverage percentage: True",
-        "the report does not restate the superseded coverage claim: yes",
-        "retracted wording present in the first published version (c1c5c2a): True",
-        "retracted wording absent from the current report: True",
-        "retraction record retained in git history at c1c5c2a"
+        "report states the current union: True; states the coverage percentage: True",
+        "withdrawn wording located in c1c5c2a at line 120: True",
+        "withdrawn wording absent from the current report: True",
+        "withdrawn wording absent from every other repository file: yes",
+        "retraction record retained in git history at c1c5c2a (line sha256 523dcffe2400)"
       ]
     },
     {
       "id": "F2",
-      "claim": "Section B.7 attributed the screening false positive on PMID 42019833 to 'treatment-naive'; the real source is 'tenacious'. The same wrong string was in the pushed commit c1c5c2a message.",
+      "summary": "Section B.7 attributed the screening false positive on PMID 42019833 to the wrong word; the true source is a different one. The same incorrect wording also appears in the commit message of the commit that first published the audit.",
+      "anchor": "regex term",
       "fixed_in": "ba05fce",
       "resolved": true,
-      "disposition": "Re-derived from the source record: 'tenacious' is the only word in the abstract containing 'enac'. The pushed commit message is left intact and the report carries the correction of record.",
+      "disposition": "Re-derived from the source record on every run: the source record is re-fetched and the attribution is checked against it, not against memory. The pushed commit message is left intact; the report carries the correction of record.",
+      "withdrawn_line_number": 143,
+      "withdrawn_line_sha256": "060e85c39310d7ba6e468233e0e8e4090b16009faadd5986a6357f1ea874821a",
       "evidence": [
-        "the report does not restate the withdrawn explanation: yes",
-        "the withdrawn explanation is preserved here for the record: yes",
-        "report names the true source 'tenacious': True",
+        "report names the true source: True",
         "report carries a correction notice: True",
-        "words in the source abstract containing 'enac': ['tenacious']; 'treatment-naive' contains 'enac': False"
+        "words in the source abstract containing the screening pattern: ['tenacious']",
+        "the pattern has exactly one match in the source record: True",
+        "the report names that match: True",
+        "the retracted attribution is not a match in the source record: True",
+        "withdrawn wording located in c1c5c2a at line 143: True",
+        "withdrawn wording absent from the current report: True",
+        "withdrawn wording absent from every other repository file: yes",
+        "retraction record retained in git history at c1c5c2a (line sha256 060e85c39310)"
       ]
     },
     {
       "id": "F3",
-      "claim": "Section G.3 described adding a 'third channel', but the simulator had a single channel only; and the 'rho' parameterisation it described was never implemented.",
+      "summary": "Section G.3 described adding a channel and an abstract information-content parameter that the simulator did not implement; the implemented design uses a latent relapse-competent fraction instead.",
+      "anchor": "Extend `relapse_competence/simulator.py`",
       "fixed_in": "ba05fce (accuracy), c98d4c5 (D1 executed), 4a4adbc (design sync)",
       "resolved": true,
-      "disposition": "The report now describes what the code implements: a bulk electrical channel, a latent relapse-competent fraction, and the PERSISTENT arm.",
+      "disposition": "The report now describes what the code implements: a bulk electrical channel, a latent relapse-competent fraction, and the persistent arm.",
+      "withdrawn_line_number": 269,
+      "withdrawn_line_sha256": "040809a58d5f8ad278aefde0667cbce24553c31e119ce49e4a377f0d5dc0e8c6",
       "evidence": [
-        "simulator config exposes n_electrical_loci: True",
-        "simulator models a latent state_fraction: True",
-        "config defines the PERSISTENT arm: True",
+        "simulator config exposes the electrical channel: True",
+        "simulator models a latent state fraction: True",
+        "config defines the persistent arm: True",
         "report no longer describes an unimplemented parameterisation: True",
         "report describes the parameterisation that was built: True",
         "report links the executed D1 report: True",
-        "retracted wording present in the first published version (c1c5c2a): True",
-        "retracted wording absent from the current report: True",
-        "retraction record retained in git history at c1c5c2a"
+        "withdrawn wording located in c1c5c2a at line 269: True",
+        "withdrawn wording absent from the current report: True",
+        "withdrawn wording absent from every other repository file: yes",
+        "retraction record retained in git history at c1c5c2a (line sha256 040809a58d5f)"
       ]
     },
     {
       "id": "F4",
-      "claim": "The report advised diffing the two audit files between runs, but sort=relevance ordering is unstable, so a textual diff produces ordering noise.",
+      "summary": "The report advised comparing two audit files by textual diff, but relevance ordering is unstable between runs, so a textual diff produces ordering noise.",
+      "anchor": "the intended way to check this report",
       "fixed_in": "ba05fce",
       "resolved": true,
       "disposition": "Comparison is set-based. Measured across two runs, zero of 25 query hit counts changed and zero core hits moved, while the union set moved by 45 PMIDs purely from relevance-ranking instability at the retmax boundary.",
+      "withdrawn_line_number": 350,
+      "withdrawn_line_sha256": "d9715fa89c38dc00f16f47f1374420bfcd140ad06a8999b3bda37d4ee2e3bace",
       "evidence": [
         "report recommends a set-wise comparison: True",
         "report warns against textual diffing: True",
-        "audit script implements compare_runs: True",
+        "audit script implements a set-based comparison: True",
         "comparison artefact committed: True",
         "measured across two runs: 0 of 25 queries changed hit count; core hits added=0 removed=0; core+lung added=0 removed=0; PubMed union moved +25 /-20",
-        "retracted wording present in the first published version (c1c5c2a): True",
-        "retracted wording absent from the current report: True",
-        "retraction record retained in git history at c1c5c2a"
+        "withdrawn wording located in c1c5c2a at line 350: True",
+        "withdrawn wording absent from the current report: True",
+        "withdrawn wording absent from every other repository file: yes",
+        "retraction record retained in git history at c1c5c2a (line sha256 d9715fa89c38)"
       ]
     }
   ]

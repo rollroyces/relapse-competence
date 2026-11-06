@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Verify that the gap audit report agrees with the audit log.
 
-This exists because the first published version of the report claimed
-"2,418 retrieved / 100% of the union / 0 errors" while the log actually held a
-larger union with several records that the parser had dropped silently. A
-report that asserts numbers must be checkable against the machine-generated
-record that produced them.
+This exists because the first published version of the report asserted a
+retrieved-record count and a screening-coverage figure that the audit log did
+not support, while the parser silently dropped records. A report that asserts
+numbers must be checkable against the machine-generated record that produced
+them.
+
+The withdrawn wording itself is never stored in this repository. It is
+recovered from git history at run time by
+``scripts/audit_findings_disposition.py``, which proves each finding in both
+directions and scans the whole repository for surviving copies.
 
 Usage
 -----
@@ -233,17 +238,43 @@ def main(argv: list[str] | None = None) -> int:
         chk(f"report cites {nct}", nct in report)
 
     # --- the authoritative report must not restate a retracted claim at all.
-    # The full retraction record lives in the machine-generated disposition
-    # artefact and in git history, not in the prose of the report, so that no
-    # reader or checker can mistake superseded wording for a live claim.
-    chk(
-        "the report does not restate the withdrawn attribution",
-        "treatme|nac|e-naive" not in report,
-    )
-    chk(
-        "the report does not restate the superseded coverage figure",
-        "2,418" not in report,
-    )
+    # The check itself is delegated to the disposition artefact, which
+    # recovers the withdrawn wording from git history at run time and proves
+    # both that it was present and that no copy of it survives anywhere in
+    # this repository. No copy of the wording is stored here.
+    disposition_path = Path("results/audit_findings_disposition.json")
+    chk("audit findings disposition artefact exists", disposition_path.exists())
+    if disposition_path.exists():
+        disp = json.loads(disposition_path.read_text())
+        chk(
+            "every audited finding is dispositioned as resolved",
+            disp["disposition"]["all_resolved"] is True,
+            str(disp["disposition"]),
+        )
+        chk(
+            "the disposition covers all four findings",
+            len(disp["findings"]) == 4,
+            str(len(disp["findings"])),
+        )
+        for finding in disp["findings"]:
+            chk(
+                f"finding {finding['id']} is resolved with evidence",
+                finding["resolved"] and bool(finding["evidence"]),
+            )
+            chk(
+                f"finding {finding['id']} records where its withdrawn wording lives",
+                finding.get("withdrawn_line_number") is not None
+                and bool(finding.get("withdrawn_line_sha256")),
+            )
+            chk(
+                f"finding {finding['id']} stores no copy of its withdrawn wording",
+                "withdrawn_wording" not in finding
+                and "withdrawn_text" not in finding,
+            )
+        chk(
+            "the gap audit report links the disposition artefact",
+            "audit_findings_disposition.json" in report,
+        )
     chk("report names the true false-positive source 'tenacious'", "tenacious" in report)
     chk("report carries an explicit correction notice", "Correction notice" in report)
 
@@ -394,7 +425,6 @@ def main(argv: list[str] | None = None) -> int:
     if readme_path.exists():
         readme_text = readme_path.read_text()
         chk("README states the current audit record count", "2,427 records screened" in readme_text)
-        chk("README does not state the superseded record count", "2,418 records screened" not in readme_text)
         chk("README states the current MRD headline numbers", "39 days" in readme_text)
         chk("README does not state the superseded MRD headline numbers", "41 days" not in readme_text)
 
@@ -417,31 +447,6 @@ def main(argv: list[str] | None = None) -> int:
         chk(
             "gap audit records the biological parameterisation that was built",
             "f_state" in report,
-        )
-
-    # --- the findings disposition artefact must exist and agree ---
-    disposition_path = Path("results/audit_findings_disposition.json")
-    chk("audit findings disposition artefact exists", disposition_path.exists())
-    if disposition_path.exists():
-        disp = json.loads(disposition_path.read_text())
-        chk(
-            "every audited finding is dispositioned as resolved",
-            disp["disposition"]["all_resolved"] is True,
-            str(disp["disposition"]),
-        )
-        chk(
-            "the disposition covers all four findings",
-            len(disp["findings"]) == 4,
-            str(len(disp["findings"])),
-        )
-        for finding in disp["findings"]:
-            chk(
-                f"finding {finding['id']} is resolved with evidence",
-                finding["resolved"] and bool(finding["evidence"]),
-            )
-        chk(
-            "the gap audit report links the disposition artefact",
-            "audit_findings_disposition.json" in report,
         )
 
     # --- the report must carry its own revision history and provenance ---

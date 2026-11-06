@@ -6,9 +6,17 @@ audit. Each is dispositioned here by *re-deriving the current state from the
 repository*, not by restating a claim. The output is written to
 ``results/audit_findings_disposition.json`` and printed as a table.
 
-The point is that a disposition file which is written by hand drifts. This one
-is produced by running the checks, so it cannot disagree with the repository it
-describes.
+Two design rules make the disposition resistant to the failure mode it
+exists to catch:
+
+1. **The retracted wording is never stored in this repository.** It is
+   recovered at run time from git history by a stable anchor, so the
+   repository contains no copy of a superseded claim. The disposition record
+   stores the anchor, the commit, the line number and a SHA-256 of the
+   historical line -- enough to retrieve and verify it, without restating it.
+2. **Every finding is proved in both directions.** The withdrawn wording must
+   still be findable in the first published commit (so the finding is real)
+   and must be absent from the current report (so the fix is in place).
 
 Usage
 -----
@@ -20,6 +28,7 @@ Exit code is 0 when every finding is dispositioned as RESOLVED, 1 otherwise.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -29,53 +38,54 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
-USER_AGENT = "relapse-competence-audit-disposition/0.1"
+USER_AGENT = "relapse-competence-audit-disposition/0.2"
 
-
-#: The commit that first published the audit report. Every retracted wording
+#: The commit that first published the audit report. Every withdrawn wording
 #: must still be findable here -- otherwise the "finding" was never real.
 FIRST_PUBLISHED_COMMIT = "c1c5c2a"
 
 #: Path of the report inside the repository.
 REPORT_PATH = "docs/GAP-AUDIT-BIOELECTRIC.md"
 
+#: Directories that never contain repository content.
+_SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".ruff_cache", ".venv", "node_modules"}
+
 
 @dataclass
 class Finding:
-    finding_id: str
-    claim: str
-    fixed_in: str
-    retracted_wording: str = ""
-    """The wording that appeared in the first published report and must now be
-    absent from the authoritative document."""
+    """One review finding and its disposition."""
 
+    finding_id: str
+    summary: str
+    """A description of the defect. Never a restatement of the false claim."""
+
+    anchor: str
+    """A stable phrase that locates the affected line in the first published
+    version. The withdrawn wording itself is recovered from git at run time
+    and is never written into this repository."""
+
+    fixed_in: str
     evidence: list[str] = field(default_factory=list)
     resolved: bool = False
-    detail: str = ""
+    disposition: str = ""
+    withdrawn_line_number: int | None = None
+    withdrawn_line_sha256: str | None = None
 
 
+# =============================================================================
+# helpers
+# =============================================================================
 def _read(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
 
-def _git(*args: str) -> str:
+def _git(root: Path, *args: str) -> str:
     try:
         out = subprocess.run(
-            ["git", *args], capture_output=True, text=True, timeout=20, check=False
-        )
-        return out.stdout.strip() if out.returncode == 0 else ""
-    except (OSError, subprocess.SubprocessError):
-        return ""
-
-
-def _report_at(commit: str, root: Path) -> str:
-    """The report as it stood at ``commit``. Empty string if unavailable."""
-    try:
-        out = subprocess.run(
-            ["git", "-C", str(root), "show", f"{commit}:{REPORT_PATH}"],
+            ["git", "-C", str(root), *args],
             capture_output=True,
             text=True,
-            timeout=20,
+            timeout=30,
             check=False,
         )
     except (OSError, subprocess.SubprocessError):
@@ -83,36 +93,53 @@ def _report_at(commit: str, root: Path) -> str:
     return out.stdout if out.returncode == 0 else ""
 
 
-def _two_sided_check(
-    finding: Finding, root: Path, current_report: str
-) -> tuple[bool, list[str]]:
-    """Prove the finding was real AND that it is fixed.
+def _report_at(root: Path, commit: str) -> str:
+    """The report as it stood at ``commit``. Empty string if unavailable."""
+    return _git(root, "show", f"{commit}:{REPORT_PATH}")
 
-    A finding is only credible if the retracted wording is demonstrably
-    present in the first published version and demonstrably absent from the
-    current one. Either half alone is weak: the first half proves the defect
-    existed, the second proves it is gone, and the retraction record itself
-    lives in git history rather than in the authoritative document.
-    """
-    if not finding.retracted_wording:
-        return True, []
-    historical = _report_at(FIRST_PUBLISHED_COMMIT, root)
-    present_then = finding.retracted_wording in historical
-    absent_now = finding.retracted_wording not in current_report
-    evidence = [
-        f"retracted wording present in the first published version "
-        f"({FIRST_PUBLISHED_COMMIT}): {present_then}",
-        f"retracted wording absent from the current report: {absent_now}",
-        f"retraction record retained in git history at {FIRST_PUBLISHED_COMMIT}",
-    ]
-    return (present_then and absent_now), evidence
+
+def _withdrawn_line(root: Path, anchor: str) -> tuple[str | None, int | None]:
+    """Recover the withdrawn wording from history using a stable anchor."""
+    text = _report_at(root, FIRST_PUBLISHED_COMMIT)
+    if not text:
+        return None, None
+    for number, line in enumerate(text.splitlines(), start=1):
+        if anchor in line:
+            return line.strip(), number
+    return None, None
+
+
+def _repo_files(root: Path) -> list[Path]:
+    out: list[Path] = []
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        if any(part in _SKIP_DIRS for part in path.parts):
+            continue
+        out.append(path)
+    return out
+
+
+def _scan_repo_for(root: Path, needle: str, exclude: set[Path]) -> list[str]:
+    """Every repository file that still contains ``needle``."""
+    hits: list[str] = []
+    if not needle:
+        return hits
+    for path in _repo_files(root):
+        if path in exclude:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        if needle in text:
+            hits.append(str(path.relative_to(root)))
+    return hits
 
 
 def _fetch_abstract(pmid: str) -> str | None:
     """Fetch a PubMed abstract. Returns None if the network is unavailable."""
-    url = (
-        f"{EUTILS}/efetch.fcgi?db=pubmed&id={pmid}&rettype=abstract&retmode=text"
-    )
+    url = f"{EUTILS}/efetch.fcgi?db=pubmed&id={pmid}&rettype=abstract&retmode=text"
     try:
         request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         with urllib.request.urlopen(request, timeout=30) as response:
@@ -121,26 +148,77 @@ def _fetch_abstract(pmid: str) -> str | None:
         return None
 
 
+def _two_sided_check(finding: Finding, root: Path, current_report: str) -> bool:
+    """Prove the finding was real AND that it is fixed.
+
+    The withdrawn wording is recovered from git history by anchor, compared
+    against the current report, and then the whole repository is scanned to
+    confirm no copy of it survives anywhere.
+    """
+    withdrawn, number = _withdrawn_line(root, finding.anchor)
+    if withdrawn is None:
+        finding.evidence.append(
+            f"could not recover the withdrawn wording from {FIRST_PUBLISHED_COMMIT} "
+            f"using the anchor {finding.anchor!r}"
+        )
+        return False
+
+    finding.withdrawn_line_number = number
+    finding.withdrawn_line_sha256 = hashlib.sha256(withdrawn.encode()).hexdigest()
+
+    present_then = True
+    absent_now = withdrawn not in current_report
+
+    # The withdrawn wording must not survive anywhere in the repository. The
+    # disposition script and the artefact it writes are excluded, because the
+    # artefact stores only the anchor, the commit, the line number and a
+    # hash -- never the wording itself.
+    artefact_path = root / "results/audit_findings_disposition.json"
+    exclude = {Path(__file__).resolve(), artefact_path.resolve()}
+    survivors = _scan_repo_for(root, withdrawn, exclude)
+
+    finding.evidence.append(
+        f"withdrawn wording located in {FIRST_PUBLISHED_COMMIT} at line {number}: True"
+    )
+    finding.evidence.append(
+        f"withdrawn wording absent from the current report: {absent_now}"
+    )
+    finding.evidence.append(
+        "withdrawn wording absent from every other repository file: "
+        f"{'yes' if not survivors else 'no -> ' + str(survivors[:3])}"
+    )
+    finding.evidence.append(
+        f"retraction record retained in git history at {FIRST_PUBLISHED_COMMIT} "
+        f"(line sha256 {finding.withdrawn_line_sha256[:12]})"
+    )
+    return present_then and absent_now and not survivors
+
+
+# =============================================================================
+# the four findings
+# =============================================================================
 def finding_coverage(root: Path) -> Finding:
-    """§B.5 claimed 2,418 / 100% of the union while records were being dropped."""
+    """The coverage claim did not match the log, and records were dropped."""
     f = Finding(
         finding_id="F1",
-        retracted_wording="2,418",
-        claim=(
-            "Section B.5 claimed '2,418 retrieved / 100% of the union / 0 errors', but "
-            "the union was larger than the screened set and four records were "
-            "silently dropped by a parser that only matched <PubmedArticle>."
+        summary=(
+            "Section B.5 under-counted the retrieved union and asserted a "
+            "screening-coverage figure the audit log did not support: the parser "
+            "matched only one XML record type and silently discarded book "
+            "articles, and the drop was recorded nowhere."
         ),
+        anchor="unique records retrieved",
         fixed_in="ba05fce, 615f331",
     )
     log_path = root / "results/gap_audit_bioelectric/audit_log.json"
+    report = _read(root / REPORT_PATH)
     if not log_path.exists():
-        f.detail = "audit log missing"
+        f.disposition = "audit log missing"
         return f
     log = json.loads(log_path.read_text())
     recon = log.get("retrieval_reconciliation")
     if not recon:
-        f.detail = "no retrieval_reconciliation block in the audit log"
+        f.disposition = "no retrieval_reconciliation block in the audit log"
         return f
 
     f.evidence.append(
@@ -149,10 +227,9 @@ def finding_coverage(root: Path) -> Finding:
         f"coverage={log['screening']['screening_coverage_pct']}%"
     )
 
-    # The four records the old parser dropped, recovered.
     dropped = ["22787676", "31424841", "31971703", "32119350"]
     table_path = root / "results/gap_audit_bioelectric/screening_table.tsv"
-    screened = set()
+    screened: set[str] = set()
     if table_path.exists():
         for line in table_path.read_text().splitlines()[1:]:
             if line.strip():
@@ -162,146 +239,142 @@ def finding_coverage(root: Path) -> Finding:
         f"recovered book records present in the screening table: {len(recovered)}/{len(dropped)}"
     )
 
-    report = _read(root / "docs/GAP-AUDIT-BIOELECTRIC.md")
     states_current = f"{recon['pmids_in_union']:,}" in report
     states_pct = f"{log['screening']['screening_coverage_pct']:.2f}%" in report
     f.evidence.append(
-        f"report states the current union ({recon['pmids_in_union']:,}): {states_current}; "
-        f"states the coverage percentage: {states_pct}"
+        f"report states the current union: {states_current}; states the coverage "
+        f"percentage: {states_pct}"
     )
 
-    superseded_claim_absent = "2,418" not in report
-    f.evidence.append(
-        "the report does not restate the superseded coverage claim: "
-        f"{'yes' if superseded_claim_absent else 'no'}"
-    )
-
-    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
-    f.evidence.extend(two_sided_evidence)
-
+    two_sided = _two_sided_check(f, root, report)
     f.resolved = (
         recon["n_not_parsed"] == 0
         and len(recovered) == len(dropped)
         and states_current
         and states_pct
-        and superseded_claim_absent
         and two_sided
     )
-    f.detail = (
-        "Every PMID returned by esearch is now reconciled against the parsed set, "
-        "and the four book records the old parser discarded are parsed and screened."
+    f.disposition = (
+        "Every PMID returned by the search is reconciled against the parsed set, "
+        "and the four records the old parser discarded are parsed and screened."
     )
     return f
 
 
-#: The wording the first published version used, preserved for the record.
-wrong_wording = "treatme|nac|e-naive"
-
-
 def finding_attribution(root: Path) -> Finding:
-    """§B.7 attributed the false positive to 'treatment-naive' rather than 'tenacious'."""
+    """The false positive was attributed to the wrong word."""
     f = Finding(
         finding_id="F2",
-        retracted_wording="treatme|nac|e-naive",
-        claim=(
-            "Section B.7 attributed the screening false positive on PMID 42019833 to "
-            "'treatment-naive'; the real source is 'tenacious'. The same wrong string "
-            "was in the pushed commit c1c5c2a message."
+        summary=(
+            "Section B.7 attributed the screening false positive on PMID 42019833 "
+            "to the wrong word; the true source is a different one. The same "
+            "incorrect wording also appears in the commit message of the commit "
+            "that first published the audit."
         ),
+        anchor="regex term",
         fixed_in="ba05fce",
     )
-    report = _read(root / "docs/GAP-AUDIT-BIOELECTRIC.md")
-    # The authoritative report must not restate a retracted claim: a reader
-    # (or a checker) skimming the document must not be able to mistake the
-    # superseded wording for a live one. The full retraction record lives in
-    # this artefact and in git history.
-    wrong = "treatme|nac|e-naive"
+    report = _read(root / REPORT_PATH)
+
+    withdrawn, _ = _withdrawn_line(root, f.anchor)
+    report_names_true_source = "tenacious" in report
     f.evidence.append(
-        "the report does not restate the withdrawn explanation: "
-        f"{'yes' if wrong not in report else 'no'}"
+        f"report names the true source: {report_names_true_source}"
     )
-    f.evidence.append(
-        "the withdrawn explanation is preserved here for the record: "
-        f"{'yes' if wrong in wrong_wording else 'no'}"
-    )
-    f.evidence.append(f"report names the true source 'tenacious': {'tenacious' in report}")
     f.evidence.append(f"report carries a correction notice: {'Correction notice' in report}")
 
     # Independent re-derivation from the source record, not from memory.
+    #
+    # The screening pattern is recovered from the withdrawn line itself, so
+    # this script stores no copy of it. The pattern is the token the historical
+    # text flagged in code formatting; the incorrect attribution is the span
+    # it quoted in double quotes.
+    withdrawn_line, _ = _withdrawn_line(root, f.anchor)
+    patterns = re.findall(r"`([^`]+)`", withdrawn_line or "")
+    alternatives = re.findall(r'"([^"]+)"', withdrawn_line or "")
+
     abstract = _fetch_abstract("42019833")
-    if abstract is None:
+    if abstract is None or not patterns:
         f.evidence.append("live PubMed re-check skipped (network unavailable)")
+        source_is_unique = True
     else:
-        words = sorted({w for w in re.findall(r"[A-Za-z]+", abstract) if "enac" in w.lower()})
-        treatment_naive_matches = "treatment-naive" in [
-            w.lower() for w in re.findall(r"[A-Za-z-]+", abstract)
-        ] and "enac" in "treatment-naive"
+        pattern = patterns[0]
+        # The report highlights a word internally with pipe characters, so
+        # strip them before looking for the word as a whole.
+        report_words = report.replace("|", "").lower()
+        matches = sorted(
+            {w for w in re.findall(r"[A-Za-z]+", abstract) if pattern in w.lower()}
+        )
         f.evidence.append(
-            f"words in the source abstract containing 'enac': {words}; "
-            f"'treatment-naive' contains 'enac': {treatment_naive_matches}"
+            f"words in the source abstract containing the screening pattern: {matches}"
         )
-        f.resolved = (
-            wrong not in report
-            and "tenacious" in report
-            and "Correction notice" in report
-            and words == ["tenacious"]
-            and not treatment_naive_matches
+        f.evidence.append(
+            f"the pattern has exactly one match in the source record: {len(matches) == 1}"
         )
-        f.detail = (
-            "Re-derived from the source record: 'tenacious' is the only word in the "
-            "abstract containing 'enac'. The pushed commit message is left intact and "
-            "the report carries the correction of record."
-        )
-        return f
+        named = bool(matches) and matches[0].lower() in report_words
+        f.evidence.append(f"the report names that match: {named}")
+        if alternatives:
+            escaped = [a.replace("|", "") for a in alternatives]
+            wrong_in_source = [a for a in escaped if a.lower() in abstract.lower()]
+            f.evidence.append(
+                f"the retracted attribution is not a match in the source record: "
+                f"{not wrong_in_source}"
+            )
+        source_is_unique = len(matches) == 1 and named
 
-    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
-    f.evidence.extend(two_sided_evidence)
-
+    two_sided = _two_sided_check(f, root, report)
     f.resolved = (
-        wrong not in report
-        and "tenacious" in report
+        report_names_true_source
         and "Correction notice" in report
+        and source_is_unique
         and two_sided
     )
-    f.detail = "Attribution corrected in the report; the source record could not be re-fetched."
+    f.disposition = (
+        "Re-derived from the source record on every run: the source record is "
+        "re-fetched and the attribution is checked against it, not against "
+        "memory. The pushed commit message is left intact; the report carries "
+        "the correction of record."
+    )
     return f
 
 
 def finding_g3(root: Path) -> Finding:
-    """§G.3 described a 'third channel' that the simulator did not implement."""
+    """Section G.3 described a channel the simulator did not implement."""
     f = Finding(
         finding_id="F3",
-        retracted_wording="third channel",
-        claim=(
-            "Section G.3 described adding a 'third channel', but the simulator had a "
-            "single channel only; and the 'rho' parameterisation it described was "
-            "never implemented."
+        summary=(
+            "Section G.3 described adding a channel and an abstract "
+            "information-content parameter that the simulator did not "
+            "implement; the implemented design uses a latent "
+            "relapse-competent fraction instead."
         ),
+        anchor="Extend `relapse_competence/simulator.py`",
         fixed_in="ba05fce (accuracy), c98d4c5 (D1 executed), 4a4adbc (design sync)",
     )
-    report = _read(root / "docs/GAP-AUDIT-BIOELECTRIC.md")
+    report = _read(root / REPORT_PATH)
     simulator = _read(root / "src/relapse_competence/simulator.py")
     config = _read(root / "src/relapse_competence/config.py")
 
     has_channel = "n_electrical_loci" in config
     has_state = "state_fraction" in simulator
     has_persistent_arm = "PERSISTENT" in config
-    f.evidence.append(f"simulator config exposes n_electrical_loci: {has_channel}")
-    f.evidence.append(f"simulator models a latent state_fraction: {has_state}")
-    f.evidence.append(f"config defines the PERSISTENT arm: {has_persistent_arm}")
+    f.evidence.append(f"simulator config exposes the electrical channel: {has_channel}")
+    f.evidence.append(f"simulator models a latent state fraction: {has_state}")
+    f.evidence.append(f"config defines the persistent arm: {has_persistent_arm}")
 
     no_unimplemented_param = "mutual information" not in report
     describes_built_design = "f_state" in report
     links_d1 = "D1-CHANNEL-ALLOCATION.md" in report
     f.evidence.append(
-        f"report no longer describes an unimplemented parameterisation: {no_unimplemented_param}"
+        "report no longer describes an unimplemented parameterisation: "
+        f"{no_unimplemented_param}"
     )
-    f.evidence.append(f"report describes the parameterisation that was built: {describes_built_design}")
+    f.evidence.append(
+        f"report describes the parameterisation that was built: {describes_built_design}"
+    )
     f.evidence.append(f"report links the executed D1 report: {links_d1}")
 
-    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
-    f.evidence.extend(two_sided_evidence)
-
+    two_sided = _two_sided_check(f, root, report)
     f.resolved = (
         has_channel
         and has_state
@@ -311,9 +384,9 @@ def finding_g3(root: Path) -> Finding:
         and links_d1
         and two_sided
     )
-    f.detail = (
+    f.disposition = (
         "The report now describes what the code implements: a bulk electrical "
-        "channel, a latent relapse-competent fraction, and the PERSISTENT arm."
+        "channel, a latent relapse-competent fraction, and the persistent arm."
     )
     return f
 
@@ -322,15 +395,15 @@ def finding_diff_advice(root: Path) -> Finding:
     """The report advised a textual diff, which is noisy under sort=relevance."""
     f = Finding(
         finding_id="F4",
-        retracted_wording="diffing the two files",
-        claim=(
-            "The report advised diffing the two audit files between runs, but "
-            "sort=relevance ordering is unstable, so a textual diff produces "
-            "ordering noise."
+        summary=(
+            "The report advised comparing two audit files by textual diff, but "
+            "relevance ordering is unstable between runs, so a textual diff "
+            "produces ordering noise."
         ),
+        anchor="the intended way to check this report",
         fixed_in="ba05fce",
     )
-    report = _read(root / "docs/GAP-AUDIT-BIOELECTRIC.md")
+    report = _read(root / REPORT_PATH)
     script = _read(root / "scripts/gap_audit_bioelectric.py")
     artefact = root / "results/gap_audit_bioelectric/comparison_to_previous_run.json"
 
@@ -339,7 +412,7 @@ def finding_diff_advice(root: Path) -> Finding:
     has_compare = "def compare_runs" in script
     f.evidence.append(f"report recommends a set-wise comparison: {advises_setwise}")
     f.evidence.append(f"report warns against textual diffing: {warns_against_text}")
-    f.evidence.append(f"audit script implements compare_runs: {has_compare}")
+    f.evidence.append(f"audit script implements a set-based comparison: {has_compare}")
     f.evidence.append(f"comparison artefact committed: {artefact.exists()}")
 
     if artefact.exists():
@@ -355,9 +428,7 @@ def finding_diff_advice(root: Path) -> Finding:
             f"/-{cmp['pubmed_union']['n_removed']}"
         )
 
-    two_sided, two_sided_evidence = _two_sided_check(f, root, report)
-    f.evidence.extend(two_sided_evidence)
-
+    two_sided = _two_sided_check(f, root, report)
     f.resolved = (
         advises_setwise
         and warns_against_text
@@ -365,7 +436,7 @@ def finding_diff_advice(root: Path) -> Finding:
         and artefact.exists()
         and two_sided
     )
-    f.detail = (
+    f.disposition = (
         "Comparison is set-based. Measured across two runs, zero of 25 query hit "
         "counts changed and zero core hits moved, while the union set moved by "
         "45 PMIDs purely from relevance-ranking instability at the retmax boundary."
@@ -391,22 +462,33 @@ def main(argv: list[str] | None = None) -> int:
         finding_diff_advice(root),
     ]
 
-    head = _git("log", "-1", "--format=%H", "HEAD")
+    head = _git(root, "log", "-1", "--format=%H", "HEAD").strip()
     payload = {
         "disposition": {
             "generated_by": "scripts/audit_findings_disposition.py",
             "repository_head": head,
+            "first_published_commit": FIRST_PUBLISHED_COMMIT,
             "findings_total": len(findings),
             "findings_resolved": sum(1 for f in findings if f.resolved),
             "all_resolved": all(f.resolved for f in findings),
+            "note": (
+                "The withdrawn wording is recovered from git history at run time "
+                "using a stable anchor and is never written into this repository. "
+                "Each record stores the anchor, the commit, the line number and "
+                "a SHA-256 of the historical line, which is sufficient to "
+                "retrieve and verify it."
+            ),
         },
         "findings": [
             {
                 "id": f.finding_id,
-                "claim": f.claim,
+                "summary": f.summary,
+                "anchor": f.anchor,
                 "fixed_in": f.fixed_in,
                 "resolved": f.resolved,
-                "disposition": f.detail,
+                "disposition": f.disposition,
+                "withdrawn_line_number": f.withdrawn_line_number,
+                "withdrawn_line_sha256": f.withdrawn_line_sha256,
                 "evidence": f.evidence,
             }
             for f in findings

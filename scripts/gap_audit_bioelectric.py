@@ -497,9 +497,13 @@ SCREEN_PATTERNS = {
         r"\bion channels?\b|voltage[- ]gated|ligand[- ]gated|mechanosensitive|stretch[- ]activated|"
         r"electroceutical|tumou?r treating fields|electric field|electrical field|"
         r"electrotaxis|electrotaxism|bioelectric|\bvoltage\b|"
-        # Short acronyms MUST be word-anchored. An unanchored `enac` matches
-        # inside "treatme|nac|e-naive" and produced a false core hit on the
-        # first audit run; that correction is recorded in the report.
+        # Short acronyms MUST be word-anchored. The ENaC pattern, unanchored,
+        # matched inside an ordinary English word in one abstract and produced
+        # a false core hit on the first audit run. The word it actually
+        # matched inside is recorded in the report's correction notice; it is
+        # not reproduced here, so that no copy of the retracted attribution
+        # survives in this repository. The lookbehind/lookahead assertions
+        # below are what prevent the recurrence.
         r"(?<![A-Za-z])Piezo1(?![A-Za-z0-9])|(?<![A-Za-z0-9])Kv1\.3(?![0-9])"
         r"|(?<![A-Za-z0-9])KCa3\.1(?![0-9])|(?<![A-Za-z0-9])TRPV1(?![0-9])"
         r"|(?<![A-Za-z])ENaC(?![A-Za-z0-9])",
