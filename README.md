@@ -120,6 +120,19 @@ stamp.
 
 Committed evidence lives in `results/`.
 
+### Continuous integration
+
+`.github/workflows/ci.yml` runs lint, tests, and the benchmark on Python
+3.11–3.14 across Linux and macOS.
+
+If Actions cannot be scheduled — for example when the account is in a
+billing-locked state and jobs are refused before they start — the identical
+checks run locally in a few seconds:
+
+```bash
+bash scripts/ci_local.sh
+```
+
 ---
 
 ## How it works
