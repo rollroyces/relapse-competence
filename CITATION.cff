@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "relapse-competence"
+abstract: >-
+  Longitudinal cfDNA modelling for the relapse-competent state, with an
+  executable evidence chain. Reproduces the Poisson floor of ctDNA detection,
+  compares tumour-informed MRD and sequential detection under held-out
+  threshold calibration, and reports lead time against the published bar.
+type: software
+version: 0.1.0
+date-released: "2026-11-06"
+license: MIT
+repository-code: "https://github.com/rollroyces/relapse-competence"
+url: "https://github.com/rollroyces/relapse-competence"
+authors:
+  - family-names: Lam
+    given-names: Royce
+keywords:
+  - cfDNA
+  - MRD
+  - liquid biopsy
+  - relapse
+  - longitudinal monitoring

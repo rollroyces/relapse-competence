@@ -1,0 +1,188 @@
+# relapse-competence
+
+> **Status: research software. Not a clinical assay, not a medical device, not for
+> patient use. Every number in this repository is produced by code that executed in
+> the run that produced it.**
+
+Longitudinal cfDNA modelling for the **relapse-competent state** — the condition
+in which a tumour cell population has acquired the capacity to re-found a tumour
+after treatment — with an evidence chain you can audit end to end.
+
+The question this package exists to answer is not "which marker identifies a
+cancer stem cell". It is:
+
+> **How much lead time does a longitudinal ctDNA assay actually buy you, and
+> what does that assay have to cost to get it?**
+
+---
+
+## The headline result
+
+Post-treatment MRD, simulated with a Poisson read-counting model, read thresholds
+calibrated on a **held-out split**, evaluated against the published bar of a
+104-day median lead time before radiographic relapse (tumour-informed MRD):
+
+| Depth | Loci | Reads/draw | k | Sensitivity | Sens @360d | Specificity | Median lead | Min detectable burden | Meets bar |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|:--:|
+| 5,000 | 50 | 250K | 3 | 0.130 | 0.083 | 0.978 | 45 d | 26.7 cm³ | no |
+| 5,000 | 200 | 1M | 6 | 0.281 | 0.171 | 0.985 | 38 d | 13.3 cm³ | no |
+| **50,000** | **50** | **2.5M** | 10 | 0.515 | 0.336 | 0.985 | **41 d** | 8.9 cm³ | **no** |
+| 50,000 | 200 | 10M | 24 | 0.824 | 0.623 | 0.990 | 73 d | 5.3 cm³ | no |
+| 200,000 | 50 | 10M | 24 | 0.824 | 0.623 | 0.990 | 73 d | 5.3 cm³ | no |
+| **200,000** | **200** | **40M** | 74 | 0.954 | 0.731 | 0.983 | **109 d** | 4.1 cm³ | **yes** |
+| 500,000 | 50 | 25M | 48 | 0.927 | 0.736 | 0.970 | 101 d | 4.3 cm³ | no |
+| 500,000 | 200 | 100M | 170 | 0.968 | 0.789 | 0.980 | 118 d | 3.8 cm³ | yes |
+
+**Two findings worth acting on.**
+
+1. **At a conventional tumour-informed MRD configuration — 50,000× depth, a
+   50-locus panel — the modelled median lead time is 41 days and sensitivity
+   51.5%.** That is well short of the 104-day bar that published MRD assays
+   report. Reaching the bar requires roughly **200,000× depth on a 200-locus
+   panel — 40 million reads per draw**, sixteen times the read budget of the
+   conventional configuration.
+
+2. **The binding constraint is the assay, not the statistics.** Adding read
+   depth moves the lead time; adding a smarter detector does not. The
+   "minimum detectable burden" column shows why: at 50,000× the assay cannot
+   see a tumour smaller than ~8.9 cm³, and by the time it can, the patient has
+   usually already relapsed.
+
+### The secondary result, and why it matters
+
+In the screening regime, a sequential (CUSUM) detector and a single-timepoint
+threshold were **both** calibrated on the same held-out healthy split at the
+same specificity target, then evaluated on the complementary split:
+
+| Detector | Sensitivity | Specificity | Median volume at detection |
+|---|---:|---:|---:|
+| Sequential (CUSUM over read counts) | 0.994 | 0.990 | 7,474 mm³ |
+| Single timepoint, final draw | 0.988 | 0.995 (FPR 0.005) | — |
+
+The longitudinal advantage in this regime is about **0.6 percentage points of
+sensitivity**, not the order-of-magnitude advantage that marketing-adjacent
+claims about "5.3×" tend to assert. At 50,000× depth, by the final draw the
+tumour signal is already far above threshold for both detectors, so a
+trajectory buys very little. The trajectory matters when the signal is *near*
+threshold — which is exactly the MRD regime, and the reason this package puts
+its weight there.
+
+---
+
+## Why this package exists
+
+An audit of an earlier longitudinal biomarker benchmark in this account found
+that its simulator imported a module (`agent3_longitudinal`) that existed in
+**no repository**, and that the two classes it needed (`CETDetector`,
+`LongitudinalSimulator`) were defined **nowhere in the codebase**. The import
+therefore always failed, the benchmark always fell back to a hard-coded
+projection, and the resulting report was published with `Status: COMPLETE` and
+a headline comparison of a hand-tuned projection against published clinical
+trial numbers.
+
+The failure was not arithmetic. It was that **nothing in the pipeline could
+distinguish a measured number from an assumed one.**
+
+This package is built so that mistake is structurally impossible:
+
+- **Every result file carries `metadata.mode`.** `simulated` means code ran.
+  `projected` means the numbers are assumptions — and the writer *refuses* to
+  emit a projected file unless `RELAPSE_COMPETENCE_ALLOW_PROJECTION=1` is set
+  explicitly.
+- **Missing dependencies fail loudly.** `LayerDependencyError` for a missing
+  dependency or mode; `LayerContractError` for a violated output contract.
+  The second is never overridable, because it is always a bug.
+- **Thresholds are calibrated on a held-out split and evaluated on another.**
+  The MRD read threshold and the screening CUSUM threshold are both selected on
+  even-indexed controls and evaluated on odd-indexed controls plus all cases.
+- **Late detections count as failures.** A flag at or after radiographic
+  relapse is not a detection; it is counted as a false negative for the
+  sensitivity figure and reported separately.
+- **Lead time is continuous**, computed from the growth model rather than
+  quantised to the 90-day sampling interval.
+
+---
+
+## Running it
+
+```bash
+pip install -e ".[dev]"
+
+pytest                                    # 33 tests
+relapse-competence sweep --patients 800   # depth x panel-size grid
+relapse-competence all --patients 800     # everything -> results/benchmark_results.json
+```
+
+Every invocation writes a JSON record containing the full configuration, the
+calibration provenance (each constant with its literature source), the
+reference benchmarks being compared against, the git commit, and the mode
+stamp.
+
+Committed evidence lives in `results/`.
+
+---
+
+## How it works
+
+```
+src/relapse_competence/
+├── config.py       Typed configuration. Every knob that moves a number lives here.
+├── contracts.py    Fail-fast contracts and the projection guard.
+├── calibration.py  Literature anchors with sources.
+├── simulator.py    Ground truth: tumour growth + Poisson read sampling.
+├── detectors.py    MRD read-count threshold; screening CUSUM.
+├── benchmark.py    Held-out calibration, evaluation, lead time, sweeps.
+├── report.py       Results assembly with the mode stamp.
+└── cli.py          Command line entry point.
+```
+
+### The simulator
+
+Mutant reads are drawn from a Poisson distribution, so the **Poisson floor of
+ctDNA detection is reproduced rather than assumed away**. Two modelling
+choices matter:
+
+- **Multi-locus read counting.** Real tumour-informed panels track 50–500
+  somatic loci and flag on the total read count. Modelling one locus
+  understates sensitivity by roughly an order of magnitude.
+- **The background floor is an assay constant** (per-locus error rate under
+  duplex suppression), not a quantity estimated from the patient. Estimating
+  it from a handful of ultra-low-count draws is itself a false-positive
+  source — an earlier log-scale SPRT formulation of the screening detector
+  produced a 17% false-positive rate on healthy patients for exactly this
+  reason, and was replaced with a count-domain CUSUM.
+
+### The detectors
+
+`MrdThresholdDetector` flags when total mutant reads reach `k`. The aggregate
+VAF threshold is a *consequence* (`k / (depth × loci)`), not an input.
+
+`SequentialRiseDetector` is a CUSUM over excess reads with a streak bonus for
+consecutive signal-consistent elevations and a trend bonus for a rising slope.
+
+---
+
+## What this package does not do
+
+- It does **not** measure anything. Every figure is simulated.
+- It does **not** model a specific assay. Depth, panel size, background floor
+  and shedding are parameters, not claims about a commercial kit.
+- It does **not** establish that a real assay achieves these numbers. The
+  model reproduces the physics of Poisson sampling and exponential tumour
+  growth; it does not reproduce assay-specific biases, cfDNA extraction
+  efficiency, or the biology of a real resistant clone.
+- It does **not** address the cancer-stem-cell hypothesis specifically. The
+  "relapse-competent state" is the deliverable; CSC is one explanatory
+  hypothesis among several. See `docs/ROADMAP.md`.
+
+---
+
+## Documentation
+
+- [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
+- [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
+
+## Licence
+
+MIT — see [`LICENSE`](LICENSE). Cite with [`CITATION.cff`](CITATION.cff).
