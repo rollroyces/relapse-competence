@@ -157,6 +157,13 @@ def main(argv: list[str] | None = None) -> int:
         f"coverage={screening['screening_coverage_pct']}%",
     )
 
+    # --- the four records that the pre-fix parser dropped must be recovered ---
+    # Regression guard: if the parser ever stops handling <PubmedBookArticle>,
+    # these four stop being parsed and the reconciliation check above fires.
+    RECOVERED_BOOK_RECORDS = ["22787676", "31424841", "31971703", "32119350"]
+    for pmid in RECOVERED_BOOK_RECORDS:
+        chk(f"recovered book record {pmid} is cited in the report", pmid in report)
+
     # --- every core hit must be adjudicated in the report ---
     for pmid in screening["core_hit_pmids"]:
         chk(f"report adjudicates core hit {pmid}", pmid in report)

@@ -135,7 +135,32 @@ Every PMID returned by `esearch` is reconciled against the parsed record set, an
 | PMIDs returned by `esearch` but not parsed | **0** |
 | Screening coverage | **100.00%** |
 
-> **Correction notice (coverage).** The first published version of this report stated "2,418 retrieved / 100% of the union / 0 errors", and that was wrong on its face: the parser matched only `<PubmedArticle>` and therefore **silently discarded book articles**, while the union was larger than the number of records screened. The silent drop was not recorded anywhere, so the "100%" claim was unsupported. The parser now also matches `<PubmedBookArticle>`, and the audit log carries an explicit reconciliation block so a record can never again be dropped without appearing in `pmids_returned_by_esearch_but_not_parsed`. The union size itself also drifted between runs (2,418 → 2,422 → 2,427) for the reason given in Section B.8, so **"2,427" is the size of the run whose log is committed here, and the coverage figure is the meaningful one.**
+> **Correction notice (coverage).** The first published version of this report stated "2,418 retrieved / 100% of the union / 0 errors", and that was wrong on its face: the parser matched only `<PubmedArticle>` and therefore **silently discarded book articles**, while the union was larger than the number of records screened. The silent drop was not recorded anywhere, so the "100%" claim was unsupported. The union size itself also drifted between runs (2,418 → 2,422 → 2,427) for the reason given in Section B.8, so **"2,427" is the size of the run whose log is committed here, and the coverage figure is the meaningful one.**
+
+**The four dropped records, identified and recovered.** The defect was not merely
+hypothetical. Diffing the pre-fix run's retrieved union against its screened
+record set isolates exactly four PMIDs that came back from `esearch` and
+produced no record:
+
+| PMID | XML root element | In the current union? | In the current screening table? |
+|---|---|:--:|:--:|
+| 22787676 | `<PubmedBookArticle>` | yes | **yes** |
+| 31424841 | `<PubmedBookArticle>` | yes | **yes** |
+| 31971703 | `<PubmedBookArticle>` | yes | **yes** |
+| 32119350 | `<PubmedBookArticle>` | yes | **yes** |
+
+An `efetch` batch of those four returns **4 `<PubmedBookArticle>` and 0
+`<PubmedArticle>`** — the old parser's `<PubmedArticle>`-only regex could not
+match any of them. All four are now retrieved, parsed and screened.
+
+One nuance worth recording, because it is easy to get wrong: PubMed's default
+search **excludes the `books` subset**, which is why a separate
+`"pubmed books"[filter]` query for the same topic returns 11 *different* book
+records that are not in this audit at all. The four records above are different
+again — they are book-formatted records that PubMed cross-lists in the main
+database, so they do come back from an ordinary query. **Both failure modes
+are now covered**: the search does not silently include the books subset, and
+the parser does not silently drop any record that the search *did* return.
 
 ### B.8 Reproducibility evidence
 
