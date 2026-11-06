@@ -24,14 +24,14 @@ calibrated on a **held-out split**, evaluated against the published bar of a
 
 | Depth | Loci | Reads/draw | k | Sensitivity | Sens @360d | Specificity | Median lead | Min detectable burden | Meets bar |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|:--:|
-| 5,000 | 50 | 250K | 3 | 0.130 | 0.083 | 0.978 | 45 d | 26.7 cm³ | no |
-| 5,000 | 200 | 1M | 6 | 0.281 | 0.171 | 0.985 | 38 d | 13.3 cm³ | no |
-| **50,000** | **50** | **2.5M** | 10 | 0.515 | 0.336 | 0.985 | **41 d** | 8.9 cm³ | **no** |
-| 50,000 | 200 | 10M | 24 | 0.824 | 0.623 | 0.990 | 73 d | 5.3 cm³ | no |
-| 200,000 | 50 | 10M | 24 | 0.824 | 0.623 | 0.990 | 73 d | 5.3 cm³ | no |
-| **200,000** | **200** | **40M** | 74 | 0.954 | 0.731 | 0.983 | **109 d** | 4.1 cm³ | **yes** |
-| 500,000 | 50 | 25M | 48 | 0.927 | 0.736 | 0.970 | 101 d | 4.3 cm³ | no |
-| 500,000 | 200 | 100M | 170 | 0.968 | 0.789 | 0.980 | 118 d | 3.8 cm³ | yes |
+| 5,000 | 50 | 250K | 3 | 0.116 | 0.077 | 0.978 | **46 d** | 26.7 cm³ | no |
+| 5,000 | 200 | 1.0M | 6 | 0.279 | 0.175 | 0.985 | **38 d** | 13.3 cm³ | no |
+| 50,000 | 50 | 2.5M | 10 | 0.521 | 0.345 | 0.985 | **39 d** | 8.9 cm³ | no |
+| 50,000 | 200 | 10.0M | 24 | 0.828 | 0.632 | 0.990 | **72 d** | 5.3 cm³ | no |
+| 200,000 | 50 | 10.0M | 24 | 0.828 | 0.632 | 0.990 | **72 d** | 5.3 cm³ | no |
+| 200,000 | 200 | 40.0M | 74 | 0.948 | 0.729 | 0.983 | **107 d** | 4.1 cm³ | yes |
+| 500,000 | 50 | 25.0M | 48 | 0.924 | 0.728 | 0.970 | **102 d** | 4.3 cm³ | no |
+| 500,000 | 200 | 100.0M | 170 | 0.968 | 0.789 | 0.980 | **118 d** | 3.8 cm³ | yes |
 
 **Two findings worth acting on.**
 
@@ -47,6 +47,30 @@ calibrated on a **held-out split**, evaluated against the published bar of a
    "minimum detectable burden" column shows why: at 50,000× the assay cannot
    see a tumour smaller than ~8.9 cm³, and by the time it can, the patient has
    usually already relapsed.
+
+### The D1 result, and why it changes the programme's shape
+
+[`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) asks the first
+question the gap audit left open: **if a bulk ion-channel channel existed, would
+it earn the sequencing budget it takes from the mutation panel?**
+
+Two results, one of them uncomfortable:
+
+- **MRD specificity is not one number.** The same panel gives 0.983 against
+  patients with no residual disease and **0.662** against MRD-positive patients
+  who do not relapse — and **26% of all MRD-positive patients are persistent
+  non-relapsers**. The literature's "≈98.5% specificity" is measured against the
+  easy population.
+- **The state signal does survive bulk dilution**, but only once burden is
+  divided out: the burden-normalised enrichment score separates relapsers from
+  non-relapsers within the MRD-positive population at **AUC 0.85–0.95**. The
+  *raw* marker scores higher (0.99–1.00) but is a burden proxy — "the tumour is
+  regrowing" — which is **not** evidence for the bioelectric hypothesis.
+
+The cost is quantified: a 25% electrical allocation costs ~3 points of MRD
+sensitivity at 200 loci and ~12 points at 50 loci. **The channel is affordable
+only at ≥200 loci with ≥200,000× depth**, and a 100% electrical allocation is
+degenerate (no mutation panel means no MRD assay to refine).
 
 ### The secondary result, and why it matters
 
@@ -192,6 +216,7 @@ consecutive signal-consistent elevations and a trend bonus for a rising slope.
 
 ## Documentation
 
+- [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
 - [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,418 records screened; the target intersection holds **one** record, and it is a review
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies

@@ -20,9 +20,13 @@ def post_treatment_cohort():
     return cfg, LongitudinalSimulator(cfg).generate_cohort()
 
 
-def test_cohort_has_both_arms(post_treatment_cohort) -> None:
+def test_cohort_has_all_post_treatment_arms(post_treatment_cohort) -> None:
     _, cohort = post_treatment_cohort
-    assert set(cohort) == {PatientArm.RESPONDER, PatientArm.RESISTANT}
+    assert set(cohort) == {
+        PatientArm.RESPONDER,
+        PatientArm.PERSISTENT,
+        PatientArm.RESISTANT,
+    }
     for arm, patients in cohort.items():
         assert len(patients) == 60, arm
 

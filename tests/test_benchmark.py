@@ -13,6 +13,7 @@ import pytest
 from relapse_competence.benchmark import (
     calibrate_sequential_threshold,
     calibrate_single_timepoint_vaf,
+    run_channel_allocation_sweep,
     run_depth_sweep,
     run_mrd_benchmark,
     run_screening_benchmark,
@@ -36,10 +37,11 @@ def test_read_threshold_selection_is_monotone(small_cohort) -> None:
     calibration = responders[0::2]
     k = select_read_threshold(calibration, target_specificity=0.95, max_k=200)
     assert k is not None
-    # Raising the threshold can only reduce false positives.
+    # Raising the read threshold can only reduce false positives, so
+    # specificity must not decrease.
     from relapse_competence.benchmark import _specificity_at
 
-    assert _specificity_at(calibration, k + 1) <= _specificity_at(calibration, k)
+    assert _specificity_at(calibration, k + 1) >= _specificity_at(calibration, k)
 
 
 def test_read_threshold_selection_reports_failure(small_cohort) -> None:
@@ -98,6 +100,40 @@ def test_deeper_sequencing_never_lowers_the_minimum_detectable_volume() -> None:
         replace(cfg, sequencing_depth=200_000), target_specificity=0.95
     )
     assert deep.nominal_volume_threshold_mm3 <= shallow.nominal_volume_threshold_mm3
+
+
+def test_channel_allocation_sweep_covers_the_grid() -> None:
+    cfg = SimulationConfig(
+        regime=Regime.POST_TREATMENT, n_patients_per_arm=80, n_draws=6
+    )
+    rows = run_channel_allocation_sweep(
+        cfg, total_loci=(50,), depth=5_000, electrical_fractions=(0.0, 0.5, 1.0)
+    )
+    assert len(rows) == 3
+    for row in rows:
+        assert row["n_mutation_loci"] + row["n_electrical_loci"] == 50
+        assert 0.0 <= row["mrd_sensitivity"] <= 1.0
+        assert 0.0 <= row["mrd_specificity"] <= 1.0
+
+
+def test_channel_allocation_preserves_total_read_budget() -> None:
+    """Splitting loci must not change the total read budget."""
+    cfg = SimulationConfig(
+        regime=Regime.POST_TREATMENT, n_patients_per_arm=40, n_draws=4
+    )
+    rows = run_channel_allocation_sweep(
+        cfg, total_loci=(50,), depth=5_000, electrical_fractions=(0.0, 0.5, 1.0)
+    )
+    budgets = {row["total_reads_per_draw"] for row in rows}
+    assert budgets == {5_000 * 50}
+
+
+def test_auc_helper_matches_known_values() -> None:
+    from relapse_competence.benchmark import _auc
+
+    assert _auc([1.0, 2.0, 3.0, 4.0], [False, False, True, True]) == 1.0
+    assert _auc([4.0, 3.0, 2.0, 1.0], [False, False, True, True]) == 0.0
+    assert _auc([1.0, 1.0, 1.0, 1.0], [False, False, True, True]) == 0.5
 
 
 def test_screening_benchmark_calibrates_on_a_held_out_split() -> None:

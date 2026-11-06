@@ -68,6 +68,51 @@ def fmt(value: int) -> str:
     return f"{value:,}"
 
 
+def parse_markdown_table(text: str, anchor: str) -> list[list[str]]:
+    """Rows of the first markdown table that follows ``anchor``.
+
+    The header row is returned as the first element so the caller can skip it.
+    """
+    if anchor not in text:
+        return []
+    rest = text[text.index(anchor) :]
+    rows: list[list[str]] = []
+    for line in rest.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            if rows:
+                break
+            continue
+        cells = [c.strip() for c in stripped.strip("|").split("|")]
+        if all(set(c) <= set("-: ") and c for c in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _num(text: str) -> float:
+    """Parse the leading number out of a table cell.
+
+    Tolerates bold, thousands separators, trailing units, and a parenthetical
+    delta annotation such as "0.802 (−3.2 pp)".
+    """
+    cleaned = (
+        text.replace("*", "")
+        .replace(",", "")
+        .replace("\u2212", "-")
+        .replace("\u2013", "-")
+        .strip()
+    )
+    match = re.match(r"^-?\d+(?:\.\d+)?", cleaned)
+    if not match:
+        raise ValueError(f"no leading number in cell: {text!r}")
+    return float(match.group(0))
+
+
+def _close(a: float, b: float, tol: float = 5e-4) -> bool:
+    return abs(a - b) <= tol
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Verify report/log consistency.")
     parser.add_argument(
@@ -75,6 +120,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--report", default="docs/GAP-AUDIT-BIOELECTRIC.md", help="report path"
+    )
+    parser.add_argument("--readme", default="README.md", help="README path")
+    parser.add_argument(
+        "--d1-doc", default="docs/D1-CHANNEL-ALLOCATION.md", help="D1 report path"
+    )
+    parser.add_argument("--sweep", default="results/mrd_sweep.json", help="MRD sweep results")
+    parser.add_argument(
+        "--allocation", default="results/channel_allocation.json", help="allocation results"
+    )
+    parser.add_argument(
+        "--allocation-deep",
+        default="results/channel_allocation_200k.json",
+        help="allocation results at the deeper configuration",
     )
     args = parser.parse_args(argv)
 
@@ -197,6 +255,137 @@ def main(argv: list[str] | None = None) -> int:
         "report warns against textual diffing of runs",
         "set-wise" in report or "set-based" in report,
     )
+
+    # --- README MRD table must match the committed sweep results ---
+    sweep_path = Path(args.sweep)
+    if sweep_path.exists():
+        sweep_rows = json.loads(sweep_path.read_text())["results"]["sweep"]
+        readme_text = Path(args.readme).read_text() if Path(args.readme).exists() else ""
+        table = parse_markdown_table(readme_text, "| Depth | Loci |")
+        chk("README contains the MRD table", len(table) > 1)
+        if len(table) > 1:
+            body = table[1:]
+            chk(
+                "README table row count matches the sweep",
+                len(body) == len(sweep_rows),
+                f"readme={len(body)} results={len(sweep_rows)}",
+            )
+            for row, _row in zip(body, sweep_rows, strict=False):
+                depth = _num(row[0])
+                loci = int(_num(row[1]))
+                match = next(
+                    (
+                        r
+                        for r in sweep_rows
+                        if r["sequencing_depth"] == depth and r["n_loci"] == loci
+                    ),
+                    None,
+                )
+                chk(f"README row {depth}/{loci} exists in the results", match is not None)
+                if match is None:
+                    continue
+                chk(
+                    f"README {depth}/{loci} sensitivity matches",
+                    _close(_num(row[4]), match["sensitivity"]),
+                    f"readme={row[4]} results={match['sensitivity']}",
+                )
+                chk(
+                    f"README {depth}/{loci} specificity matches",
+                    _close(_num(row[6]), match["specificity"]),
+                    f"readme={row[6]} results={match['specificity']}",
+                )
+                if match["median_lead_time_days"] is not None:
+                    chk(
+                        f"README {depth}/{loci} lead time matches",
+                        _close(_num(row[7]), match["median_lead_time_days"], tol=1.0),
+                        f"readme={row[7]} results={match['median_lead_time_days']}",
+                    )
+    else:
+        chk("MRD sweep results file exists", False, str(sweep_path))
+
+    # --- D1 report tables must match the committed allocation results ---
+    alloc_path = Path(args.allocation)
+    deep_path = Path(args.allocation_deep)
+    d1_text = Path(args.d1_doc).read_text() if Path(args.d1_doc).exists() else ""
+    chk("D1 report exists", bool(d1_text))
+    if alloc_path.exists() and d1_text:
+        alloc_rows = json.loads(alloc_path.read_text())["results"]["channel_allocation"]
+        deep_rows = (
+            json.loads(deep_path.read_text())["results"]["channel_allocation"]
+            if deep_path.exists()
+            else []
+        )
+
+        def find(rows, loci: int, fraction: float) -> dict | None:
+            return next(
+                (
+                    r
+                    for r in rows
+                    if r["total_loci"] == loci
+                    and abs(r["electrical_fraction"] - fraction) < 1e-9
+                ),
+                None,
+            )
+
+        # C.1 specificity decomposition
+        base = find(deep_rows, 200, 0.0)
+        if base is not None:
+            chk(
+                "D1 C.1 quotes the measured specificity vs responders",
+                f"{base['mrd_specificity_vs_responders']:.3f}" in d1_text,
+                str(base["mrd_specificity_vs_responders"]),
+            )
+            chk(
+                "D1 C.1 quotes the measured specificity vs persistent",
+                f"{base['mrd_specificity_vs_persistent']:.3f}" in d1_text,
+                str(base["mrd_specificity_vs_persistent"]),
+            )
+            chk(
+                "D1 C.1 quotes the measured persistent share of MRD+",
+                f"{base['persistent_share_of_mrd_positive'] * 100:.0f}%" in d1_text,
+                str(base["persistent_share_of_mrd_positive"]),
+            )
+
+        # C.4 and C.5 tables
+        # section -> (loci, column index of MRD sensitivity, column index of
+        # auc_enrichment or None when the table does not carry it)
+        for section, loci, sens_col, auc_col in (
+            ("### C.4", 200, 3, 6),
+            ("### C.5", 50, 1, None),
+        ):
+            table = parse_markdown_table(d1_text, section)
+            chk(f"D1 {section} contains a table", len(table) > 1)
+            for row in table[1:]:
+                try:
+                    fraction = _num(row[0])
+                except ValueError:
+                    continue
+                match = find(alloc_rows, loci, fraction)
+                chk(f"D1 {section} row e_frac={fraction} exists in the results", match is not None)
+                if match is None:
+                    continue
+                if "degenerate" in " ".join(row).lower():
+                    chk(
+                        f"D1 {section} e_frac={fraction} is marked degenerate and "
+                        "the results agree",
+                        bool(match.get("degenerate")),
+                    )
+                    continue
+                chk(
+                    f"D1 {section} e_frac={fraction} sensitivity matches",
+                    _close(_num(row[sens_col]), match["mrd_sensitivity"]),
+                    f"doc={row[sens_col]} results={match['mrd_sensitivity']}",
+                )
+                if auc_col is not None and len(row) > auc_col:
+                    chk(
+                        f"D1 {section} e_frac={fraction} auc_enrichment matches",
+                        _close(
+                            _num(row[auc_col]),
+                            match["auc_electrical_enrichment_within_mrd_positive"],
+                        ),
+                        f"doc={row[auc_col]} "
+                        f"results={match['auc_electrical_enrichment_within_mrd_positive']}",
+                    )
 
     # --- source errors must be surfaced ---
     chk("audit log records zero source errors", log.get("errors") == [], str(log.get("errors")))

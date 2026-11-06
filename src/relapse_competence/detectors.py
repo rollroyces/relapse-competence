@@ -34,6 +34,7 @@ from .simulator import Measurement
 
 __all__ = [
     "DetectorResult",
+    "ElectricalChannelDetector",
     "MrdThresholdDetector",
     "SequentialRiseDetector",
     "DEFAULT_CUSUM_THRESHOLDS",
@@ -133,6 +134,86 @@ class SequentialRiseDetector:
                 )
 
         return DetectorResult(flagged=False, flag_draw=None, flag_day=None, scores=scores)
+
+
+class ElectricalChannelDetector:
+    """Detector for the bulk electrical (ion-channel locus) channel.
+
+    Two quantities are produced, and the distinction between them is the
+    whole point of the channel:
+
+    ``raw_score``
+        The largest number of electrical reads seen on any draw. This is a
+        *burden* proxy as much as a state proxy: the marker is present in all
+        tumour cells, so it scales with tumour volume.
+
+    ``state_enrichment``
+        The per-locus VAF ratio between the electrical channel and the
+        mutation channel, maximised over draws. Dividing by the mutation
+        channel's per-locus VAF cancels the shared burden, leaving only the
+        marker enrichment contributed by the state-bearing fraction. **This is
+        the quantity that carries state information independently of tumour
+        amount**, and it is the one that decides whether the channel earns its
+        read budget.
+    """
+
+    def __init__(self, read_threshold: int = 3) -> None:
+        if read_threshold < 1:
+            raise ValueError("read_threshold must be >= 1")
+        self.read_threshold = read_threshold
+
+    def run(self, measurements: tuple[Measurement, ...] | list[Measurement]) -> DetectorResult:
+        """Flag on the electrical read count. Draw 0 is pre-treatment."""
+        scores: list[float] = []
+        for m in measurements[1:]:
+            score = float(m.electrical_reads)
+            scores.append(score)
+            if score >= self.read_threshold:
+                return DetectorResult(
+                    flagged=True, flag_draw=m.draw_index, flag_day=m.day, scores=scores
+                )
+        return DetectorResult(flagged=False, flag_draw=None, flag_day=None, scores=scores)
+
+    @staticmethod
+    def raw_score(measurements: tuple[Measurement, ...] | list[Measurement]) -> float:
+        """Largest electrical read count seen after the pre-treatment draw."""
+        counts = [float(m.electrical_reads) for m in measurements[1:]]
+        return max(counts) if counts else 0.0
+
+    @staticmethod
+    def state_enrichment(
+        measurements: tuple[Measurement, ...] | list[Measurement],
+    ) -> float:
+        """Pooled per-locus VAF ratio, electrical channel over mutation channel.
+
+        Reads are pooled across all post-baseline draws and the two channels'
+        per-locus VAFs are divided. Because both channels scale with the same
+        tumour burden, the ratio is burden-invariant: it isolates the marker
+        enrichment contributed by the state-bearing fraction.
+
+        Pooling rather than taking a per-draw maximum is deliberate. A
+        per-draw ratio divides by a possibly tiny mutation read count, so a
+        single noisy early draw can produce an arbitrarily large ratio; taking
+        the maximum over draws then selects for whoever had the smallest
+        denominator rather than the strongest state signal. The pooled form
+        has far lower variance and is what the discriminant analysis uses.
+        """
+        mutation_reads = 0
+        mutation_total = 0
+        electrical_reads = 0
+        electrical_total = 0
+        for m in measurements[1:]:
+            mutation_reads += m.mutant_reads
+            mutation_total += m.total_reads
+            electrical_reads += m.electrical_reads
+            electrical_total += m.electrical_total_reads
+        if mutation_total <= 0 or electrical_total <= 0:
+            return 0.0
+        mutation_vaf = mutation_reads / mutation_total
+        electrical_vaf = electrical_reads / electrical_total
+        if mutation_vaf <= 0.0:
+            return 0.0
+        return electrical_vaf / mutation_vaf
 
 
 def _weighted_slope(history: list[float], learning_rate: float) -> float:

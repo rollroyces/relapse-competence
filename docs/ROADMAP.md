@@ -58,6 +58,21 @@ highest-value addition to this package.
    90-day interval. How lead time and cost trade off against interval
    frequency is an obvious next question.
 
+### D1 — done: channel allocation
+
+Executed. See [`D1-CHANNEL-ALLOCATION.md`](D1-CHANNEL-ALLOCATION.md). Headline:
+the bulk electrical channel *does* carry state information beyond burden
+(AUC 0.85-0.95 on the burden-normalised enrichment ratio), but it is only
+affordable at >=200 loci with >=200,000x depth and <=25% allocation. The same
+work also exposed that MRD specificity is 0.983 against responders and 0.662
+against MRD-positive non-relapsers, and that 26% of MRD-positive patients are
+persistent non-relapsers.
+
+**What D1 changed:** the first question is no longer "is the electrical state
+real?" but "can it be measured in plasma at a useful operating point?" -- and
+the realistic use is *refinement* of the MRD-positive population, not
+detection.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
@@ -66,6 +81,10 @@ highest-value addition to this package.
    truth, then fit a detector to that data and report how much performance is
    lost to the modelling gap. This is the standard way to bound the value of a
    simulation-based design.
+8. **D2 with the D1 design requirement.** The tissue-level check must read out
+   the **burden-normalised enrichment ratio**, not raw ion-channel abundance. A
+   tissue study measuring raw abundance would confirm the growth signal and say
+   nothing about the relapse-competent state.
 
 ### Longer term — the biological question
 

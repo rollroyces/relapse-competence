@@ -17,7 +17,12 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from .benchmark import run_depth_sweep, run_mrd_benchmark, run_screening_benchmark
+from .benchmark import (
+    run_channel_allocation_sweep,
+    run_depth_sweep,
+    run_mrd_benchmark,
+    run_screening_benchmark,
+)
 from .config import Regime, SimulationConfig
 from .report import build_report, write_report
 
@@ -111,6 +116,65 @@ def _cmd_sweep(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_allocation(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args, Regime.POST_TREATMENT)
+    rows = run_channel_allocation_sweep(
+        cfg,
+        total_loci=tuple(int(x) for x in args.loci.split(",")),
+        depth=args.depth,
+        electrical_fractions=tuple(float(x) for x in args.fractions.split(",")),
+        target_specificity=args.target_specificity,
+    )
+    report = build_report(
+        mode="simulated",
+        config=cfg,
+        payload={"channel_allocation": rows},
+        claim_scope=(
+            "Simulated channel allocation under a fixed total read budget. "
+            "Reports whether a bulk ion-channel channel refines the relapse call "
+            "within the MRD-positive population, and what that costs the "
+            "mutation channel."
+        ),
+    )
+    path = write_report(report, args.out)
+    header = (
+        f"{'loci':>5} {'e_frac':>7} {'n_mut':>6} {'n_elec':>7} {'mrd_sens':>9} "
+        f"{'mrd_spec':>9} {'lead':>6} {'|MRD+|':>7} {'ppv_base':>9} {'ppv_ref':>8} "
+        f"{'auc_raw':>8} {'auc_enr':>8}"
+    )
+    print(header)
+    print("-" * len(header))
+    for r in rows:
+        if r["degenerate"]:
+            print(
+                f"{r['total_loci']:>5} {r['electrical_fraction']:>7.2f} "
+                f"{r['n_mutation_loci']:>6} {r['n_electrical_loci']:>7}  "
+                f"DEGENERATE - {r['degenerate_reason']}"
+            )
+            continue
+        lead = (
+            f"{r['median_lead_time_days']:.0f}"
+            if r["median_lead_time_days"] is not None
+            else "n/a"
+        )
+
+        def _f(value: float) -> str:
+            return "n/a" if value != value else f"{value:.3f}"
+
+        print(
+            f"{r['total_loci']:>5} {r['electrical_fraction']:>7.2f} "
+            f"{r['n_mutation_loci']:>6} {r['n_electrical_loci']:>7} "
+            f"{r['mrd_sensitivity']:>9.3f} {r['mrd_specificity']:>9.3f} {lead:>6} "
+            f"{r['n_mrd_positive_evaluation']:>7} "
+            f"{_f(r['ppv_within_mrd_positive']):>9} "
+            f"{_f(r['ppv_after_electrical_refinement']):>8} "
+            f"{_f(r['auc_electrical_raw_within_mrd_positive']):>8} "
+            f"{_f(r['auc_electrical_enrichment_within_mrd_positive']):>8}"
+        )
+    print(f"\nwrote {path}")
+    return 0
+
+
 def _cmd_screening(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args, Regime.SCREENING)
     payload = run_screening_benchmark(cfg)
@@ -177,6 +241,16 @@ def main(argv: list[str] | None = None) -> int:
     p_sweep.add_argument("--loci", default="50,200")
     p_sweep.add_argument("--out", default="results/mrd_sweep.json")
     p_sweep.set_defaults(func=_cmd_sweep)
+
+    p_alloc = sub.add_parser(
+        "allocation", help="split a fixed read budget between mutation and electrical channels"
+    )
+    _add_common(p_alloc)
+    p_alloc.add_argument("--depth", type=int, default=50_000)
+    p_alloc.add_argument("--loci", default="50,200")
+    p_alloc.add_argument("--fractions", default="0.0,0.25,0.5,0.75,1.0")
+    p_alloc.add_argument("--out", default="results/channel_allocation.json")
+    p_alloc.set_defaults(func=_cmd_allocation)
 
     p_screen = sub.add_parser("screening", help="sequential vs single-timepoint")
     _add_common(p_screen)

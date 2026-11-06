@@ -30,6 +30,7 @@ from dataclasses import dataclass, replace
 from .config import DetectorConfig, PatientArm, Regime, SimulationConfig
 from .detectors import (
     DEFAULT_CUSUM_THRESHOLDS,
+    ElectricalChannelDetector,
     MrdThresholdDetector,
     SequentialRiseDetector,
 )
@@ -37,6 +38,10 @@ from .simulator import LongitudinalSimulator, PatientTrajectory
 
 __all__ = [
     "MrdBenchmarkResult",
+    "PatientOutcome",
+    "collect_outcomes",
+    "calibrate_electrical_cutoff",
+    "run_channel_allocation_sweep",
     "run_mrd_benchmark",
     "run_depth_sweep",
     "run_screening_benchmark",
@@ -452,3 +457,267 @@ def run_screening_benchmark(
             "false_positive_rate": st_fp / len(healthy_evaluation) if healthy_evaluation else 0.0,
         },
     }
+
+
+# =======================================================================
+# Channel allocation sweep
+# =======================================================================
+@dataclass(frozen=True)
+class PatientOutcome:
+    """Per-patient outcome used by the channel allocation analysis."""
+
+    patient_id: str
+    arm: PatientArm
+    relapsed: bool
+    mrd_flagged: bool
+    mrd_flag_draw: int | None
+    lead_days: float | None
+    """Days of MRD lead before radiographic relapse. None when not flagged
+    in time, or when the patient did not relapse."""
+
+    electrical_raw: float
+    """Largest electrical read count across draws (burden proxy)."""
+
+    electrical_enrichment: float
+    """Per-locus VAF ratio, electrical over mutation, maximised over draws.
+
+    The burden cancels in this ratio, so what remains is the marker
+    enrichment contributed by the state-bearing fraction.
+    """
+
+    state_fraction: float
+    split: str
+    """``calibration`` or ``evaluation``."""
+
+
+def _auc(scores: list[float], labels: list[bool]) -> float:
+    """Tie-corrected Mann-Whitney AUC. Pure numpy, no sklearn dependency."""
+    positives = sum(1 for x in labels if x)
+    negatives = len(labels) - positives
+    if positives == 0 or negatives == 0:
+        return float("nan")
+    order = sorted(range(len(scores)), key=lambda i: scores[i])
+    ranks = [0.0] * len(scores)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and scores[order[j + 1]] == scores[order[i]]:
+            j += 1
+        avg_rank = (i + j) / 2.0 + 1.0
+        for k in range(i, j + 1):
+            ranks[order[k]] = avg_rank
+        i = j + 1
+    rank_sum = sum(r for r, lab in zip(ranks, labels, strict=False) if lab)
+    u = rank_sum - positives * (positives + 1) / 2.0
+    return u / (positives * negatives)
+
+
+def collect_outcomes(
+    config: SimulationConfig,
+    target_specificity: float = 0.98,
+) -> tuple[list[PatientOutcome], int]:
+    """Run the mutation channel over a cohort and collect per-patient outcomes.
+
+    The mutation read threshold is calibrated on the even-indexed responders
+    (the false-positive population) and applied to everyone. Each arm is split
+    by index parity, so both the calibration and the evaluation halves stay
+    arm-balanced.
+    """
+    cfg = config
+    simulator = LongitudinalSimulator(cfg)
+    cohort = simulator.generate_cohort()
+
+    responders = cohort[PatientArm.RESPONDER]
+    calibration_responders = responders[0::2]
+    k = select_read_threshold(calibration_responders, target_specificity, max_k=_max_threshold(cfg))
+    if k is None:
+        k = _max_threshold(cfg)
+    detector = MrdThresholdDetector(read_threshold=k)
+
+    outcomes: list[PatientOutcome] = []
+    for arm, patients in cohort.items():
+        for index, patient in enumerate(patients):
+            result = detector.run(patient.measurements)
+            relapsed = patient.relapse_draw is not None
+            lead: float | None = None
+            # A flag that arrives at or after radiographic relapse is not a
+            # detection. This matches the definition used by the headline MRD
+            # benchmark, so the two stay comparable.
+            flagged_in_time = bool(result.flagged) and (
+                not relapsed
+                or (result.flag_draw is not None and result.flag_draw < patient.relapse_draw)
+            )
+            if relapsed and flagged_in_time and result.flag_draw is not None:
+                # Continuous lead time, identical to the headline benchmark:
+                # T * log2(V_relapse / V_at_flag). Using the same definition
+                # keeps the two analyses directly comparable.
+                lead = _continuous_lead_time_days(
+                    patient.measurements[result.flag_draw].tumour_volume_mm3,
+                    cfg.relapse_volume_threshold_mm3,
+                    patient.doubling_time_days,
+                )
+            outcomes.append(
+                PatientOutcome(
+                    patient_id=patient.patient_id,
+                    arm=arm,
+                    relapsed=relapsed,
+                    mrd_flagged=flagged_in_time,
+                    mrd_flag_draw=result.flag_draw,
+                    lead_days=lead,
+                    electrical_raw=ElectricalChannelDetector.raw_score(patient.measurements),
+                    electrical_enrichment=ElectricalChannelDetector.state_enrichment(
+                        patient.measurements
+                    ),
+                    state_fraction=patient.state_fraction,
+                    split="calibration" if index % 2 == 0 else "evaluation",
+                )
+            )
+    return outcomes, k
+
+
+def calibrate_electrical_cutoff(
+    mrd_positive: list[PatientOutcome],
+    target_retained_sensitivity: float = 0.90,
+) -> float:
+    """Choose the electrical read-count cutoff that retains relapsers.
+
+    The operating point is defined *within the MRD-positive population*: the
+    cutoff is set to keep at least ``target_retained_sensitivity`` of the
+    relapsing MRD-positive patients, which is the decision rule a clinician
+    would actually apply -- "MRD positive, and this looks like the
+    relapse-competent state".
+    """
+    relapsers = sorted(o.electrical_raw for o in mrd_positive if o.relapsed)
+    if not relapsers:
+        return float("inf")
+    keep = max(1, int(round(len(relapsers) * target_retained_sensitivity)))
+    # Cutoff = the value of the keep-th lowest relapser score.
+    return relapsers[keep - 1]
+
+
+def run_channel_allocation_sweep(
+    base_config: SimulationConfig,
+    total_loci: tuple[int, ...] = (50, 200),
+    depth: int = 50_000,
+    electrical_fractions: tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0),
+    target_specificity: float = 0.98,
+    target_retained_sensitivity: float = 0.90,
+) -> list[dict[str, object]]:
+    """Sweep how a fixed read budget is split between the two channels.
+
+    The budget is fixed: ``depth * total_loci`` reads per draw. The split
+    decides how many loci go to the mutation panel and how many to the bulk
+    ion-channel panel.
+
+    This is the decision the gap audit leaves open: an MRD-positive result is
+    not the same as a relapse, and the question is whether a bulk electrical
+    signature can separate the two -- and whether it can do so without taking
+    reads away from the mutation channel.
+    """
+    rows: list[dict[str, object]] = []
+    for loci in total_loci:
+        for fraction in electrical_fractions:
+            n_electrical = int(round(loci * fraction))
+            n_mutation = loci - n_electrical
+            cfg = replace(
+                base_config,
+                regime=Regime.POST_TREATMENT,
+                sequencing_depth=depth,
+                n_loci=n_mutation,
+                n_electrical_loci=n_electrical,
+            )
+            outcomes, k = collect_outcomes(cfg, target_specificity=target_specificity)
+
+            evaluation = [o for o in outcomes if o.split == "evaluation"]
+            calibration = [o for o in outcomes if o.split == "calibration"]
+
+            relapsers = [o for o in evaluation if o.relapsed]
+            non_relapsed = [o for o in evaluation if not o.relapsed]
+            mrd_sensitivity = (
+                sum(1 for o in relapsers if o.mrd_flagged) / len(relapsers) if relapsers else 0.0
+            )
+            mrd_specificity = (
+                sum(1 for o in non_relapsed if not o.mrd_flagged) / len(non_relapsed)
+                if non_relapsed
+                else 1.0
+            )
+            leads = [o.lead_days for o in relapsers if o.lead_days is not None]
+            median_lead = statistics.median(leads) if leads else None
+
+            mrd_positive_eval = [o for o in evaluation if o.mrd_flagged]
+            mrd_positive_cal = [o for o in calibration if o.mrd_flagged]
+
+            ppv = (
+                sum(1 for o in mrd_positive_eval if o.relapsed) / len(mrd_positive_eval)
+                if mrd_positive_eval
+                else float("nan")
+            )
+
+            cutoff = calibrate_electrical_cutoff(
+                mrd_positive_cal, target_retained_sensitivity=target_retained_sensitivity
+            )
+            refined = [o for o in mrd_positive_eval if o.electrical_raw >= cutoff]
+            ppv_refined = (
+                sum(1 for o in refined if o.relapsed) / len(refined) if refined else float("nan")
+            )
+            retained = (
+                sum(1 for o in refined if o.relapsed) / len(relapsers) if relapsers else 0.0
+            )
+
+            auc_raw = _auc(
+                [o.electrical_raw for o in mrd_positive_eval],
+                [o.relapsed for o in mrd_positive_eval],
+            )
+            auc_enrichment = _auc(
+                [o.electrical_enrichment for o in mrd_positive_eval],
+                [o.relapsed for o in mrd_positive_eval],
+            )
+
+            degenerate = n_mutation == 0
+            def _specificity_for(
+                arm_name: str, population: list[PatientOutcome] = non_relapsed
+            ) -> float:
+                subset = [o for o in population if o.arm.value == arm_name]
+                if not subset:
+                    return float("nan")
+                return sum(1 for o in subset if not o.mrd_flagged) / len(subset)
+
+            persistent_share = (
+                sum(1 for o in mrd_positive_eval if o.arm is PatientArm.PERSISTENT)
+                / len(mrd_positive_eval)
+                if mrd_positive_eval
+                else float("nan")
+            )
+
+            rows.append(
+                {
+                    "degenerate": degenerate,
+                    "mrd_specificity_vs_responders": _specificity_for("responder"),
+                    "mrd_specificity_vs_persistent": _specificity_for("persistent"),
+                    "persistent_share_of_mrd_positive": persistent_share,
+                    "degenerate_reason": (
+                        "no mutation loci: the read budget is entirely spent on the "
+                        "electrical channel, so there is no MRD assay to refine"
+                        if degenerate
+                        else ""
+                    ),
+                    "total_loci": loci,
+                    "depth": depth,
+                    "electrical_fraction": fraction,
+                    "n_mutation_loci": n_mutation,
+                    "n_electrical_loci": n_electrical,
+                    "total_reads_per_draw": depth * loci,
+                    "mutation_read_threshold": k,
+                    "mrd_sensitivity": mrd_sensitivity,
+                    "mrd_specificity": mrd_specificity,
+                    "median_lead_time_days": median_lead,
+                    "n_mrd_positive_evaluation": len(mrd_positive_eval),
+                    "ppv_within_mrd_positive": ppv,
+                    "electrical_cutoff": cutoff,
+                    "ppv_after_electrical_refinement": ppv_refined,
+                    "relapse_fraction_retained_by_refinement": retained,
+                    "auc_electrical_raw_within_mrd_positive": auc_raw,
+                    "auc_electrical_enrichment_within_mrd_positive": auc_enrichment,
+                }
+            )
+    return rows

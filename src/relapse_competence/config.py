@@ -23,6 +23,16 @@ class PatientArm(str, Enum):
     RESPONDER = "responder"
     """Post-treatment regime: no residual disease; signal decays to the floor."""
 
+    PERSISTENT = "persistent"
+    """Post-treatment regime: residual disease persists but does not relapse
+    inside the observation window.
+
+    This arm exists because it is the clinical problem that makes MRD
+    imperfect: an MRD-positive patient is not necessarily a patient who will
+    relapse. Without this arm, MRD sensitivity and MRD positive predictive
+    value are not measurable at all.
+    """
+
     RESISTANT = "resistant"
     """Post-treatment regime: a residual clone survives therapy and regrows."""
 
@@ -131,8 +141,56 @@ class SimulationConfig:
     baseline_volume_mm3: float = 20_000.0
     """Median pre-treatment tumour burden (resectable stage I-II NSCLC)."""
 
+    max_tumour_volume_mm3: float = 5_000_000.0
+    """Carrying capacity for tumour growth, in cubic millimetres.
+
+    Without a cap the exponential model runs away: a residual clone of a few
+    hundred cubic millimetres doubling every 60 days reaches tens of litres
+    inside a 33-month window, which drives the per-locus VAF above 1 and makes
+    the Poisson sampler reject the draw. Disseminated disease does grow, but
+    not without bound. 5 litres is far above the 10 cm3 radiographic
+    threshold, so it does not alter the lead-time dynamics; it only keeps the
+    late draws physical.
+    """
+
     baseline_volume_cv: float = 0.9
     """Log-normal spread of the baseline burden."""
+
+    # --- bulk electrical / epigenetic channel ---
+    n_electrical_loci: int = 0
+    """Ion-channel loci read as a bulk feature, separate from the mutation panel.
+
+    ``0`` (the default) disables the channel entirely, which reproduces the
+    original single-channel simulator exactly. See ``state_fraction`` for why
+    a bulk channel carries the state only weakly.
+    """
+
+    electrical_fold_change: float = 3.0
+    """Fold-upregulation of the ion-channel marker in state-bearing cells."""
+
+    state_fraction_resistant: float = 0.25
+    """Mean fraction of the resistant clone that is relapse-competent."""
+
+    state_fraction_resistant_sd: float = 0.12
+    state_fraction_persistent: float = 0.10
+    """Mean fraction of a persistent (MRD-positive, non-relapsing) clone that
+    is relapse-competent."""
+
+    state_fraction_persistent_sd: float = 0.12
+    """The two distributions overlap heavily, so the electrical channel is
+    informative but nowhere near an oracle."""
+
+    state_fraction_responder: float = 0.0
+    """Responders carry no residual clone, hence no state."""
+
+    mutation_clonal_fraction: float = 1.0
+    """Fraction of tumour cells carrying each tracked mutation.
+
+    ``1.0`` means the tracked mutation is clonal, which is the assumption the
+    original single-channel model made. Values below 1 model a tumour-informed
+    panel that tracks subclonal mutations, whose per-locus signal is weaker
+    and whose detection floor is higher.
+    """
 
     # --- cohort and schedule ---
     n_patients_per_arm: int = 400
