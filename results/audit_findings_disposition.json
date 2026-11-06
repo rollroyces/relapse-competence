@@ -1,7 +1,7 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "46c8e6e50709ccb4a7d7bc786be9c2e8f3fa72e8",
+    "repository_head_at_generation": "984bbcd85bd633cd534cbf0bbb6138fb6d4529d4",
     "first_published_commit": "ca831e2eee64b187b1189788bd1c65d14723b50b",
     "first_published_message": {
       "sha256": "048f9b6ed3b66f6d5a6d69fd949e7619a2dddc2146e53750e518a6dfbb34c2f3",
@@ -31,7 +31,9 @@
         "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 120: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 523dcffe2400)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 523dcffe2400)",
+        "fixed_in subject 'Audit corrections' resolves to exactly one commit: True",
+        "fixed_in subject 'Evidence the parser fix' resolves to exactly one commit: True"
       ]
     },
     {
@@ -40,7 +42,7 @@
       "anchor": "regex term",
       "fixed_in": "Audit corrections",
       "resolved": true,
-      "disposition": "Re-derived from the source record on every run: the source record is re-fetched and the attribution is checked against it, not against memory. The pushed commit message is left intact; the report carries the correction of record.",
+      "disposition": "Re-derived from the source record on every run: the source record is re-fetched and the attribution is checked against it, not against memory. The first-published commit's message was amended in place on 2026-11-06 and the history rewritten, so the retracted wording survives only in git history; the report carries the correction of record.",
       "withdrawn_line_number": 143,
       "withdrawn_line_sha256": "060e85c39310d7ba6e468233e0e8e4090b16009faadd5986a6357f1ea874821a",
       "evidence": [
@@ -53,14 +55,15 @@
         "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 143: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 060e85c39310)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 060e85c39310)",
+        "fixed_in subject 'Audit corrections' resolves to exactly one commit: True"
       ]
     },
     {
       "id": "F3",
       "summary": "Section G.3 described adding a channel and an abstract information-content parameter that the simulator did not implement; the implemented design uses a latent relapse-competent fraction instead.",
       "anchor": "Extend `relapse_competence/simulator.py`",
-      "fixed_in": "Audit corrections; D1 executed; Close documentation drift",
+      "fixed_in": "Audit corrections; D1 executed; Close documentation drift after D1",
       "resolved": true,
       "disposition": "The report now describes what the code implements: a bulk electrical channel, a latent relapse-competent fraction, and the persistent arm.",
       "withdrawn_line_number": 269,
@@ -75,7 +78,10 @@
         "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 269: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 040809a58d5f)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 040809a58d5f)",
+        "fixed_in subject 'Audit corrections' resolves to exactly one commit: True",
+        "fixed_in subject 'D1 executed' resolves to exactly one commit: True",
+        "fixed_in subject 'Close documentation drift after D1' resolves to exactly one commit: True"
       ]
     },
     {
@@ -96,7 +102,8 @@
         "withdrawn wording located in ca831e2eee64b187b1189788bd1c65d14723b50b at line 350: True",
         "withdrawn wording absent from the current report: True",
         "withdrawn wording absent from every other repository file: yes",
-        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 d9715fa89c38)"
+        "retraction record retained in git history at ca831e2eee64b187b1189788bd1c65d14723b50b (line sha256 d9715fa89c38)",
+        "fixed_in subject 'Audit corrections' resolves to exactly one commit: True"
       ]
     }
   ]

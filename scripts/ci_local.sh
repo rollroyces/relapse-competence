@@ -23,6 +23,9 @@ echo "==> pytest"
 echo "==> audit findings disposition"
 "$PY" scripts/audit_findings_disposition.py
 
+echo "==> revision history"
+"$PY" scripts/regenerate_revision_history.py --check
+
 echo "==> report consistency"
 "$PY" scripts/verify_report_consistency.py
 

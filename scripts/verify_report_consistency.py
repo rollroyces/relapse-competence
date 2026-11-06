@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -116,6 +117,25 @@ def _num(text: str) -> float:
 
 def _close(a: float, b: float, tol: float = 5e-4) -> bool:
     return abs(a - b) <= tol
+
+
+def _git_object_exists(sha: str) -> bool:
+    """Whether ``sha`` still names a commit in this repository.
+
+    The history was rewritten on 2026-11-06, so an id printed in the report
+    can stop naming anything. A reader would copy such an id straight into a
+    checkout, so it is checked rather than trusted.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "cat-file", "-e", f"{sha}^{{commit}}"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return result.returncode == 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -275,6 +295,52 @@ def main(argv: list[str] | None = None) -> int:
             "the gap audit report links the disposition artefact",
             "audit_findings_disposition.json" in report,
         )
+
+        # The report's own disposition table must agree with the generated
+        # artefact. The commits are named by subject, because a history
+        # rewrite changes every id; the artefact is the source of truth for
+        # which subjects each finding credits.
+        disposition_table = parse_markdown_table(
+            report, "| Finding | Status | Fixed in |"
+        )
+        chk(
+            "the report carries a findings disposition table",
+            len(disposition_table) > 1,
+        )
+        if len(disposition_table) > 1:
+            by_id = {f["id"]: f for f in disp["findings"]}
+            for row in disposition_table[1:]:
+                cells = [c.strip() for c in row]
+                if not cells:
+                    continue
+                finding_id = cells[0].split(" ")[0].strip()
+                if finding_id not in by_id:
+                    chk(
+                        f"disposition table row is a known finding: {finding_id}",
+                        False,
+                        finding_id,
+                    )
+                    continue
+                cited = (
+                    [c.strip() for c in re.findall(r"`([^`]+)`", cells[2])]
+                    if len(cells) > 2
+                    else []
+                )
+                expected = [
+                    part.strip()
+                    for part in by_id[finding_id]["fixed_in"].split(";")
+                    if part.strip()
+                ]
+                chk(
+                    f"the report's fixed-in column for {finding_id} matches the artefact",
+                    cited == expected,
+                    f"report={cited} artefact={expected}",
+                )
+            chk(
+                "the report's disposition table covers every finding",
+                len(disposition_table) - 1 == len(disp["findings"]),
+                f"{len(disposition_table) - 1} rows for {len(disp['findings'])} findings",
+            )
     chk("report names the true false-positive source 'tenacious'", "tenacious" in report)
     chk("report carries an explicit correction notice", "Correction notice" in report)
 
@@ -489,6 +555,27 @@ def main(argv: list[str] | None = None) -> int:
     chk(
         "the revision history points at the machine-generated disposition",
         "audit_findings_disposition.json" in report,
+    )
+
+    # Every commit id the revision history prints must still name a commit.
+    # The history was rewritten, so a stale id is exactly what a reader would
+    # copy into a checkout.
+    revision_table = parse_markdown_table(
+        report, "| Commit | Change | Where the retracted wording now lives |"
+    )
+    stale_ids = []
+    for row in revision_table[1:]:
+        if not row:
+            continue
+        token = row[0].strip().strip("`")
+        if not re.fullmatch(r"[0-9a-f]{7,40}", token):
+            continue
+        if not _git_object_exists(token):
+            stale_ids.append(token)
+    chk(
+        "every commit id in the revision history still names a commit",
+        not stale_ids,
+        f"stale: {stale_ids}" if stale_ids else "",
     )
 
     # --- the research plan must exist and agree with the executed results ---

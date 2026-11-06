@@ -16,6 +16,10 @@ jobs:
         python-version: ["3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The revision-history check compares the report's table against the
+          # commits that modified it, so it needs the full history.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -37,6 +41,9 @@ jobs:
 
       - name: Audit findings disposition
         run: python scripts/audit_findings_disposition.py
+
+      - name: Revision history
+        run: python scripts/regenerate_revision_history.py --check
 
   benchmark:
     runs-on: ubuntu-latest

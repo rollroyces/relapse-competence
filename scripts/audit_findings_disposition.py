@@ -160,6 +160,37 @@ def _first_published_message(root: Path) -> tuple[str, str]:
     return digest, str(len(message.encode()))
 
 
+def _resolve_fixed_in(root: Path, finding: Finding) -> bool:
+    """Resolve every commit subject named in ``fixed_in`` against the log.
+
+    Commit ids rot when the history is rewritten; commit subjects do not. The
+    names in ``fixed_in`` are subject prefixes, so this resolves each of them
+    against ``git log`` and requires exactly one match. If a subject is ever
+    amended, the report would be citing a commit that no longer exists, and
+    the finding stops counting as resolved until the report and the generated
+    artefact are updated together.
+    """
+    names = [part.strip() for part in finding.fixed_in.split(";") if part.strip()]
+    if not names:
+        finding.evidence.append("fixed_in names no commit subject: False")
+        return False
+
+    subjects = []
+    for line in _git(root, "log", "--format=%H%x1f%s").strip().splitlines():
+        _, _, subject = line.partition("\x1f")
+        subjects.append(subject)
+
+    resolved = True
+    for name in names:
+        matches = [s for s in subjects if s.startswith(name)]
+        finding.evidence.append(
+            f"fixed_in subject '{name}' resolves to exactly one commit: "
+            f"{len(matches) == 1}"
+        )
+        resolved = resolved and len(matches) == 1
+    return resolved
+
+
 def _fetch_abstract(pmid: str) -> str | None:
     """Fetch a PubMed abstract. Returns None if the network is unavailable."""
     url = f"{EUTILS}/efetch.fcgi?db=pubmed&id={pmid}&rettype=abstract&retmode=text"
@@ -359,8 +390,9 @@ def finding_attribution(root: Path) -> Finding:
     f.disposition = (
         "Re-derived from the source record on every run: the source record is "
         "re-fetched and the attribution is checked against it, not against "
-        "memory. The pushed commit message is left intact; the report carries "
-        "the correction of record."
+        "memory. The first-published commit's message was amended in place on "
+        "2026-11-06 and the history rewritten, so the retracted wording survives "
+        "only in git history; the report carries the correction of record."
     )
     return f
 
@@ -376,7 +408,7 @@ def finding_g3(root: Path) -> Finding:
             "relapse-competent fraction instead."
         ),
         anchor="Extend `relapse_competence/simulator.py`",
-        fixed_in="Audit corrections; D1 executed; Close documentation drift",
+        fixed_in="Audit corrections; D1 executed; Close documentation drift after D1",
     )
     report = _read(root / REPORT_PATH)
     simulator = _read(root / "src/relapse_competence/simulator.py")
@@ -506,11 +538,18 @@ def main(argv: list[str] | None = None) -> int:
         finding_diff_advice(root),
     ]
 
+    # Every commit a finding claims credit for must still exist, under the
+    # subject the report cites. Otherwise the citation is stale, and the
+    # finding is not resolved.
+    for f in findings:
+        if not _resolve_fixed_in(root, f):
+            f.resolved = False
+
     head = _git(root, "log", "-1", "--format=%H", "HEAD").strip()
     payload = {
         "disposition": {
             "generated_by": "scripts/audit_findings_disposition.py",
-            "repository_head": head,
+            "repository_head_at_generation": head,
             "first_published_commit": _first_published_commit(root),
             "first_published_message": _first_published_message_record(root),
             "findings_total": len(findings),

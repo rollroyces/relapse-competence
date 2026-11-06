@@ -11,25 +11,24 @@
 ## Revision history and provenance
 
 This report was first published at commit `ca831e2` and has been corrected
-several times since. The table records what changed and when.
+several times since. The table records the commits that **modified this
+report**, oldest first, and what each one changed. Commits that left the
+report alone are not listed, because they cannot have changed it. The table is
+generated from the git log by `scripts/regenerate_revision_history.py`, and
+`scripts/ci_local.sh` fails if the committed table no longer matches the log.
 
 | Commit | Change | Where the retracted wording now lives |
 |---|---|---|
-| `ac7736d` | Initial release: the simulator, detectors, benchmark engine and evidence chain | — |
-| `0421baf` | Local CI script added and documented, as a fallback while Actions is unavailable | — |
-| `eb19df8` | Local CI script path fix | — |
 | `ca831e2` | **First publication of the gap audit. Its commit message was amended on 2026-11-06** (see the note below). | git history at the first-published commit |
 | `2191a26` | Parser reconciliation; attribution corrected; G.3 rewritten; set-based comparison recommended. **Its commit message was amended on 2026-11-06.** | — |
 | `d6a3d60` | The four dropped book records identified and recovered | — |
-| `ebcae32` | D1 executed: channel allocation, specificity decomposition, and the carrying-capacity fix | — |
 | `98766ef` | Documentation synchronised with the executed D1; verifier extended to guard prose. **Its commit message was amended on 2026-11-06.** | — |
 | `c4784d3` | Machine-generated findings disposition added | — |
 | `be2fcc7` | Licence migrated to AGPL-3.0-or-later plus commercial; retracted wording removed from the report body | — |
-| `7216555` | Executable research plan added | — |
 | `bd785be` | Two-sided historical proof of each finding; revision history added to the report | — |
-| `baae5b0` | Withdrawn wording removed from every repository file; recovered from git at run time instead | — |
-| `59dcaaa` | Disposition artefact regenerated against the current head | — |
 | `e03437f` | Two commit messages amended; the commit reference made to resolve by content | — |
+| `8602062` | One commit subject restored; the revision-history generator added | — |
+| `46c8e6e` | The last two mentions of the withdrawn wording removed from the report | — |
 | *(this commit)* | Revision history regenerated from the log | — |
 
 **Note on the rewritten commit ids.** The history was amended on 2026-11-06:
@@ -39,17 +38,21 @@ message was corrected in place and the history was rewritten, so every commit id
 below differs from the id that was originally pushed. The original message is
 not reproduced anywhere; its length and SHA-256 are recorded in the disposition
 artefact. The repository had zero forks, watchers, pull requests or tags at the
-time of the rewrite, so no downstream consumer was affected.
+time of the rewrite, so no downstream consumer was affected. Commit ids are
+therefore cited in this document only where a script generates them; prose
+names commits by subject, which survives a rewrite.
 
 **Editorial rule now in force.** This document states the current truth. It
 does **not** restate retracted claims inline, because a superseded sentence
 sitting in an authoritative document can be mistaken for a live one — by a
 reader, and by an automated check. The retraction record lives in two places:
-git history at `c1c5c2a`, and the machine-generated
-`results/audit_findings_disposition.json`.
+git history at the first-published commit (the commit whose subject is
+*Formal gap audit: bioelectric state x lung-cancer relapse competence*,
+resolved by content rather than by id, because the history was rewritten), and
+the machine-generated `results/audit_findings_disposition.json`.
 
 `scripts/audit_findings_disposition.py` verifies **both directions** on every
-run: the retracted wording must still be findable in `c1c5c2a` (so the
+run: the retracted wording must still be findable in that commit (so the
 finding is demonstrably real) and must be absent from this file (so it is
 demonstrably fixed).
 
@@ -243,7 +246,7 @@ Artefact: `results/gap_audit_bioelectric/comparison_to_previous_run.json`.
 
 The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the ordinary English word **"tenac|ious"** — from the phrase *"a tenacious subpopulation"*. Another ordinary English word occurs in the same abstract and looks equally plausible, but it does **not** contain the substring; `tenacious` is the only word in the abstract that does.
 
-> **Correction notice.** An earlier version of this report attributed the false positive to the wrong word. The true source is `"tenac|ious"` — the only word in that abstract containing the pattern. The retracted wording is quoted in the machine-generated disposition artefact and also appears in the commit message of `c1c5c2a`, the commit that first published this audit; that history is left in place rather than rewritten, and this notice is the correction of record.
+> **Correction notice.** An earlier version of this report attributed the false positive to the wrong word. The true source is `"tenac|ious"` — the only word in that abstract containing the pattern. The retracted wording is quoted in the machine-generated disposition artefact and also appeared in the commit message of the commit that first published this audit. That message was amended in place on 2026-11-06 and the history rewritten, so every commit id in this repository changed and the withdrawn wording now survives only in git history. This notice is the correction of record.
 
 Two things were done, and both are recorded here rather than quietly fixed:
 
@@ -487,10 +490,17 @@ python scripts/audit_findings_disposition.py
 
 | Finding | Status | Fixed in |
 |---|---|---|
-| F1 — §B.5 coverage claim vs the log; four book records silently dropped | RESOLVED | `ba05fce`, `615f331` |
-| F2 — §B.7 attributed the false positive to the wrong word | RESOLVED | `ba05fce` |
-| F3 — §G.3 described a channel the simulator did not implement | RESOLVED | `ba05fce`, `c98d4c5`, `4a4adbc` |
-| F4 — the report advised a textual diff that `sort=relevance` makes noisy | RESOLVED | `ba05fce` |
+| F1 — §B.5 coverage claim vs the log; four book records silently dropped | RESOLVED | `Audit corrections`; `Evidence the parser fix` |
+| F2 — §B.7 attributed the false positive to the wrong word | RESOLVED | `Audit corrections` |
+| F3 — §G.3 described a channel the simulator did not implement | RESOLVED | `Audit corrections`; `D1 executed`; `Close documentation drift after D1` |
+| F4 — the report advised a textual diff that `sort=relevance` makes noisy | RESOLVED | `Audit corrections` |
+
+Commits are named by **subject**, not by id: the history was rewritten on
+2026-11-06, so every id in this repository changed, while the subjects did
+not. Each subject above is a prefix that resolves to exactly one commit, and
+`scripts/audit_findings_disposition.py` re-checks that on every run — if a
+subject is ever amended, the finding stops counting as resolved until this
+table and the generated artefact are updated together.
 
 F2 is re-derived from the source record on every run: the script re-fetches
 PMID 42019833, recovers the screening pattern from git history, and asserts
