@@ -157,7 +157,10 @@ def _check_descriptions(commits: list[tuple[str, str]]) -> None:
     if dead:
         raise SystemExit(
             "DESCRIPTIONS contains entries that match no commit subject "
-            f"(the history was rewritten or a commit was removed): {dead}"
+            f"(the history was rewritten or a commit was removed): {dead}\n"
+            "If this repository is a shallow clone, fetch the full history "
+            "first: the table can only be checked against the commits that "
+            "modified the report."
         )
 
 
