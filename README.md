@@ -216,11 +216,31 @@ consecutive signal-consistent elevations and a trend bonus for a rising slope.
 
 ## Documentation
 
+- [`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) — **the executable plan**: targets (KCa3.1, Piezo1, Cav2.3), the D0–D5 experiment ladder with entry/exit/kill criteria, and the MRD-guided clinical path
 - [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
 - [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,427 records screened; the target intersection holds **one** record, and it is a review
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
 - [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
+
+### The research plan
+
+[`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) is the executable plan:
+targets, experiment ladder, clinical path and kill conditions, for the goal of
+**eliminating the relapse-competent state** in lung cancer rather than chasing
+a marker that was fashionable in 2009.
+
+Its spine is mechanotransduction → electrical state → relapse competence:
+
+```
+niche stiffness → PIEZO1 → Ca²⁺ → KCa3.1 (KCNN4) → membrane potential
+                  ↘ YAP/TEAD ↘
+                     YAP1+ plastic persister population (2026, SCLC)
+```
+
+The plan opens with five named killing conditions (K1–K5) and starts at the
+cheapest possible kill: a computational therapeutic-window audit of the
+candidate channels before any sample is spent.
 
 ### The research programme in one paragraph
 

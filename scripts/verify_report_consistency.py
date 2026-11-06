@@ -444,6 +444,61 @@ def main(argv: list[str] | None = None) -> int:
             "audit_findings_disposition.json" in report,
         )
 
+    # --- the research plan must exist and agree with the executed results ---
+    plan_path = Path("docs/RESEARCH-PLAN.md")
+    chk("research plan exists", plan_path.exists())
+    if plan_path.exists():
+        plan = plan_path.read_text()
+        chk("research plan links the gap audit", "GAP-AUDIT-BIOELECTRIC.md" in plan)
+        chk("research plan links the D1 report", "D1-CHANNEL-ALLOCATION.md" in plan)
+        for pid in (
+            "42019833",  # YAP1+ relapsed SCLC -- the anchor
+            "42327581",  # the single target-intersection record
+            "41741906",  # KCNN4 in NSCLC
+            "40688096",  # elexacaftor blocks KCa3.1
+            "30015269",  # electrotaxis of lung tumour-initiating cells
+            "38494915",  # Piezo1 as tumour suppressor -- the contraindication
+        ):
+            chk(f"research plan cites {pid}", pid in plan)
+        for gate in ("K1", "K2", "K3", "K4", "K5"):
+            chk(f"research plan defines killing condition {gate}", gate in plan)
+        for stage in ("D0", "D2", "D3", "D4", "D5"):
+            chk(f"research plan defines stage {stage}", f"Stage {stage}" in plan or f"### {stage}" in plan)
+
+        # Numbers quoted in the plan must come from the committed allocation
+        # results, not from memory.
+        # The plan quotes the 200,000x configuration, so that is the file it
+        # must agree with.
+        deep_alloc_rows = []
+        if deep_path.exists():
+            deep_alloc_rows = json.loads(deep_path.read_text())["results"][
+                "channel_allocation"
+            ]
+        if deep_alloc_rows:
+            base = next(
+                (
+                    r
+                    for r in deep_alloc_rows
+                    if r["total_loci"] == 200 and r["electrical_fraction"] == 0.0
+                ),
+                None,
+            )
+            if base is not None:
+                chk(
+                    "research plan quotes the measured specificity vs persistent",
+                    f"{base['mrd_specificity_vs_persistent']:.3f}" in plan,
+                    str(base["mrd_specificity_vs_persistent"]),
+                )
+                chk(
+                    "research plan quotes the measured persistent share of MRD+",
+                    f"{base['persistent_share_of_mrd_positive'] * 100:.0f}%" in plan,
+                    str(base["persistent_share_of_mrd_positive"]),
+                )
+                chk(
+                    "research plan states the depth its quoted figures come from",
+                    "200,000" in plan,
+                )
+
     # --- licence metadata must agree with the licence file ---
     licence_path = Path("LICENSE")
     licence_text = licence_path.read_text() if licence_path.exists() else ""

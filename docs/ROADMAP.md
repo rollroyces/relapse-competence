@@ -58,6 +58,15 @@ highest-value addition to this package.
    90-day interval. How lead time and cost trade off against interval
    frequency is an obvious next question.
 
+### The plan — done: `RESEARCH-PLAN.md`
+
+[`RESEARCH-PLAN.md`](RESEARCH-PLAN.md) is the executable plan for eliminating
+the relapse-competent state: five named killing conditions (K1-K5), a ranked
+target table (KCa3.1, Piezo1, Cav2.3), the D0-D5 experiment ladder with entry,
+exit and kill gates, and the MRD-guided clinical path. D0 (computational
+therapeutic-window audit) is the cheapest kill and should start before any
+sample is spent.
+
 ### D1 — done: channel allocation
 
 Executed. See [`D1-CHANNEL-ALLOCATION.md`](D1-CHANNEL-ALLOCATION.md). Headline:

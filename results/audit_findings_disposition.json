@@ -1,7 +1,7 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head": "b32221e4156dabd05c05e7b7685968b0e80769f3",
+    "repository_head": "841dc2299314262f0b46247801d586246679a7d9",
     "findings_total": 4,
     "findings_resolved": 4,
     "all_resolved": true
