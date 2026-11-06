@@ -13,7 +13,7 @@ To validate the relapse-competent state model, a dataset needs:
 2. **A known outcome**: which patients relapsed, and when, radiographically.
 3. **A matched primary tumour** for tumour-informed panel design (the tumour
    mutation set is what the assay tracks).
-4. Ideally, **treatment-naive baseline plasma** to establish each patient's own
+4. Ideally, **pre-treatment baseline plasma** to establish each patient's own
    background.
 
 ## Candidate sources

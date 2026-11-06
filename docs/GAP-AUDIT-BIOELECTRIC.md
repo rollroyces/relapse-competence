@@ -241,7 +241,7 @@ Artefact: `results/gap_audit_bioelectric/comparison_to_previous_run.json`.
 
 ### B.7 A screening error that was found and corrected
 
-The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the ordinary English word **"tenac|ious"** — from the phrase *"a tenacious subpopulation"*. The word `treatment-naive` also occurs in the abstract and is an equally plausible-looking candidate, but it does **not** contain the substring; `tenacious` is the only word in the abstract that does.
+The first audit run produced **11** core hits, including PMID 42019833 (Stewart et al., *YAP1 Defines an Emergent, Plastic Population of Relapsed SCLC*, J Thorac Oncol 2026) — a paper that is unmistakably on the lung-relapse-stemness axis. It was a **false positive**: the regex term `enac` (the epithelial sodium channel acronym, case-insensitive) matched inside the ordinary English word **"tenac|ious"** — from the phrase *"a tenacious subpopulation"*. Another ordinary English word occurs in the same abstract and looks equally plausible, but it does **not** contain the substring; `tenacious` is the only word in the abstract that does.
 
 > **Correction notice.** An earlier version of this report attributed the false positive to the wrong word. The true source is `"tenac|ious"` — the only word in that abstract containing the pattern. The retracted wording is quoted in the machine-generated disposition artefact and also appears in the commit message of `c1c5c2a`, the commit that first published this audit; that history is left in place rather than rewritten, and this notice is the correction of record.
 
@@ -493,8 +493,9 @@ python scripts/audit_findings_disposition.py
 | F4 — the report advised a textual diff that `sort=relevance` makes noisy | RESOLVED | `ba05fce` |
 
 F2 is re-derived from the source record on every run: the script re-fetches
-PMID 42019833 and asserts that `tenacious` is the only word in the abstract
-containing the substring, and that `treatment-naive` does not.
+PMID 42019833, recovers the screening pattern from git history, and asserts
+that the pattern has exactly one match in that abstract, that the report names
+that match, and that the retracted attribution is not a match there.
 
 ### Reproducing this audit
 
