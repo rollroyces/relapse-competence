@@ -217,6 +217,7 @@ consecutive signal-consistent elevations and a trend bonus for a rising slope.
 ## Documentation
 
 - [`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) — **the executable plan**: targets (KCa3.1, Piezo1, Cav2.3), the D0–D5 experiment ladder with entry/exit/kill criteria, and the MRD-guided clinical path
+- [`docs/D0-TARGET-WINDOW-AUDIT.md`](docs/D0-TARGET-WINDOW-AUDIT.md) — **D0, executed**: the therapeutic-window audit. Two targets ruled out, the systemic-window hypothesis dropped for KCa3.1, and the kill condition re-specified — because bulk tissue cannot decide a state-dependent question
 - [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
 - [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,427 records screened; the target intersection holds **one** record, and it is a review
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations

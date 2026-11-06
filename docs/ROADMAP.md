@@ -82,6 +82,26 @@ real?" but "can it be measured in plasma at a useful operating point?" -- and
 the realistic use is *refinement* of the MRD-positive population, not
 detection.
 
+### D0 — done: target window audit
+
+Executed 2026-11-06. See [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md).
+Headline: **no candidate channel has a systemic therapeutic window on bulk
+normal tissue, and the verdict does not change between a 2× and a 20× margin.**
+Cav2.3 and STOML3 are ruled out outright; KCa3.1 is viable only if delivery is
+tumour-directed or local; Piezo1 cannot be separated from PIEZO2.
+
+**What D0 changed:** the kill condition it was built to fire cannot be
+evaluated on bulk tissue, because "conditionally selective" is a property of a
+state and bulk tissue has no state. The gate is therefore re-specified as
+**D0b** and deferred to state-resolved expression, and D2 gains an electrical
+endpoint (channel expression per cell type within one tumour).
+
+**What D0 also found:** the anchor dataset of the whole programme is public.
+**GSE299684** is the GEO deposit of the YAP1 relapsed-SCLC paper (PMID
+42019833) — 15 single-cell libraries of relapsed SCLC from seven metastatic
+sites, in standard 10x format, released 2026-05-15. The experiment that
+decides D0b therefore no longer waits for an access application.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
@@ -107,7 +127,8 @@ detection.
 
 | Dependency | Why | Lead time | Start |
 |---|---|---|---|
-| **Serial NSCLC cohort access** (PLCO via CDAS, or Taizhou via EGA) | Every empirical claim | Months | **First. Start now.** |
+| **State-resolved single-cell data** (GSE299684, public) | Decides D0b: does the relapse-competent state express the channels more than the surrounding lung? | Days — public, no application | **First. Start now.** |
+| **Serial NSCLC cohort access** (PLCO via CDAS, or Taizhou via EGA) | Every empirical claim | Months | In parallel |
 | **GitHub Actions billing** | Continuous machine-checking of every push | Hours, once the account is unlocked | Now |
 | Multi-clone model | Realism of lead time | Days | Alongside |
 | Split-model validation | Bounds the simulation gap | Days | After multi-clone |
@@ -115,7 +136,9 @@ detection.
 
 The dataset applications dominate the critical path because they are
 application-gated and measured in months, while the modelling work is measured
-in days.
+in days. **One dependency has come off it:** the anchor single-cell dataset is
+public, so the first state-resolved measurement can be run without an
+application, in parallel with the applications rather than after them.
 
 **The Actions billing lock is diagnosed, not guessed.** Every job in every
 repository on this account fails within a few seconds with no runner and no

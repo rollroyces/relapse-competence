@@ -1,0 +1,8 @@
+symbol	tier	lung_tpm	max_offtarget_tissue	max_offtarget_tpm	fold_vs_max_offtarget	immune_window_fold	epithelial_window_fold	germline_pathogenic_or_likely	expert_panel_records	verdict
+KCNN4	1	9.511	Minor_Salivary_Gland	115.7	0.0822	0.1766	0.0822	10	0	no_bulk_window
+PIEZO1	1	101.5	Colon_Sigmoid	119.2	0.8513	1.472	0.8513	115	0	no_bulk_window
+CACNA1E	1	0.1259	Brain_Nucleus_accumbens_basal_ganglia	20.32	0.006199	0.03045	0.5402	29	0	not_a_lung_target
+KCNA3	2	4.238	Cells_EBV-transformed_lymphocytes	7.973	0.5315	0.5315	1.957	34	0	no_bulk_window
+STOML3	regulator	0.6649	Fallopian_Tube	1.268	0.5245		0.5245	49	0	not_a_lung_target
+TMEM150C	regulator	7.65	Adrenal_Gland	48.67	0.1572	0.8239	0.3695	39	0	no_bulk_window
+PIEZO2	offtarget	7.949	Brain_Spinal_cord_cervical_c-1	7.62	1.043	2.631	1.598	255	0	no_bulk_window

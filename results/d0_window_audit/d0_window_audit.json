@@ -1,0 +1,2228 @@
+{
+  "audit": {
+    "id": "d0-target-window-2026-11",
+    "generated_by": "scripts/d0_window_audit.py",
+    "generated_at": "2026-11-06T11:00:13.637747+00:00",
+    "git_commit": "4725348099b188be61fe0f2b75f9c2500242981b",
+    "rule": {
+      "detection_floor_tpm": 1.0,
+      "selective_margin": 10.0,
+      "conditional_margin": 3.0,
+      "sweep_margins": [
+        2.0,
+        3.0,
+        5.0,
+        10.0,
+        20.0
+      ],
+      "target_tissue": "Lung",
+      "source": "fixed in scripts/d0_window_audit.py; the 3x and 10x margins are conventions, and the sensitivity sweep is reported so that no single margin carries the conclusion"
+    },
+    "sources": {
+      "gtex": "https://gtexportal.org/api/v2 (gtex_v8 median gene expression)",
+      "open_targets": "https://api.platform.opentargets.org/api/v4/graphql",
+      "clinvar": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi + esummary.fcgi (db=clinvar)",
+      "alphagenome": {
+        "status": "not_executed",
+        "reason": "the official `alphagenome` package is not installed in this environment; the window verdict does not depend on it"
+      }
+    },
+    "disclosure": "The aggregate lung and tissue expression values were seen before the margins were fixed, because the data pull and the rule design were interleaved. The verdict is therefore reported together with the threshold sweep."
+  },
+  "gate": {
+    "k4": {
+      "definition": "kill condition K4: no target is conditionally selective -> the pharmacological arm is dropped and the programme becomes a biomarker programme",
+      "targets_reaching_conditional_or_better": [],
+      "fired": true,
+      "scope": "evaluated on bulk normal tissue (GTEx), which cannot see state-restricted expression; see the report's limitations"
+    },
+    "threshold_sensitivity": {
+      "2x": {
+        "no_bulk_window": 5,
+        "not_a_lung_target": 2
+      },
+      "3x": {
+        "no_bulk_window": 5,
+        "not_a_lung_target": 2
+      },
+      "5x": {
+        "no_bulk_window": 5,
+        "not_a_lung_target": 2
+      },
+      "10x": {
+        "no_bulk_window": 5,
+        "not_a_lung_target": 2
+      },
+      "20x": {
+        "no_bulk_window": 5,
+        "not_a_lung_target": 2
+      }
+    }
+  },
+  "targets": [
+    {
+      "symbol": "KCNN4",
+      "tier": "1",
+      "role": "Ca2+-activated K+ efflux; sets the membrane potential the state reads out",
+      "why_in_audit": "Primary drug target; senicapoc and elexacaftor already block it",
+      "ensembl_id": "ENSG00000104783",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 9.51107,
+        "mean_tpm": 8.497517240740741,
+        "max_tissue": "Minor_Salivary_Gland",
+        "max_tpm": 115.7,
+        "max_offtarget_tissue": "Minor_Salivary_Gland",
+        "max_offtarget_tpm": 115.7,
+        "fold_vs_mean": 1.1192763404350452,
+        "fold_vs_max_offtarget": 0.08220458081244598,
+        "groups": {
+          "immune": {
+            "max_tissue": "Cells_EBV-transformed_lymphocytes",
+            "max_tpm": 53.8441,
+            "fold_vs_lung": 0.17664089473127048
+          },
+          "epithelial": {
+            "max_tissue": "Minor_Salivary_Gland",
+            "max_tpm": 115.7,
+            "fold_vs_lung": 0.08220458081244598
+          },
+          "neural": {
+            "max_tissue": "Brain_Nucleus_accumbens_basal_ganglia",
+            "max_tpm": 4.26604,
+            "fold_vs_lung": 2.2294844867839965
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 0.614219,
+            "fold_vs_lung": 15.484818932660827
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Minor_Salivary_Gland",
+            "median_tpm": 115.7
+          },
+          {
+            "tissue": "Cells_EBV-transformed_lymphocytes",
+            "median_tpm": 53.8441
+          },
+          {
+            "tissue": "Skin_Sun_Exposed_Lower_leg",
+            "median_tpm": 34.3232
+          },
+          {
+            "tissue": "Prostate",
+            "median_tpm": 31.6929
+          },
+          {
+            "tissue": "Spleen",
+            "median_tpm": 25.233
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [
+          {
+            "id": 668,
+            "label": "Voltage-gated ion channel",
+            "level": "l2"
+          },
+          {
+            "id": 668,
+            "label": "Ion channel",
+            "level": "l1"
+          },
+          {
+            "id": 668,
+            "label": "Calcium-activated potassium channel",
+            "level": "l4"
+          },
+          {
+            "id": 668,
+            "label": "Potassium channels",
+            "level": "l3"
+          }
+        ],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.8152499794960022,
+            "oeUpper": 1.0119999647140503,
+            "score": 0.8809300065040588,
+            "obs": 231,
+            "exp": 254.55999755859375
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.7476900219917297,
+            "oeUpper": 0.8711199760437012,
+            "score": 1.9752999544143677,
+            "obs": 463,
+            "exp": 573.9600219726562
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.5150399804115295,
+            "oeUpper": 0.9248999953269958,
+            "score": 9.80910002112978e-08,
+            "obs": 31,
+            "exp": 45.23500061035156
+          }
+        ],
+        "safety_liabilities": [
+          {
+            "event": "ataxia",
+            "event_id": "MONDO_0000437",
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          },
+          {
+            "event": "convulsions",
+            "event_id": "EFO_0009853",
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          },
+          {
+            "event": "decreased convulsions",
+            "event_id": "EFO_0009853",
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          },
+          {
+            "event": "decreased locomotor activity",
+            "event_id": "GO_0040013",
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          },
+          {
+            "event": "increased atrial refractory period",
+            "event_id": null,
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          },
+          {
+            "event": "neurotoxicity",
+            "event_id": "MONDO_0005527",
+            "datasource": "Lynch et al. (2017)",
+            "url": null
+          }
+        ],
+        "drug_candidate_count": 2,
+        "drug_candidates": [
+          {
+            "name": "CHLORZOXAZONE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "SENICAPOC",
+            "max_clinical_stage": "PHASE_3"
+          }
+        ]
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 199,
+        "n_records_on_file": 199,
+        "truncated": false,
+        "n_records": 199,
+        "aggregate_germline_class_counts": {
+          "Benign": 23,
+          "Benign/Likely benign": 7,
+          "Conflicting classifications of pathogenicity": 6,
+          "Likely benign": 33,
+          "Likely pathogenic": 3,
+          "Pathogenic": 7,
+          "Uncertain significance": 115,
+          "unknown": 5
+        },
+        "germline_pathogenic_or_likely": 10,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "See cases": 4,
+          "Dehydrated hereditary stomatocytosis 2": 3,
+          "Dehydrated hereditary stomatocytosis with or without pseudohyperkalemia and/or perinatal edema": 1,
+          "Inborn genetic diseases": 1,
+          "Schizophrenia": 1
+        }
+      },
+      "verdict": {
+        "class": "no_bulk_window",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.08220458081244598,
+        "immune_window_fold": 0.17664089473127048,
+        "epithelial_window_fold": 0.08220458081244598,
+        "sweep": {
+          "2x": "no_bulk_window",
+          "3x": "no_bulk_window",
+          "5x": "no_bulk_window",
+          "10x": "no_bulk_window",
+          "20x": "no_bulk_window"
+        }
+      }
+    },
+    {
+      "symbol": "PIEZO1",
+      "tier": "1",
+      "role": "Mechanical -> Ca2+ -> YAP/TEAD entry point",
+      "why_in_audit": "Primary drug target; direction of effect is not established",
+      "ensembl_id": "ENSG00000103335",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 101.51700000000001,
+        "mean_tpm": 40.43616518518519,
+        "max_tissue": "Colon_Sigmoid",
+        "max_tpm": 119.243,
+        "max_offtarget_tissue": "Colon_Sigmoid",
+        "max_offtarget_tpm": 119.243,
+        "fold_vs_mean": 2.510549641269972,
+        "fold_vs_max_offtarget": 0.8513455716478118,
+        "groups": {
+          "immune": {
+            "max_tissue": "Spleen",
+            "max_tpm": 68.9737,
+            "fold_vs_lung": 1.4718218683353224
+          },
+          "epithelial": {
+            "max_tissue": "Colon_Sigmoid",
+            "max_tpm": 119.243,
+            "fold_vs_lung": 0.8513455716478118
+          },
+          "neural": {
+            "max_tissue": "Nerve_Tibial",
+            "max_tpm": 60.157,
+            "fold_vs_lung": 1.6875342852868331
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 13.15,
+            "fold_vs_lung": 7.719923954372624
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Colon_Sigmoid",
+            "median_tpm": 119.243
+          },
+          {
+            "tissue": "Lung",
+            "median_tpm": 101.51700000000001
+          },
+          {
+            "tissue": "Cells_Cultured_fibroblasts",
+            "median_tpm": 94.759
+          },
+          {
+            "tissue": "Bladder",
+            "median_tpm": 85.9578
+          },
+          {
+            "tissue": "Uterus",
+            "median_tpm": 82.6063
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [
+          {
+            "id": 601,
+            "label": "Unclassified protein",
+            "level": "l1"
+          }
+        ],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 1.5571999549865723,
+            "oeUpper": 1.6647000312805176,
+            "score": -14.130000114440918,
+            "obs": 2427,
+            "exp": 1507.5
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 1.4189000129699707,
+            "oeUpper": 1.4864000082015991,
+            "score": -11.336999893188477,
+            "obs": 5018,
+            "exp": 3455.5
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.9058799743652344,
+            "oeUpper": 1.09660005569458,
+            "score": 0,
+            "obs": 296,
+            "exp": 297.2099914550781
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 0,
+        "drug_candidates": []
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 2000,
+        "n_records_on_file": 3123,
+        "truncated": true,
+        "n_records": 2000,
+        "aggregate_germline_class_counts": {
+          "Benign": 65,
+          "Benign/Likely benign": 37,
+          "Conflicting classifications of pathogenicity": 165,
+          "Likely benign": 510,
+          "Likely pathogenic": 75,
+          "Pathogenic": 36,
+          "Pathogenic/Likely pathogenic": 4,
+          "Uncertain significance": 1077,
+          "unknown": 31
+        },
+        "germline_pathogenic_or_likely": 115,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "Lymphatic malformation 6": 35,
+          "PIEZO1-related disorder": 21,
+          "Dehydrated hereditary stomatocytosis with or without pseudohyperkalemia and/or perinatal edema": 13,
+          "Blood group, ER": 6,
+          "KBG syndrome": 5,
+          "Multiple congenital anomalies/dysmorphic syndrome-intellectual disability": 2,
+          "See cases": 2,
+          "Chromosome 16q22 deletion syndrome": 1,
+          "Diffuse lymphatic malformation": 1,
+          "Fetal anomalies with a likely genetic cause": 1,
+          "Lymphatic malformation": 1,
+          "Mucopolysaccharidosis, MPS-IV-A": 1,
+          "Partial trisomy of the long arm of chromosome 16": 1,
+          "Rare venous malformation": 1
+        }
+      },
+      "verdict": {
+        "class": "no_bulk_window",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.8513455716478118,
+        "immune_window_fold": 1.4718218683353224,
+        "epithelial_window_fold": 0.8513455716478118,
+        "sweep": {
+          "2x": "no_bulk_window",
+          "3x": "no_bulk_window",
+          "5x": "no_bulk_window",
+          "10x": "no_bulk_window",
+          "20x": "no_bulk_window"
+        }
+      }
+    },
+    {
+      "symbol": "CACNA1E",
+      "tier": "1",
+      "role": "VGCC alpha1E; the single record in the target intersection",
+      "why_in_audit": "Primary drug target; conceptually central, least developed",
+      "ensembl_id": "ENSG00000198216",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 0.125943,
+        "mean_tpm": 2.0761704818518516,
+        "max_tissue": "Brain_Nucleus_accumbens_basal_ganglia",
+        "max_tpm": 20.3154,
+        "max_offtarget_tissue": "Brain_Nucleus_accumbens_basal_ganglia",
+        "max_offtarget_tpm": 20.3154,
+        "fold_vs_mean": 0.060661203451685936,
+        "fold_vs_max_offtarget": 0.006199385687704894,
+        "groups": {
+          "immune": {
+            "max_tissue": "Cells_EBV-transformed_lymphocytes",
+            "max_tpm": 4.13551,
+            "fold_vs_lung": 0.03045404315308148
+          },
+          "epithelial": {
+            "max_tissue": "Colon_Sigmoid",
+            "max_tpm": 0.23313499999999998,
+            "fold_vs_lung": 0.5402148969481202
+          },
+          "neural": {
+            "max_tissue": "Brain_Nucleus_accumbens_basal_ganglia",
+            "max_tpm": 20.3154,
+            "fold_vs_lung": 0.006199385687704894
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 0.129407,
+            "fold_vs_lung": 0.9732317417141267
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Brain_Nucleus_accumbens_basal_ganglia",
+            "median_tpm": 20.3154
+          },
+          {
+            "tissue": "Brain_Caudate_basal_ganglia",
+            "median_tpm": 11.8565
+          },
+          {
+            "tissue": "Brain_Cortex",
+            "median_tpm": 11.290999999999999
+          },
+          {
+            "tissue": "Brain_Frontal_Cortex_BA9",
+            "median_tpm": 10.4672
+          },
+          {
+            "tissue": "Brain_Putamen_basal_ganglia",
+            "median_tpm": 8.25431
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [
+          {
+            "id": 1583,
+            "label": "Voltage-gated calcium channel",
+            "level": "l3"
+          },
+          {
+            "id": 1583,
+            "label": "Ion channel",
+            "level": "l1"
+          },
+          {
+            "id": 1583,
+            "label": "Voltage-gated ion channel",
+            "level": "l2"
+          }
+        ],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.9230599999427795,
+            "oeUpper": 1.0190999507904053,
+            "score": 0.6100199818611145,
+            "obs": 1104,
+            "exp": 1138.5
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.5935199856758118,
+            "oeUpper": 0.6403800249099731,
+            "score": 9.019700050354004,
+            "obs": 1874,
+            "exp": 3040.10009765625
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.11985000222921371,
+            "oeUpper": 0.2008800059556961,
+            "score": 1,
+            "obs": 40,
+            "exp": 259.20001220703125
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 10,
+        "drug_candidates": [
+          {
+            "name": "BEPRIDIL",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "PHLOROGLUCINOL",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "PREGABALIN",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "SULOCTIDIL",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "GABAPENTIN",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "TERODILINE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "IMAGABALIN",
+            "max_clinical_stage": "PHASE_3"
+          },
+          {
+            "name": "ATAGABALIN",
+            "max_clinical_stage": "PHASE_2"
+          },
+          {
+            "name": "TERODILINE HYDROCHLORIDE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "GABAPENTIN ENACARBIL",
+            "max_clinical_stage": "APPROVAL"
+          }
+        ]
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 2000,
+        "n_records_on_file": 2659,
+        "truncated": true,
+        "n_records": 2000,
+        "aggregate_germline_class_counts": {
+          "Benign": 90,
+          "Benign/Likely benign": 31,
+          "Conflicting classifications of pathogenicity": 75,
+          "Likely benign": 1044,
+          "Likely pathogenic": 15,
+          "Pathogenic": 14,
+          "Uncertain significance": 720,
+          "not provided": 1,
+          "unknown": 10
+        },
+        "germline_pathogenic_or_likely": 29,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "Developmental and epileptic encephalopathy, 69": 10,
+          "Inborn genetic diseases": 5,
+          "not specified": 2,
+          "See cases": 1
+        }
+      },
+      "verdict": {
+        "class": "not_a_lung_target",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.006199385687704894,
+        "immune_window_fold": 0.03045404315308148,
+        "epithelial_window_fold": 0.5402148969481202,
+        "sweep": {
+          "2x": "not_a_lung_target",
+          "3x": "not_a_lung_target",
+          "5x": "not_a_lung_target",
+          "10x": "not_a_lung_target",
+          "20x": "not_a_lung_target"
+        }
+      }
+    },
+    {
+      "symbol": "KCNA3",
+      "tier": "2",
+      "role": "Kv1.3 effector-memory T-cell and tumour signalling",
+      "why_in_audit": "Immune arm; the readout channel of the same state",
+      "ensembl_id": "ENSG00000177272",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 4.23755,
+        "mean_tpm": 0.783816162962963,
+        "max_tissue": "Cells_EBV-transformed_lymphocytes",
+        "max_tpm": 7.97308,
+        "max_offtarget_tissue": "Cells_EBV-transformed_lymphocytes",
+        "max_offtarget_tpm": 7.97308,
+        "fold_vs_mean": 5.4063059684573425,
+        "fold_vs_max_offtarget": 0.5314821875611432,
+        "groups": {
+          "immune": {
+            "max_tissue": "Cells_EBV-transformed_lymphocytes",
+            "max_tpm": 7.97308,
+            "fold_vs_lung": 0.5314821875611432
+          },
+          "epithelial": {
+            "max_tissue": "Small_Intestine_Terminal_Ileum",
+            "max_tpm": 2.16531,
+            "fold_vs_lung": 1.9570177018533144
+          },
+          "neural": {
+            "max_tissue": "Brain_Cerebellum",
+            "max_tpm": 1.33935,
+            "fold_vs_lung": 3.163885466830925
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 0.20837399999999998,
+            "fold_vs_lung": 20.336270360025726
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Cells_EBV-transformed_lymphocytes",
+            "median_tpm": 7.97308
+          },
+          {
+            "tissue": "Lung",
+            "median_tpm": 4.23755
+          },
+          {
+            "tissue": "Spleen",
+            "median_tpm": 4.21047
+          },
+          {
+            "tissue": "Whole_Blood",
+            "median_tpm": 2.26231
+          },
+          {
+            "tissue": "Small_Intestine_Terminal_Ileum",
+            "median_tpm": 2.16531
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [
+          {
+            "id": 118,
+            "label": "Potassium channels",
+            "level": "l3"
+          },
+          {
+            "id": 118,
+            "label": "Ion channel",
+            "level": "l1"
+          },
+          {
+            "id": 118,
+            "label": "Voltage-gated ion channel",
+            "level": "l2"
+          },
+          {
+            "id": 118,
+            "label": "Voltage-gated potassium channel",
+            "level": "l4"
+          }
+        ],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": true,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.8414400219917297,
+            "oeUpper": 1.0099999904632568,
+            "score": 0.8809800148010254,
+            "obs": 324,
+            "exp": 351.69000244140625
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.6837300062179565,
+            "oeUpper": 0.7831100225448608,
+            "score": 3.24429988861084,
+            "obs": 587,
+            "exp": 802.5
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.36254000663757324,
+            "oeUpper": 0.7777699828147888,
+            "score": 0.0036148999352008104,
+            "obs": 18,
+            "exp": 34.31800079345703
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 6,
+        "drug_candidates": [
+          {
+            "name": "AMIFAMPRIDINE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "AMIFAMPRIDINE PHOSPHATE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "TEDISAMIL",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "GUANIDINE HYDROCHLORIDE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "DALFAMPRIDINE",
+            "max_clinical_stage": "APPROVAL"
+          },
+          {
+            "name": "NERISPIRDINE",
+            "max_clinical_stage": "PHASE_2"
+          }
+        ]
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 142,
+        "n_records_on_file": 142,
+        "truncated": false,
+        "n_records": 142,
+        "aggregate_germline_class_counts": {
+          "Benign": 3,
+          "Benign/Likely benign": 1,
+          "Likely benign": 8,
+          "Likely pathogenic": 17,
+          "Pathogenic": 17,
+          "Uncertain significance": 95,
+          "not provided": 1
+        },
+        "germline_pathogenic_or_likely": 34,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "KCNA3-associated developmental and epileptic encephalopathy": 13,
+          "See cases": 9,
+          "KCNA3-associated disorder": 2,
+          "Autism": 1,
+          "Hereditary spastic paraplegia 63": 1,
+          "Inborn genetic diseases": 1,
+          "Neurodevelopmental delay": 1,
+          "Neurodevelopmental disorder": 1,
+          "Pontocerebellar hypoplasia type 9": 1,
+          "Seizure": 1,
+          "not specified": 1
+        }
+      },
+      "verdict": {
+        "class": "no_bulk_window",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.5314821875611432,
+        "immune_window_fold": 0.5314821875611432,
+        "epithelial_window_fold": 1.9570177018533144,
+        "sweep": {
+          "2x": "no_bulk_window",
+          "3x": "no_bulk_window",
+          "5x": "no_bulk_window",
+          "10x": "no_bulk_window",
+          "20x": "no_bulk_window"
+        }
+      }
+    },
+    {
+      "symbol": "STOML3",
+      "tier": "regulator",
+      "role": "PIEZO1 complex partner; modulates Piezo1 gating",
+      "why_in_audit": "A regulator of the primary target: a selective partner widens the window",
+      "ensembl_id": "ENSG00000133115",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 0.664855,
+        "mean_tpm": 0.05861151851851852,
+        "max_tissue": "Fallopian_Tube",
+        "max_tpm": 1.2677,
+        "max_offtarget_tissue": "Fallopian_Tube",
+        "max_offtarget_tpm": 1.2677,
+        "fold_vs_mean": 11.343418781923157,
+        "fold_vs_max_offtarget": 0.5244576792616549,
+        "groups": {
+          "immune": {
+            "max_tissue": "Cells_EBV-transformed_lymphocytes",
+            "max_tpm": 0.0,
+            "fold_vs_lung": null
+          },
+          "epithelial": {
+            "max_tissue": "Fallopian_Tube",
+            "max_tpm": 1.2677,
+            "fold_vs_lung": 0.5244576792616549
+          },
+          "neural": {
+            "max_tissue": "Brain_Hippocampus",
+            "max_tpm": 0.324142,
+            "fold_vs_lung": 2.0511226561198486
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 0.0,
+            "fold_vs_lung": null
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Fallopian_Tube",
+            "median_tpm": 1.2677
+          },
+          {
+            "tissue": "Lung",
+            "median_tpm": 0.664855
+          },
+          {
+            "tissue": "Brain_Hippocampus",
+            "median_tpm": 0.324142
+          },
+          {
+            "tissue": "Brain_Hypothalamus",
+            "median_tpm": 0.21111999999999997
+          },
+          {
+            "tissue": "Testis",
+            "median_tpm": 0.181222
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.7534700036048889,
+            "oeUpper": 1.01419997215271,
+            "score": 0.8987600207328796,
+            "obs": 122,
+            "exp": 139.80999755859375
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.9627699851989746,
+            "oeUpper": 1.1396000385284424,
+            "score": -0.3808700144290924,
+            "obs": 380,
+            "exp": 362.989990234375
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.7905899882316589,
+            "oeUpper": 1.419700026512146,
+            "score": 1.175200041447777e-11,
+            "obs": 31,
+            "exp": 29.468000411987305
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 0,
+        "drug_candidates": []
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 127,
+        "n_records_on_file": 127,
+        "truncated": false,
+        "n_records": 127,
+        "aggregate_germline_class_counts": {
+          "Likely benign": 1,
+          "Likely pathogenic": 1,
+          "Pathogenic": 48,
+          "Uncertain significance": 65,
+          "no classifications from unflagged records": 1,
+          "unknown": 11
+        },
+        "germline_pathogenic_or_likely": 49,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "See cases": 32,
+          "not specified": 7,
+          "Primary ciliary dyskinesia": 1
+        }
+      },
+      "verdict": {
+        "class": "not_a_lung_target",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.5244576792616549,
+        "immune_window_fold": null,
+        "epithelial_window_fold": 0.5244576792616549,
+        "sweep": {
+          "2x": "not_a_lung_target",
+          "3x": "not_a_lung_target",
+          "5x": "not_a_lung_target",
+          "10x": "not_a_lung_target",
+          "20x": "not_a_lung_target"
+        }
+      }
+    },
+    {
+      "symbol": "TMEM150C",
+      "tier": "regulator",
+      "role": "PIEZO1 complex partner; modulates Piezo1 gating",
+      "why_in_audit": "A regulator of the primary target: a selective partner widens the window",
+      "ensembl_id": "ENSG00000249242",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 7.649889999999999,
+        "mean_tpm": 10.291618387037037,
+        "max_tissue": "Adrenal_Gland",
+        "max_tpm": 48.6688,
+        "max_offtarget_tissue": "Adrenal_Gland",
+        "max_offtarget_tpm": 48.6688,
+        "fold_vs_mean": 0.7433126367798026,
+        "fold_vs_max_offtarget": 0.15718263035045038,
+        "groups": {
+          "immune": {
+            "max_tissue": "Spleen",
+            "max_tpm": 9.284930000000001,
+            "fold_vs_lung": 0.8239038958828983
+          },
+          "epithelial": {
+            "max_tissue": "Minor_Salivary_Gland",
+            "max_tpm": 20.7007,
+            "fold_vs_lung": 0.36954740660943824
+          },
+          "neural": {
+            "max_tissue": "Brain_Frontal_Cortex_BA9",
+            "max_tpm": 25.6683,
+            "fold_vs_lung": 0.2980286968751339
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 8.64936,
+            "fold_vs_lung": 0.8844457855841357
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Adrenal_Gland",
+            "median_tpm": 48.6688
+          },
+          {
+            "tissue": "Ovary",
+            "median_tpm": 39.1479
+          },
+          {
+            "tissue": "Brain_Frontal_Cortex_BA9",
+            "median_tpm": 25.6683
+          },
+          {
+            "tissue": "Minor_Salivary_Gland",
+            "median_tpm": 20.7007
+          },
+          {
+            "tissue": "Breast_Mammary_Tissue",
+            "median_tpm": 20.1833
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.7645099759101868,
+            "oeUpper": 1.0595999956130981,
+            "score": 0.6446599960327148,
+            "obs": 101,
+            "exp": 112.45999908447266
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.7459499835968018,
+            "oeUpper": 0.9178799986839294,
+            "score": 1.2874000072479248,
+            "obs": 251,
+            "exp": 303.6000061035156
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.20611999928951263,
+            "oeUpper": 0.5667499899864197,
+            "score": 0.881879985332489,
+            "obs": 10,
+            "exp": 29.929000854492188
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 0,
+        "drug_candidates": []
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 73,
+        "n_records_on_file": 73,
+        "truncated": false,
+        "n_records": 73,
+        "aggregate_germline_class_counts": {
+          "Likely benign": 1,
+          "Likely pathogenic": 3,
+          "Pathogenic": 36,
+          "Uncertain significance": 28,
+          "unknown": 5
+        },
+        "germline_pathogenic_or_likely": 39,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "See cases": 22,
+          "not specified": 6,
+          "Chromosome 4q21 deletion syndrome": 2
+        }
+      },
+      "verdict": {
+        "class": "no_bulk_window",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 0.15718263035045038,
+        "immune_window_fold": 0.8239038958828983,
+        "epithelial_window_fold": 0.36954740660943824,
+        "sweep": {
+          "2x": "no_bulk_window",
+          "3x": "no_bulk_window",
+          "5x": "no_bulk_window",
+          "10x": "no_bulk_window",
+          "20x": "no_bulk_window"
+        }
+      }
+    },
+    {
+      "symbol": "PIEZO2",
+      "tier": "offtarget",
+      "role": "Piezo1 homologue; the dominant on-target off-target of any Piezo1 drug",
+      "why_in_audit": "Included because selectivity against it decides whether a Piezo1 drug is viable",
+      "ensembl_id": "ENSG00000154864",
+      "gtex": {
+        "status": "ok",
+        "n_tissues": 54,
+        "lung_tpm": 7.94918,
+        "mean_tpm": 1.324730441851852,
+        "max_tissue": "Lung",
+        "max_tpm": 7.94918,
+        "max_offtarget_tissue": "Brain_Spinal_cord_cervical_c-1",
+        "max_offtarget_tpm": 7.62025,
+        "fold_vs_mean": 6.000601895195957,
+        "fold_vs_max_offtarget": 1.043165250483908,
+        "groups": {
+          "immune": {
+            "max_tissue": "Cells_EBV-transformed_lymphocytes",
+            "max_tpm": 3.02104,
+            "fold_vs_lung": 2.6312726743108334
+          },
+          "epithelial": {
+            "max_tissue": "Colon_Sigmoid",
+            "max_tpm": 4.97428,
+            "fold_vs_lung": 1.5980564021325698
+          },
+          "neural": {
+            "max_tissue": "Brain_Spinal_cord_cervical_c-1",
+            "max_tpm": 7.62025,
+            "fold_vs_lung": 1.043165250483908
+          },
+          "cardiac": {
+            "max_tissue": "Heart_Atrial_Appendage",
+            "max_tpm": 0.154348,
+            "fold_vs_lung": 51.501671547412336
+          }
+        },
+        "top_tissues": [
+          {
+            "tissue": "Lung",
+            "median_tpm": 7.94918
+          },
+          {
+            "tissue": "Brain_Spinal_cord_cervical_c-1",
+            "median_tpm": 7.62025
+          },
+          {
+            "tissue": "Nerve_Tibial",
+            "median_tpm": 5.17746
+          },
+          {
+            "tissue": "Colon_Sigmoid",
+            "median_tpm": 4.97428
+          },
+          {
+            "tissue": "Prostate",
+            "median_tpm": 3.38235
+          }
+        ]
+      },
+      "opentargets": {
+        "status": "ok",
+        "target_class": [],
+        "is_essential": false,
+        "tractability": [
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Structure with Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Ligand"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "High-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Med-Quality Pocket"
+          },
+          {
+            "modality": "SM",
+            "value": false,
+            "label": "Druggable Family"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "UniProt loc high conf"
+          },
+          {
+            "modality": "AB",
+            "value": false,
+            "label": "GO CC high conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt loc med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "UniProt SigP or TMHMM"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "GO CC med conf"
+          },
+          {
+            "modality": "AB",
+            "value": true,
+            "label": "Human Protein Atlas loc"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Literature"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "UniProt Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Database Ubiquitination"
+          },
+          {
+            "modality": "PR",
+            "value": true,
+            "label": "Half-life Data"
+          },
+          {
+            "modality": "PR",
+            "value": false,
+            "label": "Small Molecule Binder"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Approved Drug"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Advanced Clinical"
+          },
+          {
+            "modality": "OC",
+            "value": false,
+            "label": "Phase 1 Clinical"
+          }
+        ],
+        "genetic_constraint": [
+          {
+            "constraintType": "syn",
+            "oeLower": 0.9722099900245667,
+            "oeUpper": 1.0669000148773193,
+            "score": -0.38277000188827515,
+            "obs": 1251,
+            "exp": 1228.5
+          },
+          {
+            "constraintType": "mis",
+            "oeLower": 0.8666499853134155,
+            "oeUpper": 0.9200400114059448,
+            "score": 2.660399913787842,
+            "obs": 3028,
+            "exp": 3391.300048828125
+          },
+          {
+            "constraintType": "lof",
+            "oeLower": 0.45052000880241394,
+            "oeUpper": 0.578719973564148,
+            "score": 1.446800025172392e-19,
+            "obs": 172,
+            "exp": 337.2799987792969
+          }
+        ],
+        "safety_liabilities": [],
+        "drug_candidate_count": 0,
+        "drug_candidates": []
+      },
+      "clinvar": {
+        "status": "ok",
+        "n_records_fetched": 1709,
+        "n_records_on_file": 1709,
+        "truncated": false,
+        "n_records": 1709,
+        "aggregate_germline_class_counts": {
+          "Benign": 251,
+          "Benign/Likely benign": 40,
+          "Conflicting classifications of pathogenicity": 62,
+          "Likely benign": 320,
+          "Likely pathogenic": 85,
+          "Pathogenic": 157,
+          "Pathogenic/Likely pathogenic": 13,
+          "Uncertain significance": 764,
+          "not provided": 4,
+          "unknown": 13
+        },
+        "germline_pathogenic_or_likely": 255,
+        "expert_panel_or_guideline_records": 0,
+        "traits_asserted_by_pathogenic_variants": {
+          "Arthrogryposis, distal, with impaired proprioception and touch": 60,
+          "See cases": 60,
+          "PIEZO2-related disorder": 23,
+          "Arthrogryposis- oculomotor limitation-electroretinal anomalies syndrome": 20,
+          "Gordon syndrome": 12,
+          "not specified": 12,
+          "Inborn genetic diseases": 9,
+          "Deletion of short arm of chromosome 18": 7,
+          "Marden-Walker syndrome": 6,
+          "Arthrogryposis multiplex congenita": 2,
+          "Fetal akinesia deformation sequence 1": 2,
+          "Abnormality of the skeletal system": 1,
+          "Arthrogryposis": 1,
+          "Autosomal dominant and autosomal recessive PIEZO2-related disorders": 1,
+          "Congenital ichthyosiform erythroderma": 1,
+          "Distal arthrogryposis": 1,
+          "Exocrine pancreatic insufficiency": 1,
+          "FAM38B-related disorder": 1,
+          "Failure to thrive": 1,
+          "Heterotaxy, visceral, 4, autosomal": 1,
+          "Hypotonia": 1,
+          "Intellectual disability": 1,
+          "Paediatric disorders": 1,
+          "Scoliosis": 1,
+          "Tetrasomy 18p": 1
+        }
+      },
+      "verdict": {
+        "class": "no_bulk_window",
+        "selective_margin": 10.0,
+        "conditional_margin": 3.0,
+        "window_fold_vs_max_offtarget": 1.043165250483908,
+        "immune_window_fold": 2.6312726743108334,
+        "epithelial_window_fold": 1.5980564021325698,
+        "sweep": {
+          "2x": "no_bulk_window",
+          "3x": "no_bulk_window",
+          "5x": "no_bulk_window",
+          "10x": "no_bulk_window",
+          "20x": "no_bulk_window"
+        }
+      }
+    }
+  ]
+}

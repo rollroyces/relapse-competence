@@ -119,6 +119,14 @@ def _close(a: float, b: float, tol: float = 5e-4) -> bool:
     return abs(a - b) <= tol
 
 
+def _close_rel(a: float, b: float, rel_tol: float = 1e-3) -> bool:
+    """Relative comparison, for numbers a report rounds to 4 significant figures."""
+    if a == b:
+        return True
+    scale = max(abs(a), abs(b))
+    return abs(a - b) <= rel_tol * scale
+
+
 def _git_object_exists(sha: str) -> bool:
     """Whether ``sha`` still names a commit in this repository.
 
@@ -577,6 +585,65 @@ def main(argv: list[str] | None = None) -> int:
         not stale_ids,
         f"stale: {stale_ids}" if stale_ids else "",
     )
+
+    # --- the D0 window audit must agree with its generated artefact ---
+    d0_artefact_path = Path("results/d0_window_audit/d0_window_audit.json")
+    d0_doc_path = Path("docs/D0-TARGET-WINDOW-AUDIT.md")
+    chk("the D0 window audit artefact exists", d0_artefact_path.exists())
+    chk("the D0 window audit report exists", d0_doc_path.exists())
+    if d0_artefact_path.exists() and d0_doc_path.exists():
+        d0 = json.loads(d0_artefact_path.read_text())
+        d0_doc = d0_doc_path.read_text()
+        by_symbol = {t["symbol"]: t for t in d0["targets"]}
+        d0_table = parse_markdown_table(
+            d0_doc, "| Target | Tier | Lung TPM | Highest non-lung tissue |"
+        )
+        chk("the D0 report carries a verdict table", len(d0_table) > 1)
+        if len(d0_table) > 1:
+            seen = set()
+            for row in d0_table[1:]:
+                cells = [c.strip() for c in row]
+                if not cells:
+                    continue
+                symbol = cells[0].strip("`")
+                seen.add(symbol)
+                target = by_symbol.get(symbol)
+                chk(f"the D0 table row for {symbol} is a known target", target is not None)
+                if target is None:
+                    continue
+                verdict = target.get("verdict") or {}
+                gtex = target.get("gtex") or {}
+                chk(
+                    f"the D0 verdict for {symbol} matches the artefact",
+                    verdict.get("class", "") in cells[-1],
+                    f"report={cells[-1]} artefact={verdict.get('class')}",
+                )
+                chk(
+                    f"the D0 lung TPM for {symbol} matches the artefact",
+                    _close_rel(_num(cells[2]), gtex.get("lung_tpm") or 0.0),
+                    f"report={cells[2]} artefact={gtex.get('lung_tpm')}",
+                )
+                chk(
+                    f"the D0 window fold for {symbol} matches the artefact",
+                    _close_rel(
+                        _num(cells[4]),
+                        verdict.get("window_fold_vs_max_offtarget") or 0.0,
+                    ),
+                    f"report={cells[4]} artefact={verdict.get('window_fold_vs_max_offtarget')}",
+                )
+            chk(
+                "the D0 table covers every audited target",
+                seen == set(by_symbol),
+                f"report={sorted(seen)} artefact={sorted(by_symbol)}",
+            )
+        chk(
+            "the D0 report states the gate outcome",
+            ("does not fire" in d0_doc) or ("does not fire" in d0_doc),
+        )
+        chk(
+            "the D0 report links the research plan",
+            "RESEARCH-PLAN.md" in d0_doc,
+        )
 
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")

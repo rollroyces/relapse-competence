@@ -106,6 +106,26 @@ already exists in `protein-flow-explorer` (54 tissues, specificity verdict).
 | **Piezo1** | The mechanical→Ca²⁺→YAP/TEAD entry point | **Levistilide A** blocks Piezo1-centred signalling ([PMID 42843051](https://pubmed.ncbi.nlm.nih.gov/42843051/)); GSK2798745 is a clinical-stage Piezo1 inhibitor | **High and ambiguous.** Piezo1 acts as a **tumour suppressor** in one lung context ([PMID 38494915](https://pubmed.ncbi.nlm.nih.gov/38494915/)) — direction is not established | **Second priority, and the most original.** Only 13 PubMed records combine a Piezo1 inhibitor with cancer at all, and almost none are oncology |
 | **Cav2.3 / CACNA1E** | VGCC α1E; the single record in the target intersection | SNX-482, peptide blocker | Medium-high | **Third.** Conceptually central, least developed |
 
+**Post-D0 verdicts (2026-11-06).** The ranking above was written before the
+window audit was run. The audit's verdicts supersede it, and the authoritative
+table is [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md) §4:
+
+- **KCa3.1 / KCNN4 — conditional, delivery-constrained.** No systemic window:
+  lung expression is 12× below minor salivary gland, the gene is
+  loss-of-function intolerant (LOEUF 0.515), and on-target neurological and
+  cardiac liabilities are recorded. Viability now requires tumour-directed or
+  local delivery, or a companion-probe role (senicapoc-BODIPY) rather than the
+  drug.
+- **Piezo1 — still the most original, now with a quantified constraint.** No
+  separation from PIEZO2 (window fold 1.043; PIEZO2's germline burden is
+  centred on distal arthrogryposis), and no clinical-stage asset in Open
+  Targets. Isoform selectivity is a prerequisite, not an optimisation.
+- **Cav2.3 / CACNA1E — ruled out as a lung target.** 0.126 TPM in lung,
+  LOEUF 0.120, and ClinVar asserts developmental and epileptic
+  encephalopathy 69.
+- **Kv1.3 / KCNA3** moves to the state-modulating immune arm rather than the
+  tumour-selective drug table.
+
 ### Tier 2 — the immune arm and the readout
 
 | Target | Role | Note |
@@ -133,7 +153,13 @@ trial succeed, and the state that would tell you who to treat.
 Each stage has an entry gate, an exit criterion, and a kill condition. Stages
 are ordered by cost, and **no stage may begin before the previous one exits**.
 
-### Stage D0 — target window audit *(weeks; computational; no samples)*
+### Stage D0 — target window audit *(weeks; computational; no samples)* — **executed**
+
+> **Status: executed 2026-11-06.** Full report: [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md).
+> Artefact: `results/d0_window_audit/d0_window_audit.json`. Two targets were
+> ruled out, the systemic-window hypothesis was dropped for KCa3.1, and the K4
+> kill condition was re-specified as **D0b** and deferred to state-resolved
+> data — see the report §6 for why bulk tissue cannot decide it.
 
 **Question.** Which targets have a therapeutic window in lung tissue?
 **Method.** For each Tier-1/2 target: pull GTEx lung and immune expression
@@ -255,7 +281,7 @@ question, and it is the half nobody is running.
 
 | Phase | Duration | Depends on |
 |---|---|---|
-| D0 window audit | 2–3 weeks | nothing — start now |
+| D0 window audit | 2–3 weeks | nothing — start now | **done 2026-11-06**; the gate it was meant to fire was re-specified as D0b and deferred to state-resolved data |
 | D2 tissue | 4–6 months | archived tissue access; D0 exit |
 | D3 plasma | 6–9 months | serial plasma cohort; **data applications** |
 | D4 prospective | 3–5 years | D3 exit; trial funding |
