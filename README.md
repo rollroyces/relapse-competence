@@ -192,9 +192,22 @@ consecutive signal-consistent elevations and a trend bonus for a rising slope.
 
 ## Documentation
 
+- [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,418 records screened; the target intersection holds **one** record, and it is a review
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
 - [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
+
+### The research programme in one paragraph
+
+The gap audit's conclusion was not "nobody has looked". It was that the field has
+three mature, separate pieces and has never joined them: an **electrical**
+phenotype (membrane potential, ion channels) that has been tied to relapse
+separately in glioblastoma, oesophageal, gastric and thyroid cancer; a
+**lung-cancer relapse-competent state** that was only defined in 2026, using
+ctDNA; and a **DNA** channel that reads everything from plasma. The proposed
+work is to close the loop for the first time — and the first step costs days,
+because `relapse-competence` can compute whether an added electrical channel is
+worth the read budget *before* any cohort exists.
 
 ## Licence
 
