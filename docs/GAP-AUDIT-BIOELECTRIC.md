@@ -19,33 +19,26 @@ several times since. The table records what changed and when.
 | `0421baf` | Local CI script added and documented, as a fallback while Actions is unavailable | — |
 | `eb19df8` | Local CI script path fix | — |
 | `ca831e2` | **First publication of the gap audit. Its commit message was amended on 2026-11-06** (see the note below). | git history at the first-published commit |
-| `bd29ef3` | Parser reconciliation; attribution corrected; G.3 rewritten; set-based comparison recommended | — |
-| `6c93028` | The four dropped book records identified and recovered | — |
-| `8cf9b1a` | D1 executed: channel allocation, specificity decomposition, and the carrying-capacity fix | — |
-| `391f117` | Documentation synchronised with the executed D1; verifier extended to guard prose. **Its commit message was amended on 2026-11-06** (see the note below). | — |
-| `3341d72` | Machine-generated findings disposition added | — |
-| `3f73654` | Licence migrated to AGPL-3.0-or-later plus commercial; retracted wording removed from the report body | — |
-| `be152c6` | Executable research plan added | — |
-| `231c84e` | Two-sided historical proof of each finding; revision history added to the report | — |
-| `2fc6b09` | Withdrawn wording removed from every repository file; recovered from git at run time instead | — |
-| `6a89734` | Disposition artefact regenerated against the current head | — |
-| *(this commit)* | Two commit messages amended; this table regenerated with the rewritten commit ids | — |
+| `2191a26` | Parser reconciliation; attribution corrected; G.3 rewritten; set-based comparison recommended. **Its commit message was amended on 2026-11-06.** | — |
+| `d6a3d60` | The four dropped book records identified and recovered | — |
+| `ebcae32` | D1 executed: channel allocation, specificity decomposition, and the carrying-capacity fix | — |
+| `98766ef` | Documentation synchronised with the executed D1; verifier extended to guard prose. **Its commit message was amended on 2026-11-06.** | — |
+| `c4784d3` | Machine-generated findings disposition added | — |
+| `be2fcc7` | Licence migrated to AGPL-3.0-or-later plus commercial; retracted wording removed from the report body | — |
+| `7216555` | Executable research plan added | — |
+| `bd785be` | Two-sided historical proof of each finding; revision history added to the report | — |
+| `baae5b0` | Withdrawn wording removed from every repository file; recovered from git at run time instead | — |
+| `59dcaaa` | Disposition artefact regenerated against the current head | — |
+| `e03437f` | Two commit messages amended; the commit reference made to resolve by content | — |
+| *(this commit)* | Revision history regenerated from the log | — |
 
-**Note on the rewritten commit ids.** The history was amended on 2026-11-06.
-Two commit messages contained statements the audit log did not support: the
-first-published commit's message gave a record count the log did not support
-and named the wrong word as the source of the screening artefact, and a later
-message repeated the superseded count. Both were corrected in place and the
-history was rewritten, so the commit ids in the table below differ from the ids
-that were originally pushed.
-
-Neither original message is reproduced anywhere. Their length and SHA-256 are
-recorded in the disposition artefact, and
-`scripts/audit_findings_disposition.py` re-derives the first-published commit
-from the history **by content** rather than by a hardcoded id, so the check
-survives a future amend.
-
-The repository had zero forks, watchers, stars, pull requests and tags at the
+**Note on the rewritten commit ids.** The history was amended on 2026-11-06:
+the first-published commit's message stated a record count the audit log did not
+support and named the wrong word as the source of the screening artefact. The
+message was corrected in place and the history was rewritten, so every commit id
+below differs from the id that was originally pushed. The original message is
+not reproduced anywhere; its length and SHA-256 are recorded in the disposition
+artefact. The repository had zero forks, watchers, pull requests or tags at the
 time of the rewrite, so no downstream consumer was affected.
 
 **Editorial rule now in force.** This document states the current truth. It
