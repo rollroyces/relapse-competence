@@ -320,6 +320,13 @@ intersection is still a single narrative review, and the reason a
 state-resolved electrical measurement has not been reported is still that
 nobody has run it on this dataset.
 
+**Update (2026-11-07).** The gate deferred here was then executed on exactly
+this dataset: see [`GSE299684-STATE-EXPRESSION.md`](GSE299684-STATE-EXPRESSION.md).
+The state *is* electrically marked — PIEZO1 in 39% of state cells against 6%
+of neighbouring tumour cells, at every site tested — but KCa3.1 does not mark
+the state in lung, which closes the KCa3.1 arm for the lung indication that
+this audit had already called conditional.
+
 ---
 
 **Bottom line.** D0 killed two targets outright (CACNA1E, STOML3), removed the

@@ -1,0 +1,2650 @@
+{
+  "audit": {
+    "id": "gse299684-state-expression-2026-11",
+    "generated_by": "scripts/gse299684_state_expression.py",
+    "generated_at": "2026-11-07T16:16:23.095465+00:00",
+    "dataset": "GSE299684",
+    "paper": "PMID 42019833 (Stewart et al., J Thorac Oncol 2026)",
+    "state_definition": "YAP1-based, with the call validated against the paper's surface-target signature (CD276, TACSTD2, ERBB2 up; DLL3, SEZ6, CEACAM5 down), an axis independent of the ion channels under test",
+    "state_definitions_swept": [
+      "detected",
+      "two_transcripts",
+      "top_decile"
+    ],
+    "primary_definition": "detected",
+    "channels": [
+      "KCNN4",
+      "PIEZO1",
+      "CACNA1E",
+      "KCNA3",
+      "TMEM150C",
+      "STOML3",
+      "PIEZO2"
+    ],
+    "controls": [
+      "PTPRC",
+      "ACTB",
+      "GAPDH",
+      "RPL13A"
+    ],
+    "qc": {
+      "min_genes_per_cell": 200,
+      "min_counts_per_cell": 500,
+      "max_mito_fraction": 0.2,
+      "normalisation": "counts per 10,000 per cell, then log1p"
+    }
+  },
+  "cells": {
+    "n_qc_passed": 72185,
+    "cell_type_counts": {
+      "b_plasma": 7060,
+      "endothelial": 1180,
+      "fibroblast": 5656,
+      "malignant": 27608,
+      "myeloid": 8662,
+      "t_nk": 20240,
+      "unassigned": 1779
+    },
+    "median_cnv_diversity": {
+      "b_plasma": 0.0018138664309602299,
+      "endothelial": 0.002168288018323821,
+      "fibroblast": 0.0022139998138207767,
+      "malignant": 0.0030620531094726878,
+      "myeloid": 0.001979939125530776,
+      "t_nk": 0.002150694786609845,
+      "unassigned": 0.002072276705006053
+    }
+  },
+  "per_sample": [
+    {
+      "accession": "GSM9043712",
+      "file_prefix": "SC123_135A",
+      "geo_title": "SC123_135A",
+      "filename_mismatch": false,
+      "tissue": "liver core needle biopsy",
+      "n_cells_raw": 8019,
+      "n_cells_qc": 8019,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 24,
+        "endothelial": 16,
+        "fibroblast": 39,
+        "malignant": 5251,
+        "myeloid": 586,
+        "t_nk": 2044,
+        "unassigned": 59
+      },
+      "n_malignant": 5251,
+      "n_yap1_positive_malignant": 1965,
+      "median_cnv_diversity_malignant": 0.00317872791511938,
+      "median_cnv_diversity_immune": 0.002243708236684655
+    },
+    {
+      "accession": "GSM9043713",
+      "file_prefix": "SC123_140A",
+      "geo_title": "SC123_140A",
+      "filename_mismatch": false,
+      "tissue": "liver core needle biopsy",
+      "n_cells_raw": 3862,
+      "n_cells_qc": 3862,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 13,
+        "endothelial": 234,
+        "fibroblast": 655,
+        "malignant": 1005,
+        "myeloid": 981,
+        "t_nk": 866,
+        "unassigned": 108
+      },
+      "n_malignant": 1005,
+      "n_yap1_positive_malignant": 105,
+      "median_cnv_diversity_malignant": 0.0029893099744087693,
+      "median_cnv_diversity_immune": 0.001950932450060723
+    },
+    {
+      "accession": "GSM9043714",
+      "file_prefix": "SC134_142A",
+      "geo_title": "SC134_142A",
+      "filename_mismatch": false,
+      "tissue": "lymph node core needle biopsy",
+      "n_cells_raw": 12960,
+      "n_cells_qc": 12960,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 5541,
+        "endothelial": 47,
+        "fibroblast": 30,
+        "malignant": 2,
+        "myeloid": 219,
+        "t_nk": 7085,
+        "unassigned": 36
+      },
+      "n_malignant": 2,
+      "n_yap1_positive_malignant": 0,
+      "median_cnv_diversity_malignant": 0.002478429153949746,
+      "median_cnv_diversity_immune": 0.0019185958029944825
+    },
+    {
+      "accession": "GSM9043715",
+      "file_prefix": "SC134_145A",
+      "geo_title": "SC134_145A",
+      "filename_mismatch": false,
+      "tissue": "head and neck core needle biopsy",
+      "n_cells_raw": 6376,
+      "n_cells_qc": 6376,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 25,
+        "endothelial": 44,
+        "fibroblast": 145,
+        "malignant": 5239,
+        "myeloid": 493,
+        "t_nk": 304,
+        "unassigned": 126
+      },
+      "n_malignant": 5239,
+      "n_yap1_positive_malignant": 3,
+      "median_cnv_diversity_malignant": 0.0035134509714563737,
+      "median_cnv_diversity_immune": 0.0021570246091432675
+    },
+    {
+      "accession": "GSM9043716",
+      "file_prefix": "SC181_151B",
+      "geo_title": "SC181_151B",
+      "filename_mismatch": false,
+      "tissue": "adrenal gland core needle biopsy",
+      "n_cells_raw": 2690,
+      "n_cells_qc": 2690,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 4,
+        "endothelial": 91,
+        "fibroblast": 276,
+        "malignant": 1380,
+        "myeloid": 327,
+        "t_nk": 533,
+        "unassigned": 79
+      },
+      "n_malignant": 1380,
+      "n_yap1_positive_malignant": 18,
+      "median_cnv_diversity_malignant": 0.0026993254864276714,
+      "median_cnv_diversity_immune": 0.0021982566577826027
+    },
+    {
+      "accession": "GSM9043717",
+      "file_prefix": "SC229_233A",
+      "geo_title": "SC229_233A",
+      "filename_mismatch": false,
+      "tissue": "liver core needle biopsy",
+      "n_cells_raw": 2577,
+      "n_cells_qc": 2577,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 48,
+        "endothelial": 185,
+        "fibroblast": 126,
+        "malignant": 986,
+        "myeloid": 466,
+        "t_nk": 713,
+        "unassigned": 53
+      },
+      "n_malignant": 986,
+      "n_yap1_positive_malignant": 345,
+      "median_cnv_diversity_malignant": 0.0023199618460246238,
+      "median_cnv_diversity_immune": 0.002072776497615503
+    },
+    {
+      "accession": "GSM9043718",
+      "file_prefix": "SC267_162B",
+      "geo_title": "SC267_162B",
+      "filename_mismatch": false,
+      "tissue": "lung core needle biopsy",
+      "n_cells_raw": 7573,
+      "n_cells_qc": 7573,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 31,
+        "endothelial": 32,
+        "fibroblast": 1648,
+        "malignant": 5136,
+        "myeloid": 365,
+        "t_nk": 255,
+        "unassigned": 106
+      },
+      "n_malignant": 5136,
+      "n_yap1_positive_malignant": 51,
+      "median_cnv_diversity_malignant": 0.0034071293903763147,
+      "median_cnv_diversity_immune": 0.0021917498780629667
+    },
+    {
+      "accession": "GSM9043719",
+      "file_prefix": "SC267_262A",
+      "geo_title": "SC267_262A",
+      "filename_mismatch": false,
+      "tissue": "lung surgical resection",
+      "n_cells_raw": 5833,
+      "n_cells_qc": 5833,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 484,
+        "endothelial": 88,
+        "fibroblast": 141,
+        "malignant": 608,
+        "myeloid": 1648,
+        "t_nk": 2806,
+        "unassigned": 58
+      },
+      "n_malignant": 608,
+      "n_yap1_positive_malignant": 37,
+      "median_cnv_diversity_malignant": 0.0026637904633394533,
+      "median_cnv_diversity_immune": 0.00197982007561524
+    },
+    {
+      "accession": "GSM9043720",
+      "file_prefix": "SC324_SC279A",
+      "geo_title": "SC324_SC279A",
+      "filename_mismatch": false,
+      "tissue": "brain surgical resection",
+      "n_cells_raw": 576,
+      "n_cells_qc": 576,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "endothelial": 15,
+        "fibroblast": 2,
+        "malignant": 440,
+        "myeloid": 68,
+        "t_nk": 41,
+        "unassigned": 10
+      },
+      "n_malignant": 440,
+      "n_yap1_positive_malignant": 23,
+      "median_cnv_diversity_malignant": 0.002561570233533649,
+      "median_cnv_diversity_immune": 0.001898970180018834
+    },
+    {
+      "accession": "GSM9043721",
+      "file_prefix": "SC354_SC396-A",
+      "geo_title": "SC409_SC363A",
+      "filename_mismatch": true,
+      "tissue": "brain surgical resection",
+      "n_cells_raw": 4710,
+      "n_cells_qc": 4710,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 216,
+        "endothelial": 37,
+        "fibroblast": 138,
+        "malignant": 362,
+        "myeloid": 612,
+        "t_nk": 3249,
+        "unassigned": 96
+      },
+      "n_malignant": 362,
+      "n_yap1_positive_malignant": 97,
+      "median_cnv_diversity_malignant": 0.0021085769246970624,
+      "median_cnv_diversity_immune": 0.0020510133880077756
+    },
+    {
+      "accession": "GSM9043722",
+      "file_prefix": "SC409_SC363A",
+      "geo_title": "SC354_SC396-A",
+      "filename_mismatch": true,
+      "tissue": "lung core needle biopsy",
+      "n_cells_raw": 3313,
+      "n_cells_qc": 3313,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 13,
+        "endothelial": 47,
+        "fibroblast": 18,
+        "malignant": 864,
+        "myeloid": 1329,
+        "t_nk": 216,
+        "unassigned": 826
+      },
+      "n_malignant": 864,
+      "n_yap1_positive_malignant": 9,
+      "median_cnv_diversity_malignant": 0.0027971054645194947,
+      "median_cnv_diversity_immune": 0.002192816757157875
+    },
+    {
+      "accession": "GSM9043723",
+      "file_prefix": "SC419_SC416A",
+      "geo_title": "SC419_SC416A",
+      "filename_mismatch": false,
+      "tissue": "lung/mediastinal core needle biopsy",
+      "n_cells_raw": 4529,
+      "n_cells_qc": 4529,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 629,
+        "endothelial": 117,
+        "fibroblast": 1366,
+        "malignant": 320,
+        "myeloid": 652,
+        "t_nk": 1417,
+        "unassigned": 28
+      },
+      "n_malignant": 320,
+      "n_yap1_positive_malignant": 24,
+      "median_cnv_diversity_malignant": 0.0036728685223691355,
+      "median_cnv_diversity_immune": 0.0024506040717768227
+    },
+    {
+      "accession": "GSM9043724",
+      "file_prefix": "SC419_SC439A",
+      "geo_title": "SC419_SC439A",
+      "filename_mismatch": false,
+      "tissue": "head and neck core needle biopsy",
+      "n_cells_raw": 3008,
+      "n_cells_qc": 3008,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 20,
+        "endothelial": 135,
+        "fibroblast": 771,
+        "malignant": 931,
+        "myeloid": 660,
+        "t_nk": 348,
+        "unassigned": 143
+      },
+      "n_malignant": 931,
+      "n_yap1_positive_malignant": 172,
+      "median_cnv_diversity_malignant": 0.0028291412490364528,
+      "median_cnv_diversity_immune": 0.0024779350106866943
+    },
+    {
+      "accession": "GSM9043725",
+      "file_prefix": "SC429_SC437A",
+      "geo_title": "SC429_SC437A",
+      "filename_mismatch": false,
+      "tissue": "retroperitoneal core needle biopsy",
+      "n_cells_raw": 2330,
+      "n_cells_qc": 2330,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 1,
+        "endothelial": 41,
+        "fibroblast": 193,
+        "malignant": 1941,
+        "myeloid": 65,
+        "t_nk": 69,
+        "unassigned": 20
+      },
+      "n_malignant": 1941,
+      "n_yap1_positive_malignant": 17,
+      "median_cnv_diversity_malignant": 0.0034205150060948935,
+      "median_cnv_diversity_immune": 0.0029869274137408323
+    },
+    {
+      "accession": "GSM9043726",
+      "file_prefix": "SC437_SC370A",
+      "geo_title": "SC437_SC370A",
+      "filename_mismatch": false,
+      "tissue": "adrenal gland core needle biopsy",
+      "n_cells_raw": 3829,
+      "n_cells_qc": 3829,
+      "n_features": 36601,
+      "cell_type_counts": {
+        "b_plasma": 11,
+        "endothelial": 51,
+        "fibroblast": 108,
+        "malignant": 3143,
+        "myeloid": 191,
+        "t_nk": 294,
+        "unassigned": 31
+      },
+      "n_malignant": 3143,
+      "n_yap1_positive_malignant": 6,
+      "median_cnv_diversity_malignant": 0.002113663257622845,
+      "median_cnv_diversity_immune": 0.0019531247197922088
+    }
+  ],
+  "complexity_control": {
+    "median_genes_detected_yap1_positive": 5574.0,
+    "median_genes_detected_yap1_negative": 3787.5,
+    "median_genes_detected_immune": 1368.0,
+    "note": "A state that is simply harder to sequence would show fewer detected genes everywhere; the housekeeping controls in 'controls' are the direct check"
+  },
+  "leave_one_sample_out": {
+    "KCNN4": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 2.2765939246473783,
+        "GSM9043713": 3.9421756414889773,
+        "GSM9043714": 3.6442088301096716,
+        "GSM9043715": 2.9240135097278643,
+        "GSM9043716": 3.6994658913537286,
+        "GSM9043717": 4.072722598060711,
+        "GSM9043718": 3.2723350012697114,
+        "GSM9043719": 3.6461392704879207,
+        "GSM9043720": 3.6119904943710006,
+        "GSM9043721": 3.7143075908929575,
+        "GSM9043722": 3.5295919138961005,
+        "GSM9043723": 3.684187305135596,
+        "GSM9043724": 3.753688468610455,
+        "GSM9043725": 3.5164662005061254,
+        "GSM9043726": 3.9133223808952455
+      },
+      "min_ratio": 2.2765939246473783,
+      "max_ratio": 4.072722598060711,
+      "n_samples_with_ratio_above_one": 15,
+      "n_samples_with_ratio_below_one": 0,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 8.464040961993377e-21
+    },
+    "PIEZO1": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 11.72465706658309,
+        "GSM9043713": 6.854169160864277,
+        "GSM9043714": 6.907054232318797,
+        "GSM9043715": 5.770275325363129,
+        "GSM9043716": 6.705223867108646,
+        "GSM9043717": 7.172423916377678,
+        "GSM9043718": 6.250789135760581,
+        "GSM9043719": 6.886291697102508,
+        "GSM9043720": 7.104718462724505,
+        "GSM9043721": 7.003019899019899,
+        "GSM9043722": 6.842527972295969,
+        "GSM9043723": 6.9050533238680405,
+        "GSM9043724": 6.949293468013467,
+        "GSM9043725": 6.44914384478315,
+        "GSM9043726": 6.089320307048151
+      },
+      "min_ratio": 5.770275325363129,
+      "max_ratio": 11.72465706658309,
+      "n_samples_with_ratio_above_one": 15,
+      "n_samples_with_ratio_below_one": 0,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 0.0
+    },
+    "CACNA1E": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 2.4318142524722024,
+        "GSM9043713": 0.8748983556198048,
+        "GSM9043714": 0.8855647292178359,
+        "GSM9043715": 0.7679992438161293,
+        "GSM9043716": 0.8443205051329657,
+        "GSM9043717": 0.9485100185017517,
+        "GSM9043718": 0.7422754400543929,
+        "GSM9043719": 0.8855905998763142,
+        "GSM9043720": 0.8777354792778959,
+        "GSM9043721": 0.8841047731536165,
+        "GSM9043722": 0.9784457990152446,
+        "GSM9043723": 0.8849631320224719,
+        "GSM9043724": 0.37727063664972166,
+        "GSM9043725": 0.9165220974554446,
+        "GSM9043726": 0.9304058652744394
+      },
+      "min_ratio": 0.37727063664972166,
+      "max_ratio": 2.4318142524722024,
+      "n_samples_with_ratio_above_one": 1,
+      "n_samples_with_ratio_below_one": 14,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.8901118964085486
+    },
+    "KCNA3": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 1.302720834189823,
+        "GSM9043713": 0.5131973333128281,
+        "GSM9043714": 0.5427804826666042,
+        "GSM9043715": 0.5149085839221775,
+        "GSM9043716": 0.5205450571900276,
+        "GSM9043717": 0.41099231745425274,
+        "GSM9043718": 0.7277878597088997,
+        "GSM9043719": 0.5394816154309825,
+        "GSM9043720": 0.5379817774775758,
+        "GSM9043721": 0.5557801498977969,
+        "GSM9043722": 0.5279272428230987,
+        "GSM9043723": 0.5408483618166368,
+        "GSM9043724": 0.3536430678466077,
+        "GSM9043725": 0.503583570030464,
+        "GSM9043726": 0.6610778516423648
+      },
+      "min_ratio": 0.3536430678466077,
+      "max_ratio": 1.302720834189823,
+      "n_samples_with_ratio_above_one": 1,
+      "n_samples_with_ratio_below_one": 14,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.3622068711619215
+    },
+    "TMEM150C": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 1.5813685219642384,
+        "GSM9043713": 0.7612028536349077,
+        "GSM9043714": 0.760759935121209,
+        "GSM9043715": 0.6238991959459326,
+        "GSM9043716": 0.7547756814764033,
+        "GSM9043717": 0.5801485274054927,
+        "GSM9043718": 1.069669795719195,
+        "GSM9043719": 0.8042509108263203,
+        "GSM9043720": 0.7504798701418934,
+        "GSM9043721": 0.7709287648753524,
+        "GSM9043722": 0.747035421932602,
+        "GSM9043723": 0.7586595744123206,
+        "GSM9043724": 0.6521222302215822,
+        "GSM9043725": 0.7272397560581785,
+        "GSM9043726": 0.7534330539751596
+      },
+      "min_ratio": 0.5801485274054927,
+      "max_ratio": 1.5813685219642384,
+      "n_samples_with_ratio_above_one": 2,
+      "n_samples_with_ratio_below_one": 13,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.4497024632365113
+    },
+    "STOML3": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 0.06795802760141428,
+        "GSM9043713": 0.03702457224575766,
+        "GSM9043714": 0.037014829476977595,
+        "GSM9043715": 1.1327988846287904,
+        "GSM9043716": 0.03520018151772107,
+        "GSM9043717": 0.040981468903747834,
+        "GSM9043718": 0.010066429934041344,
+        "GSM9043719": 0.036740558292282434,
+        "GSM9043720": 0.03668758253285474,
+        "GSM9043721": 0.03790133973515062,
+        "GSM9043722": 0.03585064657566602,
+        "GSM9043723": 0.03693598568503861,
+        "GSM9043724": 0.0382225410489399,
+        "GSM9043725": 0.034539737656268145,
+        "GSM9043726": 0.03248399788242655
+      },
+      "min_ratio": 0.010066429934041344,
+      "max_ratio": 1.1327988846287904,
+      "n_samples_with_ratio_above_one": 1,
+      "n_samples_with_ratio_below_one": 14,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.8408681386700916
+    },
+    "PIEZO2": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM9043712": 1.2954685821371563,
+        "GSM9043713": 0.30477893102831505,
+        "GSM9043714": 0.48054857665607154,
+        "GSM9043715": 0.8827004295808757,
+        "GSM9043716": 0.46145007582925734,
+        "GSM9043717": 0.365088409736959,
+        "GSM9043718": 0.3893156614810082,
+        "GSM9043719": 0.4756210973827554,
+        "GSM9043720": 0.47687025340656625,
+        "GSM9043721": 0.48854308273997393,
+        "GSM9043722": 0.5517872089883532,
+        "GSM9043723": 0.452738932449546,
+        "GSM9043724": 0.4237225637827081,
+        "GSM9043725": 0.44012401767911596,
+        "GSM9043726": 0.5043404642548825
+      },
+      "min_ratio": 0.30477893102831505,
+      "max_ratio": 1.2954685821371563,
+      "n_samples_with_ratio_above_one": 1,
+      "n_samples_with_ratio_below_one": 14,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.07666649424997943
+    }
+  },
+  "per_sample_sign_counts": {
+    "KCNN4": {
+      "samples_with_ratio_above_one": 5,
+      "samples_with_ratio_below_one": 7
+    },
+    "PIEZO1": {
+      "samples_with_ratio_above_one": 13,
+      "samples_with_ratio_below_one": 1
+    },
+    "CACNA1E": {
+      "samples_with_ratio_above_one": 5,
+      "samples_with_ratio_below_one": 6
+    },
+    "KCNA3": {
+      "samples_with_ratio_above_one": 4,
+      "samples_with_ratio_below_one": 6
+    },
+    "TMEM150C": {
+      "samples_with_ratio_above_one": 9,
+      "samples_with_ratio_below_one": 4
+    },
+    "STOML3": {
+      "samples_with_ratio_above_one": 1,
+      "samples_with_ratio_below_one": 7
+    },
+    "PIEZO2": {
+      "samples_with_ratio_above_one": 6,
+      "samples_with_ratio_below_one": 6
+    }
+  },
+  "state_definition_sweep": [
+    {
+      "definition": "detected",
+      "description": "YAP1 with at least one transcript",
+      "n_yap1_positive": 2872,
+      "n_yap1_negative": 24736,
+      "state_validation": {
+        "CD276": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.18400126660559768,
+          "mean_yap1_negative": 0.08805650382770809,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.43279944289693595,
+          "detection_yap1_negative": 0.17884864165588615
+        },
+        "TACSTD2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 1.46381667217839,
+          "mean_yap1_negative": 0.23387741226830872,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.7959610027855153,
+          "detection_yap1_negative": 0.14456662354463132
+        },
+        "ERBB2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.2515434818414263,
+          "mean_yap1_negative": 0.052270575718700314,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.48746518105849584,
+          "detection_yap1_negative": 0.09488195342820181
+        },
+        "DLL3": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.049814955067060296,
+          "mean_yap1_negative": 0.2116209866182122,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.12291086350974931,
+          "detection_yap1_negative": 0.29653137128072443
+        },
+        "SEZ6": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.01952054886901568,
+          "mean_yap1_negative": 0.11209512728822563,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.06023676880222841,
+          "detection_yap1_negative": 0.19817270375161708
+        },
+        "CEACAM5": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.04173455626331336,
+          "mean_yap1_negative": 0.17225789917407797,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.04456824512534819,
+          "detection_yap1_negative": 0.115620957309185
+        }
+      },
+      "state_validation_passed": 6,
+      "state_validation_total": 6,
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.13914001068980628,
+          "mean_yap1_negative": 0.04616602228498775,
+          "mean_immune": 0.040372870280084995,
+          "linear_mean_yap1_positive": 0.1934994985927152,
+          "linear_mean_yap1_negative": 0.07576731022936978,
+          "linear_mean_immune": 0.07874009418676198,
+          "linear_fold_vs_yap1negative": 2.5538652224413894,
+          "linear_fold_vs_immune": 2.4574456074913726,
+          "detection_yap1_positive": 0.31441504178272983,
+          "detection_yap1_negative": 0.08627102199223803,
+          "detection_immune": 0.04582614982481508,
+          "detection_ratio_vs_yap1negative": 3.644503502126338,
+          "fold_mean_vs_yap1negative": 3.0139051146940976,
+          "fold_mean_vs_immune": 3.4463740062207275,
+          "mannwhitney_p": 8.212081996433542e-288,
+          "fisher_p_detection": 3.6853149869067994e-224,
+          "odds_ratio_detection": 4.857295103152281,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 2.87422869875174e-287
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.17995642626915853,
+          "mean_yap1_negative": 0.03650056077592655,
+          "mean_immune": 0.05961798416031326,
+          "linear_mean_yap1_positive": 0.2591261235552673,
+          "linear_mean_yap1_negative": 0.0770492914149853,
+          "linear_mean_immune": 0.1385830522984071,
+          "linear_fold_vs_yap1negative": 3.3631214355966152,
+          "linear_fold_vs_immune": 1.869825489175243,
+          "detection_yap1_positive": 0.387883008356546,
+          "detection_yap1_negative": 0.05615297542043984,
+          "detection_immune": 0.05578110227462321,
+          "detection_ratio_vs_yap1negative": 6.907612739170282,
+          "fold_mean_vs_yap1negative": 4.9302373016648655,
+          "fold_mean_vs_immune": 3.0184923023437724,
+          "mannwhitney_p": 0.0,
+          "fisher_p_detection": 0.0,
+          "odds_ratio_detection": 10.651117057393087,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.0
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.006551793137526927,
+          "mean_yap1_negative": 0.0074160530876791276,
+          "mean_immune": 0.0025180072863571256,
+          "linear_mean_yap1_positive": 0.012703778927700303,
+          "linear_mean_yap1_negative": 0.011421038304254755,
+          "linear_mean_immune": 0.008395266110759674,
+          "linear_fold_vs_yap1negative": 1.1123138360343017,
+          "linear_fold_vs_immune": 1.5132074147618364,
+          "detection_yap1_positive": 0.013927576601671309,
+          "detection_yap1_negative": 0.015726067270375163,
+          "detection_immune": 0.0019186919526166509,
+          "detection_ratio_vs_yap1negative": 0.8856363362954793,
+          "fold_mean_vs_yap1negative": 0.8834609272703207,
+          "fold_mean_vs_immune": 2.6019754482146857,
+          "mannwhitney_p": 0.4542731014661794,
+          "fisher_p_detection": 0.5234916499745825,
+          "odds_ratio_detection": 0.8840210303109524,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.45427310146617944
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0015468291152622006,
+          "mean_yap1_negative": 0.005492332549636369,
+          "mean_immune": 0.028838498780745504,
+          "linear_mean_yap1_positive": 0.001947294366984489,
+          "linear_mean_yap1_negative": 0.009214816534776068,
+          "linear_mean_immune": 0.06208868657442568,
+          "linear_fold_vs_yap1negative": 0.21132209845258854,
+          "linear_fold_vs_immune": 0.03136311096950438,
+          "detection_yap1_positive": 0.005222841225626741,
+          "detection_yap1_negative": 0.009621604139715394,
+          "detection_immune": 0.025026416773260663,
+          "detection_ratio_vs_yap1negative": 0.5428243720886684,
+          "fold_mean_vs_yap1negative": 0.2816342785661461,
+          "fold_mean_vs_immune": 0.05363764345094712,
+          "mannwhitney_p": 0.018438659637337953,
+          "fisher_p_detection": 0.016954526057778786,
+          "odds_ratio_detection": 0.5404240800275308,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.02151176957689428
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.05311643706643538,
+          "mean_yap1_negative": 0.11466901649188113,
+          "mean_immune": 0.00922018763735773,
+          "linear_mean_yap1_positive": 0.07066952492441002,
+          "linear_mean_yap1_negative": 0.19625412947434365,
+          "linear_mean_immune": 0.020206795406295587,
+          "linear_fold_vs_yap1negative": 0.36009191303996824,
+          "linear_fold_vs_immune": 3.497314814321937,
+          "detection_yap1_positive": 0.1347493036211699,
+          "detection_yap1_negative": 0.17711028460543338,
+          "detection_immune": 0.009454424114342918,
+          "detection_ratio_vs_yap1negative": 0.760821450439,
+          "fold_mean_vs_yap1negative": 0.46321524934502395,
+          "fold_mean_vs_immune": 5.760884610549769,
+          "mannwhitney_p": 2.271797142959934e-12,
+          "fisher_p_detection": 5.784934362657885e-09,
+          "odds_ratio_detection": 0.7235731209902648,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 3.1805160001439076e-12
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0005278305978193305,
+          "mean_yap1_negative": 0.020982272364489234,
+          "mean_immune": 2.0231117426011053e-05,
+          "linear_mean_yap1_positive": 0.0007422231056975994,
+          "linear_mean_yap1_negative": 0.038212208181126826,
+          "linear_mean_immune": 2.455089777195758e-05,
+          "linear_fold_vs_yap1negative": 0.0194237166870714,
+          "linear_fold_vs_immune": 30.232014836759994,
+          "detection_yap1_positive": 0.0010445682451253482,
+          "detection_yap1_negative": 0.02821798188874515,
+          "detection_immune": 5.561425949613481e-05,
+          "detection_ratio_vs_yap1negative": 0.037017822509198585,
+          "fold_mean_vs_yap1negative": 0.025156026413642417,
+          "fold_mean_vs_immune": 26.090036783667774,
+          "mannwhitney_p": 1.874120994696757e-18,
+          "fisher_p_detection": 1.9716787181813335e-29,
+          "odds_ratio_detection": 0.03601087007543337,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 3.279711740719325e-18
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.015992446902120636,
+          "mean_yap1_negative": 0.07584306185639232,
+          "mean_immune": 0.008162969025090935,
+          "linear_mean_yap1_positive": 0.022239868874615692,
+          "linear_mean_yap1_negative": 0.14305631234019991,
+          "linear_mean_immune": 0.022983512197260966,
+          "linear_fold_vs_yap1negative": 0.15546233864694778,
+          "linear_fold_vs_immune": 0.9676444872192381,
+          "detection_yap1_positive": 0.04874651810584958,
+          "detection_yap1_negative": 0.1014311125485123,
+          "detection_immune": 0.00728546799399366,
+          "detection_ratio_vs_yap1negative": 0.480587433984175,
+          "fold_mean_vs_yap1negative": 0.21086235854246088,
+          "fold_mean_vs_immune": 1.9591458515846176,
+          "mannwhitney_p": 7.652758413466742e-22,
+          "fisher_p_detection": 1.062622928426597e-22,
+          "odds_ratio_detection": 0.45397039180181215,
+          "n_yap1_positive": 2872,
+          "n_yap1_negative": 24736,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 1.7856436298089065e-21
+        }
+      ]
+    },
+    {
+      "definition": "two_transcripts",
+      "description": "YAP1 with at least two transcripts",
+      "n_yap1_positive": 1185,
+      "n_yap1_negative": 26423,
+      "state_validation": {
+        "CD276": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.21405974046936244,
+          "mean_yap1_negative": 0.09283414161591301,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.5139240506329114,
+          "detection_yap1_negative": 0.1914241380615373
+        },
+        "TACSTD2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 1.598571731871397,
+          "mean_yap1_negative": 0.3063605816938885,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.8573839662447258,
+          "detection_yap1_negative": 0.18340082503879196
+        },
+        "ERBB2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.2607378321418205,
+          "mean_yap1_negative": 0.06458099041510387,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.5375527426160338,
+          "detection_yap1_negative": 0.11770048821102827
+        },
+        "DLL3": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.03402492352899457,
+          "mean_yap1_negative": 0.2019984763864374,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.10464135021097046,
+          "detection_yap1_negative": 0.2862657533209704
+        },
+        "SEZ6": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.013208921988444691,
+          "mean_yap1_negative": 0.10646768014218883,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.048945147679324896,
+          "detection_yap1_negative": 0.18987245959959126
+        },
+        "CEACAM5": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.018796012969351336,
+          "mean_yap1_negative": 0.16495325149262186,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.03459915611814346,
+          "detection_yap1_negative": 0.11153162017938917
+        }
+      },
+      "state_validation_passed": 6,
+      "state_validation_total": 6,
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.14922388652919596,
+          "mean_yap1_negative": 0.05164979496671398,
+          "mean_immune": 0.040372870280084995,
+          "linear_mean_yap1_positive": 0.20399331586375832,
+          "linear_mean_yap1_negative": 0.08281340750457614,
+          "linear_mean_immune": 0.07874009418676198,
+          "linear_fold_vs_yap1negative": 2.463288518256974,
+          "linear_fold_vs_immune": 2.5907171939610696,
+          "detection_yap1_positive": 0.3434599156118143,
+          "detection_yap1_negative": 0.0995344964614162,
+          "detection_immune": 0.04582614982481508,
+          "detection_ratio_vs_yap1negative": 3.4506621103463764,
+          "fold_mean_vs_yap1negative": 2.8891477037878697,
+          "fold_mean_vs_immune": 3.6961426198821603,
+          "mannwhitney_p": 2.0366133228221124e-145,
+          "fisher_p_detection": 2.8413268697771064e-107,
+          "odds_ratio_detection": 4.732692288895188,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 7.128146629877394e-145
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.2110841538201112,
+          "mean_yap1_negative": 0.04426363415666316,
+          "mean_immune": 0.05961798416031326,
+          "linear_mean_yap1_positive": 0.29036745437638734,
+          "linear_mean_yap1_negative": 0.0872730600558523,
+          "linear_mean_immune": 0.1385830522984071,
+          "linear_fold_vs_yap1negative": 3.327114394643208,
+          "linear_fold_vs_immune": 2.0952594820263233,
+          "detection_yap1_positive": 0.4810126582278481,
+          "detection_yap1_negative": 0.07315596260833365,
+          "detection_immune": 0.05578110227462321,
+          "detection_ratio_vs_yap1negative": 6.575166822738971,
+          "fold_mean_vs_yap1negative": 4.768794018878271,
+          "fold_mean_vs_immune": 3.5406120618319488,
+          "mannwhitney_p": 0.0,
+          "fisher_p_detection": 2.8350376565611208e-288,
+          "odds_ratio_detection": 11.742394609667773,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.0
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.005402966008818027,
+          "mean_yap1_negative": 0.007412395426233161,
+          "mean_immune": 0.0025180072863571256,
+          "linear_mean_yap1_positive": 0.008341271453887592,
+          "linear_mean_yap1_negative": 0.011698582670459224,
+          "linear_mean_immune": 0.008395266110759674,
+          "linear_fold_vs_yap1negative": 0.713015558282169,
+          "linear_fold_vs_immune": 0.9935684400994887,
+          "detection_yap1_positive": 0.01350210970464135,
+          "detection_yap1_negative": 0.015630322067895393,
+          "detection_immune": 0.0019186919526166509,
+          "detection_ratio_vs_yap1negative": 0.8638407862608679,
+          "fold_mean_vs_yap1negative": 0.7289095762075003,
+          "fold_mean_vs_immune": 2.1457308873139347,
+          "mannwhitney_p": 0.5542520201989107,
+          "fisher_p_detection": 0.6322815902093051,
+          "odds_ratio_detection": 0.8619771870993399,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.5542520201989107
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0006402164289443915,
+          "mean_yap1_negative": 0.005281087488117897,
+          "mean_immune": 0.028838498780745504,
+          "linear_mean_yap1_positive": 0.0007370279092728611,
+          "linear_mean_yap1_negative": 0.008805092273917113,
+          "linear_mean_immune": 0.06208868657442568,
+          "linear_fold_vs_yap1negative": 0.08370473429973269,
+          "linear_fold_vs_immune": 0.011870566925093287,
+          "detection_yap1_positive": 0.002531645569620253,
+          "detection_yap1_negative": 0.009461454036256292,
+          "detection_immune": 0.025026416773260663,
+          "detection_ratio_vs_yap1negative": 0.2675746835443038,
+          "fold_mean_vs_yap1negative": 0.12122814295063976,
+          "fold_mean_vs_immune": 0.022200060891236214,
+          "mannwhitney_p": 0.014102542480537508,
+          "fisher_p_detection": 0.011299575603797506,
+          "odds_ratio_detection": 0.26571573604060916,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.01645296622729376
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.04065069158150163,
+          "mean_yap1_negative": 0.11129819209302103,
+          "mean_immune": 0.00922018763735773,
+          "linear_mean_yap1_positive": 0.05088485837425894,
+          "linear_mean_yap1_negative": 0.18912335711640518,
+          "linear_mean_immune": 0.020206795406295587,
+          "linear_fold_vs_yap1negative": 0.2690564462798711,
+          "linear_fold_vs_immune": 2.5182052547731226,
+          "detection_yap1_positive": 0.12320675105485232,
+          "detection_yap1_negative": 0.1749233622223063,
+          "detection_immune": 0.009454424114342918,
+          "detection_ratio_vs_yap1negative": 0.7043470322636008,
+          "fold_mean_vs_yap1negative": 0.3652412569965783,
+          "fold_mean_vs_immune": 4.40887899252678,
+          "mannwhitney_p": 1.9460174860711698e-08,
+          "fisher_p_detection": 1.9121164926459782e-06,
+          "odds_ratio_detection": 0.662801956912769,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 3.405530600624547e-08
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0,
+          "mean_yap1_negative": 0.019700012060891753,
+          "mean_immune": 2.0231117426011053e-05,
+          "linear_mean_yap1_positive": 0.0,
+          "linear_mean_yap1_negative": 0.03585319026332804,
+          "linear_mean_immune": 2.455089777195758e-05,
+          "linear_fold_vs_yap1negative": 0.0,
+          "linear_fold_vs_immune": 0.0,
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.026529917117662644,
+          "detection_immune": 5.561425949613481e-05,
+          "detection_ratio_vs_yap1negative": 0.0,
+          "fold_mean_vs_yap1negative": 0.0,
+          "fold_mean_vs_immune": 0.0,
+          "mannwhitney_p": 1.3565211780064177e-08,
+          "fisher_p_detection": 4.497379048985906e-14,
+          "odds_ratio_detection": 0.0,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 3.1652160820149745e-08
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.023365546085203453,
+          "mean_yap1_negative": 0.07169118243468359,
+          "mean_immune": 0.008162969025090935,
+          "linear_mean_yap1_positive": 0.033639409722750604,
+          "linear_mean_yap1_negative": 0.13483144022002128,
+          "linear_mean_immune": 0.022983512197260966,
+          "linear_fold_vs_yap1negative": 0.2494923266254294,
+          "linear_fold_vs_immune": 1.4636322522873395,
+          "detection_yap1_positive": 0.06666666666666667,
+          "detection_yap1_negative": 0.09726374749271469,
+          "detection_immune": 0.00728546799399366,
+          "detection_ratio_vs_yap1negative": 0.6854215304798962,
+          "fold_mean_vs_yap1negative": 0.32591938494655653,
+          "fold_mean_vs_immune": 2.8623832839967394,
+          "mannwhitney_p": 8.674883077042918e-05,
+          "fisher_p_detection": 0.00033319184391285354,
+          "odds_ratio_detection": 0.6629516397998888,
+          "n_yap1_positive": 1185,
+          "n_yap1_negative": 26423,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.00012144836307860084
+        }
+      ]
+    },
+    {
+      "definition": "top_decile",
+      "description": "the top decile of YAP1 expression among malignant cells",
+      "n_yap1_positive": 2761,
+      "n_yap1_negative": 24847,
+      "state_validation": {
+        "CD276": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.18632344063838463,
+          "mean_yap1_negative": 0.08822708161029034,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.42448388265121334,
+          "detection_yap1_negative": 0.18090715176882521
+        },
+        "TACSTD2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 1.5142996293473152,
+          "mean_yap1_negative": 0.23376230030737247,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.8123868163708801,
+          "detection_yap1_negative": 0.14565138648528997
+        },
+        "ERBB2": {
+          "expected_direction": "up",
+          "mean_yap1_positive": 0.25871698921837016,
+          "mean_yap1_negative": 0.05236367503499124,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.4911264034770011,
+          "detection_yap1_negative": 0.09622892099649857
+        },
+        "DLL3": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.040613183753156264,
+          "mean_yap1_negative": 0.21192064537361568,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.10032596885186526,
+          "detection_yap1_negative": 0.2982653841510041
+        },
+        "SEZ6": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.017042330979784158,
+          "mean_yap1_negative": 0.11195694486731507,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.0459978268743209,
+          "detection_yap1_negative": 0.19913872902161225
+        },
+        "CEACAM5": {
+          "expected_direction": "down",
+          "mean_yap1_positive": 0.034930061343726136,
+          "mean_yap1_negative": 0.17243092285540312,
+          "direction_as_reported": true,
+          "detection_yap1_positive": 0.03477001086562839,
+          "detection_yap1_negative": 0.11639232100454783
+        }
+      },
+      "state_validation_passed": 6,
+      "state_validation_total": 6,
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.14160790895367872,
+          "mean_yap1_negative": 0.04630713572348668,
+          "mean_immune": 0.040372870280084995,
+          "linear_mean_yap1_positive": 0.19761770339861837,
+          "linear_mean_yap1_negative": 0.07583564481460071,
+          "linear_mean_immune": 0.07874009418676198,
+          "linear_fold_vs_yap1negative": 2.6058683074660274,
+          "linear_fold_vs_immune": 2.509746850567553,
+          "detection_yap1_positive": 0.31293009779065556,
+          "detection_yap1_negative": 0.08745522598301605,
+          "detection_immune": 0.04582614982481508,
+          "detection_ratio_vs_yap1negative": 3.578174937783902,
+          "fold_mean_vs_yap1negative": 3.0580148554050193,
+          "fold_mean_vs_immune": 3.5075016458151262,
+          "mannwhitney_p": 6.699329429971478e-274,
+          "fisher_p_detection": 2.4782480419636738e-211,
+          "odds_ratio_detection": 4.752420138756643,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 2.344765300490017e-273
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.1850890276928142,
+          "mean_yap1_negative": 0.036571091968385816,
+          "mean_immune": 0.05961798416031326,
+          "linear_mean_yap1_positive": 0.2670763034172629,
+          "linear_mean_yap1_negative": 0.0769792661309913,
+          "linear_mean_immune": 0.1385830522984071,
+          "linear_fold_vs_yap1negative": 3.469457645423563,
+          "linear_fold_vs_immune": 1.9271931090258774,
+          "detection_yap1_positive": 0.3933357479174212,
+          "detection_yap1_negative": 0.05702901758763634,
+          "detection_immune": 0.05578110227462321,
+          "detection_ratio_vs_yap1negative": 6.89711596930428,
+          "fold_mean_vs_yap1negative": 5.061074683053379,
+          "fold_mean_vs_immune": 3.1045837979880075,
+          "mannwhitney_p": 0.0,
+          "fisher_p_detection": 0.0,
+          "odds_ratio_detection": 10.720559517163652,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.0
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.005199078532163931,
+          "mean_yap1_negative": 0.007562505865517109,
+          "mean_immune": 0.0025180072863571256,
+          "linear_mean_yap1_positive": 0.010924030891091783,
+          "linear_mean_yap1_negative": 0.011624534442149814,
+          "linear_mean_immune": 0.008395266110759674,
+          "linear_fold_vs_yap1negative": 0.9397392166934402,
+          "linear_fold_vs_immune": 1.301213177399005,
+          "detection_yap1_positive": 0.009779065555957986,
+          "detection_yap1_negative": 0.016179015575320966,
+          "detection_immune": 0.0019186919526166509,
+          "detection_ratio_vs_yap1negative": 0.6044289598728558,
+          "fold_mean_vs_yap1negative": 0.6874809255845025,
+          "fold_mean_vs_immune": 2.0647591293056142,
+          "mannwhitney_p": 0.009869930300039477,
+          "fisher_p_detection": 0.009177350943780502,
+          "odds_ratio_detection": 0.6005224426514101,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.009869930300039477
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0014493951668536748,
+          "mean_yap1_negative": 0.0054855335095245015,
+          "mean_immune": 0.028838498780745504,
+          "linear_mean_yap1_positive": 0.0018562516380698718,
+          "linear_mean_yap1_negative": 0.009192466714431897,
+          "linear_mean_immune": 0.06208868657442568,
+          "linear_fold_vs_yap1negative": 0.20193183132832154,
+          "linear_fold_vs_immune": 0.02989677734356297,
+          "detection_yap1_positive": 0.00398406374501992,
+          "detection_yap1_negative": 0.009739606391113615,
+          "detection_immune": 0.025026416773260663,
+          "detection_ratio_vs_yap1negative": 0.40905798294425605,
+          "fold_mean_vs_yap1negative": 0.26422136777345323,
+          "fold_mean_vs_immune": 0.050259036639639064,
+          "mannwhitney_p": 0.002539037639004416,
+          "fisher_p_detection": 0.001452877931828672,
+          "odds_ratio_detection": 0.4066942148760331,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 0.0029622105788384852
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.046828609222570615,
+          "mean_yap1_negative": 0.11509274395840369,
+          "mean_immune": 0.00922018763735773,
+          "linear_mean_yap1_positive": 0.06285014569384109,
+          "linear_mean_yap1_negative": 0.1965619901798839,
+          "linear_mean_immune": 0.020206795406295587,
+          "linear_fold_vs_yap1negative": 0.3197471985113893,
+          "linear_fold_vs_immune": 3.110347010999064,
+          "detection_yap1_positive": 0.11517566099239405,
+          "detection_yap1_negative": 0.1790960679357669,
+          "detection_immune": 0.009454424114342918,
+          "detection_ratio_vs_yap1negative": 0.6430943030737112,
+          "fold_mean_vs_yap1negative": 0.40687716368544663,
+          "fold_mean_vs_immune": 5.078921499692005,
+          "mannwhitney_p": 3.259499544909635e-21,
+          "fisher_p_detection": 1.5327801997547186e-18,
+          "odds_ratio_detection": 0.5966366642597285,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 5.704124203591861e-21
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0005490508790065618,
+          "mean_yap1_negative": 0.020888537417314185,
+          "mean_immune": 2.0231117426011053e-05,
+          "linear_mean_yap1_positive": 0.0007720625713739607,
+          "linear_mean_yap1_negative": 0.0380415012503865,
+          "linear_mean_immune": 2.455089777195758e-05,
+          "linear_fold_vs_yap1negative": 0.020295270848863164,
+          "linear_fold_vs_immune": 31.447427240555854,
+          "detection_yap1_positive": 0.0010865628395508873,
+          "detection_yap1_negative": 0.02809192256610456,
+          "detection_immune": 5.561425949613481e-05,
+          "detection_ratio_vs_yap1negative": 0.03867883506349699,
+          "fold_mean_vs_yap1negative": 0.026284792852536532,
+          "fold_mean_vs_immune": 27.138929968378793,
+          "mannwhitney_p": 1.1315764572282614e-17,
+          "fisher_p_detection": 4.222782074689411e-28,
+          "odds_ratio_detection": 0.03763316302041885,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 1.5842070401195658e-17
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.014946546343822685,
+          "mean_yap1_negative": 0.07569190933019344,
+          "mean_immune": 0.008162969025090935,
+          "linear_mean_yap1_positive": 0.021217689461271658,
+          "linear_mean_yap1_negative": 0.14263016882732366,
+          "linear_mean_immune": 0.022983512197260966,
+          "linear_fold_vs_yap1negative": 0.1487601791102065,
+          "linear_fold_vs_immune": 0.9231700220212754,
+          "detection_yap1_positive": 0.04056501267656646,
+          "detection_yap1_negative": 0.10210488187708777,
+          "detection_immune": 0.00728546799399366,
+          "detection_ratio_vs_yap1negative": 0.39728769017526483,
+          "fold_mean_vs_yap1negative": 0.19746557427453504,
+          "fold_mean_vs_immune": 1.831018382880141,
+          "mannwhitney_p": 3.678452606087643e-27,
+          "fisher_p_detection": 1.5287023257060692e-30,
+          "odds_ratio_detection": 0.3718049500090246,
+          "n_yap1_positive": 2761,
+          "n_yap1_negative": 24847,
+          "n_immune": 35962,
+          "mannwhitney_p_fdr": 8.583056080871166e-27
+        }
+      ]
+    }
+  ],
+  "per_sample_channels": [
+    {
+      "accession": "GSM9043712",
+      "tissue": "liver core needle biopsy",
+      "n_yap1_positive": 1965,
+      "n_yap1_negative": 3286,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.39134860050890585,
+          "detection_yap1_negative": 0.22580645161290322,
+          "detection_ratio": 1.7331152308251545,
+          "mannwhitney_p": 5.974262042507147e-27
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.4178117048346056,
+          "detection_yap1_negative": 0.24284844796104688,
+          "detection_ratio": 1.7204627344442531,
+          "mannwhitney_p": 5.918229929373812e-27
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0010178117048346056,
+          "detection_yap1_negative": 0.0006086427267194157,
+          "detection_ratio": 1.672264631043257,
+          "mannwhitney_p": 0.6037425740483094
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.049872773536895676,
+          "detection_yap1_negative": 0.017954960438222763,
+          "detection_ratio": 2.7776598956311727,
+          "mannwhitney_p": 6.521863317567747e-11
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0005089058524173028,
+          "detection_yap1_negative": 0.0006086427267194157,
+          "detection_ratio": 0.8361323155216285,
+          "mannwhitney_p": 0.8841832444428791
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0015267175572519084,
+          "detection_yap1_negative": 0.002434570906877663,
+          "detection_ratio": 0.6270992366412214,
+          "mannwhitney_p": 0.48458061219352333
+        }
+      }
+    },
+    {
+      "accession": "GSM9043713",
+      "tissue": "liver core needle biopsy",
+      "n_yap1_positive": 105,
+      "n_yap1_negative": 900,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.11428571428571428,
+          "detection_yap1_negative": 0.20777777777777778,
+          "detection_ratio": 0.5500381970970206,
+          "mannwhitney_p": 0.013120851021778573
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.819047619047619,
+          "detection_yap1_negative": 0.10777777777777778,
+          "detection_ratio": 7.59941089837997,
+          "mannwhitney_p": 7.825656290097805e-72
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.009523809523809525,
+          "detection_yap1_negative": 0.005555555555555556,
+          "detection_ratio": 1.7142857142857144,
+          "mannwhitney_p": 0.6194774631450033
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.009523809523809525,
+          "detection_yap1_negative": 0.0033333333333333335,
+          "detection_ratio": 2.857142857142857,
+          "mannwhitney_p": 0.34393989532654234
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.22857142857142856,
+          "detection_yap1_negative": 0.30333333333333334,
+          "detection_ratio": 0.7535321821036106,
+          "mannwhitney_p": 0.027180985620284325
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.5047619047619047,
+          "detection_yap1_negative": 0.05555555555555555,
+          "detection_ratio": 9.085714285714285,
+          "mannwhitney_p": 9.97848164489695e-47
+        }
+      }
+    },
+    {
+      "accession": "GSM9043714",
+      "tissue": "lymph node core needle biopsy",
+      "n_yap1_positive": 0,
+      "n_yap1_negative": 2,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "KCNA3": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "STOML3": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        }
+      }
+    },
+    {
+      "accession": "GSM9043715",
+      "tissue": "head and neck core needle biopsy",
+      "n_yap1_positive": 3,
+      "n_yap1_negative": 5236,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0066844919786096255,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8880927066237401
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.014896867838044309,
+          "detection_ratio": 22.376068376068375,
+          "mannwhitney_p": 7.607440015843238e-06
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0066844919786096255,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8880927066237401
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.007639419404125287,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8802228142449017
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.031512605042016806,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7552570024583779
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.12987012987012986,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.5050392761160207
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.2733002291825821,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.29647662519894524
+        }
+      }
+    },
+    {
+      "accession": "GSM9043716",
+      "tissue": "adrenal gland core needle biopsy",
+      "n_yap1_positive": 18,
+      "n_yap1_negative": 1362,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.2777777777777778,
+          "detection_yap1_negative": 0.10719530102790015,
+          "detection_ratio": 2.5913242009132422,
+          "mannwhitney_p": 0.03151007142126142
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.16666666666666666,
+          "detection_yap1_negative": 0.023494860499265784,
+          "detection_ratio": 7.09375,
+          "mannwhitney_p": 0.00012653824904737621
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0007342143906020558,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.9135407254850789
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0014684287812041115,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8743625726055708
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.2777777777777778,
+          "detection_yap1_negative": 0.17327459618208516,
+          "detection_ratio": 1.6031073446327686,
+          "mannwhitney_p": 0.36510780137134746
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.05555555555555555,
+          "detection_yap1_negative": 0.030837004405286344,
+          "detection_ratio": 1.8015873015873014,
+          "mannwhitney_p": 0.5404220093045196
+        }
+      }
+    },
+    {
+      "accession": "GSM9043717",
+      "tissue": "liver core needle biopsy",
+      "n_yap1_positive": 345,
+      "n_yap1_negative": 641,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.2811594202898551,
+          "detection_yap1_negative": 0.38533541341653665,
+          "detection_ratio": 0.7296485360558588,
+          "mannwhitney_p": 8.683448718658788e-05
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.2811594202898551,
+          "detection_yap1_negative": 0.057722308892355696,
+          "detection_ratio": 4.8708969839404626,
+          "mannwhitney_p": 2.138273603724626e-21
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.005797101449275362,
+          "detection_yap1_negative": 0.0109204368174727,
+          "detection_ratio": 0.5308488612836438,
+          "mannwhitney_p": 0.4204393150273732
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.014492753623188406,
+          "detection_yap1_negative": 0.0093603744149766,
+          "detection_ratio": 1.5483091787439613,
+          "mannwhitney_p": 0.4617717887801833
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.4028985507246377,
+          "detection_yap1_negative": 0.47581903276131043,
+          "detection_ratio": 0.8467474459491566,
+          "mannwhitney_p": 0.0061162725961143435
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.13333333333333333,
+          "detection_yap1_negative": 0.0842433697347894,
+          "detection_ratio": 1.582716049382716,
+          "mannwhitney_p": 0.027455632542063714
+        }
+      }
+    },
+    {
+      "accession": "GSM9043718",
+      "tissue": "lung core needle biopsy",
+      "n_yap1_positive": 51,
+      "n_yap1_negative": 5085,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0392156862745098,
+          "detection_yap1_negative": 0.04247787610619469,
+          "detection_ratio": 0.923202614379085,
+          "mannwhitney_p": 0.9006404882140115
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.0784313725490196,
+          "detection_yap1_negative": 0.029891838741396264,
+          "detection_ratio": 2.623839009287926,
+          "mannwhitney_p": 0.04877668671409192
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0196078431372549,
+          "detection_yap1_negative": 0.004523107177974435,
+          "detection_ratio": 4.335038363171355,
+          "mannwhitney_p": 0.11773619971591408
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0196078431372549,
+          "detection_yap1_negative": 0.020452310717797444,
+          "detection_ratio": 0.9587104072398189,
+          "mannwhitney_p": 0.9502948133202955
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.39215686274509803,
+          "detection_yap1_negative": 0.39154375614552606,
+          "detection_ratio": 1.0015658699441605,
+          "mannwhitney_p": 0.6483521111491215
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0392156862745098,
+          "detection_yap1_negative": 0.0011799410029498525,
+          "detection_ratio": 33.23529411764706,
+          "mannwhitney_p": 7.272691635154111e-12
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0007866273352999017,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.841972419035608
+        }
+      }
+    },
+    {
+      "accession": "GSM9043719",
+      "tissue": "lung surgical resection",
+      "n_yap1_positive": 37,
+      "n_yap1_negative": 571,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.040280210157618214,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.2143173011621129
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.21621621621621623,
+          "detection_yap1_negative": 0.03502626970227671,
+          "detection_ratio": 6.172972972972973,
+          "mannwhitney_p": 3.0077988344143315e-07
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0070052539404553416,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.6122093823677772
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0017513134851138354,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8043852528931275
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.02702702702702703,
+          "detection_yap1_negative": 0.5078809106830122,
+          "detection_ratio": 0.053215284249767014,
+          "mannwhitney_p": 1.082640464552822e-07
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0035026269702276708,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7222721923316656
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        }
+      }
+    },
+    {
+      "accession": "GSM9043720",
+      "tissue": "brain surgical resection",
+      "n_yap1_positive": 23,
+      "n_yap1_negative": 417,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.5217391304347826,
+          "detection_yap1_negative": 0.15587529976019185,
+          "detection_ratio": 3.347157190635451,
+          "mannwhitney_p": 2.9907316355096935e-05
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.08695652173913043,
+          "detection_yap1_negative": 0.004796163069544364,
+          "detection_ratio": 18.130434782608695,
+          "mannwhitney_p": 5.53574791012898e-05
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.007194244604316547,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.687834669358131
+        }
+      }
+    },
+    {
+      "accession": "GSM9043721",
+      "tissue": "brain surgical resection",
+      "n_yap1_positive": 97,
+      "n_yap1_negative": 265,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.05154639175257732,
+          "detection_yap1_negative": 0.007547169811320755,
+          "detection_ratio": 6.829896907216495,
+          "mannwhitney_p": 0.007758663043190117
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.30927835051546393,
+          "detection_yap1_negative": 0.09056603773584905,
+          "detection_ratio": 3.4149484536082477,
+          "mannwhitney_p": 1.8298128625834559e-06
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.010309278350515464,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 0.09963482267991845
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.041237113402061855,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 0.0009120025654881462
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.010309278350515464,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 0.09963482267991845
+        }
+      }
+    },
+    {
+      "accession": "GSM9043722",
+      "tissue": "lung core needle biopsy",
+      "n_yap1_positive": 9,
+      "n_yap1_negative": 855,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.03625730994152047,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.5624385259719198
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.056140350877192984,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.4660542152937601
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0011695906432748538,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.9273352039197851
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.1111111111111111,
+          "detection_yap1_negative": 0.08304093567251462,
+          "detection_ratio": 1.3380281690140843,
+          "mannwhitney_p": 0.8292234334606986
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.512280701754386,
+          "detection_ratio": 0.6506849315068493,
+          "mannwhitney_p": 0.17775276859441103
+        }
+      }
+    },
+    {
+      "accession": "GSM9043723",
+      "tissue": "lung/mediastinal core needle biopsy",
+      "n_yap1_positive": 24,
+      "n_yap1_negative": 296,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.041666666666666664,
+          "detection_yap1_negative": 0.11148648648648649,
+          "detection_ratio": 0.3737373737373737,
+          "mannwhitney_p": 0.26115049276008184
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.25,
+          "detection_yap1_negative": 0.04054054054054054,
+          "detection_ratio": 6.166666666666666,
+          "mannwhitney_p": 1.093431288343052e-05
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.2916666666666667,
+          "detection_yap1_negative": 0.23310810810810811,
+          "detection_ratio": 1.251207729468599,
+          "mannwhitney_p": 0.39954705945145785
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.31756756756756754,
+          "detection_ratio": 1.049645390070922,
+          "mannwhitney_p": 0.7132021017417629
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0033783783783783786,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7849432133816655
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.02364864864864865,
+          "detection_ratio": 14.095238095238093,
+          "mannwhitney_p": 5.230779205318934e-12
+        }
+      }
+    },
+    {
+      "accession": "GSM9043724",
+      "tissue": "head and neck core needle biopsy",
+      "n_yap1_positive": 172,
+      "n_yap1_negative": 759,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.05232558139534884,
+          "detection_yap1_negative": 0.025032938076416336,
+          "detection_ratio": 2.0902692778457777,
+          "mannwhitney_p": 0.06301087002440867
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.22093023255813954,
+          "detection_yap1_negative": 0.01844532279314888,
+          "detection_ratio": 11.977574750830565,
+          "mannwhitney_p": 2.5519684951312464e-25
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.1569767441860465,
+          "detection_yap1_negative": 0.10935441370223979,
+          "detection_ratio": 1.4354861305687867,
+          "mannwhitney_p": 0.11568184746954993
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.03488372093023256,
+          "detection_yap1_negative": 0.015810276679841896,
+          "detection_ratio": 2.2063953488372094,
+          "mannwhitney_p": 0.10406296944931245
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.47093023255813954,
+          "detection_yap1_negative": 0.28194993412384717,
+          "detection_ratio": 1.6702618995870464,
+          "mannwhitney_p": 5.679422374643487e-05
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0013175230566534915,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.6360189898203652
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.12209302325581395,
+          "detection_yap1_negative": 0.019762845849802372,
+          "detection_ratio": 6.177906976744186,
+          "mannwhitney_p": 3.4911086404518534e-10
+        }
+      }
+    },
+    {
+      "accession": "GSM9043725",
+      "tissue": "retroperitoneal core needle biopsy",
+      "n_yap1_positive": 17,
+      "n_yap1_negative": 1924,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.17647058823529413,
+          "detection_yap1_negative": 0.04625779625779626,
+          "detection_ratio": 3.814937210839392,
+          "mannwhitney_p": 0.013682141248796098
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.29411764705882354,
+          "detection_yap1_negative": 0.007796257796257797,
+          "detection_ratio": 37.72549019607843,
+          "mannwhitney_p": 2.958707275650626e-31
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.058823529411764705,
+          "detection_yap1_negative": 0.02546777546777547,
+          "detection_ratio": 2.3097238895558223,
+          "mannwhitney_p": 0.3687298435563501
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.11764705882352941,
+          "detection_yap1_negative": 0.07848232848232849,
+          "detection_ratio": 1.4990261005064276,
+          "mannwhitney_p": 0.5503720571233011
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.002079002079002079,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.852934107457189
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.23529411764705882,
+          "detection_yap1_negative": 0.02079002079002079,
+          "detection_ratio": 11.317647058823528,
+          "mannwhitney_p": 3.609986637935282e-09
+        }
+      }
+    },
+    {
+      "accession": "GSM9043726",
+      "tissue": "adrenal gland core needle biopsy",
+      "n_yap1_positive": 6,
+      "n_yap1_negative": 3137,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.125916480714058,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.3543199636669715
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.5,
+          "detection_yap1_negative": 0.004462862607586867,
+          "detection_ratio": 112.03571428571428,
+          "mannwhitney_p": 5.811057042992095e-61
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.020720433535224736,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7223636226100192
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.021357985336308574,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7181968588715971
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.1689512272872171,
+          "detection_ratio": 1.9729559748427672,
+          "mannwhitney_p": 0.46430459306798344
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.000637551801083838,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.9547809660682276
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.13292955052598024,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.33948263557031166
+        }
+      }
+    }
+  ],
+  "per_tissue_channels": [
+    {
+      "tissue": "liver core needle biopsy",
+      "samples": [
+        "GSM9043712",
+        "GSM9043713",
+        "GSM9043717"
+      ],
+      "n_yap1_positive": 2415,
+      "n_yap1_negative": 4827,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.3635610766045549,
+          "detection_yap1_negative": 0.24362958359229334,
+          "detection_ratio": 1.4922698271855328,
+          "mannwhitney_p": 1.0767850634076998e-19
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.4157349896480331,
+          "detection_yap1_negative": 0.19308058835715766,
+          "detection_ratio": 2.1531682350118624,
+          "mannwhitney_p": 2.27448687411715e-71
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0012422360248447205,
+          "detection_yap1_negative": 0.002486016159105034,
+          "detection_ratio": 0.49968944099378887,
+          "mannwhitney_p": 0.2724442377132863
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0033126293995859213,
+          "detection_yap1_negative": 0.0022788481458462812,
+          "detection_ratio": 1.4536420101637493,
+          "mannwhitney_p": 0.41824161979576313
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.10807453416149068,
+          "detection_yap1_negative": 0.13196602444582556,
+          "detection_ratio": 0.8189572627904482,
+          "mannwhitney_p": 0.0009089940579785028
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.00041407867494824016,
+          "detection_yap1_negative": 0.0004143360265175057,
+          "detection_ratio": 0.9993788819875776,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0422360248447205,
+          "detection_yap1_negative": 0.02320281748498032,
+          "detection_ratio": 1.8202972493345164,
+          "mannwhitney_p": 8.181992876598885e-06
+        }
+      }
+    },
+    {
+      "tissue": "lymph node core needle biopsy",
+      "samples": [
+        "GSM9043714"
+      ],
+      "n_yap1_positive": 0,
+      "n_yap1_negative": 2,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "KCNA3": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "STOML3": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": null,
+          "detection_yap1_negative": null,
+          "detection_ratio": null,
+          "mannwhitney_p": null
+        }
+      }
+    },
+    {
+      "tissue": "head and neck core needle biopsy",
+      "samples": [
+        "GSM9043715",
+        "GSM9043724"
+      ],
+      "n_yap1_positive": 175,
+      "n_yap1_negative": 5995,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.05142857142857143,
+          "detection_yap1_negative": 0.009007506255212678,
+          "detection_ratio": 5.709523809523809,
+          "mannwhitney_p": 4.4230374970589266e-08
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.22285714285714286,
+          "detection_yap1_negative": 0.015346121768140117,
+          "detection_ratio": 14.522049689440994,
+          "mannwhitney_p": 6.166111733585637e-78
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.15428571428571428,
+          "detection_yap1_negative": 0.019683069224353627,
+          "detection_ratio": 7.8384987893462466,
+          "mannwhitney_p": 1.3115686794300867e-30
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.03428571428571429,
+          "detection_yap1_negative": 0.008673894912427023,
+          "detection_ratio": 3.952747252747253,
+          "mannwhitney_p": 0.0005792771996650011
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.46285714285714286,
+          "detection_yap1_negative": 0.06321934945788157,
+          "detection_ratio": 7.321447418017338,
+          "mannwhitney_p": 5.603950344389341e-84
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.11359466221851543,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 2.40623942125025e-06
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.12,
+          "detection_yap1_negative": 0.24120100083402835,
+          "detection_ratio": 0.4975103734439834,
+          "mannwhitney_p": 3.168213397950482e-05
+        }
+      }
+    },
+    {
+      "tissue": "adrenal gland core needle biopsy",
+      "samples": [
+        "GSM9043716",
+        "GSM9043726"
+      ],
+      "n_yap1_positive": 24,
+      "n_yap1_negative": 4499,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.20833333333333334,
+          "detection_yap1_negative": 0.1202489442098244,
+          "detection_ratio": 1.732516943930992,
+          "mannwhitney_p": 0.2698611190461101
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.25,
+          "detection_yap1_negative": 0.010224494332073794,
+          "detection_ratio": 24.45108695652174,
+          "mannwhitney_p": 6.20477147190065e-28
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.014669926650366748,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.5503244186516498
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.01533674149811069,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.5412538819985584
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.2916666666666667,
+          "detection_yap1_negative": 0.17026005779062015,
+          "detection_ratio": 1.7130657093124457,
+          "mannwhitney_p": 0.24089413719202624
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0004445432318292954,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.919431133912228
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.041666666666666664,
+          "detection_yap1_negative": 0.10202267170482329,
+          "detection_ratio": 0.40840595497458243,
+          "mannwhitney_p": 0.3282908865899604
+        }
+      }
+    },
+    {
+      "tissue": "lung core needle biopsy",
+      "samples": [
+        "GSM9043718",
+        "GSM9043722"
+      ],
+      "n_yap1_positive": 60,
+      "n_yap1_negative": 5940,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.03333333333333333,
+          "detection_yap1_negative": 0.03636363636363636,
+          "detection_ratio": 0.9166666666666667,
+          "mannwhitney_p": 0.8940281172290464
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.06666666666666667,
+          "detection_yap1_negative": 0.03080808080808081,
+          "detection_ratio": 2.163934426229508,
+          "mannwhitney_p": 0.12147576497314805
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.016666666666666666,
+          "detection_yap1_negative": 0.011952861952861953,
+          "detection_ratio": 1.3943661971830985,
+          "mannwhitney_p": 0.7473770420720249
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.016666666666666666,
+          "detection_yap1_negative": 0.017676767676767676,
+          "detection_ratio": 0.9428571428571428,
+          "mannwhitney_p": 0.9392945071643777
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.35,
+          "detection_yap1_negative": 0.34713804713804713,
+          "detection_ratio": 1.0082444228903977,
+          "mannwhitney_p": 0.6756859074595298
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.03333333333333333,
+          "detection_yap1_negative": 0.00101010101010101,
+          "detection_ratio": 33.0,
+          "mannwhitney_p": 8.742920779487239e-12
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.05,
+          "detection_yap1_negative": 0.07441077441077441,
+          "detection_ratio": 0.6719457013574661,
+          "mannwhitney_p": 0.4477588574923822
+        }
+      }
+    },
+    {
+      "tissue": "lung surgical resection",
+      "samples": [
+        "GSM9043719"
+      ],
+      "n_yap1_positive": 37,
+      "n_yap1_negative": 571,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.040280210157618214,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.2143173011621129
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.21621621621621623,
+          "detection_yap1_negative": 0.03502626970227671,
+          "detection_ratio": 6.172972972972973,
+          "mannwhitney_p": 3.0077988344143315e-07
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0070052539404553416,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.6122093823677772
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0017513134851138354,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.8043852528931275
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.02702702702702703,
+          "detection_yap1_negative": 0.5078809106830122,
+          "detection_ratio": 0.053215284249767014,
+          "mannwhitney_p": 1.082640464552822e-07
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0035026269702276708,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7222721923316656
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        }
+      }
+    },
+    {
+      "tissue": "brain surgical resection",
+      "samples": [
+        "GSM9043720",
+        "GSM9043721"
+      ],
+      "n_yap1_positive": 120,
+      "n_yap1_negative": 682,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.041666666666666664,
+          "detection_yap1_negative": 0.002932551319648094,
+          "detection_ratio": 14.208333333333332,
+          "mannwhitney_p": 2.797737173893951e-05
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.35,
+          "detection_yap1_negative": 0.13049853372434017,
+          "detection_ratio": 2.6820224719101122,
+          "mannwhitney_p": 4.3056845131095225e-10
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.008333333333333333,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 0.017290160150889515
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.05,
+          "detection_yap1_negative": 0.002932551319648094,
+          "detection_ratio": 17.05,
+          "mannwhitney_p": 1.7951243453477728e-06
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.008333333333333333,
+          "detection_yap1_negative": 0.004398826979472141,
+          "detection_ratio": 1.8944444444444442,
+          "mannwhitney_p": 0.5752487255635979
+        }
+      }
+    },
+    {
+      "tissue": "lung/mediastinal core needle biopsy",
+      "samples": [
+        "GSM9043723"
+      ],
+      "n_yap1_positive": 24,
+      "n_yap1_negative": 296,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.041666666666666664,
+          "detection_yap1_negative": 0.11148648648648649,
+          "detection_ratio": 0.3737373737373737,
+          "mannwhitney_p": 0.26115049276008184
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.25,
+          "detection_yap1_negative": 0.04054054054054054,
+          "detection_ratio": 6.166666666666666,
+          "mannwhitney_p": 1.093431288343052e-05
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.2916666666666667,
+          "detection_yap1_negative": 0.23310810810810811,
+          "detection_ratio": 1.251207729468599,
+          "mannwhitney_p": 0.39954705945145785
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.31756756756756754,
+          "detection_ratio": 1.049645390070922,
+          "mannwhitney_p": 0.7132021017417629
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0033783783783783786,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.7849432133816655
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.3333333333333333,
+          "detection_yap1_negative": 0.02364864864864865,
+          "detection_ratio": 14.095238095238093,
+          "mannwhitney_p": 5.230779205318934e-12
+        }
+      }
+    },
+    {
+      "tissue": "retroperitoneal core needle biopsy",
+      "samples": [
+        "GSM9043725"
+      ],
+      "n_yap1_positive": 17,
+      "n_yap1_negative": 1924,
+      "channels": {
+        "KCNN4": {
+          "detection_yap1_positive": 0.17647058823529413,
+          "detection_yap1_negative": 0.04625779625779626,
+          "detection_ratio": 3.814937210839392,
+          "mannwhitney_p": 0.013682141248796098
+        },
+        "PIEZO1": {
+          "detection_yap1_positive": 0.29411764705882354,
+          "detection_yap1_negative": 0.007796257796257797,
+          "detection_ratio": 37.72549019607843,
+          "mannwhitney_p": 2.958707275650626e-31
+        },
+        "CACNA1E": {
+          "detection_yap1_positive": 0.058823529411764705,
+          "detection_yap1_negative": 0.02546777546777547,
+          "detection_ratio": 2.3097238895558223,
+          "mannwhitney_p": 0.3687298435563501
+        },
+        "KCNA3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 1.0
+        },
+        "TMEM150C": {
+          "detection_yap1_positive": 0.11764705882352941,
+          "detection_yap1_negative": 0.07848232848232849,
+          "detection_ratio": 1.4990261005064276,
+          "mannwhitney_p": 0.5503720571233011
+        },
+        "STOML3": {
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.002079002079002079,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.852934107457189
+        },
+        "PIEZO2": {
+          "detection_yap1_positive": 0.23529411764705882,
+          "detection_yap1_negative": 0.02079002079002079,
+          "detection_ratio": 11.317647058823528,
+          "mannwhitney_p": 3.609986637935282e-09
+        }
+      }
+    }
+  ],
+  "controls": [
+    {
+      "gene": "PTPRC",
+      "status": "ok",
+      "mean_yap1_positive": 0.028130355328283802,
+      "mean_yap1_negative": 0.017463087455869112,
+      "mean_immune": 2.0182006706410367,
+      "linear_mean_yap1_positive": 0.04576028578978041,
+      "linear_mean_yap1_negative": 0.05979009104686522,
+      "linear_mean_immune": 11.165500316009968,
+      "linear_fold_vs_yap1negative": 0.7653489899172785,
+      "linear_fold_vs_immune": 0.0040983641121899155,
+      "detection_yap1_positive": 0.05222841225626741,
+      "detection_yap1_negative": 0.020092173350582148,
+      "detection_immune": 0.8431399810911517,
+      "detection_ratio_vs_yap1negative": 2.599440655072496,
+      "fold_mean_vs_yap1negative": 1.6108466157185488,
+      "fold_mean_vs_immune": 0.01393833414957137,
+      "mannwhitney_p": 9.534388239924199e-27,
+      "fisher_p_detection": 1.7703091945459964e-21,
+      "odds_ratio_detection": 2.6875802944041913,
+      "n_yap1_positive": 2872,
+      "n_yap1_negative": 24736,
+      "n_immune": 35962
+    },
+    {
+      "gene": "ACTB",
+      "status": "ok",
+      "mean_yap1_positive": 2.853794003687643,
+      "mean_yap1_negative": 2.7546488579177058,
+      "mean_immune": 2.1560340316716444,
+      "linear_mean_yap1_positive": 22.544752912389395,
+      "linear_mean_yap1_negative": 20.016577864826285,
+      "linear_mean_immune": 14.218857822361532,
+      "linear_fold_vs_yap1negative": 1.1263040597966396,
+      "linear_fold_vs_immune": 1.5855530165674772,
+      "detection_yap1_positive": 0.9888579387186629,
+      "detection_yap1_negative": 0.9515281371280725,
+      "detection_immune": 0.8815416272732328,
+      "detection_ratio_vs_yap1negative": 1.0392314216826632,
+      "fold_mean_vs_yap1negative": 1.0359919361355128,
+      "fold_mean_vs_immune": 1.32363124225595,
+      "mannwhitney_p": 1.210292435675455e-11,
+      "fisher_p_detection": 1.7333308498627587e-26,
+      "odds_ratio_detection": 4.521020096019034,
+      "n_yap1_positive": 2872,
+      "n_yap1_negative": 24736,
+      "n_immune": 35962
+    },
+    {
+      "gene": "GAPDH",
+      "status": "ok",
+      "mean_yap1_positive": 2.5756766280472343,
+      "mean_yap1_negative": 2.5510395008936033,
+      "mean_immune": 1.97547170233959,
+      "linear_mean_yap1_positive": 15.178975248074785,
+      "linear_mean_yap1_negative": 16.046203706950326,
+      "linear_mean_immune": 10.444613964219196,
+      "linear_fold_vs_yap1negative": 0.945954290827063,
+      "linear_fold_vs_immune": 1.4532825531009959,
+      "detection_yap1_positive": 0.9846796657381616,
+      "detection_yap1_negative": 0.94372574385511,
+      "detection_immune": 0.8495356209332072,
+      "detection_ratio_vs_yap1negative": 1.0433959994730622,
+      "fold_mean_vs_yap1negative": 1.0096576815627516,
+      "fold_mean_vs_immune": 1.3038286627932,
+      "mannwhitney_p": 0.0007305209543951672,
+      "fisher_p_detection": 1.1608576460565122e-26,
+      "odds_ratio_detection": 3.8325752383326064,
+      "n_yap1_positive": 2872,
+      "n_yap1_negative": 24736,
+      "n_immune": 35962
+    },
+    {
+      "gene": "RPL13A",
+      "status": "ok",
+      "mean_yap1_positive": 2.8036926368203465,
+      "mean_yap1_negative": 2.5326511755647845,
+      "mean_immune": 2.9063839280652926,
+      "linear_mean_yap1_positive": 18.085949730074375,
+      "linear_mean_yap1_negative": 15.379058503582097,
+      "linear_mean_immune": 27.34760866846307,
+      "linear_fold_vs_yap1negative": 1.1760115045964477,
+      "linear_fold_vs_immune": 0.6613356929789211,
+      "detection_yap1_positive": 0.9860724233983287,
+      "detection_yap1_negative": 0.9461109314359638,
+      "detection_immune": 0.9196373950280852,
+      "detection_ratio_vs_yap1negative": 1.0422376389856454,
+      "fold_mean_vs_yap1negative": 1.1070188677661539,
+      "fold_mean_vs_immune": 0.9646669903954138,
+      "mannwhitney_p": 1.4242394006110567e-85,
+      "fisher_p_detection": 7.119799135728087e-27,
+      "odds_ratio_detection": 4.032662479169337,
+      "n_yap1_positive": 2872,
+      "n_yap1_negative": 24736,
+      "n_immune": 35962
+    }
+  ]
+}

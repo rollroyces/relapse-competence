@@ -119,6 +119,11 @@ def _close(a: float, b: float, tol: float = 5e-4) -> bool:
     return abs(a - b) <= tol
 
 
+def _close_rounded(a: float, b: float, decimals: int = 2) -> bool:
+    """Comparison for a number a report rounds to ``decimals`` places."""
+    return abs(a - b) <= 0.5 * 10 ** (-decimals) + 1e-9
+
+
 def _close_rel(a: float, b: float, rel_tol: float = 1e-3) -> bool:
     """Relative comparison, for numbers a report rounds to 4 significant figures."""
     if a == b:
@@ -731,6 +736,90 @@ def main(argv: list[str] | None = None) -> int:
         chk(
             "the model fidelity report links the split-model artefact",
             "split_model_validation.json" in fidelity_doc,
+        )
+
+    # --- the GSE299684 state-expression audit must agree with its artefact ---
+    gse_artefact_path = Path("results/gse299684/state_expression.json")
+    gse_doc_path = Path("docs/GSE299684-STATE-EXPRESSION.md")
+    chk("the GSE299684 state-expression artefact exists", gse_artefact_path.exists())
+    chk("the GSE299684 state-expression report exists", gse_doc_path.exists())
+    if gse_artefact_path.exists() and gse_doc_path.exists():
+        gse = json.loads(gse_artefact_path.read_text())
+        gse_doc = gse_doc_path.read_text()
+        sweep = gse.get("state_definition_sweep") or []
+        primary = next(
+            (s for s in sweep if s["definition"] == gse["audit"]["primary_definition"]),
+            None,
+        )
+        chk(
+            "the GSE299684 artefact reports the state-definition sweep",
+            len(sweep) >= 3,
+            str(len(sweep)),
+        )
+        if primary is not None:
+            chk(
+                "the GSE299684 state call reproduces the paper's surface signature",
+                primary["state_validation_passed"] == primary["state_validation_total"],
+                f"{primary['state_validation_passed']}/{primary['state_validation_total']}",
+            )
+            gse_table = parse_markdown_table(
+                gse_doc, "| Channel | Detection: state | Detection: other tumour |"
+            )
+            chk("the GSE299684 report carries a channel table", len(gse_table) > 1)
+            by_gene = {c["gene"]: c for c in primary["channels"] if c.get("status") == "ok"}
+            if len(gse_table) > 1:
+                for row in gse_table[1:]:
+                    cells = [c.strip() for c in row]
+                    gene = cells[0].strip("`").strip("*")
+                    record = by_gene.get(gene)
+                    chk(
+                        f"the GSE299684 table row for {gene} is an audited channel",
+                        record is not None,
+                        gene,
+                    )
+                    if record is None:
+                        continue
+                    chk(
+                        f"the GSE299684 detection ratio for {gene} matches the artefact",
+                        _close_rounded(
+                            _num(cells[4]), record["detection_ratio_vs_yap1negative"]
+                        ),
+                        f"report={cells[4]} artefact={record['detection_ratio_vs_yap1negative']}",
+                    )
+                    chk(
+                        f"the GSE299684 linear fold for {gene} matches the artefact",
+                        _close_rounded(
+                            _num(cells[5]),
+                            record.get("linear_fold_vs_yap1negative") or 0.0,
+                        ),
+                        f"report={cells[5]} artefact={record.get('linear_fold_vs_yap1negative')}",
+                    )
+                chk(
+                    "the GSE299684 table covers every audited channel",
+                    {c.strip().strip("`").strip("*") for c in (r[0] for r in gse_table[1:])}
+                    == set(by_gene),
+                )
+        loso = gse.get("leave_one_sample_out") or {}
+        for gene in ("KCNN4", "PIEZO1"):
+            record = loso.get(gene) or {}
+            chk(
+                f"the GSE299684 leave-one-out result for {gene} is stable in sign",
+                record.get("sign_is_stable") is True,
+                str(record.get("sign_is_stable")),
+            )
+            chk(
+                f"the GSE299684 report states the leave-one-out range for {gene}",
+                f"{record.get('min_ratio'):.2f}" in gse_doc
+                and f"{record.get('max_ratio'):.2f}" in gse_doc,
+                f"{record.get('min_ratio')}..{record.get('max_ratio')}",
+            )
+        chk(
+            "the GSE299684 report names the dataset and the paper",
+            "GSE299684" in gse_doc and "42019833" in gse_doc,
+        )
+        chk(
+            "the GSE299684 report links the generated artefact",
+            "state_expression.json" in gse_doc,
         )
 
     # --- the research plan must exist and agree with the executed results ---

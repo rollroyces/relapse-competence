@@ -110,16 +110,23 @@ already exists in `protein-flow-explorer` (54 tissues, specificity verdict).
 window audit was run. The audit's verdicts supersede it, and the authoritative
 table is [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md) §4:
 
-- **KCa3.1 / KCNN4 — conditional, delivery-constrained.** No systemic window:
+- **KCa3.1 / KCNN4 — closed for the lung indication.** No systemic window:
   lung expression is 12× below minor salivary gland, the gene is
   loss-of-function intolerant (LOEUF 0.515), and on-target neurological and
-  cardiac liabilities are recorded. Viability now requires tumour-directed or
-  local delivery, or a companion-probe role (senicapoc-BODIPY) rather than the
-  drug.
-- **Piezo1 — still the most original, now with a quantified constraint.** No
-  separation from PIEZO2 (window fold 1.043; PIEZO2's germline burden is
-  centred on distal arthrogryposis), and no clinical-stage asset in Open
-  Targets. Isoform selectivity is a prerequisite, not an optimisation.
+  cardiac liabilities are recorded. The state-resolved measurement closed it
+  further: the relapse-competent state in lung does **not** express KCNN4
+  more than the surrounding tumour (detection ratios 0.92, 0.00 and 0.37
+  across the lung libraries of GSE299684). A delivery argument is moot when
+  the target is not there. KCa3.1 survives as an imaging probe
+  (senicapoc-BODIPY) or in non-lung indications.
+- **Piezo1 — still the most original, and now the strongest readout
+  candidate.** The state expresses PIEZO1 in 39% of cells against 6% of
+  neighbouring tumour cells, at every site tested including lung, robust to
+  leaving out any library and to how the state is called. As a *drug* it is
+  unchanged: no separation from PIEZO2 in bulk tissue (window fold 1.043;
+  PIEZO2's germline burden is centred on distal arthrogryposis), no
+  clinical-stage asset in Open Targets, and its direction of effect is not
+  established.
 - **Cav2.3 / CACNA1E — ruled out as a lung target.** 0.126 TPM in lung,
   LOEUF 0.120, and ClinVar asserts developmental and epileptic
   encephalopathy 69.
@@ -160,6 +167,13 @@ are ordered by cost, and **no stage may begin before the previous one exits**.
 > ruled out, the systemic-window hypothesis was dropped for KCa3.1, and the K4
 > kill condition was re-specified as **D0b** and deferred to state-resolved
 > data — see the report §6 for why bulk tissue cannot decide it.
+>
+> **D0b was then executed on public data, 2026-11-07:** see
+> [`GSE299684-STATE-EXPRESSION.md`](GSE299684-STATE-EXPRESSION.md). The
+> relapse-competent state *is* electrically marked — PIEZO1 in 39% of state
+> cells against 6% of neighbouring tumour cells, robust to leaving out any
+> library and to how the state is called — but KCNN4 does not mark the state in
+> lung, which closes the KCa3.1 arm for the lung indication.
 
 **Question.** Which targets have a therapeutic window in lung tissue?
 **Method.** For each Tier-1/2 target: pull GTEx lung and immune expression

@@ -122,10 +122,12 @@ not a biological one, and a cheap thing to measure.
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
    it runs on real serial plasma.
-7. **Split the model.** Use the simulator to generate data with known ground
-   truth, then fit a detector to that data and report how much performance is
-   lost to the modelling gap. This is the standard way to bound the value of a
-   simulation-based design.
+7. **Split the model.** *Done:* use the simulator to generate data with known
+   ground truth, then apply a detector fitted on the published model to the
+   fidelity model and report how much performance is lost to the modelling gap.
+   See [`MODEL-FIDELITY.md`](MODEL-FIDELITY.md). The answer was asymmetric:
+   the biological extensions transfer exactly, and the per-locus background
+   floor does not.
 8. **D2 with the D1 design requirement.** The tissue-level check must read out
    the **burden-normalised enrichment ratio**, not raw ion-channel abundance. A
    tissue study measuring raw abundance would confirm the growth signal and say
@@ -134,7 +136,8 @@ not a biological one, and a cheap thing to measure.
 ### Longer term — the biological question
 
 9. **Relapse-competent state classifier** on methylation and mutation channels
-   jointly, with lineage-resolved validation.
+   jointly, with lineage-resolved validation. *The design is written*:
+   [`LINEAGE-RESOLVED-ASSAY-DESIGN.md`](LINEAGE-RESOLVED-ASSAY-DESIGN.md).
 10. **Tumour-informed vs tumour-naive panels.** The current model assumes a
     tumour-informed panel. A tumour-naive design changes the depth/lead-time
     trade-off completely and deserves its own sweep.
@@ -143,7 +146,7 @@ not a biological one, and a cheap thing to measure.
 
 | Dependency | Why | Lead time | Start |
 |---|---|---|---|
-| **State-resolved single-cell data** (GSE299684, public) | Decides D0b: does the relapse-competent state express the channels more than the surrounding lung? | Days — public, no application | **First. Start now.** |
+| **State-resolved single-cell data** (GSE299684, public) | Decides D0b: does the relapse-competent state express the channels more than the surrounding lung? | Days — public, no application | **done 2026-11-07** |
 | **Serial NSCLC cohort access** (PLCO via CDAS, or Taizhou via EGA) | Every empirical claim | Months | In parallel |
 | **GitHub Actions billing** | Continuous machine-checking of every push | Hours, once the account is unlocked | Now |
 | Multi-clone model | Realism of lead time | Days | Alongside |
@@ -155,6 +158,12 @@ application-gated and measured in months, while the modelling work is measured
 in days. **One dependency has come off it:** the anchor single-cell dataset is
 public, so the first state-resolved measurement can be run without an
 application, in parallel with the applications rather than after them.
+
+**That measurement has now been run** (2026-11-07): see
+[`GSE299684-STATE-EXPRESSION.md`](GSE299684-STATE-EXPRESSION.md). The state
+*is* electrically marked — PIEZO1 in 39% of state cells against 6% of
+neighbouring tumour cells, at every site tested — but KCa3.1 does not mark
+the state in lung, which closes the KCa3.1 arm for the lung indication.
 
 **The Actions billing lock is diagnosed, not guessed.** Every job in every
 repository on this account fails within a few seconds with no runner and no
