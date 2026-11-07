@@ -813,6 +813,147 @@ def main(argv: list[str] | None = None) -> int:
                 and f"{record.get('max_ratio'):.2f}" in gse_doc,
                 f"{record.get('min_ratio')}..{record.get('max_ratio')}",
             )
+        # The state-validation table must carry the pooled numbers, not a
+        # single library's: a validation table quoted from one sample would
+        # still "reproduce" the signature and mean nothing.
+        if primary is not None:
+            validation_table = parse_markdown_table(
+                gse_doc, "| Marker | Expected | YAP1+ | YAP1− |"
+            )
+            chk(
+                "the GSE299684 report carries a state-validation table",
+                len(validation_table) > 1,
+            )
+            artefact_validation = primary["state_validation"]
+            for row in validation_table[1:]:
+                cells = [c.strip() for c in row]
+                if not cells:
+                    continue
+                gene = cells[0].strip("`")
+                record = artefact_validation.get(gene)
+                chk(
+                    f"the GSE299684 validation row for {gene} is an audited marker",
+                    record is not None,
+                    gene,
+                )
+                if record is None:
+                    continue
+                chk(
+                    f"the GSE299684 pooled validation value for {gene} (state) "
+                    "matches the artefact",
+                    _close_rounded(_num(cells[2]), record["mean_yap1_positive"], 3),
+                    f"report={cells[2]} artefact={record['mean_yap1_positive']}",
+                )
+                chk(
+                    f"the GSE299684 pooled validation value for {gene} (other "
+                    "tumour) matches the artefact",
+                    _close_rounded(_num(cells[3]), record["mean_yap1_negative"], 3),
+                    f"report={cells[3]} artefact={record['mean_yap1_negative']}",
+                )
+
+        # The per-site table must match the artefact, and the libraries it
+        # counts must add up to the libraries that were read.
+        site_table = parse_markdown_table(gse_doc, "| Libraries | State cells |")
+        chk("the GSE299684 report carries a per-site table", len(site_table) > 1)
+        if len(site_table) > 1:
+            artefact_sites = {
+                entry["tissue"]: entry for entry in gse["per_tissue_channels"]
+            }
+            total_libraries = 0
+            for row in site_table[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 6:
+                    continue
+                site = cells[0].strip("*")
+                entry = artefact_sites.get(site)
+                chk(
+                    f"the GSE299684 site row '{site}' is an audited site",
+                    entry is not None,
+                    site,
+                )
+                if entry is None:
+                    continue
+                chk(
+                    f"the GSE299684 library count for '{site}' matches the artefact",
+                    int(cells[1]) == len(entry["samples"]),
+                    f"report={cells[1]} artefact={len(entry['samples'])}",
+                )
+                total_libraries += len(entry["samples"])
+                chk(
+                    f"the GSE299684 state-cell count for '{site}' matches the artefact",
+                    int(cells[2].replace(",", "")) == entry["n_yap1_positive"],
+                    f"report={cells[2]} artefact={entry['n_yap1_positive']}",
+                )
+                for column, gene in ((4, "KCNN4"), (5, "PIEZO1")):
+                    stats = entry["channels"].get(gene) or {}
+                    ratio = stats.get("detection_ratio")
+                    cell = cells[column].replace("*", "").replace("—", "").strip()
+                    if ratio is None or not cell:
+                        continue
+                    chk(
+                        f"the GSE299684 {gene} ratio for '{site}' matches the artefact",
+                        _close_rounded(float(cell), ratio),
+                        f"report={cell} artefact={ratio}",
+                    )
+            chk(
+                "the GSE299684 per-site table accounts for every library",
+                total_libraries == len(gse["per_sample"]),
+                f"{total_libraries} of {len(gse['per_sample'])}",
+            )
+
+        # The prose site breakdown must add up to the libraries that were read.
+        breakdown = ""
+        for paragraph in gse_doc.split("\n\n"):
+            if "single-cell libraries of relapsed SCLC" in paragraph:
+                breakdown = paragraph
+                break
+        chk(
+            "the GSE299684 report states the site breakdown",
+            bool(breakdown),
+        )
+        if breakdown:
+            counts = [int(n) for n in re.findall(r"\((\d+)\)", breakdown)]
+            chk(
+                "the GSE299684 site breakdown adds up to every library",
+                sum(counts) == len(gse["per_sample"]),
+                f"{sum(counts)} vs {len(gse['per_sample'])}",
+            )
+            lung_libraries = sum(
+                len(entry["samples"])
+                for entry in gse["per_tissue_channels"]
+                if "lung" in entry["tissue"]
+            )
+            lung_match = re.search(r"lung \((\d+)", breakdown)
+            chk(
+                "the GSE299684 site breakdown counts the lung libraries correctly",
+                lung_match is not None and int(lung_match.group(1)) == lung_libraries,
+                f"report={lung_match.group(1) if lung_match else None} artefact={lung_libraries}",
+            )
+
+        # A universal claim about libraries is only allowed if the data
+        # supports it: every library where a channel falls below 1 has to be
+        # named in the report.
+        for row in gse["per_sample_channels"]:
+            stats = (row.get("channels") or {}).get("PIEZO1") or {}
+            ratio = stats.get("detection_ratio")
+            if ratio is not None and ratio < 1:
+                chk(
+                    "the GSE299684 report names the library where PIEZO1 is below 1: "
+                    f"{row['accession']}",
+                    row["accession"] in gse_doc,
+                    row["accession"],
+                )
+        for gene, counts in (gse.get("per_sample_sign_counts") or {}).items():
+            if gene not in ("KCNN4", "PIEZO1"):
+                continue
+            above = counts["samples_with_ratio_above_one"]
+            below = counts["samples_with_ratio_below_one"]
+            chk(
+                f"the GSE299684 report states the per-library count for {gene}",
+                f"{above}" in gse_doc and f"{below}" in gse_doc,
+                f"{above} above, {below} below",
+            )
+
         chk(
             "the GSE299684 report names the dataset and the paper",
             "GSE299684" in gse_doc and "42019833" in gse_doc,

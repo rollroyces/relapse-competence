@@ -33,8 +33,10 @@ that matters for the programme**.
 ## 2. The dataset, and a submission-side discrepancy
 
 Fifteen single-cell libraries of relapsed SCLC from seven metastatic sites:
-liver (3), lung (3), head and neck (2), adrenal (2), brain (2), retroperitoneum,
-lymph node. The GEO record states every library is from a relapsed patient.
+liver core needle biopsy (3), lung (4), head and neck (2), adrenal (2), brain
+(2), retroperitoneum (1), lymph node (1). The four lung libraries are two core
+needle biopsies, one surgical resection and one lung/mediastinal core needle
+biopsy. The GEO record states every library is from a relapsed patient.
 
 Two accessions carry **deposited file names that belong to the other
 accession**: `GSM9043721` (GEO title *SC409_SC363A*, brain surgical
@@ -57,16 +59,21 @@ ERBB2, and lose DLL3, SEZ6 and CEACAM5**. None of those six genes is an ion
 channel.
 
 **All six markers reproduce the reported direction, under all three state
-definitions** (2,872 / 1,185 / 2,761 state cells respectively):
+definitions** (2,872 / 1,185 / 2,761 state cells respectively). Pooled over
+all 15 libraries, at the primary definition:
 
-| Marker | Expected | YAP1+ | YAP1− | Reproduced |
-|---|---|---:|---:|:--:|
-| CD276 | up | 0.206 | 0.140 | yes |
-| TACSTD2 | up | 1.833 | 1.381 | yes |
-| ERBB2 | up | 0.325 | 0.263 | yes |
-| DLL3 | down | 0.007 | 0.011 | yes |
-| SEZ6 | down | 0.005 | 0.004 | yes |
-| CEACAM5 | down | 0.000 | 0.000 | yes |
+| Marker | Expected | YAP1+ | YAP1− | Detection YAP1+ | Detection YAP1− | Reproduced |
+|---|---|---:|---:|---:|---:|:--:|
+| CD276 | up | 0.184 | 0.088 | 0.433 | 0.179 | yes |
+| TACSTD2 | up | 1.464 | 0.234 | 0.796 | 0.145 | yes |
+| ERBB2 | up | 0.252 | 0.052 | 0.487 | 0.095 | yes |
+| DLL3 | down | 0.050 | 0.212 | 0.123 | 0.297 | yes |
+| SEZ6 | down | 0.020 | 0.112 | 0.060 | 0.198 | yes |
+| CEACAM5 | down | 0.042 | 0.172 | 0.045 | 0.116 | yes |
+
+The values are mean log-normalised expression per cell, with the fraction of
+cells expressing the gene alongside; both come from
+`results/gse299684/state_expression.json` and are checked against it in CI.
 
 Two pipeline checks against the paper's own numbers:
 
@@ -134,19 +141,20 @@ reader would want to know anyway:
 This is the part that changes the programme, because the programme's target
 tissue is lung and this dataset is mostly not lung.
 
-| Site | Libraries | State cells | Other tumour cells | KCNN4 detection ratio | PIEZO1 detection ratio |
+| Site (as named by GEO) | Libraries | State cells | Other tumour cells | KCNN4 detection ratio | PIEZO1 detection ratio |
 |---|---:|---:|---:|---:|---:|
-| liver | 3 | 2,415 | 4,827 | 1.49 | 2.15 |
-| lung (core needle) | 2 | 60 | 5,940 | **0.92** | 2.16 |
-| lung (surgical resection) | 1 | 37 | 571 | **0.00** | 6.17 |
-| lung/mediastinal (core needle) | 1 | 24 | 296 | **0.37** | 6.17 |
-| head and neck | 2 | 175 | 5,995 | 5.71 | 14.52 |
-| adrenal | 2 | 24 | 4,499 | 1.73 | 24.45 |
-| brain (surgical resection) | 2 | 120 | 682 | 14.21 | 2.68 |
-| retroperitoneum | 1 | 17 | 1,924 | 3.81 | 37.73 |
-| lymph node | 1 | 0 | 2 | — | — |
+| liver core needle biopsy | 3 | 2,415 | 4,827 | 1.49 | 2.15 |
+| lung core needle biopsy | 2 | 60 | 5,940 | **0.92** | 2.16 |
+| lung surgical resection | 1 | 37 | 571 | **0.00** | 6.17 |
+| lung/mediastinal core needle biopsy | 1 | 24 | 296 | **0.37** | 6.17 |
+| head and neck core needle biopsy | 2 | 175 | 5,995 | 5.71 | 14.52 |
+| adrenal gland core needle biopsy | 2 | 24 | 4,499 | 1.73 | 24.45 |
+| brain surgical resection | 2 | 120 | 682 | 14.21 | 2.68 |
+| retroperitoneal core needle biopsy | 1 | 17 | 1,924 | 3.81 | 37.73 |
+| lymph node core needle biopsy | 1 | 0 | 2 | — | — |
 
-**PIEZO1 marks the state at every site, including all four lung libraries.**
+**PIEZO1 marks the state at every site, including lung.** Pooled by site, its
+detection ratio exceeds 1 in all seven sites with state cells.
 **KCNN4 does not mark the state in lung** (ratios 0.92, 0.00, 0.37), while it
 does so in brain, head and neck, adrenal and retroperitoneum.
 
@@ -154,9 +162,14 @@ The lung estimates rest on 121 state cells across four libraries in three
 groupings, so they are imprecise; but they are not positive, and the three
 groupings do not agree with each other in the positive direction.
 
-Per-library the picture is the same as the per-site one: PIEZO1's detection
-ratio exceeds 1 in **13 of the 14** libraries with a usable estimate, while
-KCNN4's exceeds 1 in 5 and falls below it in 7.
+Per library the picture is close to the per-site one, but not identical, and
+the exception matters: PIEZO1's detection ratio exceeds 1 in **13 of the 14**
+libraries with a usable estimate, and falls below it in **one** —
+`GSM9043722`, a lung core-needle biopsy with **9** state cells, where 0 of 9
+state cells express PIEZO1 against 3.6% of the other tumour cells. That single
+library is 7% of the lung state cells, so it moves the lung ratio from
+"clearly positive" towards "positive but imprecise"; it does not reverse it.
+KCNN4's ratio exceeds 1 in 5 libraries and falls below it in 7.
 
 ---
 
@@ -200,8 +213,10 @@ enrichment.
    state cells than in the surrounding tumour of the same biopsies, at
    p-values far below any correction, robust to leaving out any library and
    robust to how the state is called.
-2. **PIEZO1 is the channel that marks the state at every site tested,
-   including lung.**
+2. **PIEZO1 is the channel that marks the state at every site tested, pooled
+   by site, including lung.** Per library it exceeds 1 in 13 of the 14
+   libraries with a usable estimate; the exception is `GSM9043722`, a lung
+   core-needle biopsy with nine state cells.
 3. **KCNN4 marks the state at some metastatic sites but not in lung.**
 4. The remaining candidates are not state markers, and several are
    *depleted* in the state — consistent with the paper's finding that the
@@ -236,7 +251,7 @@ enrichment.
 |---|---|---|
 | The D0b gate | Deferred, awaiting state-resolved expression | **Partly answered.** The state is electrically marked, and the marking is channel- and site-specific |
 | KCa3.1 as a lung drug target | "Conditional — needs tumour-directed delivery" | **Closed for lung.** The state does not express KCNN4 more than the surrounding lung tumour (ratios 0.92, 0.00, 0.37 across the three lung groupings, four libraries), so there is no state-selective window to deliver into. The delivery argument is moot if the target is not there |
-| Piezo1 as a lung drug target | No window vs PIEZO2; no clinical asset | Unchanged. PIEZO1 marks the state in lung, but the D0 window verdict and the absence of any clinical-stage asset still stand |
+| Piezo1 as a lung drug target | No window vs PIEZO2; no clinical asset | Unchanged. PIEZO1 marks the state in lung (pooled by site), but the D0 window verdict and the absence of any clinical-stage asset still stand |
 | The electrical readout | A bulk channel whose value was assumed | **Grounded.** PIEZO1 is expressed in 39% of state cells against 6% of neighbouring tumour cells; the simulator's assumed 3× electrical fold in state-bearing cells is consistent with the measured 3.4× |
 | The D0/D2 electrical endpoint | "Channel expression per cell type within one tumour" | Executable now, on public data, before any tissue is cut |
 | The lineage question | Needs serial plasma | Unchanged. This dataset has no lineage tag and no plasma |
@@ -267,7 +282,7 @@ matrices are not committed to this repository; the analysis reads them from
 **Bottom line.** The relapse-competent state *is* electrically readable — in
 public data, with no application, and with a state definition validated against
 the source paper's own independent signature. Piezo1 marks it at every site
-tested, including lung. KCa3.1 does not mark it in lung, which closes the
-KCa3.1 arm for the indication the programme is about. The other candidates
-are not state markers, and the paper that defines this population never
-looked.
+tested, pooled by site, including lung. KCa3.1 does not mark it in lung, which
+closes the KCa3.1 arm for the indication the programme is about. The other
+candidates are not state markers, and the paper that defines this population
+never looked.
