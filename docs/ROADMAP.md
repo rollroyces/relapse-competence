@@ -163,7 +163,10 @@ application, in parallel with the applications rather than after them.
 [`GSE299684-STATE-EXPRESSION.md`](GSE299684-STATE-EXPRESSION.md). The state
 *is* electrically marked — PIEZO1 in 39% of state cells against 6% of
 neighbouring tumour cells, at every site tested — but KCa3.1 does not mark
-the state in lung, which closes the KCa3.1 arm for the lung indication.
+the state in lung — and the NSCLC replication
+([`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)) finds the
+opposite in EGFR-mutant lung, so the KCa3.1 arm is blocked on its window
+rather than on a missing target.
 
 **The Actions billing lock is diagnosed, not guessed.** Every job in every
 repository on this account fails within a few seconds with no runner and no

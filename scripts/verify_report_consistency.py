@@ -1085,6 +1085,165 @@ def main(argv: list[str] | None = None) -> int:
             "state_expression.json" in gse_doc,
         )
 
+    # --- the GSE353299 NSCLC audit must agree with its artefact ---
+    nsclc_artefact_path = Path("results/gse353299/state_expression.json")
+    nsclc_doc_path = Path("docs/GSE353299-STATE-EXPRESSION.md")
+    chk("the GSE353299 artefact exists", nsclc_artefact_path.exists())
+    chk("the GSE353299 report exists", nsclc_doc_path.exists())
+    if nsclc_artefact_path.exists() and nsclc_doc_path.exists():
+        nsclc = json.loads(nsclc_artefact_path.read_text())
+        nsclc_doc = nsclc_doc_path.read_text()
+        nsclc_primary = next(
+            s
+            for s in nsclc["state_definition_sweep"]
+            if s["definition"] == nsclc["audit"]["primary_definition"]
+        )
+        chk(
+            "the GSE353299 state call is validated on the basaloid programme",
+            nsclc_primary["state_validation"]["basaloid_enriched_in_state"] is True,
+            str(nsclc_primary["state_validation"]),
+        )
+        nsclc_genes = {
+            c["gene"]: c for c in nsclc_primary["channels"] if c.get("status") == "ok"
+        }
+        nsclc_table = parse_markdown_table(
+            nsclc_doc, "| Channel | Detection: state | Detection: other tumour |"
+        )
+        chk("the GSE353299 report carries a channel table", len(nsclc_table) > 1)
+        if len(nsclc_table) > 1:
+            for row in nsclc_table[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 7:
+                    continue
+                gene = cells[0].strip("`* ")
+                record = nsclc_genes.get(gene)
+                chk(
+                    f"the GSE299299 channel row for {gene} is an audited channel",
+                    record is not None,
+                    gene,
+                )
+                if record is None:
+                    continue
+                chk(
+                    f"the GSE299299 detection ratio for {gene} matches the artefact",
+                    _close_rounded(
+                        _num(cells[4]), record["detection_ratio_vs_yap1negative"]
+                    ),
+                    f"report={cells[4]} artefact={record['detection_ratio_vs_yap1negative']}",
+                )
+                chk(
+                    f"the GSE299299 state detection for {gene} matches the artefact",
+                    _close_rounded(
+                        _num(cells[1]), record["detection_yap1_positive"], 3
+                    ),
+                    f"report={cells[1]} artefact={record['detection_yap1_positive']}",
+                )
+            chk(
+                "the GSE299299 table covers every audited channel",
+                {c.strip().strip("`* ") for c in (r[0] for r in nsclc_table[1:])}
+                == set(nsclc_genes),
+            )
+
+        # The per-timepoint table: the per-library median and range of the
+        # state fraction must match the artefact.
+        timepoint_table = parse_markdown_table(
+            nsclc_doc, "| Libraries | Malignant cells |"
+        )
+        chk("the GSE353299 report carries a timepoint table", len(timepoint_table) > 1)
+        if len(timepoint_table) > 1:
+            by_timepoint = {e["treatment"]: e for e in nsclc["per_timepoint"]}
+            for row in timepoint_table[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 4:
+                    continue
+                match = re.match(r"`([^`]+)`", cells[0].strip())
+                key = match.group(1) if match else cells[0].strip("`* ").lower()
+                record = by_timepoint.get(key)
+                chk(
+                    f"the GSE299299 timepoint row '{key}' is an audited timepoint",
+                    record is not None,
+                    key,
+                )
+                if record is None:
+                    continue
+                chk(
+                    f"the GSE299299 library count for '{key}' matches the artefact",
+                    int(cells[1]) == record["n_libraries"],
+                    f"report={cells[1]} artefact={record['n_libraries']}",
+                )
+                chk(
+                    f"the GSE299299 malignant count for '{key}' matches the artefact",
+                    int(cells[2].replace(",", "")) == record["n_malignant"],
+                    f"report={cells[2]} artefact={record['n_malignant']}",
+                )
+                fractions = sorted(
+                    s["state_positive_fraction_of_malignant"]
+                    for s in nsclc["per_sample"]
+                    if s["treatment"].strip().lower() == key
+                    and s["state_positive_fraction_of_malignant"] is not None
+                )
+                if fractions:
+                    median = fractions[len(fractions) // 2]
+                    chk(
+                        f"the GSE299299 state fraction for '{key}' matches the artefact",
+                        f"{median:.3f}" in cells[3],
+                        f"report={cells[3]} artefact={median:.3f}",
+                    )
+
+        # The cross-disease table must be traceable to both artefacts.
+        comparison = parse_markdown_table(nsclc_doc, "| NSCLC, KRT17+ state")
+        chk("the GSE299299 report carries a cross-disease table", len(comparison) > 1)
+        sclc_artefact_path = Path("results/gse299684/state_expression.json")
+        if len(comparison) > 1 and sclc_artefact_path.exists():
+            sclc = json.loads(sclc_artefact_path.read_text())
+            sclc_primary = next(
+                s
+                for s in sclc["state_definition_sweep"]
+                if s["definition"] == sclc["audit"]["primary_definition"]
+            )
+            sclc_genes = {
+                c["gene"]: c for c in sclc_primary["channels"] if c.get("status") == "ok"
+            }
+            for row in comparison[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 3:
+                    continue
+                gene = cells[0].strip("`* ")
+                if gene not in sclc_genes or gene not in nsclc_genes:
+                    continue
+                chk(
+                    f"the cross-disease SCLC value for {gene} matches the SCLC artefact",
+                    _close_rounded(
+                        _num(cells[1]), sclc_genes[gene]["detection_ratio_vs_yap1negative"]
+                    ),
+                    f"report={cells[1]} artefact={sclc_genes[gene]['detection_ratio_vs_yap1negative']}",
+                )
+                chk(
+                    f"the cross-disease NSCLC value for {gene} matches the NSCLC artefact",
+                    _close_rounded(
+                        _num(cells[2]),
+                        nsclc_genes[gene]["detection_ratio_vs_yap1negative"],
+                    ),
+                    f"report={cells[2]} artefact={nsclc_genes[gene]['detection_ratio_vs_yap1negative']}",
+                )
+
+        # The robustness that carries the conclusion.
+        loso = nsclc.get("leave_one_sample_out") or {}
+        kcnn4 = loso.get("KCNN4") or {}
+        chk(
+            "the GSE299299 KCa3.1 result holds in every patient",
+            kcnn4.get("n_samples_with_ratio_above_one") == len(nsclc["per_sample"]),
+            str(kcnn4.get("n_samples_with_ratio_above_one")),
+        )
+        chk(
+            "the GSE299299 KCa3.1 leave-one-out sign is stable",
+            kcnn4.get("sign_is_stable") is True,
+        )
+        chk(
+            "the GSE299299 report names the dataset and the correction",
+            "GSE353299" in nsclc_doc and "42019833" not in nsclc_doc,
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

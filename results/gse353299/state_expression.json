@@ -1,0 +1,2817 @@
+{
+  "audit": {
+    "id": "gse353299-state-expression-2026-11",
+    "generated_by": "scripts/gse353299_state_expression.py",
+    "generated_at": "2026-11-08T09:17:56.616097+00:00",
+    "dataset": "GSE353299",
+    "description": "EGFR-mutant lung adenocarcinoma, 25 single-cell libraries at treatment-naive, osimertinib MRD and progression timepoints",
+    "state_definition": "KRT17+ malignant cells, as the dataset's own GEO record defines them; the call is validated on the basaloid programme, which the series title names, and is independent of the channels",
+    "state_definitions_swept": [
+      "detected",
+      "two_transcripts",
+      "top_decile"
+    ],
+    "primary_definition": "detected",
+    "channels": [
+      "KCNN4",
+      "PIEZO1",
+      "CACNA1E",
+      "KCNA3",
+      "TMEM150C",
+      "STOML3",
+      "PIEZO2"
+    ],
+    "basaloid_markers": [
+      "KRT5",
+      "KRT6A",
+      "KRT14",
+      "KRT15"
+    ]
+  },
+  "cells": {
+    "n_qc_passed": 97626,
+    "cell_type_counts": {
+      "b_plasma": 17536,
+      "endothelial": 3121,
+      "fibroblast": 8965,
+      "malignant": 10718,
+      "myeloid": 13202,
+      "t_nk": 42096,
+      "unassigned": 1988
+    }
+  },
+  "per_sample": [
+    {
+      "accession": "GSM10173924",
+      "file_prefix": "Biopsy1",
+      "geo_title": "Biopsy1",
+      "tissue": "Right lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 3551,
+      "n_malignant": 223,
+      "n_state_positive": 12,
+      "state_positive_fraction_of_malignant": 0.053811659192825115,
+      "cell_type_counts": {
+        "b_plasma": 49,
+        "endothelial": 89,
+        "fibroblast": 264,
+        "malignant": 223,
+        "myeloid": 1150,
+        "t_nk": 1745,
+        "unassigned": 31
+      }
+    },
+    {
+      "accession": "GSM10173925",
+      "file_prefix": "JH033GEX",
+      "geo_title": "JH033",
+      "tissue": "Pleura",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 1219,
+      "n_malignant": 574,
+      "n_state_positive": 4,
+      "state_positive_fraction_of_malignant": 0.006968641114982578,
+      "cell_type_counts": {
+        "b_plasma": 8,
+        "endothelial": 116,
+        "fibroblast": 98,
+        "malignant": 574,
+        "myeloid": 83,
+        "t_nk": 281,
+        "unassigned": 59
+      }
+    },
+    {
+      "accession": "GSM10173926",
+      "file_prefix": "JH038_GEX",
+      "geo_title": "JH038",
+      "tissue": "Liver",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 3182,
+      "n_malignant": 479,
+      "n_state_positive": 23,
+      "state_positive_fraction_of_malignant": 0.04801670146137787,
+      "cell_type_counts": {
+        "b_plasma": 150,
+        "endothelial": 260,
+        "fibroblast": 63,
+        "malignant": 479,
+        "myeloid": 922,
+        "t_nk": 1241,
+        "unassigned": 67
+      }
+    },
+    {
+      "accession": "GSM10173927",
+      "file_prefix": "JH064_GEX",
+      "geo_title": "JH064",
+      "tissue": "Left interlobar station 11L lymph node",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 1550,
+      "n_malignant": 1134,
+      "n_state_positive": 0,
+      "state_positive_fraction_of_malignant": 0.0,
+      "cell_type_counts": {
+        "b_plasma": 61,
+        "endothelial": 2,
+        "fibroblast": 18,
+        "malignant": 1134,
+        "myeloid": 129,
+        "t_nk": 199,
+        "unassigned": 7
+      }
+    },
+    {
+      "accession": "GSM10173928",
+      "file_prefix": "JH067_GEX",
+      "geo_title": "JH067",
+      "tissue": "Liver",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 1005,
+      "n_malignant": 198,
+      "n_state_positive": 32,
+      "state_positive_fraction_of_malignant": 0.16161616161616163,
+      "cell_type_counts": {
+        "b_plasma": 25,
+        "endothelial": 29,
+        "fibroblast": 356,
+        "malignant": 198,
+        "myeloid": 110,
+        "t_nk": 262,
+        "unassigned": 25
+      }
+    },
+    {
+      "accession": "GSM10173929",
+      "file_prefix": "JH095-GEX9",
+      "geo_title": "JH095",
+      "tissue": "Liver",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 549,
+      "n_malignant": 132,
+      "n_state_positive": 5,
+      "state_positive_fraction_of_malignant": 0.03787878787878788,
+      "cell_type_counts": {
+        "b_plasma": 8,
+        "endothelial": 9,
+        "fibroblast": 222,
+        "malignant": 132,
+        "myeloid": 116,
+        "t_nk": 42,
+        "unassigned": 20
+      }
+    },
+    {
+      "accession": "GSM10173930",
+      "file_prefix": "JH104-GEX2",
+      "geo_title": "JH104",
+      "tissue": "Liver",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 835,
+      "n_malignant": 77,
+      "n_state_positive": 3,
+      "state_positive_fraction_of_malignant": 0.03896103896103896,
+      "cell_type_counts": {
+        "b_plasma": 22,
+        "endothelial": 15,
+        "fibroblast": 96,
+        "malignant": 77,
+        "myeloid": 210,
+        "t_nk": 404,
+        "unassigned": 11
+      }
+    },
+    {
+      "accession": "GSM10173931",
+      "file_prefix": "JH128GEX",
+      "geo_title": "JH128",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 4118,
+      "n_malignant": 129,
+      "n_state_positive": 57,
+      "state_positive_fraction_of_malignant": 0.4418604651162791,
+      "cell_type_counts": {
+        "b_plasma": 1146,
+        "endothelial": 125,
+        "fibroblast": 558,
+        "malignant": 129,
+        "myeloid": 349,
+        "t_nk": 1747,
+        "unassigned": 64
+      }
+    },
+    {
+      "accession": "GSM10173932",
+      "file_prefix": "JH139GEX",
+      "geo_title": "JH139",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 4063,
+      "n_malignant": 161,
+      "n_state_positive": 59,
+      "state_positive_fraction_of_malignant": 0.36645962732919257,
+      "cell_type_counts": {
+        "b_plasma": 540,
+        "endothelial": 153,
+        "fibroblast": 710,
+        "malignant": 161,
+        "myeloid": 502,
+        "t_nk": 1933,
+        "unassigned": 64
+      }
+    },
+    {
+      "accession": "GSM10173933",
+      "file_prefix": "JH143GEX",
+      "geo_title": "JH143",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 4328,
+      "n_malignant": 423,
+      "n_state_positive": 118,
+      "state_positive_fraction_of_malignant": 0.2789598108747045,
+      "cell_type_counts": {
+        "b_plasma": 142,
+        "endothelial": 315,
+        "fibroblast": 1759,
+        "malignant": 423,
+        "myeloid": 694,
+        "t_nk": 640,
+        "unassigned": 355
+      }
+    },
+    {
+      "accession": "GSM10173934",
+      "file_prefix": "JH297GEX",
+      "geo_title": "JH-297",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 3022,
+      "n_malignant": 64,
+      "n_state_positive": 20,
+      "state_positive_fraction_of_malignant": 0.3125,
+      "cell_type_counts": {
+        "b_plasma": 471,
+        "endothelial": 83,
+        "fibroblast": 111,
+        "malignant": 64,
+        "myeloid": 118,
+        "t_nk": 2130,
+        "unassigned": 45
+      }
+    },
+    {
+      "accession": "GSM10173935",
+      "file_prefix": "JH304GEX",
+      "geo_title": "JH-304",
+      "tissue": "Liver",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 2666,
+      "n_malignant": 1339,
+      "n_state_positive": 1238,
+      "state_positive_fraction_of_malignant": 0.9245705750560119,
+      "cell_type_counts": {
+        "b_plasma": 20,
+        "endothelial": 6,
+        "fibroblast": 254,
+        "malignant": 1339,
+        "myeloid": 152,
+        "t_nk": 871,
+        "unassigned": 24
+      }
+    },
+    {
+      "accession": "GSM10173936",
+      "file_prefix": "JH305GEX",
+      "geo_title": "JH-305",
+      "tissue": "Left lung lymph nodes",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 424,
+      "n_malignant": 27,
+      "n_state_positive": 20,
+      "state_positive_fraction_of_malignant": 0.7407407407407407,
+      "cell_type_counts": {
+        "b_plasma": 11,
+        "fibroblast": 3,
+        "malignant": 27,
+        "myeloid": 5,
+        "t_nk": 373,
+        "unassigned": 5
+      }
+    },
+    {
+      "accession": "GSM10173937",
+      "file_prefix": "JH342",
+      "geo_title": "JH342",
+      "tissue": "Lung",
+      "treatment": "Progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 8774,
+      "n_malignant": 879,
+      "n_state_positive": 429,
+      "state_positive_fraction_of_malignant": 0.4880546075085324,
+      "cell_type_counts": {
+        "b_plasma": 1840,
+        "endothelial": 228,
+        "fibroblast": 982,
+        "malignant": 879,
+        "myeloid": 1378,
+        "t_nk": 3311,
+        "unassigned": 156
+      }
+    },
+    {
+      "accession": "GSM10173938",
+      "file_prefix": "JH348",
+      "geo_title": "JH348",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 8611,
+      "n_malignant": 370,
+      "n_state_positive": 159,
+      "state_positive_fraction_of_malignant": 0.4297297297297297,
+      "cell_type_counts": {
+        "b_plasma": 2880,
+        "endothelial": 203,
+        "fibroblast": 270,
+        "malignant": 370,
+        "myeloid": 685,
+        "t_nk": 4072,
+        "unassigned": 131
+      }
+    },
+    {
+      "accession": "GSM10173939",
+      "file_prefix": "JH380",
+      "geo_title": "JH380",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 9436,
+      "n_malignant": 337,
+      "n_state_positive": 132,
+      "state_positive_fraction_of_malignant": 0.3916913946587537,
+      "cell_type_counts": {
+        "b_plasma": 3242,
+        "endothelial": 354,
+        "fibroblast": 1050,
+        "malignant": 337,
+        "myeloid": 1902,
+        "t_nk": 2210,
+        "unassigned": 341
+      }
+    },
+    {
+      "accession": "GSM10173940",
+      "file_prefix": "JH384",
+      "geo_title": "JH384",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 6695,
+      "n_malignant": 488,
+      "n_state_positive": 168,
+      "state_positive_fraction_of_malignant": 0.3442622950819672,
+      "cell_type_counts": {
+        "b_plasma": 671,
+        "endothelial": 192,
+        "fibroblast": 632,
+        "malignant": 488,
+        "myeloid": 1016,
+        "t_nk": 3588,
+        "unassigned": 108
+      }
+    },
+    {
+      "accession": "GSM10173941",
+      "file_prefix": "JH386",
+      "geo_title": "JH386",
+      "tissue": "Lung",
+      "treatment": "Osi_progression",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 330,
+      "n_malignant": 159,
+      "n_state_positive": 16,
+      "state_positive_fraction_of_malignant": 0.10062893081761007,
+      "cell_type_counts": {
+        "b_plasma": 4,
+        "endothelial": 1,
+        "fibroblast": 4,
+        "malignant": 159,
+        "myeloid": 62,
+        "t_nk": 95,
+        "unassigned": 5
+      }
+    },
+    {
+      "accession": "GSM10173942",
+      "file_prefix": "JH395",
+      "geo_title": "JH395",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 5529,
+      "n_malignant": 24,
+      "n_state_positive": 3,
+      "state_positive_fraction_of_malignant": 0.125,
+      "cell_type_counts": {
+        "b_plasma": 2007,
+        "endothelial": 36,
+        "fibroblast": 6,
+        "malignant": 24,
+        "myeloid": 217,
+        "t_nk": 3032,
+        "unassigned": 207
+      }
+    },
+    {
+      "accession": "GSM10173943",
+      "file_prefix": "JH400",
+      "geo_title": "JH400",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 7064,
+      "n_malignant": 514,
+      "n_state_positive": 10,
+      "state_positive_fraction_of_malignant": 0.019455252918287938,
+      "cell_type_counts": {
+        "b_plasma": 679,
+        "endothelial": 20,
+        "fibroblast": 5,
+        "malignant": 514,
+        "myeloid": 695,
+        "t_nk": 5062,
+        "unassigned": 89
+      }
+    },
+    {
+      "accession": "GSM10173944",
+      "file_prefix": "Lung-tumor-10",
+      "geo_title": "Lung-Tumor-10",
+      "tissue": "Lung",
+      "treatment": "Treatment_naive",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 4382,
+      "n_malignant": 696,
+      "n_state_positive": 54,
+      "state_positive_fraction_of_malignant": 0.07758620689655173,
+      "cell_type_counts": {
+        "b_plasma": 614,
+        "endothelial": 177,
+        "fibroblast": 279,
+        "malignant": 696,
+        "myeloid": 514,
+        "t_nk": 2085,
+        "unassigned": 17
+      }
+    },
+    {
+      "accession": "GSM10173945",
+      "file_prefix": "Lung-Tumor-1",
+      "geo_title": "Lung-Tumor-1",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 4049,
+      "n_malignant": 302,
+      "n_state_positive": 187,
+      "state_positive_fraction_of_malignant": 0.6192052980132451,
+      "cell_type_counts": {
+        "b_plasma": 1104,
+        "endothelial": 54,
+        "fibroblast": 176,
+        "malignant": 302,
+        "myeloid": 470,
+        "t_nk": 1937,
+        "unassigned": 6
+      }
+    },
+    {
+      "accession": "GSM10173946",
+      "file_prefix": "Lung-Tumor-7",
+      "geo_title": "Lung-Tumor-7",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 6429,
+      "n_malignant": 1630,
+      "n_state_positive": 1058,
+      "state_positive_fraction_of_malignant": 0.649079754601227,
+      "cell_type_counts": {
+        "b_plasma": 631,
+        "endothelial": 258,
+        "fibroblast": 625,
+        "malignant": 1630,
+        "myeloid": 1023,
+        "t_nk": 2228,
+        "unassigned": 34
+      }
+    },
+    {
+      "accession": "GSM10173947",
+      "file_prefix": "Lung-tumor-8",
+      "geo_title": "Lung-Tumor-8",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 3482,
+      "n_malignant": 239,
+      "n_state_positive": 127,
+      "state_positive_fraction_of_malignant": 0.5313807531380753,
+      "cell_type_counts": {
+        "b_plasma": 818,
+        "endothelial": 318,
+        "fibroblast": 335,
+        "malignant": 239,
+        "myeloid": 359,
+        "t_nk": 1341,
+        "unassigned": 72
+      }
+    },
+    {
+      "accession": "GSM10173948",
+      "file_prefix": "NSTAR1-TumorA",
+      "geo_title": "NSTAR1-TumorA",
+      "tissue": "Lung",
+      "treatment": "Osi_MRD",
+      "genotype": "EGFR mutant",
+      "cell_type_characteristic": "Tumor cells",
+      "filename_mismatch": false,
+      "n_cells_qc": 2333,
+      "n_malignant": 120,
+      "n_state_positive": 44,
+      "state_positive_fraction_of_malignant": 0.36666666666666664,
+      "cell_type_counts": {
+        "b_plasma": 393,
+        "endothelial": 78,
+        "fibroblast": 89,
+        "malignant": 120,
+        "myeloid": 341,
+        "t_nk": 1267,
+        "unassigned": 45
+      }
+    }
+  ],
+  "state_definition_sweep": [
+    {
+      "definition": "detected",
+      "description": "KRT17 with at least one transcript",
+      "n_state_positive": 3978,
+      "n_state_negative": 6740,
+      "state_validation": {
+        "basaloid_programme_mean_state_positive": 0.44431714454401816,
+        "basaloid_programme_mean_state_negative": 0.05121406921435423,
+        "basaloid_enriched_in_state": true
+      },
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.3058669392639733,
+          "mean_yap1_negative": 0.08477526765787025,
+          "mean_immune": 0.10260209998878801,
+          "linear_mean_yap1_positive": 0.5192167723535906,
+          "linear_mean_yap1_negative": 0.14040713752984307,
+          "linear_mean_immune": 0.21652636841319628,
+          "linear_fold_vs_yap1negative": 3.6979371667856475,
+          "linear_fold_vs_immune": 2.3979378408211773,
+          "detection_yap1_positive": 0.45877325289089993,
+          "detection_yap1_negative": 0.15445103857566767,
+          "detection_immune": 0.09800367960018673,
+          "detection_ratio_vs_yap1negative": 2.970347477891129,
+          "fold_mean_vs_yap1negative": 3.6079737370853073,
+          "fold_mean_vs_immune": 2.981098235780723,
+          "mannwhitney_p": 1.5182571179957607e-275,
+          "fisher_p_detection": 1.1276281101999908e-253,
+          "odds_ratio_detection": 4.640521257339021,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 1.0627799825970324e-274
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.23103826580545184,
+          "mean_yap1_negative": 0.22733108566118773,
+          "mean_immune": 0.08345668597076818,
+          "linear_mean_yap1_positive": 0.3596280866923081,
+          "linear_mean_yap1_negative": 0.4287701866400617,
+          "linear_mean_immune": 0.19236392827426813,
+          "linear_fold_vs_yap1negative": 0.8387432193232313,
+          "linear_fold_vs_immune": 1.8695193528152458,
+          "detection_yap1_positive": 0.4406737053795877,
+          "detection_yap1_negative": 0.3559347181008902,
+          "detection_immune": 0.07742263228711865,
+          "detection_ratio_vs_yap1negative": 1.2380745203244774,
+          "fold_mean_vs_yap1negative": 1.0163074052696395,
+          "fold_mean_vs_immune": 2.7683613735438297,
+          "mannwhitney_p": 9.036327198187956e-11,
+          "fisher_p_detection": 4.4337678347950965e-18,
+          "odds_ratio_detection": 1.4256451424048409,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 2.1084763462438565e-10
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.004157720339183856,
+          "mean_yap1_negative": 0.012770795020131499,
+          "mean_immune": 0.0009388894909236971,
+          "linear_mean_yap1_positive": 0.008260514492533653,
+          "linear_mean_yap1_negative": 0.023087466310549143,
+          "linear_mean_immune": 0.0021140129332504302,
+          "linear_fold_vs_yap1negative": 0.3577921622676825,
+          "linear_fold_vs_immune": 3.907504236425168,
+          "detection_yap1_positive": 0.00628456510809452,
+          "detection_yap1_negative": 0.018397626112759646,
+          "detection_immune": 0.0009610896010105171,
+          "detection_ratio_vs_yap1negative": 0.34159652281094405,
+          "fold_mean_vs_yap1negative": 0.32556472268404196,
+          "fold_mean_vs_immune": 4.428338350121922,
+          "mannwhitney_p": 2.217722106870528e-07,
+          "fisher_p_detection": 7.33831892106793e-08,
+          "odds_ratio_detection": 0.3374325746880687,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 3.881013687023424e-07
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0021928951391532634,
+          "mean_yap1_negative": 0.01736909693063763,
+          "mean_immune": 0.09562903327711264,
+          "linear_mean_yap1_positive": 0.002842378455046198,
+          "linear_mean_yap1_negative": 0.02639218953968976,
+          "linear_mean_immune": 0.2196696696968626,
+          "linear_fold_vs_yap1negative": 0.10769771302118385,
+          "linear_fold_vs_immune": 0.012939330490953044,
+          "detection_yap1_positive": 0.0057817998994469585,
+          "detection_yap1_negative": 0.042581602373887244,
+          "detection_immune": 0.07885053683719143,
+          "detection_ratio_vs_yap1negative": 0.13578164223788328,
+          "fold_mean_vs_yap1negative": 0.12625268590016217,
+          "fold_mean_vs_immune": 0.022931269552822087,
+          "mannwhitney_p": 4.831515663698083e-28,
+          "fisher_p_detection": 2.5957377828026154e-34,
+          "odds_ratio_detection": 0.13075584647845756,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 1.691030482294329e-27
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.018030157006225726,
+          "mean_yap1_negative": 0.029905572143451083,
+          "mean_immune": 0.008430801336803736,
+          "linear_mean_yap1_positive": 0.023564600616798617,
+          "linear_mean_yap1_negative": 0.046921466139077335,
+          "linear_mean_immune": 0.01729088938473262,
+          "linear_fold_vs_yap1negative": 0.5022136466697797,
+          "linear_fold_vs_immune": 1.3628333449177872,
+          "detection_yap1_positive": 0.049522373051784814,
+          "detection_yap1_negative": 0.06172106824925816,
+          "detection_immune": 0.00851250789466458,
+          "detection_ratio_vs_yap1negative": 0.8023576787717059,
+          "fold_mean_vs_yap1negative": 0.6029029279138566,
+          "fold_mean_vs_immune": 2.138605369280505,
+          "mannwhitney_p": 0.0053870390400675445,
+          "fisher_p_detection": 0.008611952417789268,
+          "odds_ratio_detection": 0.7920599963379651,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.006284878880078802
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.00408172110618931,
+          "mean_yap1_negative": 0.004725166282756132,
+          "mean_immune": 2.6710162783266105e-05,
+          "linear_mean_yap1_positive": 0.0068684966615736595,
+          "linear_mean_yap1_negative": 0.00907091150219603,
+          "linear_mean_immune": 6.153393622681029e-05,
+          "linear_fold_vs_yap1negative": 0.7572002725316882,
+          "linear_fold_vs_immune": 111.62127896802838,
+          "detection_yap1_positive": 0.005027652086475616,
+          "detection_yap1_negative": 0.005044510385756677,
+          "detection_immune": 2.7459702886014772e-05,
+          "detection_ratio_vs_yap1negative": 0.9966580900836957,
+          "fold_mean_vs_yap1negative": 0.8638259189068139,
+          "fold_mean_vs_immune": 152.815283804504,
+          "mannwhitney_p": 0.9880814766395452,
+          "fisher_p_detection": 1.0,
+          "odds_ratio_detection": 0.996641203222067,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.9880814766395452
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.008924696920255914,
+          "mean_yap1_negative": 0.007163123320325736,
+          "mean_immune": 0.002389035131814507,
+          "linear_mean_yap1_positive": 0.014150901642371691,
+          "linear_mean_yap1_negative": 0.014028694833328435,
+          "linear_mean_immune": 0.005514742542856899,
+          "linear_fold_vs_yap1negative": 1.008711203037429,
+          "linear_fold_vs_immune": 2.5660131062149008,
+          "detection_yap1_positive": 0.020110608345902465,
+          "detection_yap1_negative": 0.010237388724035608,
+          "detection_immune": 0.002951918060246588,
+          "detection_ratio_vs_yap1negative": 1.9644275398751105,
+          "fold_mean_vs_yap1negative": 1.2459225565657401,
+          "fold_mean_vs_immune": 3.735690949625122,
+          "mannwhitney_p": 2.9587572251544893e-05,
+          "fisher_p_detection": 3.660039150605949e-05,
+          "odds_ratio_detection": 1.9842208192978934,
+          "n_yap1_positive": 3978,
+          "n_yap1_negative": 6740,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 4.142260115216285e-05
+        }
+      ]
+    },
+    {
+      "definition": "two_transcripts",
+      "description": "KRT17 with at least two transcripts",
+      "n_state_positive": 3526,
+      "n_state_negative": 7192,
+      "state_validation": {
+        "basaloid_programme_mean_state_positive": 0.4888930256821165,
+        "basaloid_programme_mean_state_negative": 0.05406557549300738,
+        "basaloid_enriched_in_state": true
+      },
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.32439589285422693,
+          "mean_yap1_negative": 0.08958621665769285,
+          "mean_immune": 0.10260209998878801,
+          "linear_mean_yap1_positive": 0.5518651942628789,
+          "linear_mean_yap1_negative": 0.1482079744720265,
+          "linear_mean_immune": 0.21652636841319628,
+          "linear_fold_vs_yap1negative": 3.7235863740047317,
+          "linear_fold_vs_immune": 2.548720501374489,
+          "detection_yap1_positive": 0.4807146908678389,
+          "detection_yap1_negative": 0.16281979977753058,
+          "detection_immune": 0.09800367960018673,
+          "detection_ratio_vs_yap1negative": 2.9524338656887257,
+          "fold_mean_vs_yap1negative": 3.621046908295471,
+          "fold_mean_vs_immune": 3.1616886290794803,
+          "mannwhitney_p": 3.086649733808371e-287,
+          "fisher_p_detection": 5.627464336661396e-257,
+          "odds_ratio_detection": 4.75984806685879,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 2.16065481366586e-286
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.22980141124916045,
+          "mean_yap1_negative": 0.22817046199470978,
+          "mean_immune": 0.08345668597076818,
+          "linear_mean_yap1_positive": 0.35394760767140143,
+          "linear_mean_yap1_negative": 0.42720972221449616,
+          "linear_mean_immune": 0.19236392827426813,
+          "linear_fold_vs_yap1negative": 0.8285101889457683,
+          "linear_fold_vs_immune": 1.8399894972343824,
+          "detection_yap1_positive": 0.44327850255246737,
+          "detection_yap1_negative": 0.3599833147942158,
+          "detection_immune": 0.07742263228711865,
+          "detection_ratio_vs_yap1negative": 1.2313862457927174,
+          "fold_mean_vs_yap1negative": 1.0071479421139469,
+          "fold_mean_vs_immune": 2.7535410563708638,
+          "mannwhitney_p": 1.3369444415680845e-09,
+          "fisher_p_detection": 1.246213696635726e-16,
+          "odds_ratio_detection": 1.4156229763958847,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 3.1195370303255303e-09
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.0031370302028839465,
+          "mean_yap1_negative": 0.012729894528586054,
+          "mean_immune": 0.0009388894909236971,
+          "linear_mean_yap1_positive": 0.005607403875514044,
+          "linear_mean_yap1_negative": 0.02345636033361201,
+          "linear_mean_immune": 0.0021140129332504302,
+          "linear_fold_vs_yap1negative": 0.2390568611567099,
+          "linear_fold_vs_immune": 2.6524927011171595,
+          "detection_yap1_positive": 0.005388542257515599,
+          "detection_yap1_negative": 0.018075639599555063,
+          "detection_immune": 0.0009610896010105171,
+          "detection_ratio_vs_yap1negative": 0.298110737815786,
+          "fold_mean_vs_yap1negative": 0.24643018022179838,
+          "fold_mean_vs_immune": 3.3412134582502113,
+          "mannwhitney_p": 1.2954510595978155e-07,
+          "fisher_p_detection": 1.8134914992696395e-08,
+          "odds_ratio_detection": 0.2943080871224584,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 2.2670393542961772e-07
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0021997656055475446,
+          "mean_yap1_negative": 0.01641194057993446,
+          "mean_immune": 0.09562903327711264,
+          "linear_mean_yap1_positive": 0.002870005668667062,
+          "linear_mean_yap1_negative": 0.024898595523354106,
+          "linear_mean_immune": 0.2196696696968626,
+          "linear_fold_vs_yap1negative": 0.11526777347642304,
+          "linear_fold_vs_immune": 0.013065097574132932,
+          "detection_yap1_positive": 0.005672149744753261,
+          "detection_yap1_negative": 0.04032258064516129,
+          "detection_immune": 0.07885053683719143,
+          "detection_ratio_vs_yap1negative": 0.1406693136698809,
+          "fold_mean_vs_yap1negative": 0.1340344607533504,
+          "fold_mean_vs_immune": 0.023003114537120655,
+          "mannwhitney_p": 8.985548862451951e-24,
+          "fisher_p_detection": 7.661873876248312e-30,
+          "odds_ratio_detection": 0.13576725613234455,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 3.144942101858183e-23
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.01785950870358917,
+          "mean_yap1_negative": 0.029242893927804613,
+          "mean_immune": 0.008430801336803736,
+          "linear_mean_yap1_positive": 0.023504429774184196,
+          "linear_mean_yap1_negative": 0.045483042776311544,
+          "linear_mean_immune": 0.01729088938473262,
+          "linear_fold_vs_yap1negative": 0.5167734685161777,
+          "linear_fold_vs_immune": 1.3593534289183504,
+          "detection_yap1_positive": 0.048496880317640385,
+          "detection_yap1_negative": 0.06145717463848721,
+          "detection_immune": 0.00851250789466458,
+          "detection_ratio_vs_yap1negative": 0.7891166589241394,
+          "fold_mean_vs_yap1negative": 0.6107298664653726,
+          "fold_mean_vs_immune": 2.1183643155752523,
+          "mannwhitney_p": 0.004381577338083316,
+          "fisher_p_detection": 0.006879758829595223,
+          "odds_ratio_detection": 0.7783682084549973,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.005111840227763869
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.002984473052453637,
+          "mean_yap1_negative": 0.005222671763521396,
+          "mean_immune": 2.6710162783266105e-05,
+          "linear_mean_yap1_positive": 0.005102038655881528,
+          "linear_mean_yap1_negative": 0.009798530998874165,
+          "linear_mean_immune": 6.153393622681029e-05,
+          "linear_fold_vs_yap1negative": 0.5206942404394845,
+          "linear_fold_vs_immune": 82.9142253646139,
+          "detection_yap1_positive": 0.00368689733408962,
+          "detection_yap1_negative": 0.005700778642936596,
+          "detection_immune": 2.7459702886014772e-05,
+          "detection_ratio_vs_yap1negative": 0.6467357469944524,
+          "fold_mean_vs_yap1negative": 0.5714456484321255,
+          "fold_mean_vs_immune": 111.73548722523724,
+          "mannwhitney_p": 0.16584998196478784,
+          "fisher_p_detection": 0.19220123835163083,
+          "odds_ratio_detection": 0.6454284781959689,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.16584998196478784
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.009272222919561337,
+          "mean_yap1_negative": 0.007103453491852087,
+          "mean_immune": 0.002389035131814507,
+          "linear_mean_yap1_positive": 0.014555833740254844,
+          "linear_mean_yap1_negative": 0.013837850409044727,
+          "linear_mean_immune": 0.005514742542856899,
+          "linear_fold_vs_yap1negative": 1.051885467033292,
+          "linear_fold_vs_immune": 2.6394403051704804,
+          "detection_yap1_positive": 0.021554169030062395,
+          "detection_yap1_negative": 0.010150166852057841,
+          "detection_immune": 0.002951918060246588,
+          "detection_ratio_vs_yap1negative": 2.1235285433453255,
+          "fold_mean_vs_yap1negative": 1.3053119768007075,
+          "fold_mean_vs_immune": 3.881158044134306,
+          "mannwhitney_p": 2.6745442203775995e-06,
+          "fisher_p_detection": 5.811979211142976e-06,
+          "odds_ratio_detection": 2.148278737343657,
+          "n_yap1_positive": 3526,
+          "n_yap1_negative": 7192,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 3.744361908528639e-06
+        }
+      ]
+    },
+    {
+      "definition": "top_decile",
+      "description": "the top decile of KRT17 expression among malignant cells",
+      "n_state_positive": 1072,
+      "n_state_negative": 9646,
+      "state_validation": {
+        "basaloid_programme_mean_state_positive": 0.9188965507744074,
+        "basaloid_programme_mean_state_negative": 0.1169001995719145,
+        "basaloid_enriched_in_state": true
+      },
+      "channels": [
+        {
+          "gene": "KCNN4",
+          "status": "ok",
+          "mean_yap1_positive": 0.3845320008347719,
+          "mean_yap1_negative": 0.1426400252447912,
+          "mean_immune": 0.10260209998878801,
+          "linear_mean_yap1_positive": 0.7022575368215893,
+          "linear_mean_yap1_negative": 0.2341870565935084,
+          "linear_mean_immune": 0.21652636841319628,
+          "linear_fold_vs_yap1negative": 2.998703459690076,
+          "linear_fold_vs_immune": 3.2432887595540993,
+          "detection_yap1_positive": 0.4878731343283582,
+          "detection_yap1_negative": 0.24289861082313913,
+          "detection_immune": 0.09800367960018673,
+          "detection_ratio_vs_yap1negative": 2.008546416445302,
+          "fold_mean_vs_yap1negative": 2.695821177645325,
+          "fold_mean_vs_immune": 3.7477985428835487,
+          "mannwhitney_p": 9.478657247128407e-84,
+          "fisher_p_detection": 9.379813315456262e-60,
+          "odds_ratio_detection": 2.9693292503267106,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 6.635060072989884e-83
+        },
+        {
+          "gene": "PIEZO1",
+          "status": "ok",
+          "mean_yap1_positive": 0.2158416384875664,
+          "mean_yap1_negative": 0.23013679268834966,
+          "mean_immune": 0.08345668597076818,
+          "linear_mean_yap1_positive": 0.352405562563152,
+          "linear_mean_yap1_negative": 0.4087427766689113,
+          "linear_mean_immune": 0.19236392827426813,
+          "linear_fold_vs_yap1negative": 0.8621695175511482,
+          "linear_fold_vs_immune": 1.8319732068514432,
+          "detection_yap1_positive": 0.4076492537313433,
+          "detection_yap1_negative": 0.385133734190338,
+          "detection_immune": 0.07742263228711865,
+          "detection_ratio_vs_yap1negative": 1.058461561639983,
+          "fold_mean_vs_yap1negative": 0.9378840991316774,
+          "fold_mean_vs_immune": 2.586271381099027,
+          "mannwhitney_p": 0.6441200564615792,
+          "fisher_p_detection": 0.15537190635667641,
+          "odds_ratio_detection": 1.0986941639024597,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.6441200564615792
+        },
+        {
+          "gene": "CACNA1E",
+          "status": "ok",
+          "mean_yap1_positive": 0.0037946362794445436,
+          "mean_yap1_negative": 0.010216330069810816,
+          "mean_immune": 0.0009388894909236971,
+          "linear_mean_yap1_positive": 0.005544614960640356,
+          "linear_mean_yap1_negative": 0.018922457220256438,
+          "linear_mean_immune": 0.0021140129332504302,
+          "linear_fold_vs_yap1negative": 0.2930177035731311,
+          "linear_fold_vs_immune": 2.622791409376647,
+          "detection_yap1_positive": 0.007462686567164179,
+          "detection_yap1_negative": 0.014617458013684428,
+          "detection_immune": 0.0009610896010105171,
+          "detection_ratio_vs_yap1negative": 0.5105324441621679,
+          "fold_mean_vs_yap1negative": 0.371428512343945,
+          "fold_mean_vs_immune": 4.0416218480742705,
+          "mannwhitney_p": 0.05684272197130427,
+          "fisher_p_detection": 0.07181339979015877,
+          "odds_ratio_detection": 0.5068522369754173,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.06631650896652165
+        },
+        {
+          "gene": "KCNA3",
+          "status": "ok",
+          "mean_yap1_positive": 0.002315363993318269,
+          "mean_yap1_negative": 0.012783431471616435,
+          "mean_immune": 0.09562903327711264,
+          "linear_mean_yap1_positive": 0.0030544782239721913,
+          "linear_mean_yap1_negative": 0.01927388952266064,
+          "linear_mean_immune": 0.2196696696968626,
+          "linear_fold_vs_yap1negative": 0.15847752060532408,
+          "linear_fold_vs_immune": 0.01390487010877413,
+          "detection_yap1_positive": 0.0046641791044776115,
+          "detection_yap1_negative": 0.03161932407215426,
+          "detection_immune": 0.07885053683719143,
+          "detection_ratio_vs_yap1negative": 0.1475103988255444,
+          "fold_mean_vs_yap1negative": 0.18112225957945366,
+          "fold_mean_vs_immune": 0.02421193558036748,
+          "mannwhitney_p": 6.287746997081504e-07,
+          "fisher_p_detection": 3.75750055955048e-09,
+          "odds_ratio_detection": 0.1435156021939865,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 1.4671409659856841e-06
+        },
+        {
+          "gene": "TMEM150C",
+          "status": "ok",
+          "mean_yap1_positive": 0.010553571684440342,
+          "mean_yap1_negative": 0.027158831844485403,
+          "mean_immune": 0.008430801336803736,
+          "linear_mean_yap1_positive": 0.013696611825820272,
+          "linear_mean_yap1_negative": 0.04098153588572743,
+          "linear_mean_immune": 0.01729088938473262,
+          "linear_fold_vs_yap1negative": 0.3342142145187479,
+          "linear_fold_vs_immune": 0.7921288211995621,
+          "detection_yap1_positive": 0.029850746268656716,
+          "detection_yap1_negative": 0.0602322206095791,
+          "detection_immune": 0.00851250789466458,
+          "detection_ratio_vs_yap1negative": 0.4955943175687826,
+          "fold_mean_vs_yap1negative": 0.388587099212194,
+          "fold_mean_vs_immune": 1.251787494786514,
+          "mannwhitney_p": 3.959401229452763e-05,
+          "fisher_p_detection": 1.5451960385828506e-05,
+          "odds_ratio_detection": 0.48007414272474513,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 6.928952151542334e-05
+        },
+        {
+          "gene": "STOML3",
+          "status": "ok",
+          "mean_yap1_positive": 0.0,
+          "mean_yap1_negative": 0.00498493751878472,
+          "mean_immune": 2.6710162783266105e-05,
+          "linear_mean_yap1_positive": 0.0,
+          "linear_mean_yap1_negative": 0.009170726025766253,
+          "linear_mean_immune": 6.153393622681029e-05,
+          "linear_fold_vs_yap1negative": 0.0,
+          "linear_fold_vs_immune": 0.0,
+          "detection_yap1_positive": 0.0,
+          "detection_yap1_negative": 0.005598175409496164,
+          "detection_immune": 2.7459702886014772e-05,
+          "detection_ratio_vs_yap1negative": 0.0,
+          "fold_mean_vs_yap1negative": 0.0,
+          "fold_mean_vs_immune": 0.0,
+          "mannwhitney_p": 0.014058276329478293,
+          "fisher_p_detection": 0.0054185410602179485,
+          "odds_ratio_detection": 0.0,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 0.019681586861269612
+        },
+        {
+          "gene": "PIEZO2",
+          "status": "ok",
+          "mean_yap1_positive": 0.014123282717452407,
+          "mean_yap1_negative": 0.007116082983067024,
+          "mean_immune": 0.002389035131814507,
+          "linear_mean_yap1_positive": 0.024220941930303386,
+          "linear_mean_yap1_negative": 0.012946386083423491,
+          "linear_mean_immune": 0.005514742542856899,
+          "linear_fold_vs_yap1negative": 1.8708651027575793,
+          "linear_fold_vs_immune": 4.3920349394508245,
+          "detection_yap1_positive": 0.033582089552238806,
+          "detection_yap1_negative": 0.011714700393945676,
+          "detection_immune": 0.002951918060246588,
+          "detection_ratio_vs_yap1negative": 2.8666622639017305,
+          "fold_mean_vs_yap1negative": 1.9846989911527546,
+          "fold_mean_vs_immune": 5.911709932338068,
+          "mannwhitney_p": 8.535647682079787e-09,
+          "fisher_p_detection": 5.060621647989e-07,
+          "odds_ratio_detection": 2.9315269757747635,
+          "n_yap1_positive": 1072,
+          "n_yap1_negative": 9646,
+          "n_immune": 72834,
+          "mannwhitney_p_fdr": 2.9874766887279254e-08
+        }
+      ]
+    }
+  ],
+  "per_timepoint": [
+    {
+      "treatment": "treatment_naive",
+      "n_libraries": 11,
+      "n_cells": 47117,
+      "n_malignant": 4069,
+      "n_state_positive": 559,
+      "state_positive_fraction_of_malignant": 0.13738019169329074,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.4275491949910555,
+          "detection_state_negative": 0.18376068376068377,
+          "detection_ratio": 2.326663061114116,
+          "mannwhitney_p": 5.729364174669191e-44
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.5670840787119857,
+          "detection_state_negative": 0.4427350427350427,
+          "detection_ratio": 1.2808655831911648,
+          "mannwhitney_p": 1.9085578782081658e-11
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.008944543828264758,
+          "detection_state_negative": 0.005698005698005698,
+          "detection_ratio": 1.569767441860465,
+          "mannwhitney_p": 0.3623399081983971
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.014311270125223614,
+          "detection_state_negative": 0.0678062678062678,
+          "detection_ratio": 0.2110611686535079,
+          "mannwhitney_p": 8.677368853291123e-07
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.06976744186046512,
+          "detection_state_negative": 0.049002849002849,
+          "detection_ratio": 1.4237425635478638,
+          "mannwhitney_p": 0.03998538569568147
+        },
+        "STOML3": {
+          "detection_state_positive": 0.008944543828264758,
+          "detection_state_negative": 0.0019943019943019944,
+          "detection_ratio": 4.485049833887043,
+          "mannwhitney_p": 0.004946569678679267
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.008944543828264758,
+          "detection_state_negative": 0.003988603988603989,
+          "detection_ratio": 2.2425249169435215,
+          "mannwhitney_p": 0.1107884345552026
+        }
+      }
+    },
+    {
+      "treatment": "osi_mrd",
+      "n_libraries": 7,
+      "n_cells": 33079,
+      "n_malignant": 3115,
+      "n_state_positive": 1686,
+      "state_positive_fraction_of_malignant": 0.5412520064205457,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.44780545670225386,
+          "detection_state_negative": 0.11546536039188243,
+          "detection_ratio": 3.878266652288005,
+          "mannwhitney_p": 9.65622482610614e-85
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.46322657176749704,
+          "detection_state_negative": 0.25262421273617913,
+          "detection_ratio": 1.8336586455838042,
+          "mannwhitney_p": 5.101073693747278e-20
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0017793594306049821,
+          "detection_state_negative": 0.0013995801259622112,
+          "detection_ratio": 1.2713523131672597,
+          "mannwhitney_p": 0.7930472618123396
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.004744958481613286,
+          "detection_state_negative": 0.00979706088173548,
+          "detection_ratio": 0.4843246907303847,
+          "mannwhitney_p": 0.092126124355634
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.04804270462633452,
+          "detection_state_negative": 0.02099370188943317,
+          "detection_ratio": 2.2884341637010674,
+          "mannwhitney_p": 6.802586178895992e-05
+        },
+        "STOML3": {
+          "detection_state_positive": 0.005338078291814947,
+          "detection_state_negative": 0.007697690692792162,
+          "detection_ratio": 0.6934648980912327,
+          "mannwhitney_p": 0.41022249065444627
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.005931198102016607,
+          "detection_state_negative": 0.008397480755773267,
+          "detection_ratio": 0.7063068406484777,
+          "mannwhitney_p": 0.4099278961652967
+        }
+      }
+    },
+    {
+      "treatment": "osi_progression",
+      "n_libraries": 6,
+      "n_cells": 8656,
+      "n_malignant": 2655,
+      "n_state_positive": 1304,
+      "state_positive_fraction_of_malignant": 0.4911487758945386,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.5506134969325154,
+          "detection_state_negative": 0.154700222057735,
+          "detection_ratio": 3.559228872515925,
+          "mannwhitney_p": 1.966904122607018e-101
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.4171779141104294,
+          "detection_state_negative": 0.22945965951147299,
+          "detection_ratio": 1.8180882643973877,
+          "mannwhitney_p": 1.0033308859818625e-15
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.009969325153374233,
+          "detection_state_negative": 0.07401924500370097,
+          "detection_ratio": 0.13468558282208587,
+          "mannwhitney_p": 2.3786435936322215e-16
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.003067484662576687,
+          "detection_state_negative": 0.023686158401184307,
+          "detection_ratio": 0.12950536809815952,
+          "mannwhitney_p": 4.394821505369164e-06
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.04371165644171779,
+          "detection_state_negative": 0.1384159881569208,
+          "detection_ratio": 0.31579918637839965,
+          "mannwhitney_p": 3.1408355502537957e-18
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0007401924500370096,
+          "detection_ratio": 0.0,
+          "mannwhitney_p": 0.32624860724393245
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.04754601226993865,
+          "detection_state_negative": 0.03182827535159141,
+          "detection_ratio": 1.4938293622485377,
+          "mannwhitney_p": 0.04893544990531651
+        }
+      }
+    },
+    {
+      "treatment": "progression",
+      "n_libraries": 1,
+      "n_cells": 8774,
+      "n_malignant": 879,
+      "n_state_positive": 429,
+      "state_positive_fraction_of_malignant": 0.4880546075085324,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.2634032634032634,
+          "detection_state_negative": 0.04888888888888889,
+          "detection_ratio": 5.38779402415766,
+          "mannwhitney_p": 4.342091177282733e-19
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.25874125874125875,
+          "detection_state_negative": 0.38666666666666666,
+          "detection_ratio": 0.6691584277791175,
+          "mannwhitney_p": 0.00024437409684205114
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.009324009324009324,
+          "detection_state_negative": 0.0044444444444444444,
+          "detection_ratio": 2.097902097902098,
+          "mannwhitney_p": 0.37956684144641717
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.006993006993006993,
+          "detection_state_negative": 0.006666666666666667,
+          "detection_ratio": 1.048951048951049,
+          "mannwhitney_p": 0.9561570616544917
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.046620046620046623,
+          "detection_state_negative": 0.06,
+          "detection_ratio": 0.7770007770007771,
+          "mannwhitney_p": 0.39944095677684077
+        },
+        "STOML3": {
+          "detection_state_positive": 0.013986013986013986,
+          "detection_state_negative": 0.03333333333333333,
+          "detection_ratio": 0.4195804195804196,
+          "mannwhitney_p": 0.06137331534573635
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.006993006993006993,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null,
+          "mannwhitney_p": 0.07595693900620927
+        }
+      }
+    }
+  ],
+  "per_patient": [
+    {
+      "accession": "GSM10173924",
+      "treatment": "treatment_naive",
+      "n_state_positive": 12,
+      "n_state_negative": 211,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.08333333333333333,
+          "detection_state_negative": 0.04739336492890995,
+          "detection_ratio": 1.7583333333333333
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.6666666666666666,
+          "detection_state_negative": 0.26066350710900477,
+          "detection_ratio": 2.557575757575757
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.05687203791469194,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.4166666666666667,
+          "detection_state_negative": 0.15639810426540285,
+          "detection_ratio": 2.6641414141414144
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.004739336492890996,
+          "detection_ratio": 0.0
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173925",
+      "treatment": "osi_progression",
+      "n_state_positive": 4,
+      "n_state_negative": 570,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.5,
+          "detection_state_negative": 0.10175438596491228,
+          "detection_ratio": 4.913793103448276
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.25,
+          "detection_state_negative": 0.06491228070175438,
+          "detection_ratio": 3.8513513513513518
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.16140350877192983,
+          "detection_ratio": 0.0
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.014035087719298246,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.11052631578947368,
+          "detection_ratio": 0.0
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0017543859649122807,
+          "detection_ratio": 0.0
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.03859649122807018,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173926",
+      "treatment": "osi_progression",
+      "n_state_positive": 23,
+      "n_state_negative": 456,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.7391304347826086,
+          "detection_state_negative": 0.21929824561403508,
+          "detection_ratio": 3.3704347826086956
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.6521739130434783,
+          "detection_state_negative": 0.37280701754385964,
+          "detection_ratio": 1.7493606138107418
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.010964912280701754,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.08695652173913043,
+          "detection_state_negative": 0.04824561403508772,
+          "detection_ratio": 1.8023715415019763
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.043478260869565216,
+          "detection_state_negative": 0.03070175438596491,
+          "detection_ratio": 1.4161490683229814
+        }
+      }
+    },
+    {
+      "accession": "GSM10173927",
+      "treatment": "treatment_naive",
+      "n_state_positive": 0,
+      "n_state_negative": 1134,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "PIEZO1": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "CACNA1E": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "TMEM150C": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "STOML3": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": null,
+          "detection_state_negative": null,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173928",
+      "treatment": "treatment_naive",
+      "n_state_positive": 32,
+      "n_state_negative": 166,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.28125,
+          "detection_state_negative": 0.09036144578313253,
+          "detection_ratio": 3.1125
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.1875,
+          "detection_state_negative": 0.15060240963855423,
+          "detection_ratio": 1.2449999999999999
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.030120481927710843,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.1875,
+          "detection_state_negative": 0.06626506024096386,
+          "detection_ratio": 2.829545454545454
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.018072289156626505,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173929",
+      "treatment": "treatment_naive",
+      "n_state_positive": 5,
+      "n_state_negative": 127,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.6,
+          "detection_state_negative": 0.3228346456692913,
+          "detection_ratio": 1.8585365853658538
+        },
+        "PIEZO1": {
+          "detection_state_positive": 1.0,
+          "detection_state_negative": 0.6456692913385826,
+          "detection_ratio": 1.548780487804878
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.14960629921259844,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.2,
+          "detection_state_negative": 0.047244094488188976,
+          "detection_ratio": 4.233333333333333
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173930",
+      "treatment": "osi_progression",
+      "n_state_positive": 3,
+      "n_state_negative": 74,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.06756756756756757,
+          "detection_ratio": 0.0
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.6666666666666666,
+          "detection_state_negative": 0.5405405405405406,
+          "detection_ratio": 1.2333333333333332
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.21621621621621623,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.3333333333333333,
+          "detection_state_negative": 0.13513513513513514,
+          "detection_ratio": 2.4666666666666663
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.02702702702702703,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173931",
+      "treatment": "treatment_naive",
+      "n_state_positive": 57,
+      "n_state_negative": 72,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.43859649122807015,
+          "detection_state_negative": 0.2638888888888889,
+          "detection_ratio": 1.6620498614958448
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.5087719298245614,
+          "detection_state_negative": 0.3611111111111111,
+          "detection_ratio": 1.4089068825910933
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.017543859649122806,
+          "detection_state_negative": 0.013888888888888888,
+          "detection_ratio": 1.263157894736842
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.017543859649122806,
+          "detection_state_negative": 0.013888888888888888,
+          "detection_ratio": 1.263157894736842
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.14035087719298245,
+          "detection_state_negative": 0.08333333333333333,
+          "detection_ratio": 1.6842105263157894
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.013888888888888888,
+          "detection_ratio": 0.0
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.027777777777777776,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173932",
+      "treatment": "treatment_naive",
+      "n_state_positive": 59,
+      "n_state_negative": 102,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.4745762711864407,
+          "detection_state_negative": 0.06862745098039216,
+          "detection_ratio": 6.915254237288135
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.5254237288135594,
+          "detection_state_negative": 0.4117647058823529,
+          "detection_ratio": 1.2760290556900729
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.01694915254237288,
+          "detection_state_negative": 0.0196078431372549,
+          "detection_ratio": 0.864406779661017
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0196078431372549,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.00980392156862745,
+          "detection_ratio": 0.0
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.00980392156862745,
+          "detection_ratio": 0.0
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.029411764705882353,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173933",
+      "treatment": "osi_mrd",
+      "n_state_positive": 118,
+      "n_state_negative": 305,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.4661016949152542,
+          "detection_state_negative": 0.019672131147540985,
+          "detection_ratio": 23.693502824858754
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.423728813559322,
+          "detection_state_negative": 0.15081967213114755,
+          "detection_ratio": 2.8095062638172434
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.00847457627118644,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.00847457627118644,
+          "detection_state_negative": 0.009836065573770493,
+          "detection_ratio": 0.8615819209039547
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.0423728813559322,
+          "detection_state_negative": 0.02622950819672131,
+          "detection_ratio": 1.6154661016949152
+        },
+        "STOML3": {
+          "detection_state_positive": 0.00847457627118644,
+          "detection_state_negative": 0.006557377049180328,
+          "detection_ratio": 1.292372881355932
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.00847457627118644,
+          "detection_state_negative": 0.029508196721311476,
+          "detection_ratio": 0.2871939736346516
+        }
+      }
+    },
+    {
+      "accession": "GSM10173934",
+      "treatment": "osi_mrd",
+      "n_state_positive": 20,
+      "n_state_negative": 44,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.4,
+          "detection_state_negative": 0.36363636363636365,
+          "detection_ratio": 1.1
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.8,
+          "detection_state_negative": 0.4772727272727273,
+          "detection_ratio": 1.6761904761904762
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.022727272727272728,
+          "detection_ratio": 0.0
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.05,
+          "detection_state_negative": 0.11363636363636363,
+          "detection_ratio": 0.44000000000000006
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.05,
+          "detection_state_negative": 0.06818181818181818,
+          "detection_ratio": 0.7333333333333334
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173935",
+      "treatment": "osi_progression",
+      "n_state_positive": 1238,
+      "n_state_negative": 101,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.5589660743134087,
+          "detection_state_negative": 0.18811881188118812,
+          "detection_ratio": 2.9713459739818044
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.4159935379644588,
+          "detection_state_negative": 0.21782178217821782,
+          "detection_ratio": 1.90978851520047
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.008077544426494346,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0008077544426494346,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.035541195476575124,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.04765751211631664,
+          "detection_state_negative": 0.039603960396039604,
+          "detection_ratio": 1.2033521809369951
+        }
+      }
+    },
+    {
+      "accession": "GSM10173936",
+      "treatment": "osi_progression",
+      "n_state_positive": 20,
+      "n_state_negative": 7,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.05,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.1,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.15,
+          "detection_state_negative": 0.14285714285714285,
+          "detection_ratio": 1.05
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.05,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173937",
+      "treatment": "progression",
+      "n_state_positive": 429,
+      "n_state_negative": 450,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.2634032634032634,
+          "detection_state_negative": 0.04888888888888889,
+          "detection_ratio": 5.38779402415766
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.25874125874125875,
+          "detection_state_negative": 0.38666666666666666,
+          "detection_ratio": 0.6691584277791175
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.009324009324009324,
+          "detection_state_negative": 0.0044444444444444444,
+          "detection_ratio": 2.097902097902098
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.006993006993006993,
+          "detection_state_negative": 0.006666666666666667,
+          "detection_ratio": 1.048951048951049
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.046620046620046623,
+          "detection_state_negative": 0.06,
+          "detection_ratio": 0.7770007770007771
+        },
+        "STOML3": {
+          "detection_state_positive": 0.013986013986013986,
+          "detection_state_negative": 0.03333333333333333,
+          "detection_ratio": 0.4195804195804196
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.006993006993006993,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173938",
+      "treatment": "treatment_naive",
+      "n_state_positive": 159,
+      "n_state_negative": 211,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.48427672955974843,
+          "detection_state_negative": 0.16587677725118483,
+          "detection_ratio": 2.919496855345912
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.5849056603773585,
+          "detection_state_negative": 0.4928909952606635,
+          "detection_ratio": 1.1866835994194485
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.012578616352201259,
+          "detection_state_negative": 0.02843601895734597,
+          "detection_ratio": 0.4423480083857443
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.018867924528301886,
+          "detection_state_negative": 0.037914691943127965,
+          "detection_ratio": 0.4976415094339622
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.05660377358490566,
+          "detection_state_negative": 0.037914691943127965,
+          "detection_ratio": 1.4929245283018868
+        },
+        "STOML3": {
+          "detection_state_positive": 0.025157232704402517,
+          "detection_state_negative": 0.014218009478672985,
+          "detection_ratio": 1.7693920335429771
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.009478672985781991,
+          "detection_ratio": 0.0
+        }
+      }
+    },
+    {
+      "accession": "GSM10173939",
+      "treatment": "osi_mrd",
+      "n_state_positive": 132,
+      "n_state_negative": 205,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.2727272727272727,
+          "detection_state_negative": 0.07804878048780488,
+          "detection_ratio": 3.4943181818181817
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.4772727272727273,
+          "detection_state_negative": 0.36585365853658536,
+          "detection_ratio": 1.3045454545454547
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.007575757575757576,
+          "detection_state_negative": 0.004878048780487805,
+          "detection_ratio": 1.553030303030303
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.030303030303030304,
+          "detection_state_negative": 0.00975609756097561,
+          "detection_ratio": 3.106060606060606
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.015151515151515152,
+          "detection_state_negative": 0.00975609756097561,
+          "detection_ratio": 1.553030303030303
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.045454545454545456,
+          "detection_state_negative": 0.014634146341463415,
+          "detection_ratio": 3.106060606060606
+        }
+      }
+    },
+    {
+      "accession": "GSM10173940",
+      "treatment": "treatment_naive",
+      "n_state_positive": 168,
+      "n_state_negative": 320,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.4642857142857143,
+          "detection_state_negative": 0.403125,
+          "detection_ratio": 1.1517165005537098
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.6845238095238095,
+          "detection_state_negative": 0.6375,
+          "detection_ratio": 1.073762838468721
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.005952380952380952,
+          "detection_state_negative": 0.009375,
+          "detection_ratio": 0.6349206349206349
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.011904761904761904,
+          "detection_state_negative": 0.009375,
+          "detection_ratio": 1.2698412698412698
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.02976190476190476,
+          "detection_state_negative": 0.03125,
+          "detection_ratio": 0.9523809523809523
+        },
+        "STOML3": {
+          "detection_state_positive": 0.005952380952380952,
+          "detection_state_negative": 0.003125,
+          "detection_ratio": 1.9047619047619047
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.02976190476190476,
+          "detection_state_negative": 0.0125,
+          "detection_ratio": 2.3809523809523805
+        }
+      }
+    },
+    {
+      "accession": "GSM10173941",
+      "treatment": "osi_progression",
+      "n_state_positive": 16,
+      "n_state_negative": 143,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.375,
+          "detection_state_negative": 0.1888111888111888,
+          "detection_ratio": 1.9861111111111112
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.5625,
+          "detection_state_negative": 0.2867132867132867,
+          "detection_ratio": 1.961890243902439
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.1875,
+          "detection_state_negative": 0.055944055944055944,
+          "detection_ratio": 3.3515625
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.013986013986013986,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.625,
+          "detection_state_negative": 0.6433566433566433,
+          "detection_ratio": 0.9714673913043479
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0625,
+          "detection_state_negative": 0.006993006993006993,
+          "detection_ratio": 8.9375
+        }
+      }
+    },
+    {
+      "accession": "GSM10173942",
+      "treatment": "treatment_naive",
+      "n_state_positive": 3,
+      "n_state_negative": 21,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.6666666666666666,
+          "detection_state_negative": 0.09523809523809523,
+          "detection_ratio": 7.0
+        },
+        "PIEZO1": {
+          "detection_state_positive": 1.0,
+          "detection_state_negative": 0.5238095238095238,
+          "detection_ratio": 1.909090909090909
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.3333333333333333,
+          "detection_state_negative": 0.047619047619047616,
+          "detection_ratio": 7.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.09523809523809523,
+          "detection_ratio": 0.0
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173943",
+      "treatment": "treatment_naive",
+      "n_state_positive": 10,
+      "n_state_negative": 504,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.6,
+          "detection_state_negative": 0.023809523809523808,
+          "detection_ratio": 25.2
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.6,
+          "detection_state_negative": 0.5099206349206349,
+          "detection_ratio": 1.1766536964980545
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.011904761904761904,
+          "detection_ratio": 0.0
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.3194444444444444,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.2,
+          "detection_state_negative": 0.031746031746031744,
+          "detection_ratio": 6.300000000000001
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173944",
+      "treatment": "treatment_naive",
+      "n_state_positive": 54,
+      "n_state_negative": 642,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.18518518518518517,
+          "detection_state_negative": 0.06386292834890965,
+          "detection_ratio": 2.899728997289973
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.3888888888888889,
+          "detection_state_negative": 0.3302180685358255,
+          "detection_ratio": 1.177672955974843
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.018518518518518517,
+          "detection_state_negative": 0.024922118380062305,
+          "detection_ratio": 0.7430555555555556
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.05555555555555555,
+          "detection_state_negative": 0.028037383177570093,
+          "detection_ratio": 1.9814814814814814
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173945",
+      "treatment": "osi_mrd",
+      "n_state_positive": 187,
+      "n_state_negative": 115,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.1711229946524064,
+          "detection_state_negative": 0.06956521739130435,
+          "detection_ratio": 2.459893048128342
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.3155080213903743,
+          "detection_state_negative": 0.30434782608695654,
+          "detection_ratio": 1.0366692131398012
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.008695652173913044,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.016042780748663103,
+          "detection_state_negative": 0.008695652173913044,
+          "detection_ratio": 1.844919786096257
+        },
+        "STOML3": {
+          "detection_state_positive": 0.0213903743315508,
+          "detection_state_negative": 0.02608695652173913,
+          "detection_ratio": 0.8199643493761141
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0053475935828877,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173946",
+      "treatment": "osi_mrd",
+      "n_state_positive": 1058,
+      "n_state_negative": 572,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.5378071833648393,
+          "detection_state_negative": 0.19230769230769232,
+          "detection_ratio": 2.7965973534971647
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.4867674858223062,
+          "detection_state_negative": 0.21678321678321677,
+          "detection_ratio": 2.2454113055674125
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.000945179584120983,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.000945179584120983,
+          "detection_state_negative": 0.0017482517482517483,
+          "detection_ratio": 0.5406427221172023
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.054820415879017016,
+          "detection_state_negative": 0.015734265734265736,
+          "detection_ratio": 3.4841419869775256
+        },
+        "STOML3": {
+          "detection_state_positive": 0.001890359168241966,
+          "detection_state_negative": 0.0017482517482517483,
+          "detection_ratio": 1.0812854442344046
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.000945179584120983,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173947",
+      "treatment": "osi_mrd",
+      "n_state_positive": 127,
+      "n_state_negative": 112,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.3228346456692913,
+          "detection_state_negative": 0.044642857142857144,
+          "detection_ratio": 7.231496062992125
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.4566929133858268,
+          "detection_state_negative": 0.3125,
+          "detection_ratio": 1.4614173228346456
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.007874015748031496,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.07874015748031496,
+          "detection_state_negative": 0.017857142857142856,
+          "detection_ratio": 4.409448818897638
+        },
+        "STOML3": {
+          "detection_state_positive": 0.007874015748031496,
+          "detection_state_negative": 0.044642857142857144,
+          "detection_ratio": 0.1763779527559055
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.007874015748031496,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    },
+    {
+      "accession": "GSM10173948",
+      "treatment": "osi_mrd",
+      "n_state_positive": 44,
+      "n_state_negative": 76,
+      "channels": {
+        "KCNN4": {
+          "detection_state_positive": 0.3181818181818182,
+          "detection_state_negative": 0.05263157894736842,
+          "detection_ratio": 6.045454545454546
+        },
+        "PIEZO1": {
+          "detection_state_positive": 0.45454545454545453,
+          "detection_state_negative": 0.32894736842105265,
+          "detection_ratio": 1.3818181818181816
+        },
+        "CACNA1E": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "KCNA3": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.02631578947368421,
+          "detection_ratio": 0.0
+        },
+        "TMEM150C": {
+          "detection_state_positive": 0.045454545454545456,
+          "detection_state_negative": 0.06578947368421052,
+          "detection_ratio": 0.6909090909090909
+        },
+        "STOML3": {
+          "detection_state_positive": 0.022727272727272728,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        },
+        "PIEZO2": {
+          "detection_state_positive": 0.0,
+          "detection_state_negative": 0.0,
+          "detection_ratio": null
+        }
+      }
+    }
+  ],
+  "leave_one_sample_out": {
+    "KCNN4": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 2.912461059647156,
+        "GSM10173925": 2.8793234354944985,
+        "GSM10173926": 3.0528009716107487,
+        "GSM10173927": 3.637740955737461,
+        "GSM10173928": 2.9487713765463384,
+        "GSM10173929": 3.032692172162094,
+        "GSM10173930": 2.954141473009398,
+        "GSM10173931": 2.9951622828754396,
+        "GSM10173932": 2.943672718783608,
+        "GSM10173933": 2.8509799504392883,
+        "GSM10173934": 2.998960302690445,
+        "GSM10173935": 2.6861553130401243,
+        "GSM10173936": 2.9806221813188336,
+        "GSM10173937": 2.9776539356066793,
+        "GSM10173938": 2.9705745625747997,
+        "GSM10173939": 2.965669748741169,
+        "GSM10173940": 3.2278111617626744,
+        "GSM10173941": 2.9869417752674075,
+        "GSM10173942": 2.965777931126325,
+        "GSM10173943": 2.7781249020345467,
+        "GSM10173944": 2.8205581039755354,
+        "GSM10173945": 3.033276959262818,
+        "GSM10173946": 2.8497152862586996,
+        "GSM10173947": 2.963767120609499,
+        "GSM10173948": 2.958287147774342
+      },
+      "min_ratio": 2.6861553130401243,
+      "max_ratio": 3.637740955737461,
+      "n_samples_with_ratio_above_one": 25,
+      "n_samples_with_ratio_below_one": 0,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 3.5992611706045257e-169
+    },
+    "PIEZO1": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 1.2255521118930708,
+        "GSM10173925": 1.1516261286848852,
+        "GSM10173926": 1.2388804285992199,
+        "GSM10173927": 1.3260422932678309,
+        "GSM10173928": 1.2259840193069798,
+        "GSM10173929": 1.2557273464682464,
+        "GSM10173930": 1.244762171370984,
+        "GSM10173931": 1.2354872619614548,
+        "GSM10173932": 1.2374724791365412,
+        "GSM10173933": 1.206574013110812,
+        "GSM10173934": 1.2357414755691702,
+        "GSM10173935": 1.261954128524884,
+        "GSM10173936": 1.2416200661341754,
+        "GSM10173937": 1.3079398849493922,
+        "GSM10173938": 1.236580541849861,
+        "GSM10173939": 1.2356255868134898,
+        "GSM10173940": 1.2574462360769822,
+        "GSM10173941": 1.231500784167145,
+        "GSM10173942": 1.2387145370458161,
+        "GSM10173943": 1.2817634446251618,
+        "GSM10173944": 1.230715091074261,
+        "GSM10173945": 1.2522701598451405,
+        "GSM10173946": 1.1494782477796175,
+        "GSM10173947": 1.23404561014543,
+        "GSM10173948": 1.2365693590408549
+      },
+      "min_ratio": 1.1494782477796175,
+      "max_ratio": 1.3260422932678309,
+      "n_samples_with_ratio_above_one": 25,
+      "n_samples_with_ratio_below_one": 0,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 0.0004079452592746536
+    },
+    "CACNA1E": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 0.3319038439640167,
+        "GSM10173925": 1.2129623804730751,
+        "GSM10173926": 0.3203376697524571,
+        "GSM10173927": 0.2887809179998187,
+        "GSM10173928": 0.33588525742687575,
+        "GSM10173929": 0.33558170879241334,
+        "GSM10173930": 0.33810103469263547,
+        "GSM10173931": 0.33182177269362595,
+        "GSM10173932": 0.3332064469440598,
+        "GSM10173933": 0.3226642152766171,
+        "GSM10173934": 0.34385437335929697,
+        "GSM10173935": 0.29310395573345893,
+        "GSM10173936": 0.3429660630165121,
+        "GSM10173937": 0.30507323697739835,
+        "GSM10173938": 0.33322903768401524,
+        "GSM10173939": 0.3315449691158378,
+        "GSM10173940": 0.3342226849742956,
+        "GSM10173941": 0.3157887865759195,
+        "GSM10173942": 0.34078920673564617,
+        "GSM10173943": 0.33296029250956805,
+        "GSM10173944": 0.3133117950741508,
+        "GSM10173945": 0.35233064728856966,
+        "GSM10173946": 0.4088378258948298,
+        "GSM10173947": 0.3469982660557375,
+        "GSM10173948": 0.34152221329353694
+      },
+      "min_ratio": 0.2887809179998187,
+      "max_ratio": 1.2129623804730751,
+      "n_samples_with_ratio_above_one": 1,
+      "n_samples_with_ratio_below_one": 24,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.4700353395558311
+    },
+    "KCNA3": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 0.13768578370696374,
+        "GSM10173925": 0.12799144258468576,
+        "GSM10173926": 0.1295890828558876,
+        "GSM10173927": 0.11701361096137057,
+        "GSM10173928": 0.1358786885363758,
+        "GSM10173929": 0.14284761693671086,
+        "GSM10173930": 0.14232681194736477,
+        "GSM10173931": 0.13081435269652564,
+        "GSM10173932": 0.13669258627558947,
+        "GSM10173933": 0.12914142888418592,
+        "GSM10173934": 0.131981550965994,
+        "GSM10173935": 0.18573463211170174,
+        "GSM10173936": 0.11895885822111188,
+        "GSM10173937": 0.12481198830061234,
+        "GSM10173938": 0.12255267709744055,
+        "GSM10173939": 0.11327786444791124,
+        "GSM10173940": 0.12459798159032938,
+        "GSM10173941": 0.13437392066739287,
+        "GSM10173942": 0.13002418964683116,
+        "GSM10173943": 0.2868743599590374,
+        "GSM10173944": 0.12615713313096436,
+        "GSM10173945": 0.14053804280657353,
+        "GSM10173946": 0.1624868282402529,
+        "GSM10173947": 0.13193188429269018,
+        "GSM10173948": 0.13670475120184805
+      },
+      "min_ratio": 0.11327786444791124,
+      "max_ratio": 0.2868743599590374,
+      "n_samples_with_ratio_above_one": 0,
+      "n_samples_with_ratio_below_one": 25,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 3.26185623924444e-09
+    },
+    "TMEM150C": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 0.8252706754146538,
+        "GSM10173925": 0.8664606058359507,
+        "GSM10173926": 0.7863720664583159,
+        "GSM10173927": 0.782034995291002,
+        "GSM10173928": 0.7856895246319135,
+        "GSM10173929": 0.7957051561454452,
+        "GSM10173930": 0.8095770982433311,
+        "GSM10173931": 0.7839289379886912,
+        "GSM10173932": 0.8040445527965395,
+        "GSM10173933": 0.7845169155745199,
+        "GSM10173934": 0.8028708215928264,
+        "GSM10173935": 0.8911487577203817,
+        "GSM10173936": 0.805574518016092,
+        "GSM10173937": 0.8064330370045221,
+        "GSM10173938": 0.7877613994013422,
+        "GSM10173939": 0.8003327379471991,
+        "GSM10173940": 0.7968659090027539,
+        "GSM10173941": 0.9610115542094341,
+        "GSM10173942": 0.8043283808829338,
+        "GSM10173943": 0.7661416330645161,
+        "GSM10173944": 0.7574903057591731,
+        "GSM10173945": 0.81693166758302,
+        "GSM10173946": 0.7214095789438255,
+        "GSM10173947": 0.7774102215749219,
+        "GSM10173948": 0.8036989895316519
+      },
+      "min_ratio": 0.7214095789438255,
+      "max_ratio": 0.9610115542094341,
+      "n_samples_with_ratio_above_one": 0,
+      "n_samples_with_ratio_below_one": 25,
+      "sign_is_stable": true,
+      "max_p_leaving_one_out": 0.5823079815140668
+    },
+    "STOML3": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 0.9977230703403169,
+        "GSM10173925": 0.9409647557609309,
+        "GSM10173926": 0.9346322599836395,
+        "GSM10173927": 0.8289711057877149,
+        "GSM10173928": 0.979994633433708,
+        "GSM10173929": 0.9791089856531588,
+        "GSM10173930": 0.9864594894561598,
+        "GSM10173931": 1.0306585363968686,
+        "GSM10173932": 1.0265451143226088,
+        "GSM10173933": 0.9898397020725389,
+        "GSM10173934": 0.995155009957495,
+        "GSM10173935": 1.4252898239587806,
+        "GSM10173936": 1.0006539250364117,
+        "GSM10173937": 1.3059275407453546,
+        "GSM10173938": 0.8823792751015719,
+        "GSM10173939": 0.9995105686580404,
+        "GSM10173940": 0.9701741827726079,
+        "GSM10173941": 0.9794518514119428,
+        "GSM10173942": 0.9943026267110617,
+        "GSM10173943": 0.924454459203036,
+        "GSM10173944": 0.9141332373928166,
+        "GSM10173945": 0.9019664570587385,
+        "GSM10173946": 1.1521793275217933,
+        "GSM10173947": 1.127624710106645,
+        "GSM10173948": 0.9466192170818506
+      },
+      "min_ratio": 0.8289711057877149,
+      "max_ratio": 1.4252898239587806,
+      "n_samples_with_ratio_above_one": 7,
+      "n_samples_with_ratio_below_one": 18,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.9994306987671226
+    },
+    "PIEZO2": {
+      "detection_ratio_leaving_one_sample_out": {
+        "GSM10173924": 1.9086876128249541,
+        "GSM10173925": 2.6427095268179333,
+        "GSM10173926": 2.2822020457418684,
+        "GSM10173927": 1.633914063581583,
+        "GSM10173928": 2.0193828810149133,
+        "GSM10173929": 1.9298380007076752,
+        "GSM10173930": 2.002365530836384,
+        "GSM10173931": 2.030551146334129,
+        "GSM10173932": 2.0530902286452175,
+        "GSM10173933": 2.1950129533678755,
+        "GSM10173934": 1.9614649471625987,
+        "GSM10173935": 0.7828130263896688,
+        "GSM10173936": 1.9476495961215956,
+        "GSM10173937": 1.9778177972157904,
+        "GSM10173938": 2.041325188667816,
+        "GSM10173939": 1.9051277202603256,
+        "GSM10173940": 1.9442761962447002,
+        "GSM10173941": 1.934417406538587,
+        "GSM10173942": 1.9597848874304986,
+        "GSM10173943": 1.822113136979897,
+        "GSM10173944": 1.8017698592090294,
+        "GSM10173945": 2.0008295772978717,
+        "GSM10173946": 2.418463371054199,
+        "GSM10173947": 1.9705478343663796,
+        "GSM10173948": 1.9640002063025428
+      },
+      "min_ratio": 0.7828130263896688,
+      "max_ratio": 2.6427095268179333,
+      "n_samples_with_ratio_above_one": 24,
+      "n_samples_with_ratio_below_one": 1,
+      "sign_is_stable": false,
+      "max_p_leaving_one_out": 0.323029410369713
+    }
+  },
+  "controls": [
+    {
+      "gene": "PTPRC",
+      "status": "ok",
+      "mean_yap1_positive": 0.05143419197230563,
+      "mean_yap1_negative": 0.06369559836464155,
+      "mean_immune": 1.6874392097371318,
+      "linear_mean_yap1_positive": 0.09845798089708852,
+      "linear_mean_yap1_negative": 0.226586396878333,
+      "linear_mean_immune": 8.300581874914373,
+      "linear_fold_vs_yap1negative": 0.4345273249124313,
+      "linear_fold_vs_immune": 0.011861575776349316,
+      "detection_yap1_positive": 0.0759175465057818,
+      "detection_yap1_negative": 0.05178041543026706,
+      "detection_immune": 0.7683499464535793,
+      "detection_ratio_vs_yap1negative": 1.4661440213437515,
+      "fold_mean_vs_yap1negative": 0.8074999417990801,
+      "fold_mean_vs_immune": 0.030480619198316492,
+      "mannwhitney_p": 2.2527421361242407e-06,
+      "fisher_p_detection": 5.986049806955942e-07,
+      "odds_ratio_detection": 1.5044398577000664,
+      "n_yap1_positive": 3978,
+      "n_yap1_negative": 6740,
+      "n_immune": 72834
+    },
+    {
+      "gene": "ACTB",
+      "status": "ok",
+      "mean_yap1_positive": 3.7012778851119648,
+      "mean_yap1_negative": 3.1479657980943685,
+      "mean_immune": 2.776271812793492,
+      "linear_mean_yap1_positive": 58.320394442276715,
+      "linear_mean_yap1_negative": 34.42520135420293,
+      "linear_mean_immune": 26.325731911293552,
+      "linear_fold_vs_yap1negative": 1.6941191960568285,
+      "linear_fold_vs_immune": 2.215338006129952,
+      "detection_yap1_positive": 0.9949723479135244,
+      "detection_yap1_negative": 0.9548961424332344,
+      "detection_immune": 0.9377488535574046,
+      "detection_ratio_vs_yap1negative": 1.0419691772742627,
+      "fold_mean_vs_yap1negative": 1.1757681380631726,
+      "fold_mean_vs_immune": 1.3331828202324791,
+      "mannwhitney_p": 1.4425011124251786e-129,
+      "fisher_p_detection": 1.1261809875739367e-39,
+      "odds_ratio_detection": 9.347669359850839,
+      "n_yap1_positive": 3978,
+      "n_yap1_negative": 6740,
+      "n_immune": 72834
+    },
+    {
+      "gene": "EPCAM",
+      "status": "ok",
+      "mean_yap1_positive": 1.1228298837888238,
+      "mean_yap1_negative": 1.2722004444701873,
+      "mean_immune": 0.0069566497030235565,
+      "linear_mean_yap1_positive": 2.820616039072501,
+      "linear_mean_yap1_negative": 4.143586359382092,
+      "linear_mean_immune": 0.015649112140203682,
+      "linear_fold_vs_yap1negative": 0.6807185356921395,
+      "linear_fold_vs_immune": 180.24128230419782,
+      "detection_yap1_positive": 0.8584715937657114,
+      "detection_yap1_negative": 0.7409495548961424,
+      "detection_immune": 0.007221901859021885,
+      "detection_ratio_vs_yap1negative": 1.1586100404447126,
+      "fold_mean_vs_yap1negative": 0.8825888158343086,
+      "fold_mean_vs_immune": 161.40382680197482,
+      "mannwhitney_p": 3.515540941312474e-32,
+      "fisher_p_detection": 2.073520221538862e-48,
+      "odds_ratio_detection": 2.1206940335507403,
+      "n_yap1_positive": 3978,
+      "n_yap1_negative": 6740,
+      "n_immune": 72834
+    },
+    {
+      "gene": "KRT8",
+      "status": "ok",
+      "mean_yap1_positive": 1.8301270298548518,
+      "mean_yap1_negative": 1.651989108477736,
+      "mean_immune": 0.014534047793936938,
+      "linear_mean_yap1_positive": 7.864957430573685,
+      "linear_mean_yap1_negative": 7.242576128711165,
+      "linear_mean_immune": 0.03430903264493271,
+      "linear_fold_vs_yap1negative": 1.085933691382996,
+      "linear_fold_vs_immune": 229.23868218520886,
+      "detection_yap1_positive": 0.9600301659125189,
+      "detection_yap1_negative": 0.8243323442136499,
+      "detection_immune": 0.014745860449789934,
+      "detection_ratio_vs_yap1negative": 1.1646154280508239,
+      "fold_mean_vs_yap1negative": 1.107832382467258,
+      "fold_mean_vs_immune": 125.9199815359292,
+      "mannwhitney_p": 4.4919610259154014e-08,
+      "fisher_p_detection": 4.591793207531377e-108,
+      "odds_ratio_detection": 5.118491652743252,
+      "n_yap1_positive": 3978,
+      "n_yap1_negative": 6740,
+      "n_immune": 72834
+    }
+  ]
+}

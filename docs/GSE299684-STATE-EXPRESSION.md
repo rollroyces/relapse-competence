@@ -158,7 +158,11 @@ tissue is lung and this dataset is mostly not lung.
 **PIEZO1 marks the state at every site, including lung.** Pooled by site, its
 detection ratio exceeds 1 in all seven sites with state cells.
 **KCNN4 does not mark the state in lung** (ratios 0.92, 0.00, 0.37), while it
-does so in brain, head and neck, adrenal and retroperitoneum.
+does so in brain, head and neck, adrenal and retroperitoneum. That is a
+finding about relapsed SCLC; the NSCLC replication
+([`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)) finds
+KCNN4 marking the state in EGFR-mutant lung at 2.97×, so the SCLC result does
+not generalise across diseases.
 
 The lung estimates rest on 121 state cells across four libraries in three
 groupings, so they are imprecise; but they are not positive, and the three
@@ -288,7 +292,7 @@ enrichment.
 | Where | Before | After |
 |---|---|---|
 | The D0b gate | Deferred, awaiting state-resolved expression | **Partly answered.** The state is electrically marked, and the marking is channel- and site-specific |
-| KCa3.1 as a lung drug target | "Conditional — needs tumour-directed delivery" | **Closed for lung.** The state does not express KCNN4 more than the surrounding lung tumour (ratios 0.92, 0.00, 0.37 across the three lung groupings, four libraries), so there is no state-selective window to deliver into. The delivery argument is moot if the target is not there |
+| KCa3.1 as a lung drug target | "Conditional — needs tumour-directed delivery" | **Not closed on expression grounds.** In relapsed SCLC the state does not express KCNN4 more than the surrounding lung tumour (ratios 0.92, 0.00, 0.37 across the three lung groupings, four libraries). That is a statement about SCLC and it does not generalise: in EGFR-mutant NSCLC the state expresses KCNN4 2.97× more, in 25 of 25 patients ([`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)). The D0 window verdict — lung expression 12× below minor salivary gland, loss-of-function intolerance, on-target neurological and cardiac liabilities — is unaffected, so the arm's difficulty is the window, not the target |
 | Piezo1 as a lung drug target | No window vs PIEZO2; no clinical asset | Unchanged. PIEZO1 marks the state in lung (pooled by site), but the D0 window verdict and the absence of any clinical-stage asset still stand |
 | The electrical readout | A bulk channel whose value was assumed | **Grounded.** PIEZO1 is expressed in 39% of state cells against 6% of neighbouring tumour cells; the simulator's assumed 3× electrical fold in state-bearing cells is consistent with the measured 3.4× |
 | The D0/D2 electrical endpoint | "Channel expression per cell type within one tumour" | Executable now, on public data, before any tissue is cut |
@@ -320,7 +324,9 @@ matrices are not committed to this repository; the analysis reads them from
 **Bottom line.** The relapse-competent state *is* electrically readable — in
 public data, with no application, and with a state definition validated against
 the source paper's own independent signature. Piezo1 marks it at every site
-tested, pooled by site, including lung. KCa3.1 does not mark it in lung, which
-closes the KCa3.1 arm for the indication the programme is about. The other
-candidates are not state markers, and the paper that defines this population
-never looked.
+tested, pooled by site, including lung. KCa3.1 does not mark it in lung — but
+that is a statement about SCLC, and the NSCLC replication
+([`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)) finds the
+opposite in EGFR-mutant lung, where KCa3.1 marks the state 2.97× and in 25 of
+25 patients. The other candidates are not state markers, and the paper that
+defines this population never looked.

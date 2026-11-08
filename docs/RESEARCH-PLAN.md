@@ -110,15 +110,15 @@ already exists in `protein-flow-explorer` (54 tissues, specificity verdict).
 window audit was run. The audit's verdicts supersede it, and the authoritative
 table is [`D0-TARGET-WINDOW-AUDIT.md`](D0-TARGET-WINDOW-AUDIT.md) §4:
 
-- **KCa3.1 / KCNN4 — closed for the lung indication.** No systemic window:
-  lung expression is 12× below minor salivary gland, the gene is
+- **KCa3.1 / KCNN4 — blocked on the window, not on the target.** No systemic
+  window: lung expression is 12× below minor salivary gland, the gene is
   loss-of-function intolerant (LOEUF 0.515), and on-target neurological and
-  cardiac liabilities are recorded. The state-resolved measurement closed it
-  further: the relapse-competent state in lung does **not** express KCNN4
-  more than the surrounding tumour (detection ratios 0.92, 0.00 and 0.37
-  across the lung libraries of GSE299684). A delivery argument is moot when
-  the target is not there. KCa3.1 survives as an imaging probe
-  (senicapoc-BODIPY) or in non-lung indications.
+  cardiac liabilities are recorded. The state-resolved measurements say the
+  *target* is there in the indication that matters: in EGFR-mutant NSCLC the
+  persister population expresses KCNN4 2.97× more than the surrounding tumour,
+  in 25 of 25 patients (GSE299299), while in relapsed SCLC lung it does not
+  (GSE299684). So the difficulty is the window and the delivery route, not a
+  missing target, and the SCLC-only reading must not be generalised.
 - **Piezo1 — still the most original, and now the strongest readout
   candidate.** The state expresses PIEZO1 in 39% of cells against 6% of
   neighbouring tumour cells, at every site tested including lung, robust to
@@ -172,8 +172,10 @@ are ordered by cost, and **no stage may begin before the previous one exits**.
 > [`GSE299684-STATE-EXPRESSION.md`](GSE299684-STATE-EXPRESSION.md). The
 > relapse-competent state *is* electrically marked — PIEZO1 in 39% of state
 > cells against 6% of neighbouring tumour cells, robust to leaving out any
-> library and to how the state is called — but KCNN4 does not mark the state in
-> lung, which closes the KCa3.1 arm for the lung indication.
+> library and to how the state is called. In EGFR-mutant NSCLC the marking
+> is carried by **KCNN4** rather than PIEZO1 (2.97×, in 25 of 25 patients;
+> [`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)), so the
+> KCa3.1 arm is blocked on its window rather than on a missing target.
 
 **Question.** Which targets have a therapeutic window in lung tissue?
 **Method.** For each Tier-1/2 target: pull GTEx lung and immune expression
