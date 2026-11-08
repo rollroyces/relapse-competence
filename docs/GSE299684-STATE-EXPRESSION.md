@@ -189,6 +189,41 @@ expression among malignant cells). The conclusions do not move: KCNN4's
 detection ratio is 3.64 / 3.45 / 3.58, PIEZO1's is 6.91 / 6.58 / 6.90, and the
 other five stay negative under all three.
 
+**Cell-calling robustness.** The malignant call decides which cells the
+contrast is made on, so the whole analysis is recomputed under three stricter
+calls. The published numbers are not moved by this; the point is to show the
+conclusion does not depend on the call.
+
+| Cell call | Malignant kept | Dropped | State signature | KCNN4 ratio | PIEZO1 ratio | Lung KCNN4 (max) | Lung PIEZO1 (min) |
+|---|---:|---:|:--:|---:|---:|---:|---:|
+| `primary` — marker module, the published call | 27,608 | 0 | 6/6 | 3.64 | 6.91 | 0.92 | 2.16 |
+| `cnv_tightened` — minus the calls that look non-malignant by copy number | 12,853 | 14,755 | 6/6 | 4.29 | 6.18 | 0.80 | 2.88 |
+| `ptprc_filtered` — minus the calls expressing the pan-immune gene | 26,961 | 647 | 6/6 | 3.68 | 6.93 | 0.93 | 2.22 |
+| `cnv_and_ptprc` — both filters | 12,550 | 15,058 | 6/6 | 4.34 | 6.26 | 0.82 | 3.01 |
+
+Three readings. The state signature reproduces 6/6 under every call, so the
+state is not an artefact of which cells were called malignant. KCNN4's
+enrichment *strengthens* under the copy-number-tightened call (3.64 → 4.29):
+the malignant calls that look non-malignant by copy number were diluting it,
+not creating it. And the two load-bearing claims survive both filters — in
+lung, KCNN4's detection ratio stays below 1 (0.80–0.93) and PIEZO1's stays
+above 1 (2.16–3.01) under every call.
+
+The copy-number filter is severe — it drops 53% of the malignant calls, and
+the lung state cells fall to between 5 and 30 per grouping — so the lung
+estimates under it are thin. The direction is preserved; the precision is not.
+
+**What the copy-number proxy cannot do.** The proxy is the dispersion of a
+coarsely positionally smoothed expression signal. It separates malignant from
+non-malignant cells well enough to be useful — 92% to 96% of immune and
+stromal cells per library fall below the malignant median — but it does
+**not** reproduce the paper's finer copy-number-diversity comparison between
+YAP1(+) and YAP1(-) cells: the YAP1(+) group has the higher dispersion in 5 of
+the 13 libraries with enough cells, and the lower dispersion in the other 8.
+That is recorded as a negative rather than used as a third validation axis:
+this proxy computes a related quantity, not the paper's metric, and the paper's
+finding is not re-verified here.
+
 **The state fraction is concentrated, and the analysis says so.** One liver
 library holds 1,965 of the 2,872 state cells (68%); **13 of the 15** libraries
 have fewer than 200. That is why per-library estimates are noisy and why the
@@ -211,8 +246,9 @@ enrichment.
 1. The relapse-competent state of relapsed SCLC is electrically marked.
    Two of the seven candidate channels are expressed in substantially more
    state cells than in the surrounding tumour of the same biopsies, at
-   p-values far below any correction, robust to leaving out any library and
-   robust to how the state is called.
+   p-values far below any correction, robust to leaving out any library,
+   robust to how the state is called, and robust to how the malignant cells
+   are called.
 2. **PIEZO1 is the channel that marks the state at every site tested, pooled
    by site, including lung.** Per library it exceeds 1 in 13 of the 14
    libraries with a usable estimate; the exception is `GSM9043722`, a lung

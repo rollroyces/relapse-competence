@@ -127,6 +127,41 @@ def test_the_artefact_records_the_submission_side_filename_mismatch(artefact: di
         assert record["file_prefix"] != record["geo_title"]
 
 
+def test_the_conclusions_hold_under_every_cell_call(artefact: dict) -> None:
+    """The malignant call must not decide the answer."""
+    variants = artefact["cell_call_sensitivity"]
+    assert len(variants) >= 3
+    for variant in variants:
+        name = variant["variant"]
+        assert variant["state_validation_passed"] == variant["state_validation_total"], name
+        genes = {c["gene"]: c for c in variant["channels"] if c.get("status") == "ok"}
+        for gene in ("KCNN4", "PIEZO1"):
+            assert genes[gene]["detection_ratio_vs_yap1negative"] > 1.0, (name, gene)
+            assert (
+                variant["leave_one_sample_out"][gene]["sign_is_stable"] is True
+            ), (name, gene)
+        lung = [
+            site
+            for site in variant["per_site"]
+            if "lung" in site["tissue"] and site["n_yap1_positive"] > 0
+        ]
+        assert lung, name
+        assert max(s["channels"]["KCNN4"]["detection_ratio"] for s in lung) < 1.0, name
+        assert min(s["channels"]["PIEZO1"]["detection_ratio"] for s in lung) > 1.0, name
+
+
+def test_the_copy_number_proxy_limits_are_recorded(artefact: dict) -> None:
+    """The proxy is not the paper's metric, and the artefact says so."""
+    cnv = artefact["cnv_proxy_by_state"]
+    assert "note" in cnv
+    assert cnv["per_sample"]
+    higher = sum(1 for r in cnv["per_sample"] if r["yap1_higher"])
+    # The paper reports YAP1(+) cells as having the higher copy-number
+    # diversity; this proxy does not reproduce that, so it cannot be used as a
+    # third validation axis and is not presented as one.
+    assert higher < len(cnv["per_sample"]) / 2
+
+
 def test_benjamini_hochberg_is_monotone_and_bounded() -> None:
     adjusted = benjamini_hochberg([0.01, 0.02, 0.5, 1.0])
     assert all(0.0 <= p <= 1.0 for p in adjusted)

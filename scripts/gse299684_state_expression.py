@@ -469,6 +469,110 @@ def channel_statistics(
 # =============================================================================
 # main
 # =============================================================================
+def _definition_entry(
+    definition: str,
+    description: str,
+    labels: np.ndarray,
+    yap1_counts: np.ndarray,
+    yap1_expression: np.ndarray,
+    values: dict[str, np.ndarray],
+    immune: np.ndarray,
+) -> dict:
+    """The state-validation and channel analysis for one state definition."""
+    positive, negative = state_masks(definition, labels, yap1_counts, yap1_expression)
+    validation: dict[str, dict] = {}
+    for gene in STATE_VALIDATION_UP + STATE_VALIDATION_DOWN:
+        series = values.get(gene)
+        if series is None:
+            continue
+        pos = series[positive]
+        neg = series[negative]
+        expected = "up" if gene in STATE_VALIDATION_UP else "down"
+        observed = (
+            pos.mean() > neg.mean() if expected == "up" else pos.mean() < neg.mean()
+        )
+        validation[gene] = {
+            "expected_direction": expected,
+            "mean_yap1_positive": float(pos.mean()),
+            "mean_yap1_negative": float(neg.mean()),
+            "direction_as_reported": bool(observed),
+            "detection_yap1_positive": float((pos > 0).mean()),
+            "detection_yap1_negative": float((neg > 0).mean()),
+        }
+    rows: list[dict] = []
+    pvalues: list[float] = []
+    for gene in CHANNELS:
+        series = values.get(gene)
+        if series is None:
+            rows.append({"gene": gene, "status": "not_detected_in_any_sample"})
+            continue
+        stats = channel_statistics(series, positive, negative, immune)
+        rows.append({"gene": gene, **stats})
+        if stats.get("status") == "ok":
+            pvalues.append(stats["mannwhitney_p"])
+    adjusted = benjamini_hochberg(pvalues)
+    for row, q in zip(rows, adjusted, strict=False):
+        if row.get("status") == "ok":
+            row["mannwhitney_p_fdr"] = q
+    return {
+        "definition": definition,
+        "description": description,
+        "n_yap1_positive": int(positive.sum()),
+        "n_yap1_negative": int(negative.sum()),
+        "state_validation": validation,
+        "state_validation_passed": sum(
+            1 for v in validation.values() if v["direction_as_reported"]
+        ),
+        "state_validation_total": len(validation),
+        "channels": rows,
+    }
+
+
+def _leave_one_out(
+    values: dict[str, np.ndarray],
+    positive: np.ndarray,
+    negative: np.ndarray,
+    immune: np.ndarray,
+    sample_of: np.ndarray,
+    accessions: list[str],
+) -> dict[str, dict]:
+    """The detection ratio with each library removed in turn."""
+    loso: dict[str, dict] = {}
+    for gene in CHANNELS:
+        series = values.get(gene)
+        if series is None:
+            continue
+        ratios: list[float | None] = []
+        pvalues: list[float | None] = []
+        for accession in accessions:
+            keep = sample_of != accession
+            stats = channel_statistics(
+                series, keep & positive, keep & negative, keep & immune
+            )
+            ratios.append(stats.get("detection_ratio_vs_yap1negative"))
+            pvalues.append(stats.get("mannwhitney_p"))
+        usable = [r for r in ratios if r is not None]
+        loso[gene] = {
+            "detection_ratio_leaving_one_sample_out": {
+                accession: ratio
+                for accession, ratio in zip(accessions, ratios, strict=True)
+            },
+            "min_ratio": min(usable) if usable else None,
+            "max_ratio": max(usable) if usable else None,
+            "n_samples_with_ratio_above_one": sum(1 for r in usable if r > 1),
+            "n_samples_with_ratio_below_one": sum(1 for r in usable if r < 1),
+            "sign_is_stable": (
+                all(r > 1 for r in usable) or all(r < 1 for r in usable)
+            )
+            if usable
+            else None,
+            "max_p_leaving_one_out": max(
+                (p for p in pvalues if p is not None), default=None
+            ),
+        }
+    return loso
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--datadir", default="data/gse299684")
@@ -512,6 +616,8 @@ def main(argv: list[str] | None = None) -> int:
         "diversity": [],
         "sample": [],
         "detected_genes": [],
+        "ptprc": [],
+        "cnv_pass": [],
     }
     for gene in tracked:
         pooled[gene] = []
@@ -533,6 +639,17 @@ def main(argv: list[str] | None = None) -> int:
         yap1_counts = raw_counts(raw, gene_index, YAP1_GENE)
         yap1_expression = gene_values(matrix, gene_index, YAP1_GENE)
         detected_genes = np.asarray((raw > 0).sum(axis=0)).ravel()
+        ptprc_counts = raw_counts(raw, gene_index, "PTPRC")
+        # A malignant call that looks non-malignant by the copy-number proxy
+        # is the kind of cell the marker module gets wrong.
+        reference = np.isin(
+            labels, ["t_nk", "myeloid", "b_plasma", "endothelial", "fibroblast"]
+        )
+        if reference.any():
+            threshold = float(np.quantile(diversity[reference], 0.9))
+        else:
+            threshold = 0.0
+        cnv_pass = diversity >= threshold
 
         pooled["labels"].append(labels)
         pooled["yap1_counts"].append(yap1_counts)
@@ -540,6 +657,8 @@ def main(argv: list[str] | None = None) -> int:
         pooled["diversity"].append(diversity)
         pooled["sample"].append(np.full(matrix.shape[1], accession, dtype=object))
         pooled["detected_genes"].append(detected_genes)
+        pooled["ptprc"].append(ptprc_counts)
+        pooled["cnv_pass"].append(cnv_pass)
         for gene in tracked:
             pooled[gene].append(gene_values(matrix, gene_index, gene))
 
@@ -589,6 +708,8 @@ def main(argv: list[str] | None = None) -> int:
     diversity = np.concatenate(pooled["diversity"])
     sample_of = np.concatenate(pooled["sample"])
     detected_genes = np.concatenate(pooled["detected_genes"])
+    ptprc_counts = np.concatenate(pooled["ptprc"])
+    cnv_pass = np.concatenate(pooled["cnv_pass"])
     values = {
         gene: np.concatenate(parts)
         for gene, parts in pooled.items()
@@ -600,6 +721,8 @@ def main(argv: list[str] | None = None) -> int:
             "diversity",
             "sample",
             "detected_genes",
+            "ptprc",
+            "cnv_pass",
         )
     }
     immune = np.isin(labels, ["t_nk", "myeloid", "b_plasma"])
@@ -609,54 +732,16 @@ def main(argv: list[str] | None = None) -> int:
     # --- the sweep over state definitions ---
     sweep: list[dict] = []
     for definition, description in STATE_DEFINITIONS:
-        positive, negative = state_masks(definition, labels, yap1_counts, yap1_expression)
-        validation: dict[str, dict] = {}
-        for gene in STATE_VALIDATION_UP + STATE_VALIDATION_DOWN:
-            series = values.get(gene)
-            if series is None:
-                continue
-            pos = series[positive]
-            neg = series[negative]
-            expected = "up" if gene in STATE_VALIDATION_UP else "down"
-            observed = (
-                pos.mean() > neg.mean() if expected == "up" else pos.mean() < neg.mean()
-            )
-            validation[gene] = {
-                "expected_direction": expected,
-                "mean_yap1_positive": float(pos.mean()),
-                "mean_yap1_negative": float(neg.mean()),
-                "direction_as_reported": bool(observed),
-                "detection_yap1_positive": float((pos > 0).mean()),
-                "detection_yap1_negative": float((neg > 0).mean()),
-            }
-        rows: list[dict] = []
-        pvalues: list[float] = []
-        for gene in CHANNELS:
-            series = values.get(gene)
-            if series is None:
-                rows.append({"gene": gene, "status": "not_detected_in_any_sample"})
-                continue
-            stats = channel_statistics(series, positive, negative, immune)
-            rows.append({"gene": gene, **stats})
-            if stats.get("status") == "ok":
-                pvalues.append(stats["mannwhitney_p"])
-        adjusted = benjamini_hochberg(pvalues)
-        for row, q in zip(rows, adjusted, strict=False):
-            if row.get("status") == "ok":
-                row["mannwhitney_p_fdr"] = q
         sweep.append(
-            {
-                "definition": definition,
-                "description": description,
-                "n_yap1_positive": int(positive.sum()),
-                "n_yap1_negative": int(negative.sum()),
-                "state_validation": validation,
-                "state_validation_passed": sum(
-                    1 for v in validation.values() if v["direction_as_reported"]
-                ),
-                "state_validation_total": len(validation),
-                "channels": rows,
-            }
+            _definition_entry(
+                definition,
+                description,
+                labels,
+                yap1_counts,
+                yap1_expression,
+                values,
+                immune,
+            )
         )
 
     # --- per-sample and per-tissue consistency, at the primary definition ---
@@ -715,38 +800,10 @@ def main(argv: list[str] | None = None) -> int:
 
     # --- leave-one-sample-out: is the pooled effect carried by one library? ---
     accessions = sorted(set(sample_of.tolist()))
-    loso: dict[str, dict] = {}
-    for gene in CHANNELS:
-        series = values.get(gene)
-        if series is None:
-            continue
-        ratios: list[float | None] = []
-        pvalues_out: list[float | None] = []
-        for accession in accessions:
-            keep = sample_of != accession
-            stats = channel_statistics(
-                series, keep & positive, keep & negative, keep & immune
-            )
-            ratios.append(stats.get("detection_ratio_vs_yap1negative"))
-            pvalues_out.append(stats.get("mannwhitney_p"))
-        usable = [r for r in ratios if r is not None]
-        loso[gene] = {
-            "detection_ratio_leaving_one_sample_out": {
-                accession: ratio for accession, ratio in zip(accessions, ratios, strict=True)
-            },
-            "min_ratio": min(usable) if usable else None,
-            "max_ratio": max(usable) if usable else None,
-            "n_samples_with_ratio_above_one": sum(1 for r in usable if r > 1),
-            "n_samples_with_ratio_below_one": sum(1 for r in usable if r < 1),
-            "sign_is_stable": (
-                all(r > 1 for r in usable) or all(r < 1 for r in usable)
-            )
-            if usable
-            else None,
-            "max_p_leaving_one_out": max(
-                (p for p in pvalues_out if p is not None), default=None
-        ),
-        }
+    positive, negative = state_masks(
+        PRIMARY_DEFINITION, labels, yap1_counts, yap1_expression
+    )
+    loso = _leave_one_out(values, positive, negative, immune, sample_of, accessions)
 
     # --- per-sample sign counts at the primary definition ---
     per_sample_signs: dict[str, dict] = {}
@@ -766,6 +823,137 @@ def main(argv: list[str] | None = None) -> int:
             "samples_with_ratio_above_one": above,
             "samples_with_ratio_below_one": below,
         }
+
+    # --- cell-calling sensitivity -------------------------------------------
+    # The malignant call decides which cells the contrast is made on, so the
+    # conclusion is recomputed under three stricter calls. The published
+    # numbers stay as they are: this shows the conclusion does not depend on
+    # the call, rather than moving the result.
+    malignant_base = labels == "malignant"
+    cell_call_variants: list[dict] = []
+    for variant_name, variant_description, keep in (
+        (
+            "primary",
+            "marker module only (the published call)",
+            malignant_base,
+        ),
+        (
+            "cnv_tightened",
+            "marker module, minus the malignant calls whose copy-number proxy "
+            "looks non-malignant",
+            malignant_base & cnv_pass,
+        ),
+        (
+            "ptprc_filtered",
+            "marker module, minus the malignant calls that express the "
+            "pan-immune gene PTPRC",
+            malignant_base & (ptprc_counts == 0),
+        ),
+        (
+            "cnv_and_ptprc",
+            "both filters at once",
+            malignant_base & cnv_pass & (ptprc_counts == 0),
+        ),
+    ):
+        variant_labels = labels.copy()
+        variant_labels[malignant_base & ~keep] = "unassigned"
+        entry = _definition_entry(
+            PRIMARY_DEFINITION,
+            variant_description,
+            variant_labels,
+            yap1_counts,
+            yap1_expression,
+            values,
+            immune,
+        )
+        variant_positive, variant_negative = state_masks(
+            PRIMARY_DEFINITION, variant_labels, yap1_counts, yap1_expression
+        )
+        variant_loso = _leave_one_out(
+            values, variant_positive, variant_negative, immune, sample_of, accessions
+        )
+        sites: dict[str, dict] = {}
+        for accession, tissue in tissue_of.items():
+            in_sample = sample_of == accession
+            entry_site = sites.setdefault(
+                tissue,
+                {
+                    "tissue": tissue,
+                    "samples": [],
+                    "n_yap1_positive": 0,
+                    "n_yap1_negative": 0,
+                    "channels": {},
+                },
+            )
+            entry_site["samples"].append(accession)
+            entry_site["n_yap1_positive"] += int(
+                (in_sample & variant_positive).sum()
+            )
+            entry_site["n_yap1_negative"] += int(
+                (in_sample & variant_negative).sum()
+            )
+        for site_entry in sites.values():
+            mask = np.isin(sample_of, site_entry["samples"])
+            for gene in ("KCNN4", "PIEZO1"):
+                series = values.get(gene)
+                if series is None:
+                    continue
+                stats = channel_statistics(
+                    series,
+                    mask & variant_positive,
+                    mask & variant_negative,
+                    mask & immune,
+                )
+                site_entry["channels"][gene] = {
+                    "detection_ratio": stats.get("detection_ratio_vs_yap1negative"),
+                    "detection_yap1_positive": stats.get("detection_yap1_positive"),
+                    "detection_yap1_negative": stats.get("detection_yap1_negative"),
+                }
+        cell_call_variants.append(
+            {
+                "variant": variant_name,
+                "description": variant_description,
+                "n_malignant_kept": int(keep.sum()),
+                "n_malignant_dropped": int((malignant_base & ~keep).sum()),
+                "state_validation_passed": entry["state_validation_passed"],
+                "state_validation_total": entry["state_validation_total"],
+                "channels": entry["channels"],
+                "leave_one_sample_out": variant_loso,
+                "per_site": list(sites.values()),
+            }
+        )
+
+    # The copy-number proxy separates malignant from non-malignant cells well
+    # enough to call them, but it does not reproduce the paper's finer
+    # copy-number-diversity comparison between YAP1(+) and YAP1(-) cells.
+    cnv_by_state: dict[str, object] = {
+        "note": (
+            "The proxy is the dispersion of a coarsely positionally smoothed "
+            "expression signal. It separates malignant from non-malignant "
+            "cells well enough to filter the call, but it does not reproduce "
+            "the paper's copy-number-diversity comparison between YAP1(+) and "
+            "YAP1(-) cells, which is a finer metric than this proxy computes."
+        ),
+        "per_sample": [],
+    }
+    for accession in accessions:
+        in_sample = sample_of == accession
+        pos = in_sample & (labels == "malignant") & (yap1_counts >= 1)
+        neg = in_sample & (labels == "malignant") & (yap1_counts == 0)
+        if pos.sum() < 5 or neg.sum() < 5:
+            continue
+        cnv_by_state["per_sample"].append(
+            {
+                "accession": accession,
+                "median_diversity_yap1_positive": float(np.median(diversity[pos])),
+                "median_diversity_yap1_negative": float(np.median(diversity[neg])),
+                "n_yap1_positive": int(pos.sum()),
+                "n_yap1_negative": int(neg.sum()),
+                "yap1_higher": bool(
+                    np.median(diversity[pos]) > np.median(diversity[neg])
+                ),
+            }
+        )
 
     control_rows = []
     for gene in CONTROL_GENES:
@@ -830,6 +1018,8 @@ def main(argv: list[str] | None = None) -> int:
             ),
         },
         "leave_one_sample_out": loso,
+        "cell_call_sensitivity": cell_call_variants,
+        "cnv_proxy_by_state": cnv_by_state,
         "per_sample_sign_counts": per_sample_signs,
         "state_definition_sweep": sweep,
         "per_sample_channels": per_sample_channels,
@@ -915,6 +1105,37 @@ def main(argv: list[str] | None = None) -> int:
                 f"| p={row['mannwhitney_p']:.3g} q={row['mannwhitney_p_fdr']:.3g}"
             )
         print()
+    print("cell-calling sensitivity (KCNN4 / PIEZO1 detection ratio vs other tumour):")
+    for variant in cell_call_variants:
+        genes = {c["gene"]: c for c in variant["channels"] if c.get("status") == "ok"}
+        loso_variant = variant["leave_one_sample_out"]
+        lung = [
+            s
+            for s in variant["per_site"]
+            if "lung" in s["tissue"] and s["n_yap1_positive"] > 0
+        ]
+        lung_kcnn4 = [
+            s["channels"]["KCNN4"]["detection_ratio"]
+            for s in lung
+            if s["channels"].get("KCNN4", {}).get("detection_ratio") is not None
+        ]
+        lung_piezo1 = [
+            s["channels"]["PIEZO1"]["detection_ratio"]
+            for s in lung
+            if s["channels"].get("PIEZO1", {}).get("detection_ratio") is not None
+        ]
+        print(
+            f"  {variant['variant']:<16} kept={variant['n_malignant_kept']:<6} "
+            f"dropped={variant['n_malignant_dropped']:<6} "
+            f"signature={variant['state_validation_passed']}/{variant['state_validation_total']} "
+            f"KCNN4={genes['KCNN4']['detection_ratio_vs_yap1negative']:.3f} "
+            f"PIEZO1={genes['PIEZO1']['detection_ratio_vs_yap1negative']:.3f} "
+            f"| lung KCNN4 max={max(lung_kcnn4) if lung_kcnn4 else None} "
+            f"PIEZO1 min={min(lung_piezo1) if lung_piezo1 else None} "
+            f"| loso KCNN4 sign stable={loso_variant['KCNN4']['sign_is_stable']} "
+            f"PIEZO1 sign stable={loso_variant['PIEZO1']['sign_is_stable']}"
+        )
+    print()
     print("leave-one-sample-out (detection ratio, state vs other tumour):")
     for gene, record in loso.items():
         print(

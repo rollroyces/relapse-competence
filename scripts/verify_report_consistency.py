@@ -954,6 +954,128 @@ def main(argv: list[str] | None = None) -> int:
                 f"{above} above, {below} below",
             )
 
+        # The cell-calling robustness table must match the artefact, and the
+        # two load-bearing claims must hold under every call: KCa3.1 does not
+        # mark the state in lung, and PIEZO1 does.
+        variants = gse.get("cell_call_sensitivity") or []
+        chk(
+            "the GSE299684 artefact reports the cell-calling sensitivity",
+            len(variants) >= 3,
+            str(len(variants)),
+        )
+        variant_table = parse_markdown_table(
+            gse_doc, "| Cell call | Malignant kept | Dropped | State signature |"
+        )
+        chk(
+            "the GSE299684 report carries a cell-calling robustness table",
+            len(variant_table) > 1,
+        )
+        if len(variant_table) > 1:
+            by_variant = {v["variant"]: v for v in variants}
+            for row in variant_table[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 8:
+                    continue
+                match = re.match(r"`([^`]+)`", cells[0])
+                name = match.group(1) if match else cells[0].strip("`* ")
+                record = by_variant.get(name)
+                chk(
+                    f"the GSE299684 cell-call row '{name}' is an audited variant",
+                    record is not None,
+                    name,
+                )
+                if record is None:
+                    continue
+                chk(
+                    f"the GSE299684 malignant-kept count for '{name}' matches the artefact",
+                    int(cells[1].replace(",", "")) == record["n_malignant_kept"],
+                    f"report={cells[1]} artefact={record['n_malignant_kept']}",
+                )
+                chk(
+                    f"the GSE29984 the dropped count for '{name}' matches the artefact",
+                    int(cells[2].replace(",", "")) == record["n_malignant_dropped"],
+                    f"report={cells[2]} artefact={record['n_malignant_dropped']}",
+                )
+                chk(
+                    f"the GSE299684 state signature for '{name}' is reproduced in full",
+                    record["state_validation_passed"] == record["state_validation_total"],
+                    f"{record['state_validation_passed']}/{record['state_validation_total']}",
+                )
+                genes = {c["gene"]: c for c in record["channels"]}
+                chk(
+                    f"the GSE299684 KCNN4 ratio for '{name}' matches the artefact",
+                    _close_rounded(
+                        _num(cells[4]), genes["KCNN4"]["detection_ratio_vs_yap1negative"]
+                    ),
+                    f"report={cells[4]} artefact={genes['KCNN4']['detection_ratio_vs_yap1negative']}",
+                )
+                chk(
+                    f"the GSE299684 PIEZO1 ratio for '{name}' matches the artefact",
+                    _close_rounded(
+                        _num(cells[5]), genes["PIEZO1"]["detection_ratio_vs_yap1negative"]
+                    ),
+                    f"report={cells[5]} artefact={genes['PIEZO1']['detection_ratio_vs_yap1negative']}",
+                )
+            reported = set()
+            for r in variant_table[1:]:
+                match = re.match(r"`([^`]+)`", r[0].strip())
+                if match:
+                    reported.add(match.group(1))
+            chk(
+                "the GSE299684 cell-call table covers every audited variant",
+                reported == set(by_variant),
+                f"{sorted(reported)} vs {sorted(by_variant)}",
+            )
+
+        # The two claims the programme rests on, under every cell call.
+        for variant in variants:
+            name = variant["variant"]
+            lung = [
+                site
+                for site in variant["per_site"]
+                if "lung" in site["tissue"] and site["n_yap1_positive"] > 0
+            ]
+            kcnn4 = [
+                site["channels"]["KCNN4"]["detection_ratio"]
+                for site in lung
+                if site["channels"].get("KCNN4", {}).get("detection_ratio") is not None
+            ]
+            piezo1 = [
+                site["channels"]["PIEZO1"]["detection_ratio"]
+                for site in lung
+                if site["channels"].get("PIEZO1", {}).get("detection_ratio") is not None
+            ]
+            chk(
+                f"KCa3.1 does not mark the state in lung under the '{name}' cell call",
+                bool(kcnn4) and max(kcnn4) < 1.0,
+                str(kcnn4),
+            )
+            chk(
+                f"PIEZO1 marks the state in lung under the '{name}' cell call",
+                bool(piezo1) and min(piezo1) > 1.0,
+                str(piezo1),
+            )
+            loso = variant["leave_one_sample_out"]
+            for gene in ("KCNN4", "PIEZO1"):
+                chk(
+                    f"the '{name}' cell call leaves the {gene} leave-one-out sign stable",
+                    loso[gene]["sign_is_stable"] is True,
+                    gene,
+                )
+
+        # The copy-number proxy's limits are recorded, not glossed over.
+        cnv = gse.get("cnv_proxy_by_state") or {}
+        chk(
+            "the GSE299684 artefact records the copy-number proxy's limits",
+            "note" in cnv and len(cnv.get("per_sample") or []) > 0,
+        )
+        plain = " ".join(gse_doc.replace("**", "").split())
+        chk(
+            "the GSE299684 report states that the copy-number proxy does not "
+            "reproduce the paper's comparison",
+            "does not reproduce the paper" in plain,
+        )
+
         chk(
             "the GSE299684 report names the dataset and the paper",
             "GSE299684" in gse_doc and "42019833" in gse_doc,
