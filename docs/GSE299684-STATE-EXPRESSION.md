@@ -84,8 +84,10 @@ Two pipeline checks against the paper's own numbers:
 
 The cell count agrees closely. The cancer-cell count is lower because this
 analysis calls malignant cells by marker module, whereas the paper used cell
-calls, neuroendocrine genes **and inferred copy number**; a copy-number-based
-call would recover more cells and is not implemented here.
+calls, neuroendocrine genes **and inferred copy number**. A copy-number-based
+*call* would recover more cells and is not implemented; what is implemented is
+a copy-number-based *filter* (§6), which shows that the conclusions do not
+depend on which cells were called malignant.
 
 ---
 
