@@ -1244,6 +1244,156 @@ def main(argv: list[str] | None = None) -> int:
             "GSE353299" in nsclc_doc and "42019833" not in nsclc_doc,
         )
 
+    # --- the plasma-readability audit must agree with its artefact ---
+    plasma_artefact_path = Path("results/plasma_readability/plasma_readability.json")
+    plasma_doc_path = Path("docs/PLASMA-READABILITY.md")
+    chk("the plasma-readability artefact exists", plasma_artefact_path.exists())
+    chk("the plasma-readability report exists", plasma_doc_path.exists())
+    if plasma_artefact_path.exists() and plasma_doc_path.exists():
+        plasma = json.loads(plasma_artefact_path.read_text())
+        plasma_doc = plasma_doc_path.read_text()
+        sweeps = {
+            (s["dataset"], s["channel"]): s
+            for s in plasma["sweeps"]
+            if s["electrical_fraction"] == 0.25
+        }
+
+        # The control must reproduce the published D1 row exactly: that is what
+        # makes the other rows attributable to the measurements.
+        d1_path = Path("results/channel_allocation_200k.json")
+        if d1_path.exists() and ("simulator default", "assumed") in sweeps:
+            d1_rows = [
+                r
+                for r in json.loads(d1_path.read_text())["results"]["channel_allocation"]
+                if r["total_loci"] == 200 and r["electrical_fraction"] == 0.25
+            ]
+            control = sweeps[("simulator default", "assumed")]
+            if d1_rows:
+                published = d1_rows[0]
+                chk(
+                    "the plasma-readability control reproduces the published D1 "
+                    "enrichment AUC",
+                    _close_rounded(
+                        control["auc_electrical_enrichment_within_mrd_positive"],
+                        published["auc_electrical_enrichment_within_mrd_positive"],
+                        3,
+                    ),
+                    f"control={control['auc_electrical_enrichment_within_mrd_positive']} "
+                    f"published={published['auc_electrical_enrichment_within_mrd_positive']}",
+                )
+                chk(
+                    "the plasma-readability control reproduces the published D1 "
+                    "MRD sensitivity",
+                    _close_rounded(
+                        control["mrd_sensitivity"], published["mrd_sensitivity"], 3
+                    ),
+                )
+                chk(
+                    "the plasma-readability control reproduces the published D1 "
+                    "PPV within MRD+",
+                    _close_rounded(
+                        control["ppv_within_mrd_positive"],
+                        published["ppv_within_mrd_positive"],
+                        3,
+                    ),
+                )
+
+        # The report's sweep table must match the artefact.
+        sweep_table = parse_markdown_table(
+            plasma_doc, "| Configuration | Bulk elevation | Enrichment AUC within MRD+ |"
+        )
+        chk("the plasma-readability report carries a sweep table", len(sweep_table) > 1)
+        if len(sweep_table) > 1:
+            for row in sweep_table[1:]:
+                cells = [c.strip() for c in row]
+                if len(cells) < 4:
+                    continue
+                label = cells[0].replace("*", "")
+                lowered = label.lower()
+                # Explicit matching: "SCLC" is a substring of "NSCLC", so a
+                # substring search would pair the wrong rows.
+                key = None
+                if "control" in lowered:
+                    key = ("simulator default", "assumed")
+                else:
+                    dataset = "NSCLC" if "nsclc" in lowered else "SCLC"
+                    channel = "KCNN4" if "kcnn4" in lowered else "PIEZO1"
+                    if (dataset, channel) in sweeps:
+                        key = (dataset, channel)
+                chk(
+                    f"the plasma-readability row '{label}' is an audited configuration",
+                    key is not None,
+                    label,
+                )
+                if key is None:
+                    continue
+                record = sweeps[key]
+                chk(
+                    f"the plasma-readability bulk elevation for '{label}' matches "
+                    "the artefact",
+                    _close_rounded(
+                        _num(cells[1]), record["bulk_elevation_used"], 2
+                    ),
+                    f"report={cells[1]} artefact={record['bulk_elevation_used']}",
+                )
+                chk(
+                    f"the plasma-readability enrichment AUC for '{label}' matches "
+                    "the artefact",
+                    _close_rounded(
+                        _num(cells[2]),
+                        record["auc_electrical_enrichment_within_mrd_positive"],
+                        3,
+                    ),
+                    f"report={cells[2]} "
+                    f"artefact={record['auc_electrical_enrichment_within_mrd_positive']}",
+                )
+
+        # The findings the report rests on.
+        control_auc = (
+            sweeps[("simulator default", "assumed")][
+                "auc_electrical_enrichment_within_mrd_positive"
+            ]
+            if ("simulator default", "assumed") in sweeps
+            else None
+        )
+        nsclc_kcnn4 = sweeps.get(("NSCLC", "KCNN4"))
+        nsclc_piezo1 = sweeps.get(("NSCLC", "PIEZO1"))
+        sclc_kcnn4 = sweeps.get(("SCLC", "KCNN4"))
+        sclc_piezo1 = sweeps.get(("SCLC", "PIEZO1"))
+        if control_auc is not None and nsclc_kcnn4 is not None:
+            chk(
+                "the measured NSCLC state fraction improves on the simulator's "
+                "assumption",
+                nsclc_kcnn4["auc_electrical_enrichment_within_mrd_positive"]
+                > control_auc,
+                f"{nsclc_kcnn4['auc_electrical_enrichment_within_mrd_positive']} "
+                f"vs {control_auc}",
+            )
+        if control_auc is not None and sclc_kcnn4 is not None and sclc_piezo1 is not None:
+            chk(
+                "the measured SCLC state fraction weakens the electrical readout",
+                max(
+                    sclc_kcnn4["auc_electrical_enrichment_within_mrd_positive"],
+                    sclc_piezo1["auc_electrical_enrichment_within_mrd_positive"],
+                )
+                < control_auc,
+            )
+        if nsclc_piezo1 is not None:
+            chk(
+                "the NSCLC PIEZO1 plasma readout is at chance, as the abundance "
+                "fold predicts",
+                nsclc_piezo1["auc_electrical_enrichment_within_mrd_positive"] < 0.6,
+                str(nsclc_piezo1["auc_electrical_enrichment_within_mrd_positive"]),
+            )
+        chk(
+            "the plasma-readability report distinguishes the two metrics",
+            "Detection rate" in plasma_doc and "Abundance fold" in plasma_doc,
+        )
+        chk(
+            "the plasma-readability report flags the refinement-PPV artefact",
+            "artefact" in plasma_doc.lower(),
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())
