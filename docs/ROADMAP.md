@@ -166,7 +166,11 @@ neighbouring tumour cells, at every site tested — but KCa3.1 does not mark
 the state in lung — and the NSCLC replication
 ([`GSE353299-STATE-EXPRESSION.md`](GSE353299-STATE-EXPRESSION.md)) finds the
 opposite in EGFR-mutant lung, so the KCa3.1 arm is blocked on its window
-rather than on a missing target.
+rather than on a missing target. The third-dataset test
+([`CHANNEL-TRANSFERABILITY.md`](CHANNEL-TRANSFERABILITY.md)) then finds that
+the readout is **not universal across tumours either**: a third relapsed-SCLC
+tumour expresses neither channel, which means a plasma assay keyed on one
+channel needs a tumour-expression gate.
 
 **The Actions billing lock is diagnosed, not guessed.** Every job in every
 repository on this account fails within a few seconds with no runner and no

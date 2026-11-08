@@ -1394,6 +1394,67 @@ def main(argv: list[str] | None = None) -> int:
             "artefact" in plasma_doc.lower(),
         )
 
+    # --- the channel-transferability audit must agree with its artefact ---
+    transfer_artefact_path = Path("results/gse324849/state_expression.json")
+    transfer_doc_path = Path("docs/CHANNEL-TRANSFERABILITY.md")
+    chk("the channel-transferability artefact exists", transfer_artefact_path.exists())
+    chk("the channel-transferability report exists", transfer_doc_path.exists())
+    if transfer_artefact_path.exists() and transfer_doc_path.exists():
+        transfer = json.loads(transfer_artefact_path.read_text())
+        transfer_doc = transfer_doc_path.read_text()
+        detection = transfer["cells"]["compartment_detection"]
+        malignant = detection["KCNN4"]["malignant_total"]
+        for gene in ("KCNN4", "PIEZO1"):
+            chk(
+                f"the {gene} channel is absent from the third dataset's tumour",
+                detection[gene]["malignant"] == 0,
+                f"{detection[gene]['malignant']}/{malignant}",
+            )
+            chk(
+                f"the {gene} channel is detected in the immune compartment of "
+                "the third dataset",
+                detection[gene]["immune"] > 0,
+                f"{detection[gene]['immune']}/{detection[gene]['immune_total']}",
+            )
+        chk(
+            "the third dataset's tumour is ASCL1-subtype",
+            detection["ASCL1"]["malignant"] / max(detection["ASCL1"]["malignant_total"], 1)
+            > 0.5,
+            f"{detection['ASCL1']['malignant']}/{detection['ASCL1']['malignant_total']}",
+        )
+        chk(
+            "the third dataset's tumour is covered at least as deeply as its "
+            "immune compartment, so the channel absence is not a depth artefact",
+            (transfer["cells"]["median_genes_detected_malignant"] or 0)
+            >= (transfer["cells"]["median_genes_detected_immune"] or 0),
+            f"malignant={transfer['cells']['median_genes_detected_malignant']} "
+            f"immune={transfer['cells']['median_genes_detected_immune']}",
+        )
+        chk(
+            "the third dataset does not contain the paper's NEUROD1-high state",
+            detection["NEUROD1"]["malignant"] <= 2,
+            str(detection["NEUROD1"]["malignant"]),
+        )
+        chk(
+            "the channel-transferability report states the GSE325242 deposit defect",
+            "no gene annotation" in transfer_doc,
+        )
+        chk(
+            "the channel-transferability report states the tumour-specific "
+            "consequence",
+            "tumour-expression gate" in transfer_doc,
+        )
+        for gene, count in (
+            ("KCNN4", detection["KCNN4"]["malignant"]),
+            ("PIEZO1", detection["PIEZO1"]["malignant"]),
+            ("ASCL1", detection["ASCL1"]["malignant"]),
+        ):
+            chk(
+                f"the channel-transferability report quotes the {gene} tumour count",
+                f"{count} / {malignant}" in transfer_doc,
+                f"{count} / {malignant}",
+            )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

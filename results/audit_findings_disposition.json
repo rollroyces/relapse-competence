@@ -1,7 +1,7 @@
 {
   "disposition": {
     "generated_by": "scripts/audit_findings_disposition.py",
-    "repository_head_at_generation": "f0607d8f254f69e2ec50b6f81984b8a57c8f8fd4",
+    "repository_head_at_generation": "e4bca374d03f2f0dfbd4d56d49edcb30dec12eb7",
     "first_published_commit": "ca831e2eee64b187b1189788bd1c65d14723b50b",
     "first_published_message": {
       "sha256": "048f9b6ed3b66f6d5a6d69fd949e7619a2dddc2146e53750e518a6dfbb34c2f3",
