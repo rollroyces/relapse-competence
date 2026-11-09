@@ -34,7 +34,13 @@ Two measurements, both executed here:
 **The published numbers do not move.** Every extension is default-off in
 `SimulationConfig` and draws from its own random stream, and
 `tests/fixtures/default_model_reference.json` is a captured reference that the
-default configuration must reproduce exactly — a test, not a promise. The
+default configuration must reproduce — a test, not a promise. Floats are
+compared to a relative tolerance of 1e-12 and everything else exactly, because
+`exp` and `log` differ in the last bit between platforms and the reference was
+captured on one machine: the same run on Linux x86-64 and macOS arm64 differs
+by one or two units in the last place, which is not a change in the model. Any
+change that the guard exists to catch moves the numbers by many orders of
+magnitude more than that. The
 comparison's `published` variant reproduces the committed
 `results/mrd_sweep.json` row for 200,000× / 200 loci to the last digit, which
 is what makes the deltas below comparable with the published headline rather

@@ -14,6 +14,7 @@ reproduce ``tests/fixtures/default_model_reference.json`` exactly.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import math
 from pathlib import Path
@@ -25,6 +26,20 @@ from relapse_competence.simulator import LongitudinalSimulator
 FIXTURE = (
     Path(__file__).resolve().parent / "fixtures" / "default_model_reference.json"
 )
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "check_default_model_reference.py"
+
+
+def _load_script():
+    """The reference check is a standalone script, not a package module."""
+    spec = importlib.util.spec_from_file_location(
+        "check_default_model_reference", SCRIPT
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+reference_check = _load_script()
 
 
 def _reference() -> dict:
@@ -80,7 +95,58 @@ def test_default_output_matches_the_captured_reference() -> None:
         ),
     }
     for name, config in configs.items():
-        assert _current(config) == reference["configs"][name], name
+        problems = reference_check.diff(
+            reference["configs"][name], _current(config)
+        )
+        assert not problems, (name, problems[:5])
+
+
+def test_the_reference_guard_catches_a_changed_number() -> None:
+    """The guard must fail when a number moves, not merely when it differs.
+
+    A check that has never been attacked is an untested claim, and this is
+    the check that stands between a refactor and the published numbers.
+    """
+    reference = _reference()
+    config = SimulationConfig(
+        regime=Regime.POST_TREATMENT, seed=20261106, n_patients_per_arm=8
+    )
+    current = _current(config)
+    assert not reference_check.diff(
+        reference["configs"]["post_treatment_default"], current
+    )
+
+    moved = json.loads(json.dumps(current))
+    moved["responder"][0]["doubling_time_days"] *= 1.000001
+    assert reference_check.diff(
+        reference["configs"]["post_treatment_default"], moved
+    ), "a changed doubling time must be caught"
+
+    renamed = json.loads(json.dumps(current))
+    renamed["responder"][0]["patient_id"] = "responder-99999"
+    assert reference_check.diff(
+        reference["configs"]["post_treatment_default"], renamed
+    ), "a changed identifier must be caught"
+
+    recut = json.loads(json.dumps(current))
+    recut["responder"][0]["measurements"][0]["mutant_reads"] += 1
+    assert reference_check.diff(
+        reference["configs"]["post_treatment_default"], recut
+    ), "a changed read count must be caught"
+
+
+def test_the_reference_tolerance_absorbs_a_platform_difference() -> None:
+    """The tolerance covers a last-bit difference and nothing larger.
+
+    One or two units in the last place is about 1e-15 relative, and is what
+    ``exp`` and ``log`` do differently on two platforms. A change in the
+    model is many orders of magnitude larger.
+    """
+    assert reference_check.diff({"v": 1.0}, {"v": 1.0 + 1e-15}) == []
+    assert reference_check.diff({"v": 1.0}, {"v": 1.0 + 1e-9})
+    # A structural zero may come back as a denormal on another platform.
+    assert reference_check.diff({"v": 0.0}, {"v": 1e-18}) == []
+    assert reference_check.diff({"v": 0.0}, {"v": 1e-9})
 
 
 def test_the_published_variant_is_the_base_configuration() -> None:
