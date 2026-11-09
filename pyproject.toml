@@ -15,7 +15,6 @@ authors = [{ name = "Royce Lam" }]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -25,7 +24,9 @@ classifiers = [
 dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.6"]
+# scipy is needed by the single-cell analysis scripts under scripts/ and by
+# the test that imports them; the package itself needs only numpy.
+dev = ["pytest>=8", "ruff>=0.6", "scipy>=1.11"]
 
 [project.urls]
 Homepage = "https://github.com/rollroyces/relapse-competence"

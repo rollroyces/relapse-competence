@@ -17,6 +17,32 @@ export PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 echo "==> ruff"
 "$PY" -m ruff check src tests
 
+echo "==> packaging"
+# CI installs the package, and that is the only step that exercises the
+# package metadata. A deprecated licence classifier, or a dependency the
+# tests need but the dev extra does not declare, fails there and nowhere
+# else -- so the wheel is built here too.
+WHEEL_DIR="$(mktemp -d)"
+trap 'rm -rf "$WHEEL_DIR"' EXIT
+"$PY" -m pip wheel --no-deps --no-build-isolation -w "$WHEEL_DIR" . >/dev/null
+"$PY" - <<'PY'
+import re
+import tomllib
+from pathlib import Path
+
+metadata = tomllib.loads(Path("pyproject.toml").read_text())
+declared = set(metadata["project"]["dependencies"])
+declared |= set(metadata["project"]["optional-dependencies"]["dev"])
+names = {re.split(r"[<>=!~\[ ]", spec, 1)[0].strip() for spec in declared}
+missing = [package for package in ("numpy", "scipy") if package not in names]
+if missing:
+    raise SystemExit(
+        "these packages are imported by the tests but not declared: "
+        + ", ".join(missing)
+    )
+print("package metadata builds, and the test dependencies are declared")
+PY
+
 echo "==> pytest"
 "$PY" -m pytest
 
