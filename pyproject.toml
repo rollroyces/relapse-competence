@@ -26,7 +26,12 @@ dependencies = ["numpy>=1.26"]
 [project.optional-dependencies]
 # scipy is needed by the single-cell analysis scripts under scripts/ and by
 # the test that imports them; the package itself needs only numpy.
-dev = ["pytest>=8", "ruff>=0.6", "scipy>=1.11"]
+#
+# ruff is bounded above so the lint result is reproducible: a new release
+# adds rules, and an unbounded pin turns every linter update into a broken
+# build. The bound is a tested range, not a fixed version, so it is bumped
+# deliberately rather than by surprise.
+dev = ["pytest>=8", "ruff>=0.6,<0.18", "scipy>=1.11"]
 
 [project.urls]
 Homepage = "https://github.com/rollroyces/relapse-competence"

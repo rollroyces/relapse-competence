@@ -15,7 +15,7 @@ PY="${PYTHON:-python3}"
 export PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 
 echo "==> ruff"
-"$PY" -m ruff check src tests
+"$PY" -m ruff check src tests scripts
 
 echo "==> packaging"
 # CI installs the package, and that is the only step that exercises the

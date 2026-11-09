@@ -8,10 +8,10 @@ makes a benchmark result reproducible from a single JSON blob.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 
 
-class PatientArm(str, Enum):
+class PatientArm(StrEnum):
     """Ground-truth arms produced by the simulator."""
 
     HEALTHY = "healthy"
@@ -37,7 +37,7 @@ class PatientArm(str, Enum):
     """Post-treatment regime: a residual clone survives therapy and regrows."""
 
 
-class Regime(str, Enum):
+class Regime(StrEnum):
     """Which clinical question the simulation is answering."""
 
     SCREENING = "screening"
