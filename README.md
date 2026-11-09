@@ -33,6 +33,7 @@ stands:
 | [Plasma readability](docs/PLASMA-READABILITY.md) | What does the measured per-cell enrichment mean in blood? | The assay-design result is **disease-specific**: enrichment AUC 0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed |
 | [Transferability](docs/CHANNEL-TRANSFERABILITY.md) | Does the readout carry to a third dataset? | **Not universally.** A third relapsed-SCLC tumour expresses neither channel at all |
 | [**Gate review**](docs/GATE-REVIEW.md) | Do the programme's own kill conditions fire on the measured evidence? | **K4 has fired** (no candidate has a systemic window); the readout is now named — **KCa3.1 for EGFR-mutant NSCLC**, PIEZO1 for relapsed SCLC but only just; K2 and K5 remain untested |
+| [**Per-patient audit**](docs/PER-PATIENT-AUDIT.md) | Does the readout work for the individual patients, or only on average? | **Only for NSCLC.** The pooled fold is a contrast between metastatic sites: per tumour, SCLC/KCNN4 clears the bar in 1 of 12 libraries and SCLC/PIEZO1 in 4 of 14, while all 7 NSCLC MRD libraries clear it (AUC 0.949–0.999). The programme has **one** readout, not three |
 | [Model fidelity](docs/MODEL-FIDELITY.md) | How much do the published numbers depend on the simulator's assumptions? | The biological assumptions barely matter; the *noise structure* assumption breaks the detector |
 | [Lineage design](docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md) | How would one tell a persister lineage from a drug-tolerant state from a fixed-driver clone? | Specified, with the controls and the falsification conditions |
 
@@ -91,7 +92,7 @@ reports independently.
 | GSE353299 | EGFR-mutant NSCLC, 25 libraries | KRT17+ | 0.392 at MRD (0.125 at baseline) | **KCNN4** | **2.97** | 3.70 |
 | GSE324849 | relapsed SCLC, 1 library, tarlatamab | — | absent from the sample | none | — | — |
 
-Three things follow.
+Four things follow.
 
 - **The state is electrically marked, and the paper that defines this population
   never mentions an ion channel.** Zero occurrences of KCNN4, PIEZO, CACNA1E,
@@ -103,6 +104,18 @@ Three things follow.
 - **The state is drug-emergent, on the authors' own data.** In EGFR-mutant
   NSCLC every minimal-residual-disease library has a KRT17+ fraction between
   0.28 and 0.65, against a treatment-naive median of 0.125.
+- **The readout works for the individual patient in NSCLC, and not yet in
+  SCLC.** The fold and state fraction the plasma projection uses are
+  cell-count weighted: in the relapsed-SCLC deposit three libraries hold
+  86.4% of the state cells, and the channel's baseline expression differs by
+  metastatic site by up to 65-fold. Recomputed **per tumour**, the channel's
+  within-tumour fold exceeds 1 in 3 of 12 SCLC libraries for KCa3.1,
+  in 11 of 14 for PIEZO1, and in 20 of 23 for KCa3.1 in NSCLC. The readout
+  clears the programme's own threshold in 1 of 12 SCLC libraries,
+  in 4 of 14, and in 15 of 23 for NSCLC, where **all 7** residual-disease
+  libraries clear it with AUCs from 0.949 to 0.999. The programme has
+  **one** readout, not three
+  ([per-patient audit](docs/PER-PATIENT-AUDIT.md)).
 
 **How universal is the readout?** Across the 39 tumours with a measurable
 malignant compartment, PIEZO1 is detected in **38 (97.4%)** and KCa3.1 in
@@ -348,6 +361,7 @@ exercise:
 - [`docs/GSE299684-STATE-EXPRESSION.md`](docs/GSE299684-STATE-EXPRESSION.md) — **the state-resolved measurement, executed on public data**: is the relapse-competent state electrically readable? Yes — PIEZO1 marks it at every site including lung; KCa3.1 does not mark it in lung — and the NSCLC replication finds the opposite there, which moves the KCa3.1 arm from "no target" to "no window"
 - [`docs/GSE353299-STATE-EXPRESSION.md`](docs/GSE353299-STATE-EXPRESSION.md) — **the NSCLC replication, executed on public data**: does the electrical reading cross to EGFR-mutant lung adenocarcinoma? Yes, through KCa3.1 (2.97×, in 25 of 25 patients) — and it corrects the SCLC-only conclusion that the KCa3.1 arm was closed for lung
 - [`docs/GATE-REVIEW.md`](docs/GATE-REVIEW.md) — **the gate review**: the programme's own five kill conditions applied to the measured evidence. K4 has fired (the systemic drug arm is dead), the readout is named per disease, and the two conditions that remain untested are recorded as untested
+- [`docs/PER-PATIENT-AUDIT.md`](docs/PER-PATIENT-AUDIT.md) — **the per-tumour audit**: the gate review's projection re-run for each library with that library's own fold and state fraction. The pooled fold turns out to be a contrast between metastatic sites, so the SCLC readout does not survive per patient while the NSCLC one does — the programme has one readout, not three
 - [`docs/CHANNEL-TRANSFERABILITY.md`](docs/CHANNEL-TRANSFERABILITY.md) — **the third-dataset test**: the ion-channel readout does **not** transfer — a third relapsed-SCLC tumour expresses neither channel at all, so a plasma assay keyed on one channel needs a tumour-expression gate
 - [`docs/PLASMA-READABILITY.md`](docs/PLASMA-READABILITY.md) — **what the measured state enrichment means in blood**: the per-cell fold and the state fraction, measured, replace the simulator's assumptions — and D1's enrichment AUC turns out to be disease-specific (0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed)
 - [`docs/MODEL-FIDELITY.md`](docs/MODEL-FIDELITY.md) — **model fidelity, executed**: how far the published numbers move when the simulator is made more realistic, and whether a detector fitted on one model transfers to another. It does — except when the error floor varies by locus, which collapses it

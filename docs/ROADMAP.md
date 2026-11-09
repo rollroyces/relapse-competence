@@ -138,6 +138,34 @@ simulator's assumptions.
   after treatment in NSCLC), but the methylation comparison the condition
   names does not exist here.
 
+### The per-patient audit — done: the readout, tumour by tumour
+
+Executed 2026-11-09. See [`PER-PATIENT-AUDIT.md`](PER-PATIENT-AUDIT.md). The
+gate review's projection used a pooled per-cell fold and a pooled state
+fraction, both cell-count weighted, and in the relapsed-SCLC deposit three
+libraries hold 86.4% of the state cells while the channel's baseline
+expression differs by metastatic site by up to 65-fold. Both inputs are now
+recomputed per library and the projection is re-run for each tumour over the
+full depth x panel-size grid.
+
+- **The pooled fold is a contrast between metastatic sites, not within one
+  tumour.** SCLC/KCa3.1's within-tumour fold exceeds 1 in 3 of 12 libraries;
+  SCLC/Piezo1's in 11 of 14; NSCLC/KCa3.1's in 20 of 23, against a pooled
+  3.698 that is representative of its own libraries.
+- **The SCLC readout does not survive per tumour.** The projection clears the
+  programme's own threshold in 1 of 12 SCLC libraries for KCa3.1 and 4 of 14
+  for Piezo1. Piezo1 remains a consistent state *marker* in SCLC; what fails is
+  the readability, because most relapsed-SCLC tumours carry too little state.
+- **The NSCLC readout does.** All 7 residual-disease libraries clear the
+  threshold, with per-patient AUCs from 0.949 to 0.999.
+- **The programme has one readout, not three.** Every downstream design
+  question — panel size, read depth, the gate, the cohort — is now a question
+  about EGFR-mutant NSCLC.
+
+The gate review's published numbers stand as the pooled projection they are;
+the per-patient audit narrows how they may be read, and the two documents say
+so in terms.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until

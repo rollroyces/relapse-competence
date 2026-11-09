@@ -1586,6 +1586,55 @@ def main(argv: list[str] | None = None) -> int:
                 "measurements",
                 "public-data audits" in readme or "public deposits" in readme,
             )
+            # The per-patient audit's numbers, as the README carries them.
+            readme_audit_artefact = Path(
+                "results/per_patient_audit/per_patient_audit.json"
+            )
+            readme_folds_artefact = Path(
+                "results/per_library_folds/per_library_folds.json"
+            )
+            if readme_audit_artefact.exists() and readme_folds_artefact.exists():
+                audit_data = json.loads(readme_audit_artefact.read_text())
+                chk(
+                    "the README links the per-patient audit",
+                    "docs/PER-PATIENT-AUDIT.md" in readme,
+                )
+                for summary in audit_data["summaries"]:
+                    if summary["dataset"] == "NSCLC" and summary["channel"] != "KCNN4":
+                        continue
+                    label = f"{summary['dataset']} / {summary['channel']}"
+                    chk(
+                        f"the README quotes the {label} per-tumour fold yield",
+                        f"{summary['n_fold_above_one']} of "
+                        f"{summary['n_fold_computable']}" in readme,
+                        f"{summary['n_fold_above_one']}/{summary['n_fold_computable']}",
+                    )
+                    chk(
+                        f"the README quotes the {label} per-tumour K3 yield",
+                        f"{summary['n_clearing_k3']} of {summary['n_libraries']}" in readme,
+                        f"{summary['n_clearing_k3']}/{summary['n_libraries']}",
+                    )
+                mrd = [
+                    r
+                    for r in audit_data["per_library"]
+                    if r["dataset"] == "NSCLC" and r["treatment"] == "osi_mrd"
+                ]
+                if mrd:
+                    lowest = min(r["operating_point"]["auc"] for r in mrd)
+                    highest = max(r["operating_point"]["auc"] for r in mrd)
+                    chk(
+                        "the README quotes the NSCLC per-patient AUC range",
+                        f"{lowest:.3f}" in readme and f"{highest:.3f}" in readme,
+                        f"{lowest:.3f}-{highest:.3f}",
+                    )
+                    chk(
+                        "the README says every NSCLC residual-disease library clears",
+                        f"all {len(mrd)}" in readme,
+                    )
+                chk(
+                    "the README quotes the share of SCLC state cells in three libraries",
+                    "86.4%" in readme,
+                )
             chk(
                 "the README states that the measurements are correlational",
                 "not a mechanism" in readme,
@@ -1749,6 +1798,562 @@ def main(argv: list[str] | None = None) -> int:
                             (cell == "fire") == artefact_fires,
                             f"report says {cell!r}, artefact fires={artefact_fires}",
                         )
+
+    # --- the per-patient audit must agree with its artefacts, cell by cell ---
+    audit_artefact = Path("results/per_patient_audit/per_patient_audit.json")
+    folds_artefact = Path("results/per_library_folds/per_library_folds.json")
+    audit_doc = Path("docs/PER-PATIENT-AUDIT.md")
+    chk("the per-patient audit artefact exists", audit_artefact.exists())
+    chk("the per-library folds artefact exists", folds_artefact.exists())
+    chk("the per-patient audit report exists", audit_doc.exists())
+    if (
+        audit_artefact.exists()
+        and folds_artefact.exists()
+        and audit_doc.exists()
+    ):
+        audit = json.loads(audit_artefact.read_text())
+        folds = json.loads(folds_artefact.read_text())
+        text = audit_doc.read_text()
+
+        def _cell_number(cell: str) -> float | None:
+            return _num_or_none(cell)
+
+        def _cell_is_na(cell: str) -> bool:
+            return cell.replace("*", "").strip().lower() in {"n/a", "na", "-"}
+
+        def _check_number(
+            label: str, cell: str, expected: float | None, decimals: int
+        ) -> None:
+            if expected is None:
+                chk(
+                    f"the per-patient audit reports {label} as not available",
+                    _cell_is_na(cell),
+                    cell,
+                )
+                return
+            value = _cell_number(cell)
+            chk(
+                f"the per-patient audit's {label} matches the artefact",
+                value is not None
+                and _close_rounded(value, expected, decimals),
+                f"{cell} vs {expected}",
+            )
+
+        def _check_integer(label: str, cell: str, expected: int) -> None:
+            value = _cell_number(cell)
+            chk(
+                f"the per-patient audit's {label} matches the artefact",
+                value is not None and int(round(value)) == expected,
+                f"{cell} vs {expected}",
+            )
+
+        def _check_text(label: str, cell: str, expected: str) -> None:
+            cleaned = cell.replace("*", "").strip()
+            chk(
+                f"the per-patient audit's {label} matches the artefact",
+                cleaned == expected,
+                f"{cleaned!r} vs {expected!r}",
+            )
+
+        # --- table 1: the measurement layer ---
+        libraries = {
+            (row["dataset"], row["accession"]): row
+            for row in folds["per_library"]
+        }
+        table = parse_markdown_table(text, "## 2. The measurement layer")
+        chk(
+            "the per-patient audit has the measurement table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        seen_libraries: set[tuple[str, str]] = set()
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = [
+                "Dataset",
+                "Library",
+                "Site",
+                "State cells",
+                "State fraction",
+                "KCNN4 fold",
+                "PIEZO1 fold",
+            ]
+            chk(
+                "the per-patient audit measurement table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    dataset = row[0].replace("*", "").strip()
+                    accession = row[1].replace("*", "").strip()
+                    key = (dataset, accession)
+                    seen_libraries.add(key)
+                    chk(
+                        f"the per-patient audit table's {dataset} / {accession} is "
+                        "in the folds artefact",
+                        key in libraries,
+                        str(key),
+                    )
+                    if key not in libraries:
+                        continue
+                    library = libraries[key]
+                    _check_text(
+                        f"{dataset} / {accession} site",
+                        row[2],
+                        library["label"],
+                    )
+                    _check_integer(
+                        f"{dataset} / {accession} state cells", row[3], library["n_state"]
+                    )
+                    _check_number(
+                        f"{dataset} / {accession} state fraction",
+                        row[4],
+                        library["state_fraction"],
+                        4,
+                    )
+                    for column, gene in (("KCNN4 fold", "KCNN4"), ("PIEZO1 fold", "PIEZO1")):
+                        entry = library["channels"].get(gene, {})
+                        _check_number(
+                            f"{dataset} / {accession} {gene} fold",
+                            row[header.index(column)],
+                            entry.get("linear_fold"),
+                            3,
+                        )
+                chk(
+                    "the per-patient audit measurement table covers every library",
+                    seen_libraries == set(libraries),
+                    f"{len(seen_libraries)} of {len(libraries)}",
+                )
+
+        # --- table 2: the projection at the operating point ---
+        records = {
+            (r["dataset"], r["accession"], r["channel"]): r
+            for r in audit["per_library"]
+        }
+        table = parse_markdown_table(text, "## 3. The projection layer")
+        chk(
+            "the per-patient audit has the projection table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        seen_records: set[tuple[str, str, str]] = set()
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = [
+                "Dataset",
+                "Library",
+                "Channel",
+                "Fold",
+                "State fraction",
+                "AUC",
+                "K1",
+                "K3",
+                "MRD sensitivity",
+                "Specificity",
+                "PPV",
+                "AUC min (sweep)",
+                "AUC max (sweep)",
+            ]
+            chk(
+                "the per-patient audit projection table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    dataset = row[0].replace("*", "").strip()
+                    accession = row[1].replace("*", "").strip()
+                    channel = row[2].replace("*", "").strip()
+                    key = (dataset, accession, channel)
+                    seen_records.add(key)
+                    label = f"{dataset} / {accession} / {channel}"
+                    chk(
+                        f"the per-patient audit table's {label} is in the artefact",
+                        key in records,
+                        str(key),
+                    )
+                    if key not in records:
+                        continue
+                    record = records[key]
+                    inputs = record["inputs"]
+                    operating = record["operating_point"]
+                    sweep = record["persistent_sensitivity"]
+                    _check_number(
+                        f"{label} fold", row[3], inputs["abundance_fold"], 3
+                    )
+                    _check_number(
+                        f"{label} state fraction",
+                        row[4],
+                        inputs["state_fraction"],
+                        4,
+                    )
+                    _check_number(f"{label} AUC", row[5], operating["auc"], 4)
+                    _check_text(
+                        f"{label} K1 verdict",
+                        row[6],
+                        "fire" if operating["k1_fired"] else "pass",
+                    )
+                    _check_text(
+                        f"{label} K3 verdict",
+                        row[7],
+                        "fire" if operating["k3_fired"] else "pass",
+                    )
+                    _check_number(
+                        f"{label} MRD sensitivity",
+                        row[8],
+                        operating["mrd_sensitivity"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} specificity",
+                        row[9],
+                        operating["mrd_specificity_vs_responders"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} PPV",
+                        row[10],
+                        operating["ppv_within_mrd_positive"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} AUC sweep minimum",
+                        row[11],
+                        min(entry["auc"] for entry in sweep),
+                        4,
+                    )
+                    _check_number(
+                        f"{label} AUC sweep maximum",
+                        row[12],
+                        max(entry["auc"] for entry in sweep),
+                        4,
+                    )
+                chk(
+                    "the per-patient audit projection table covers every record",
+                    seen_records == set(records),
+                    f"{len(seen_records)} of {len(records)}",
+                )
+
+        # --- table 3: the full depth x panel-size grid ---
+        depths = audit["audit"]["depths"]
+        loci = audit["audit"]["loci"]
+        table = parse_markdown_table(text, "## 4. The full depth")
+        chk(
+            "the per-patient audit has the full grid table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = ["Dataset", "Library", "Channel"] + [
+                f"{depth // 1000}k/{locus}" for depth in depths for locus in loci
+            ]
+            chk(
+                "the per-patient audit grid table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                seen_grid: set[tuple[str, str, str]] = set()
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    key = (
+                        row[0].replace("*", "").strip(),
+                        row[1].replace("*", "").strip(),
+                        row[2].replace("*", "").strip(),
+                    )
+                    seen_grid.add(key)
+                    label = " / ".join(key)
+                    chk(
+                        f"the per-patient audit grid's {label} is in the artefact",
+                        key in records,
+                        str(key),
+                    )
+                    if key not in records:
+                        continue
+                    grid = records[key]["grid"]
+                    index = 3
+                    for depth in depths:
+                        for locus in loci:
+                            cell = next(
+                                g
+                                for g in grid
+                                if g["sequencing_depth"] == depth
+                                and g["total_loci"] == locus
+                            )
+                            _check_number(
+                                f"{label} AUC at {depth}x/{locus} loci",
+                                row[index],
+                                cell["auc"],
+                                4,
+                            )
+                            index += 1
+                chk(
+                    "the per-patient audit grid table covers every record",
+                    seen_grid == set(records),
+                    f"{len(seen_grid)} of {len(records)}",
+                )
+
+        # --- table 4: the summary by configuration ---
+        summaries = {
+            (s["dataset"], s["channel"]): s for s in audit["summaries"]
+        }
+        table = parse_markdown_table(text, "## 5. What the configurations say")
+        chk(
+            "the per-patient audit has the summary table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        seen_summaries: set[tuple[str, str]] = set()
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = [
+                "Dataset",
+                "Channel",
+                "Libraries",
+                "Fold computable",
+                "Fold > 1",
+                "Clears K3",
+                "Fires K1",
+                "AUC min",
+                "AUC median",
+                "AUC max",
+                "State fraction median",
+            ]
+            chk(
+                "the per-patient audit summary table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    key = (
+                        row[0].replace("*", "").strip(),
+                        row[1].replace("*", "").strip(),
+                    )
+                    seen_summaries.add(key)
+                    label = " / ".join(key)
+                    chk(
+                        f"the per-patient audit summary's {label} is in the artefact",
+                        key in summaries,
+                        str(key),
+                    )
+                    if key not in summaries:
+                        continue
+                    summary = summaries[key]
+                    aucs = summary["auc_at_operating_point"]
+                    for column, expected in (
+                        ("Libraries", summary["n_libraries"]),
+                        ("Fold computable", summary["n_fold_computable"]),
+                        ("Fold > 1", summary["n_fold_above_one"]),
+                        ("Clears K3", summary["n_clearing_k3"]),
+                        ("Fires K1", summary["n_firing_k1"]),
+                    ):
+                        _check_integer(
+                            f"{label} {column}", row[header.index(column)], expected
+                        )
+                    _check_number(
+                        f"{label} AUC min", row[header.index("AUC min")], aucs["min"], 4
+                    )
+                    _check_number(
+                        f"{label} AUC median",
+                        row[header.index("AUC median")],
+                        aucs["median"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} AUC max", row[header.index("AUC max")], aucs["max"], 4
+                    )
+                    _check_number(
+                        f"{label} state fraction median",
+                        row[header.index("State fraction median")],
+                        summary["state_fraction"]["median"],
+                        4,
+                    )
+                chk(
+                    "the per-patient audit summary table covers every configuration",
+                    seen_summaries == set(summaries),
+                    f"{len(seen_summaries)} of {len(summaries)}",
+                )
+
+        # --- table 5: the pooled fold against the per-library folds ---
+        composition = folds["composition"]
+        pooled = {
+            (dataset, gene): record
+            for dataset, genes in folds["control"].items()
+            for gene, record in genes["channels"].items()
+        }
+        table = parse_markdown_table(text, "## 6. Why the pooled numbers")
+        chk(
+            "the per-patient audit has the composition table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        seen_composition: set[tuple[str, str]] = set()
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = [
+                "Dataset",
+                "Channel",
+                "Pooled fold",
+                "Per-library fold median",
+                "Per-library fold min",
+                "Per-library fold max",
+                "Libraries with fold > 1",
+                "Pooled fold with one library removed: min",
+                "max",
+            ]
+            chk(
+                "the per-patient audit composition table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    key = (
+                        row[0].replace("*", "").strip(),
+                        row[1].replace("*", "").strip(),
+                    )
+                    seen_composition.add(key)
+                    label = " / ".join(key)
+                    chk(
+                        f"the per-patient audit composition's {label} is in the artefact",
+                        key[1] in composition.get(key[0], {}),
+                        str(key),
+                    )
+                    if key[1] not in composition.get(key[0], {}):
+                        continue
+                    record = composition[key[0]][key[1]]
+                    _check_number(
+                        f"{label} pooled fold",
+                        row[2],
+                        pooled[key]["published_linear_fold"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} per-library fold median",
+                        row[3],
+                        record["per_library_fold_median"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} per-library fold min",
+                        row[4],
+                        record["per_library_fold_min"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} per-library fold max",
+                        row[5],
+                        record["per_library_fold_max"],
+                        4,
+                    )
+                    _check_text(
+                        f"{label} libraries with fold above one",
+                        row[6],
+                        f"{record['n_libraries_with_fold_above_one']}/"
+                        f"{record['n_libraries_with_fold_computable']}",
+                    )
+                    _check_number(
+                        f"{label} leave-one-out pooled fold minimum",
+                        row[7],
+                        record["leave_one_library_out_min"],
+                        4,
+                    )
+                    _check_number(
+                        f"{label} leave-one-out pooled fold maximum",
+                        row[8],
+                        record["leave_one_library_out_max"],
+                        4,
+                    )
+                expected_composition = {
+                    (dataset, gene)
+                    for dataset, genes in composition.items()
+                    for gene in genes
+                }
+                chk(
+                    "the per-patient audit composition table covers every channel",
+                    seen_composition == expected_composition,
+                    f"{len(seen_composition)} of {len(expected_composition)}",
+                )
+
+        # --- the controls, and the prose that quotes them ---
+        control = audit["control"]
+        chk(
+            "the per-patient audit's pooled control reproduces the gate review",
+            control["all_match"] is True,
+            str(control["all_match"]),
+        )
+        for entry in control["entries"]:
+            _check_number(
+                f"the control AUC for {entry['dataset']} / {entry['channel']}",
+                f"{entry['recomputed_auc_at_operating_point']:.6f}",
+                entry["recomputed_auc_at_operating_point"],
+                6,
+            )
+        for entry in folds["control"].values():
+            chk(
+                "the per-library folds' pooled control reproduces the published "
+                "state-expression artefacts",
+                entry["all_channels_match"] is True,
+                str(entry["all_channels_match"]),
+            )
+        for dataset, genes in folds["per_library_sign_counts"].items():
+            for gene, record in genes.items():
+                if record["published_above_one"] is None:
+                    continue
+                chk(
+                    f"the per-library detection-ratio signs for {dataset} / {gene} "
+                    "reproduce the published counts",
+                    record["matches"] is True,
+                    str(record),
+                )
+        for claim in (
+            "0.706545",
+            "0.694505",
+            "0.992862",
+            "0.4658",
+            "2,482",
+            "2,872",
+            "86.4%",
+            "0.0093",
+            "0.2421",
+            "0.0091",
+            "0.5888",
+            "1.3702",
+            "2.8122",
+            "2.8094",
+            "6.2977",
+            "0.9491",
+            "0.9991",
+            "0.583",
+            "2.267",
+            "3.310",
+        ):
+            chk(
+                f"the per-patient audit report quotes {claim}",
+                claim in text,
+            )
+        chk(
+            "the per-patient audit says the pooled number may not describe a patient",
+            "does not describe a patient" in text
+            or "not describe a patient" in text
+            or "do not describe a patient" in text,
+        )
+        chk(
+            "the per-patient audit keeps the projection's assumption visible",
+            "never measured" in text or "has never been measured" in text,
+        )
 
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")

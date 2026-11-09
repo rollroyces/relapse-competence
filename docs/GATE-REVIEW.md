@@ -28,6 +28,29 @@ verdicts down. It is deliberately unflattering in two directions:
 The headline: **one condition has fired, two cannot yet be tested, and the
 surviving readout for each disease is now named.**
 
+### A qualification added after this document was first written
+
+The projection in this document uses a **pooled** per-cell fold and a **pooled**
+state fraction for every simulated patient. Both pooled values are cell-count
+weighted, and in the relapsed-SCLC deposit three libraries hold 86.4% of the
+state cells while the channel's baseline expression differs by metastatic site
+by up to 65-fold. The per-patient audit
+([`PER-PATIENT-AUDIT.md`](PER-PATIENT-AUDIT.md)) recomputes both inputs per
+library and re-runs the projection for each tumour, and it narrows how the
+SCLC rows here may be read:
+
+- the SCLC rows are the pooled projection, and they stand as that;
+- per tumour, the SCLC/KCNN4 readout clears K3 in **1 of 12** libraries and the
+  SCLC/PIEZO1 readout in **4 of 14**, because the pooled fold is a contrast
+  between metastatic sites rather than a contrast within one tumour;
+- the NSCLC/KCNN4 readout holds: all **7** MRD libraries clear K3, with per-
+  patient AUCs from 0.9491 to 0.9991, and the pooled fold is representative of
+  the individual libraries there.
+
+So the programme has **one** established readout — KCa3.1 in EGFR-mutant
+NSCLC — not three. The numbers in this document are unchanged; the reading is
+narrower.
+
 ## 2. The verdicts
 
 | Condition | What it kills | Status | Fires for |
@@ -59,6 +82,12 @@ fire are the ones with nothing to measure. The marginal entries (CACNA1E in
 SCLC, fold 1.112; PIEZO2 in NSCLC, fold 1.009) are artefacts of a mechanical
 threshold — CACNA1E was ruled out as a lung target at D0 regardless.
 
+These are **pooled** verdicts. Read per tumour, and against the per-patient
+audit, the two SCLC candidates do not hold: the channel's within-tumour fold
+exceeds 1 in 3 of 12 libraries for SCLC/KCNN4 and 11 of 14 for SCLC/PIEZO1, and
+the projection clears K3 in 1 of 12 and 4 of 14 respectively. The NSCLC row is
+representative of its individual libraries.
+
 ## 3. What follows
 
 **1. The readout for EGFR-mutant NSCLC is KCa3.1, and PIEZO1 is dead there.**
@@ -74,7 +103,10 @@ fraction used here is 0.104, pooled over fifteen libraries of seven different
 metastatic sites, and a plasma cohort with a lower state fraction would push
 the AUC under the threshold. The honest reading is that **the SCLC readout is
 not yet established** — it is above the bar on the evidence available, and the
-evidence is thin.
+evidence is thin. The per-patient audit makes this quantitative: the readout
+clears K3 in 4 of 14 SCLC libraries for PIEZO1 and 1 of 12 for KCNN4, and
+KCNN4's within-tumour fold exceeds 1 in 3 of 12 libraries, so the SCLC/KCNN4
+candidate does not survive per tumour at all.
 
 **3. K4 has fired, so the systemic drug arm is dead.** No candidate channel has
 a bulk-tissue therapeutic window: CACNA1E and STOML3 are not lung targets at
@@ -130,6 +162,11 @@ and cannot be measured.
   They are not the same statistic.
 - **"Not evaluable" is not "passed".** Two of the five conditions have not been
   tested, and one of them (K5) cannot be tested with public data at all.
+- **The pooled inputs do not describe a patient.** The per-cell fold and the
+  state fraction here are cell-count weighted. Per tumour, the SCLC rows do not
+  hold: see the per-patient audit
+  ([`PER-PATIENT-AUDIT.md`](PER-PATIENT-AUDIT.md)) and the qualification in
+  section 1. The NSCLC row is representative of its individual libraries.
 - **The state candidates are mechanical.** A channel counts as a candidate
   when its measured abundance fold exceeds 1; two entries clear that bar by
   less than 12% and one of them was already ruled out at D0.
@@ -151,3 +188,14 @@ measured per-cell fold and state fraction injected. The inputs come from
 `results/gate_review/gate_review.json` and
 `results/gate_review/gate_matrix.tsv`, and every number quoted here is checked
 against them in CI.
+
+The per-tumour layer that qualifies the SCLC rows is produced separately:
+
+```bash
+python scripts/per_library_folds.py
+python scripts/per_patient_audit.py --patients 800
+```
+
+which write `results/per_library_folds/` and `results/per_patient_audit/`, and
+are documented in [`PER-PATIENT-AUDIT.md`](PER-PATIENT-AUDIT.md). Every number
+in that document is checked against its artefacts in CI as well.
