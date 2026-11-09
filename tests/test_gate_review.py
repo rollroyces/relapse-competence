@@ -97,3 +97,87 @@ def test_the_verdicts_rest_on_a_projection_and_say_so(gate: dict) -> None:
     text = REPORT.read_text()
     assert "not a plasma measurement" in text or "model-based projection" in text
     assert "would change" in text.lower()
+
+
+def _report_configuration_table() -> list[list[str]]:
+    """Rows of the report's own configuration table, header first."""
+    text = REPORT.read_text()
+    anchor = "### The configurations that matter"
+    assert anchor in text, "the gate review report lost its configuration table"
+    rows: list[list[str]] = []
+    for line in text[text.index(anchor) :].splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            if rows:
+                break
+            continue
+        cells = [c.strip() for c in stripped.strip("|").split("|")]
+        if all(set(c) <= set("-: ") and c for c in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def test_the_report_configuration_table_matches_the_artefact(gate: dict) -> None:
+    """Every cell of the report's table must be the artefact's number.
+
+    The check is in both directions: the report cannot quote a number the
+    artefact does not hold, and it cannot call a configuration a pass where
+    the artefact says the condition fires.
+    """
+    rows = _report_configuration_table()
+    assert len(rows) > 1
+    header = [c.replace("*", "").strip() for c in rows[0]]
+    assert header == [
+        "Dataset",
+        "Channel",
+        "Tissue fold",
+        "State fraction",
+        "Bulk elevation",
+        "AUC at 200k× / 200",
+        "K1",
+        "K3",
+    ]
+    measured = {
+        (m["dataset"], m["channel"]): m for m in gate["measured_parameters"]
+    }
+    verdicts = {(v["dataset"], v["channel"]): v for v in gate["k1_k3_detail"]}
+    fired = {c["id"]: set(c.get("fired_for") or []) for c in gate["conditions"]}
+    for row in rows[1:]:
+        assert len(row) == len(header)
+        dataset = row[0].replace("*", "").strip()
+        channel = row[1].replace("*", "").strip()
+        key = f"{dataset} / {channel}"
+        pair = (dataset, channel)
+        assert pair in measured, key
+        assert pair in verdicts, key
+        m = measured[pair]
+        v = verdicts[pair]
+        assert float(row[2].replace("*", "")) == round(
+            m["abundance_fold_state_vs_tumour"], 3
+        ), key
+        assert float(row[3].replace("*", "")) == round(m["state_fraction"], 3), key
+        assert float(row[4].replace("*", "")) == round(m["bulk_elevation"], 3), key
+        assert float(row[5].replace("*", "")) == round(
+            v["auc_at_operating_point"], 4
+        ), key
+        for condition_id in ("K1", "K3"):
+            cell = row[header.index(condition_id)].replace("*", "").strip().lower()
+            assert cell in {"fire", "pass"}, (key, condition_id, cell)
+            assert (cell == "fire") == (key in fired[condition_id]), (
+                key,
+                condition_id,
+                cell,
+            )
+
+
+def test_the_report_table_discriminates_fire_from_pass(gate: dict) -> None:
+    """The table must contain both verdicts, or the check above is vacuous."""
+    rows = _report_configuration_table()
+    header = [c.replace("*", "").strip() for c in rows[0]]
+    cells = {
+        row[header.index("K1")].replace("*", "").strip().lower()
+        for row in rows[1:]
+    }
+    assert "fire" in cells
+    assert "pass" in cells

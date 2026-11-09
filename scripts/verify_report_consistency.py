@@ -115,6 +115,18 @@ def _num(text: str) -> float:
     return float(match.group(0))
 
 
+def _num_or_none(text: str) -> float | None:
+    """``_num`` that reports a missing or unparsable cell as ``None``.
+
+    A cell that cannot be read is a failed check, not a crashed verifier, so
+    the caller can name the cell that drifted.
+    """
+    try:
+        return _num(text)
+    except ValueError:
+        return None
+
+
 def _close(a: float, b: float, tol: float = 5e-4) -> bool:
     return abs(a - b) <= tol
 
@@ -1642,6 +1654,101 @@ def main(argv: list[str] | None = None) -> int:
             "the gate review says what would change each verdict",
             "would change" in gate_doc.lower(),
         )
+        chk(
+            "the gate review points at the full configuration matrix",
+            "gate_matrix.tsv" in gate_doc,
+        )
+        # The report's own configuration table must agree with the artefact in
+        # both directions: every number, and every fire/pass verdict. A report
+        # that calls a configuration a pass where the artefact says it fires is
+        # the drift this repository exists to prevent, and the earlier
+        # "is the number present somewhere" check does not catch it.
+        table = parse_markdown_table(
+            gate_doc, "### The configurations that matter"
+        )
+        chk(
+            "the gate review report has the configuration table",
+            len(table) > 1,
+            f"{len(table)} rows",
+        )
+        if len(table) > 1:
+            header = [c.replace("*", "").strip() for c in table[0]]
+            expected_header = [
+                "Dataset",
+                "Channel",
+                "Tissue fold",
+                "State fraction",
+                "Bulk elevation",
+                "AUC at 200k× / 200",
+                "K1",
+                "K3",
+            ]
+            chk(
+                "the gate review configuration table has the expected columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                measured = {
+                    (m["dataset"], m["channel"]): m
+                    for m in gate["measured_parameters"]
+                }
+                verdicts = {
+                    (v["dataset"], v["channel"]): v
+                    for v in gate["k1_k3_detail"]
+                }
+                fired = {
+                    c["id"]: set(c.get("fired_for") or [])
+                    for c in gate["conditions"]
+                }
+                for row in table[1:]:
+                    if len(row) != len(header):
+                        continue
+                    dataset = row[0].replace("*", "").strip()
+                    channel = row[1].replace("*", "").strip()
+                    key = f"{dataset} / {channel}"
+                    pair = (dataset, channel)
+                    chk(
+                        f"the gate review table's {key} is recorded in the artefact",
+                        pair in measured and pair in verdicts,
+                        key,
+                    )
+                    if pair not in measured or pair not in verdicts:
+                        continue
+                    m = measured[pair]
+                    v = verdicts[pair]
+                    for name, value, decimals in (
+                        ("Tissue fold", m["abundance_fold_state_vs_tumour"], 3),
+                        ("State fraction", m["state_fraction"], 3),
+                        ("Bulk elevation", m["bulk_elevation"], 3),
+                    ):
+                        cell = _num_or_none(row[header.index(name)])
+                        chk(
+                            f"the gate review table's {key} {name} matches the artefact",
+                            cell is not None
+                            and _close_rounded(cell, value, decimals),
+                            f"{row[header.index(name)]} vs {value}",
+                        )
+                    auc_cell = _num_or_none(row[header.index("AUC at 200k× / 200")])
+                    chk(
+                        f"the gate review table's {key} AUC matches the artefact",
+                        auc_cell is not None
+                        and _close_rounded(
+                            auc_cell, v["auc_at_operating_point"], 4
+                        ),
+                        f"{row[header.index('AUC at 200k× / 200')]} "
+                        f"vs {v['auc_at_operating_point']}",
+                    )
+                    for condition_id in ("K1", "K3"):
+                        cell = row[header.index(condition_id)]
+                        cell = cell.replace("*", "").strip().lower()
+                        artefact_fires = key in fired.get(condition_id, set())
+                        chk(
+                            f"the gate review table's {key} {condition_id} verdict "
+                            "matches the artefact",
+                            (cell == "fire") == artefact_fires,
+                            f"report says {cell!r}, artefact fires={artefact_fires}",
+                        )
 
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
