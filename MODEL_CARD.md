@@ -62,6 +62,21 @@ See [`D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md).
 **These are simulation outputs under stated parameters. They are not
 measurements of any assay.**
 
+## Scope of this card
+
+This card describes **the simulator** — the generative model in
+`src/relapse_competence/` — and nothing else in the repository. The
+repository also contains five audits that measure **public deposits**
+(`docs/GSE299684-STATE-EXPRESSION.md`, `docs/GSE353299-STATE-EXPRESSION.md`,
+`docs/CHANNEL-TRANSFERABILITY.md`, `docs/PLASMA-READABILITY.md`,
+`docs/MODEL-FIDELITY.md`). Those are observations on third-party data, not
+outputs of this model, and they carry their own provenance and their own
+limitations; each is checked against the artefact that produced it, and the
+checks run in CI. The simulation figures above are **not** evidence for or
+against those observations, and the observations are not evidence for the
+simulation's parameters — except where a report explicitly substitutes a
+measured value for an assumed one, which it always states.
+
 ## Evaluation protocol
 
 1. Thresholds are selected on even-indexed controls only.

@@ -1455,6 +1455,130 @@ def main(argv: list[str] | None = None) -> int:
                 f"{count} / {malignant}",
             )
 
+    # --- the README's headline numbers must match the artefacts ---
+    readme_path = Path("README.md")
+    if readme_path.exists():
+        readme = readme_path.read_text()
+        sclc_path = Path("results/gse299684/state_expression.json")
+        nsclc_path = Path("results/gse353299/state_expression.json")
+        plasma_path = Path("results/plasma_readability/plasma_readability.json")
+        if sclc_path.exists() and nsclc_path.exists() and plasma_path.exists():
+            sclc = json.loads(sclc_path.read_text())
+            nsclc = json.loads(nsclc_path.read_text())
+            plasma = json.loads(plasma_path.read_text())
+
+            def _primary(artefact: dict) -> dict:
+                name = artefact["audit"]["primary_definition"]
+                return next(
+                    s for s in artefact["state_definition_sweep"] if s["definition"] == name
+                )
+
+            def _genes(artefact: dict) -> dict:
+                return {
+                    c["gene"]: c
+                    for c in _primary(artefact)["channels"]
+                    if c.get("status") == "ok"
+                }
+
+            sclc_genes = _genes(sclc)
+            nsclc_genes = _genes(nsclc)
+            chk(
+                "the README quotes the SCLC PIEZO1 detection ratio",
+                f"{sclc_genes['PIEZO1']['detection_ratio_vs_yap1negative']:.2f}" in readme,
+            )
+            chk(
+                "the README quotes the NSCLC KCNN4 detection ratio",
+                f"{nsclc_genes['KCNN4']['detection_ratio_vs_yap1negative']:.2f}" in readme,
+            )
+            sweeps = {
+                (s["dataset"], s["channel"]): s
+                for s in plasma["sweeps"]
+                if s["electrical_fraction"] == 0.25
+            }
+            for key, label in (
+                (("simulator default", "assumed"), "0.9312"),
+                (("NSCLC", "KCNN4"), "0.9929"),
+                (("SCLC", "PIEZO1"), "0.6945"),
+                (("NSCLC", "PIEZO1"), "0.4658"),
+            ):
+                if key in sweeps:
+                    chk(
+                        f"the README quotes the plasma enrichment AUC for {key[0]} {key[1]}",
+                        label in readme,
+                        label,
+                    )
+
+            # The gate yield: how many of the measured tumours express the
+            # channels at all.
+            def _library_rows(artefact: dict) -> list[dict]:
+                rows = []
+                for key in ("per_sample_channels", "per_patient"):
+                    rows.extend(artefact.get(key, []))
+                return rows
+
+            def _detection(record: dict, gene: str) -> float | None:
+                entry = (record.get("channels") or {}).get(gene) or {}
+                pos = entry.get(
+                    "detection_state_positive", entry.get("detection_yap1_positive")
+                )
+                neg = entry.get(
+                    "detection_state_negative", entry.get("detection_yap1_negative")
+                )
+                if pos is None and neg is None:
+                    return None
+                return max(pos or 0.0, neg or 0.0)
+
+            measurable = []
+            for artefact in (sclc, nsclc):
+                for record in _library_rows(artefact):
+                    if any(
+                        _detection(record, gene) is not None
+                        for gene in ("PIEZO1", "KCNN4")
+                    ):
+                        measurable.append(record)
+            transfer_path = Path("results/gse324849/state_expression.json")
+            if transfer_path.exists():
+                transfer = json.loads(transfer_path.read_text())
+                detection = transfer["cells"]["compartment_detection"]
+                measurable.append(
+                    {
+                        "channels": {
+                            gene: {
+                                "detection_state_positive": detection[gene]["malignant"]
+                                / max(detection[gene]["malignant_total"], 1),
+                                "detection_state_negative": 0.0,
+                            }
+                            for gene in ("PIEZO1", "KCNN4")
+                        }
+                    }
+                )
+            piezo1_positive = sum(
+                1 for r in measurable if (_detection(r, "PIEZO1") or 0) > 0
+            )
+            kcnn4_positive = sum(
+                1 for r in measurable if (_detection(r, "KCNN4") or 0) > 0
+            )
+            chk(
+                "the README quotes the PIEZO1 gate yield",
+                f"{piezo1_positive} of the {len(measurable)}" in readme
+                or f"{piezo1_positive} ({piezo1_positive / len(measurable):.1%})" in readme,
+                f"{piezo1_positive}/{len(measurable)}",
+            )
+            chk(
+                "the README quotes the KCa3.1 gate yield",
+                f"{kcnn4_positive} ({kcnn4_positive / len(measurable):.1%})" in readme,
+                f"{kcnn4_positive}/{len(measurable)}",
+            )
+            chk(
+                "the README distinguishes simulated figures from public-data "
+                "measurements",
+                "public-data audits" in readme or "public deposits" in readme,
+            )
+            chk(
+                "the README states that the measurements are correlational",
+                "not a mechanism" in readme,
+            )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

@@ -1,26 +1,50 @@
 # relapse-competence
 
 > **Status: research software. Not a clinical assay, not a medical device, not for
-> patient use. Every number in this repository is produced by code that executed in
-> the run that produced it.**
+> patient use.** Every number in this repository was produced by code that executed
+> in the run that produced it — or, for the public-data audits, by a measurement
+> of a public deposit, recorded with its provenance.
 
 Longitudinal cfDNA modelling for the **relapse-competent state** — the condition
 in which a tumour cell population has acquired the capacity to re-found a tumour
 after treatment — with an evidence chain you can audit end to end.
 
-The question this package exists to answer is not "which marker identifies a
-cancer stem cell". It is:
+The package has two halves, and the second half is where the programme now
+stands:
 
-> **How much lead time does a longitudinal ctDNA assay actually buy you, and
-> what does that assay have to cost to get it?**
+- a **simulator** that answers *"how much lead time does a longitudinal ctDNA
+  assay actually buy you, and what does that assay have to cost to get it?"*
+  before any sample is drawn;
+- **five executed audits on public data** that answer the question the simulator
+  cannot: *is the relapse-competent state actually electrically marked, and
+  does that survive into a plasma assay?*
 
 ---
 
-## The headline result
+## Where the programme stands
 
-Post-treatment MRD, simulated with a Poisson read-counting model, read thresholds
-calibrated on a **held-out split**, evaluated against the published bar of a
-104-day median lead time before radiographic relapse (tumour-informed MRD):
+| Step | Question | Answer |
+|---|---|---|
+| [Gap audit](docs/GAP-AUDIT-BIOELECTRIC.md) | Is "bioelectric state × lung-cancer relapse competence" genuinely unoccupied? | 2,427 records screened; the target intersection holds **one** record, and it is a review |
+| [D0 window audit](docs/D0-TARGET-WINDOW-AUDIT.md) | Which candidate channels have a therapeutic window in lung? | **CACNA1E and STOML3 ruled out**; no channel has a systemic window; the kill condition had to be re-specified, because bulk tissue cannot decide a state-dependent question |
+| [D1 channel allocation](docs/D1-CHANNEL-ALLOCATION.md) | Would a bulk ion-channel channel earn the read budget it takes from the mutation panel? | Yes for state — **AUC 0.85–0.95** on the burden-normalised enrichment ratio — but only at ≥200 loci, ≥200,000× depth and ≤25% allocation |
+| [State-resolved, SCLC](docs/GSE299684-STATE-EXPRESSION.md) | Is the state electrically marked, in tissue? | **Yes.** PIEZO1 in 39% of state cells against 6% of the surrounding tumour |
+| [State-resolved, NSCLC](docs/GSE353299-STATE-EXPRESSION.md) | Does it cross to EGFR-mutant lung adenocarcinoma? | **Yes, through a different channel** — KCa3.1 at 2.97×, in 25 of 25 patients |
+| [Plasma readability](docs/PLASMA-READABILITY.md) | What does the measured per-cell enrichment mean in blood? | The assay-design result is **disease-specific**: enrichment AUC 0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed |
+| [Transferability](docs/CHANNEL-TRANSFERABILITY.md) | Does the readout carry to a third dataset? | **Not universally.** A third relapsed-SCLC tumour expresses neither channel at all |
+| [Model fidelity](docs/MODEL-FIDELITY.md) | How much do the published numbers depend on the simulator's assumptions? | The biological assumptions barely matter; the *noise structure* assumption breaks the detector |
+| [Lineage design](docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md) | How would one tell a persister lineage from a drug-tolerant state from a fixed-driver clone? | Specified, with the controls and the falsification conditions |
+
+---
+
+## The results
+
+### 1. The assay-design result (simulated)
+
+Post-treatment MRD, simulated with a Poisson read-counting model, read
+thresholds calibrated on a **held-out split**, evaluated against the published
+bar of a 104-day median lead time before radiographic relapse (tumour-informed
+MRD):
 
 | Depth | Loci | Reads/draw | k | Sensitivity | Sens @360d | Specificity | Median lead | Min detectable burden | Meets bar |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|:--:|
@@ -41,38 +65,91 @@ calibrated on a **held-out split**, evaluated against the published bar of a
    report. Reaching the bar requires roughly **200,000× depth on a 200-locus
    panel — 40 million reads per draw**, sixteen times the read budget of the
    conventional configuration.
-
 2. **The binding constraint is the assay, not the statistics.** Adding read
    depth moves the lead time; adding a smarter detector does not. The
    "minimum detectable burden" column shows why: at 50,000× the assay cannot
    see a tumour smaller than ~8.9 cm³, and by the time it can, the patient has
    usually already relapsed.
 
-### The D1 result, and why it changes the programme's shape
+**And the uncomfortable second finding**: MRD specificity is not one number.
+The same panel gives 0.983 against patients with no residual disease and
+**0.662** against MRD-positive patients who do not relapse — and **26% of all
+MRD-positive patients are persistent non-relapsers**. The literature's "≈98.5%
+specificity" is measured against the easy population.
 
-[`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) asks the first
-question the gap audit left open: **if a bulk ion-channel channel existed, would
-it earn the sequencing budget it takes from the mutation panel?**
+### 2. The state-resolved results (observed, not simulated)
 
-Two results, one of them uncomfortable:
+Three public deposits, three independently defined states, one measurement
+each. The state is called on an axis that is **orthogonal to the ion
+channels**, and the call is validated against a signature the source paper
+reports independently.
 
-- **MRD specificity is not one number.** The same panel gives 0.983 against
-  patients with no residual disease and **0.662** against MRD-positive patients
-  who do not relapse — and **26% of all MRD-positive patients are persistent
-  non-relapsers**. The literature's "≈98.5% specificity" is measured against the
-  easy population.
-- **The state signal does survive bulk dilution**, but only once burden is
-  divided out: the burden-normalised enrichment score separates relapsers from
-  non-relapsers within the MRD-positive population at **AUC 0.85–0.95**. The
-  *raw* marker scores higher (0.99–1.00) but is a burden proxy — "the tumour is
-  regrowing" — which is **not** evidence for the bioelectric hypothesis.
+| Dataset | Disease | State | State fraction | Channel | Detection ratio, state vs tumour | Abundance fold |
+|---|---|---|---:|---|---:|---:|
+| GSE299684 | relapsed SCLC, 15 libraries | YAP1+ | 0.104 | **PIEZO1** | **6.91** | 3.36 |
+| GSE353299 | EGFR-mutant NSCLC, 25 libraries | KRT17+ | 0.392 at MRD (0.125 at baseline) | **KCNN4** | **2.97** | 3.70 |
+| GSE324849 | relapsed SCLC, 1 library, tarlatamab | — | absent from the sample | none | — | — |
 
-The cost is quantified: a 25% electrical allocation costs ~3 points of MRD
-sensitivity at 200 loci and ~12 points at 50 loci. **The channel is affordable
-only at ≥200 loci with ≥200,000× depth**, and a 100% electrical allocation is
-degenerate (no mutation panel means no MRD assay to refine).
+Three things follow.
 
-### The secondary result, and why it matters
+- **The state is electrically marked, and the paper that defines this population
+  never mentions an ion channel.** Zero occurrences of KCNN4, PIEZO, CACNA1E,
+  KCNA3 or "ion channel" in the full text of PMID 42019833. The electrical
+  reading of this state was not in the literature because it had not been done.
+- **The channel that carries it is disease-specific.** PIEZO1 in SCLC, KCa3.1
+  in NSCLC — and the leave-one-patient-out range is 2.69–3.64 for KCa3.1 in
+  NSCLC, with the ratio above 1 in 25 of 25 patients.
+- **The state is drug-emergent, on the authors' own data.** In EGFR-mutant
+  NSCLC every minimal-residual-disease library has a KRT17+ fraction between
+  0.28 and 0.65, against a treatment-naive median of 0.125.
+
+**How universal is the readout?** Across the 39 tumours with a measurable
+malignant compartment, PIEZO1 is detected in **38 (97.4%)** and KCa3.1 in
+**36 (92.3%)**; the exception expresses neither. So a channel-keyed plasma
+assay has a high yield — but the failure mode is real, and it is a *tumour*
+failure rather than a patient failure.
+
+### 3. What it means in plasma
+
+The simulator carried an assumed electrical fold (3.0) and an assumed state
+fraction (0.25). Both are now measured, per disease and per channel, and the
+channel allocation sweep is re-run with them. The control row reproduces the
+published D1 result exactly (0.9312), which is what makes the rest
+attributable to the measurements:
+
+| Configuration | Bulk plasma elevation | Enrichment AUC within MRD+ |
+|---|---:|---:|
+| the simulator's assumption | 1.750 | 0.9312 |
+| NSCLC, KCa3.1 measured | 2.057 | **0.9929** |
+| SCLC, PIEZO1 measured | 1.246 | 0.6945 |
+| SCLC, KCa3.1 measured | 1.162 | 0.7065 |
+| NSCLC, PIEZO1 measured | 1.000 | 0.4658 |
+
+So the headline "AUC 0.85–0.95" was never one number: it is disease- and
+channel-specific, it fits the NSCLC case, and it sits well above the SCLC one.
+The same measurement also separates two metrics that look interchangeable and
+are not — the **detection rate** governs a tissue readout, the **abundance
+fold** governs the bulk plasma signal, and in NSCLC PIEZO1 they disagree
+(1.24× on detection, 0.84× on abundance, hence an AUC of 0.466, which is
+chance).
+
+### 4. The window audit, and what it closed
+
+[D0-TARGET-WINDOW-AUDIT.md](docs/D0-TARGET-WINDOW-AUDIT.md) pulled GTEx lung
+and immune expression, Open Targets tractability and constraint, and ClinVar
+germline pathogenicity for seven candidate genes.
+
+- **CACNA1E and STOML3 are ruled out** as lung targets: 0.126 TPM in lung,
+  loss-of-function intolerance, and a germline epileptic encephalopathy.
+- **KCa3.1 has no systemic window**: lung expression is 12× below minor
+  salivary gland, the gene is loss-of-function intolerant (LOEUF 0.515), and
+  on-target neurological and cardiac liabilities are recorded. The arm is
+  blocked on its *window*, not on a missing target — the state-resolved
+  measurements found the target in EGFR-mutant lung.
+- **Piezo1 remains the most original target and has no clinical asset**; its
+  germline and isoform problems are quantified in the audit.
+
+### 5. The secondary result, and why it matters
 
 In the screening regime, a sequential (CUSUM) detector and a single-timepoint
 threshold were **both** calibrated on the same held-out healthy split at the
@@ -112,7 +189,8 @@ This package is built so that mistake is structurally impossible:
 - **Every result file carries `metadata.mode`.** `simulated` means code ran.
   `projected` means the numbers are assumptions — and the writer *refuses* to
   emit a projected file unless `RELAPSE_COMPETENCE_ALLOW_PROJECTION=1` is set
-  explicitly.
+  explicitly. The public-data audits carry their own provenance: the accession,
+  the deposited file names, the retrieval time.
 - **Missing dependencies fail loudly.** `LayerDependencyError` for a missing
   dependency or mode; `LayerContractError` for a violated output contract.
   The second is never overridable, because it is always a bug.
@@ -124,6 +202,10 @@ This package is built so that mistake is structurally impossible:
   sensitivity figure and reported separately.
 - **Lead time is continuous**, computed from the growth model rather than
   quantised to the 90-day sampling interval.
+- **Every claim in every report is checked against the artefact that produced
+  it**, and the check is in CI. 502 report-consistency checks and 73 tests
+  currently run; several of them exist only because a reviewer caught a number
+  that did not match.
 
 ---
 
@@ -132,9 +214,19 @@ This package is built so that mistake is structurally impossible:
 ```bash
 pip install -e ".[dev]"
 
-pytest                                    # 33 tests
+pytest                                    # 73 tests
 relapse-competence sweep --patients 800   # depth x panel-size grid
 relapse-competence all --patients 800     # everything -> results/benchmark_results.json
+relapse-competence fidelity --patients 800  # model variants + plasma readability
+```
+
+The public-data audits are separate scripts, because each needs its own
+download:
+
+```bash
+python scripts/download_gse299684.py && python scripts/gse299684_state_expression.py
+python scripts/download_gse353299.py && python scripts/gse353299_state_expression.py
+python scripts/gse324849_state_expression.py        # three small files, no downloader
 ```
 
 Every invocation writes a JSON record containing the full configuration, the
@@ -167,8 +259,9 @@ src/relapse_competence/
 ├── contracts.py    Fail-fast contracts and the projection guard.
 ├── calibration.py  Literature anchors with sources.
 ├── simulator.py    Ground truth: tumour growth + Poisson read sampling.
-├── detectors.py    MRD read-count threshold; screening CUSUM.
+├── detectors.py    MRD read-count threshold; screening CUSUM; electrical channel.
 ├── benchmark.py    Held-out calibration, evaluation, lead time, sweeps.
+├── fidelity.py     Model variants, and the split-model validation.
 ├── report.py       Results assembly with the mode stamp.
 └── cli.py          Command line entry point.
 ```
@@ -189,6 +282,11 @@ choices matter:
   produced a 17% false-positive rate on healthy patients for exactly this
   reason, and was replaced with a count-domain CUSUM.
 
+The fidelity extensions (multi-clone resistance, Gompertzian growth,
+site-dependent shedding, per-locus background variation) are all **default-off**
+and draw from their own random streams, so the published numbers cannot move
+because of them. A captured reference fixture enforces that.
+
 ### The detectors
 
 `MrdThresholdDetector` flags when total mutant reads reach `k`. The aggregate
@@ -197,38 +295,65 @@ VAF threshold is a *consequence* (`k / (depth × loci)`), not an input.
 `SequentialRiseDetector` is a CUSUM over excess reads with a streak bonus for
 consecutive signal-consistent elevations and a trend bonus for a rising slope.
 
+`ElectricalChannelDetector` scores the burden-normalised enrichment ratio —
+the electrical channel divided by the mutation channel — because the raw
+marker is a burden proxy and would only re-confirm that the tumour is growing.
+
+### The audits
+
+The state-expression audits share one discipline, and it is the point of the
+exercise:
+
+- **the state is defined on an axis independent of the feature under test**
+  (YAP1 in SCLC, KRT17 in NSCLC, NEUROD1 after tarlatamab);
+- **the call is validated against a signature the source paper reports
+  independently** (surface targets, the basaloid programme, DLL3
+  downregulation);
+- **the measurement then asks about channels that played no part in either**;
+- **and every number in the report is checked against the generated artefact**,
+  by a script in CI.
+
 ---
 
 ## What this package does not do
 
-- It does **not** measure anything. Every figure is simulated.
+- It does **not** measure anything in a patient. The simulator's figures are
+  simulated; the audits are measurements of **public deposits**; no clinical
+  sample was processed.
 - It does **not** model a specific assay. Depth, panel size, background floor
   and shedding are parameters, not claims about a commercial kit.
 - It does **not** establish that a real assay achieves these numbers. The
   model reproduces the physics of Poisson sampling and exponential tumour
   growth; it does not reproduce assay-specific biases, cfDNA extraction
   efficiency, or the biology of a real resistant clone.
+- It does **not** establish that the state is electrically *driven*. The
+  measurements are expression measurements: the state over-expresses these
+  channels, which is a correlation with the state, not a mechanism.
+- It does **not** resolve the lineage question. No dataset in this repository
+  has a mutation-defined lineage tag in serial plasma, so "persister lineage"
+  versus "drug-tolerant state" versus "fixed-driver clone" is still open; see
+  [`docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md`](docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md).
 - It does **not** address the cancer-stem-cell hypothesis specifically. The
   "relapse-competent state" is the deliverable; CSC is one explanatory
-  hypothesis among several. See `docs/ROADMAP.md`.
+  hypothesis among several. See [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ---
 
 ## Documentation
 
-- [`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) — **the executable plan**: targets (KCa3.1, Piezo1, Cav2.3), the D0–D5 experiment ladder with entry/exit/kill criteria, and the MRD-guided clinical path
+- [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,427 records screened; the target intersection holds **one** record, and it is a review
 - [`docs/D0-TARGET-WINDOW-AUDIT.md`](docs/D0-TARGET-WINDOW-AUDIT.md) — **D0, executed**: the therapeutic-window audit. Two targets ruled out, the systemic-window hypothesis dropped for KCa3.1, and the kill condition re-specified — because bulk tissue cannot decide a state-dependent question
+- [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
 - [`docs/GSE299684-STATE-EXPRESSION.md`](docs/GSE299684-STATE-EXPRESSION.md) — **the state-resolved measurement, executed on public data**: is the relapse-competent state electrically readable? Yes — PIEZO1 marks it at every site including lung; KCa3.1 does not mark it in lung — and the NSCLC replication finds the opposite there, which moves the KCa3.1 arm from "no target" to "no window"
 - [`docs/GSE353299-STATE-EXPRESSION.md`](docs/GSE353299-STATE-EXPRESSION.md) — **the NSCLC replication, executed on public data**: does the electrical reading cross to EGFR-mutant lung adenocarcinoma? Yes, through KCa3.1 (2.97×, in 25 of 25 patients) — and it corrects the SCLC-only conclusion that the KCa3.1 arm was closed for lung
 - [`docs/CHANNEL-TRANSFERABILITY.md`](docs/CHANNEL-TRANSFERABILITY.md) — **the third-dataset test**: the ion-channel readout does **not** transfer — a third relapsed-SCLC tumour expresses neither channel at all, so a plasma assay keyed on one channel needs a tumour-expression gate
 - [`docs/PLASMA-READABILITY.md`](docs/PLASMA-READABILITY.md) — **what the measured state enrichment means in blood**: the per-cell fold and the state fraction, measured, replace the simulator's assumptions — and D1's enrichment AUC turns out to be disease-specific (0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed)
 - [`docs/MODEL-FIDELITY.md`](docs/MODEL-FIDELITY.md) — **model fidelity, executed**: how far the published numbers move when the simulator is made more realistic, and whether a detector fitted on one model transfers to another. It does — except when the error floor varies by locus, which collapses it
 - [`docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md`](docs/LINEAGE-RESOLVED-ASSAY-DESIGN.md) — **the lineage measurement**: how to distinguish a persister lineage that acquires stem-cell function from a drug-tolerant state and from a fixed-driver clone
-- [`docs/D1-CHANNEL-ALLOCATION.md`](docs/D1-CHANNEL-ALLOCATION.md) — **D1, executed**: does a bulk ion-channel channel earn its read budget? Yes for state (AUC 0.85–0.95 after burden normalisation), but only at ≥200 loci and ≤25% allocation
-- [`docs/GAP-AUDIT-BIOELECTRIC.md`](docs/GAP-AUDIT-BIOELECTRIC.md) — **formal gap audit**: is *"bioelectric state × lung-cancer relapse competence"* genuinely unoccupied? Pre-registered query grid over PubMed, Europe PMC, ClinicalTrials.gov and GEO; 2,427 records screened; the target intersection holds **one** record, and it is a review
-- [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, training data, performance, limitations
+- [`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) — **the executable plan**: targets (KCa3.1, Piezo1, Cav2.3), the D0–D5 experiment ladder with entry/exit/kill criteria, the risk register, and the MRD-guided clinical path
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
 - [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
+- [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, calibration sources, performance and limitations of the simulator
 
 ### The research plan
 
@@ -249,17 +374,7 @@ The plan opens with five named killing conditions (K1–K5) and starts at the
 cheapest possible kill: a computational therapeutic-window audit of the
 candidate channels before any sample is spent.
 
-### The research programme in one paragraph
-
-The gap audit's conclusion was not "nobody has looked". It was that the field has
-three mature, separate pieces and has never joined them: an **electrical**
-phenotype (membrane potential, ion channels) that has been tied to relapse
-separately in glioblastoma, oesophageal, gastric and thyroid cancer; a
-**lung-cancer relapse-competent state** that was only defined in 2026, using
-ctDNA; and a **DNA** channel that reads everything from plasma. The proposed
-work is to close the loop for the first time — and the first step costs days,
-because `relapse-competence` can compute whether an added electrical channel is
-worth the read budget *before* any cohort exists.
+---
 
 ## Licence
 
