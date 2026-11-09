@@ -118,6 +118,26 @@ floor varies by locus. **The aggregate mutant-read count is conditional on the
 shape of the error floor, not only its level** — a panel-design constraint,
 not a biological one, and a cheap thing to measure.
 
+### The gate review — done: the programme's own kill conditions, applied
+
+Executed 2026-11-09. See [`GATE-REVIEW.md`](GATE-REVIEW.md). The plan's five
+killing conditions were applied to the measured evidence rather than to the
+simulator's assumptions.
+
+- **K4 has fired.** No candidate channel has a systemic therapeutic window:
+  two are not lung targets at all, and the rest fail the specificity verdict.
+  The pharmacological arm survives only as a *state-directed* modality, which
+  does not exist.
+- **The readout is now named.** KCa3.1 for EGFR-mutant NSCLC (enrichment AUC
+  0.9929 at 200,000× / 200 loci); PIEZO1 for relapsed SCLC, but only just
+  (0.6945 against a 0.65 threshold). PIEZO1 as the NSCLC readout is dead:
+  the state does not over-express it there, so it carries no information and
+  both K1 and K3 fire.
+- **K2 and K5 are untested**, and are recorded as untested rather than
+  passed. The evidence so far points against K2 (the state is more frequent
+  after treatment in NSCLC), but the methylation comparison the condition
+  names does not exist here.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until

@@ -1,0 +1,2112 @@
+{
+  "audit": {
+    "id": "gate-review-2026-11",
+    "generated_by": "scripts/gate_review.py",
+    "generated_at": "2026-11-09T04:01:28.785832+00:00",
+    "patients_per_arm": 800,
+    "depths": [
+      5000,
+      50000,
+      200000,
+      500000
+    ],
+    "loci": [
+      50,
+      200
+    ],
+    "electrical_fraction": 0.25,
+    "k1_auc_threshold": 0.6,
+    "k3_auc_threshold": 0.65,
+    "note": "K1 and K3 are evaluated on a model-based projection: the simulator run with the measured per-cell fold and state fraction. They are not plasma measurements, and a real plasma cohort could move them. K4 rests on measurements; K2 and K5 are not evaluable on the evidence in this repository."
+  },
+  "conditions": [
+    {
+      "id": "K1",
+      "condition": "The state-specific readout carries no information beyond tumour burden",
+      "how_detected": "D2: burden-normalised enrichment AUC <= 0.6",
+      "status": "fired",
+      "scope": "per dataset and channel",
+      "evidence": [
+        {
+          "dataset": "SCLC",
+          "channel": "KCNN4",
+          "auc_at_operating_point": 0.706544901065449
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "PIEZO1",
+          "auc_at_operating_point": 0.6945048256673333
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "CACNA1E",
+          "auc_at_operating_point": 0.5726509238217568
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "KCNA3",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "TMEM150C",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "STOML3",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "PIEZO2",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "KCNN4",
+          "auc_at_operating_point": 0.9928621553884712
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "PIEZO1",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "CACNA1E",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "KCNA3",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "TMEM150C",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "STOML3",
+          "auc_at_operating_point": 0.46584739545121057
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "PIEZO2",
+          "auc_at_operating_point": 0.49297772733721096
+        }
+      ],
+      "fired_for": [
+        "SCLC / CACNA1E",
+        "SCLC / KCNA3",
+        "SCLC / TMEM150C",
+        "SCLC / STOML3",
+        "SCLC / PIEZO2",
+        "NSCLC / PIEZO1",
+        "NSCLC / CACNA1E",
+        "NSCLC / KCNA3",
+        "NSCLC / TMEM150C",
+        "NSCLC / STOML3",
+        "NSCLC / PIEZO2"
+      ],
+      "state_candidates": [
+        "SCLC / KCNN4",
+        "SCLC / PIEZO1",
+        "SCLC / CACNA1E",
+        "NSCLC / KCNN4",
+        "NSCLC / PIEZO2"
+      ],
+      "basis": "model-based projection with measured inputs; not a plasma measurement"
+    },
+    {
+      "id": "K3",
+      "condition": "The state cannot be inferred from plasma at any affordable read budget",
+      "how_detected": "D3: enrichment AUC <= 0.65 at 200,000x / 200 loci",
+      "status": "fired",
+      "scope": "per dataset and channel, over the depth x panel-size grid",
+      "evidence": [
+        {
+          "dataset": "SCLC",
+          "channel": "KCNN4",
+          "auc_at_operating_point": 0.706544901065449,
+          "auc_best_in_grid": 0.8611111111111112,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8611111111111112
+          },
+          "state_candidate_in_tissue": true
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "PIEZO1",
+          "auc_at_operating_point": 0.6945048256673333,
+          "auc_best_in_grid": 0.7385398385398385,
+          "best_in_grid": {
+            "sequencing_depth": 50000,
+            "total_loci": 50,
+            "total_reads_per_draw": 2500000,
+            "auc": 0.7385398385398385
+          },
+          "state_candidate_in_tissue": true
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "CACNA1E",
+          "auc_at_operating_point": 0.5726509238217568,
+          "auc_best_in_grid": 0.7071078431372549,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.7071078431372549
+          },
+          "state_candidate_in_tissue": true
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "KCNA3",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "TMEM150C",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "STOML3",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "SCLC",
+          "channel": "PIEZO2",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "KCNN4",
+          "auc_at_operating_point": 0.9928621553884712,
+          "auc_best_in_grid": 0.9928621553884712,
+          "best_in_grid": {
+            "sequencing_depth": 200000,
+            "total_loci": 200,
+            "total_reads_per_draw": 40000000,
+            "auc": 0.9928621553884712
+          },
+          "state_candidate_in_tissue": true
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "PIEZO1",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "CACNA1E",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "KCNA3",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "TMEM150C",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "STOML3",
+          "auc_at_operating_point": 0.46584739545121057,
+          "auc_best_in_grid": 0.8884711779448622,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.8884711779448622
+          },
+          "state_candidate_in_tissue": false
+        },
+        {
+          "dataset": "NSCLC",
+          "channel": "PIEZO2",
+          "auc_at_operating_point": 0.49297772733721096,
+          "auc_best_in_grid": 0.876984126984127,
+          "best_in_grid": {
+            "sequencing_depth": 5000,
+            "total_loci": 50,
+            "total_reads_per_draw": 250000,
+            "auc": 0.876984126984127
+          },
+          "state_candidate_in_tissue": true
+        }
+      ],
+      "fired_for": [
+        "SCLC / CACNA1E",
+        "SCLC / KCNA3",
+        "SCLC / TMEM150C",
+        "SCLC / STOML3",
+        "SCLC / PIEZO2",
+        "NSCLC / PIEZO1",
+        "NSCLC / CACNA1E",
+        "NSCLC / KCNA3",
+        "NSCLC / TMEM150C",
+        "NSCLC / STOML3",
+        "NSCLC / PIEZO2"
+      ],
+      "state_candidates": [
+        "SCLC / KCNN4",
+        "SCLC / PIEZO1",
+        "SCLC / CACNA1E",
+        "NSCLC / KCNN4",
+        "NSCLC / PIEZO2"
+      ],
+      "basis": "model-based projection with measured inputs; not a plasma measurement"
+    },
+    {
+      "id": "K2",
+      "condition": "The state is not present, or not relapse-associated, in lung",
+      "how_detected": "D2: no state-associated methylation delta between primary and relapsed tissue",
+      "status": "not_evaluable",
+      "scope": "the condition as written names a methylation delta",
+      "evidence": {
+        "state_resolved_measurements": {
+          "treatment_naive_state_fraction": 0.13738019169329074,
+          "mrd_state_fraction_pooled": 0.5412520064205457
+        },
+        "note": "The state is present and more frequent after treatment in EGFR-mutant NSCLC, which is evidence against K2 firing. It is not the methylation delta the condition names, and no primary-versus-relapsed methylation comparison exists in this repository, so the condition is recorded as not evaluable rather than passed. For relapsed SCLC there is no treatment-naive comparator at all."
+      },
+      "basis": "partially addressable, not evaluable as written"
+    },
+    {
+      "id": "K4",
+      "condition": "Every candidate target has an unacceptable therapeutic window",
+      "how_detected": "D0 gate: GTEx specificity verdict fails",
+      "status": "fired",
+      "scope": "systemic drug delivery",
+      "evidence": {
+        "not_viable_as_lung_targets": [
+          "CACNA1E",
+          "STOML3"
+        ],
+        "no_bulk_tissue_window": [
+          "KCNN4",
+          "PIEZO1",
+          "KCNA3",
+          "TMEM150C",
+          "PIEZO2"
+        ],
+        "window_verdicts": {
+          "KCNN4": {
+            "verdict": "no_bulk_window",
+            "window_fold": 0.08220458081244598
+          },
+          "PIEZO1": {
+            "verdict": "no_bulk_window",
+            "window_fold": 0.8513455716478118
+          },
+          "CACNA1E": {
+            "verdict": "not_a_lung_target",
+            "window_fold": 0.006199385687704894
+          },
+          "KCNA3": {
+            "verdict": "no_bulk_window",
+            "window_fold": 0.5314821875611432
+          },
+          "STOML3": {
+            "verdict": "not_a_lung_target",
+            "window_fold": 0.5244576792616549
+          },
+          "TMEM150C": {
+            "verdict": "no_bulk_window",
+            "window_fold": 0.15718263035045038
+          },
+          "PIEZO2": {
+            "verdict": "no_bulk_window",
+            "window_fold": 1.043165250483908
+          }
+        },
+        "state_resolved_counter_evidence": "The state-resolved audits found the state channel-high in the target tissue for the matched disease and channel, so a state-directed rather than systemic modality is not excluded by the expression evidence. No such modality exists in this programme, and the D0 window findings for KCa3.1 (lung expression 12x below minor salivary gland, loss-of-function intolerance, on-target neurological and cardiac liabilities) and for Piezo1 (no separation from PIEZO2, no clinical asset) are unaffected."
+      },
+      "basis": "measurement (GTEx, Open Targets, ClinVar)"
+    },
+    {
+      "id": "K5",
+      "condition": "Suppressing the state does not reduce relapse competence in patient-derived models",
+      "how_detected": "D5: no differential killing of the state-bearing clone",
+      "status": "not_evaluable",
+      "scope": "requires perturbation and a viability readout",
+      "evidence": {
+        "note": "No wet-lab arm has been run. The state-resolved datasets are observational, and one of them (GSE325242, the RORB-loss organoid study) would have been the closest available perturbation system, but its deposit carries no gene annotation and cannot be measured."
+      },
+      "basis": "no experiment has been performed"
+    }
+  ],
+  "k1_k3_detail": [
+    {
+      "dataset": "SCLC",
+      "channel": "KCNN4",
+      "auc_at_operating_point": 0.706544901065449,
+      "auc_best_in_grid": 0.8611111111111112,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.04591836734693878,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9673366834170855,
+          "ppv_within_mrd_positive": 0.5,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8611111111111112
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.28165374677002586,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9143576826196473,
+          "ppv_within_mrd_positive": 0.7364864864864865,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7114796518466243
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.4856396866840731,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8546365914786967,
+          "ppv_within_mrd_positive": 0.7265625,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7212365591397849
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8071065989847716,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7196969696969697,
+          "ppv_within_mrd_positive": 0.7210884353741497,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6877972081607608
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7909319899244333,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7857142857142857,
+          "ppv_within_mrd_positive": 0.7658536585365854,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6494658970276008
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.9311224489795918,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6377551020408163,
+          "ppv_within_mrd_positive": 0.7046332046332047,
+          "auc_electrical_enrichment_within_mrd_positive": 0.706544901065449
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9341772151898734,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.6,
+          "ppv_within_mrd_positive": 0.6709090909090909,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7021066343260117
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9770992366412213,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5826972010178118,
+          "ppv_within_mrd_positive": 0.6808510638297872,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6741174768518519
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8611111111111112
+      },
+      "k1_fired": false,
+      "k3_fired": false,
+      "state_candidate_in_tissue": true,
+      "k3_at_operating_point": false,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 2.5538652224413894,
+      "bulk_elevation": 1.1616452085935842,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "PIEZO1",
+      "auc_at_operating_point": 0.6945048256673333,
+      "auc_best_in_grid": 0.7385398385398385,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.07692307692307693,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9646464646464646,
+          "ppv_within_mrd_positive": 0.625,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6925925925925925
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.28061224489795916,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8829516539440203,
+          "ppv_within_mrd_positive": 0.6790123456790124,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6658216783216783
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.4648241206030151,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8341836734693877,
+          "ppv_within_mrd_positive": 0.7061068702290076,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7385398385398385
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7933673469387755,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.6911392405063291,
+          "ppv_within_mrd_positive": 0.6926503340757239,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6967123351507526
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7749360613810742,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7760814249363868,
+          "ppv_within_mrd_positive": 0.7518610421836228,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6716831683168317
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.9440203562340967,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7153652392947103,
+          "ppv_within_mrd_positive": 0.7494949494949495,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6945048256673333
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9063291139240506,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.620253164556962,
+          "ppv_within_mrd_positive": 0.6741996233521658,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7012464881971131
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9570707070707071,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.6287878787878788,
+          "ppv_within_mrd_positive": 0.7044609665427509,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7255272896234712
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 50000,
+        "total_loci": 50,
+        "total_reads_per_draw": 2500000,
+        "auc": 0.7385398385398385
+      },
+      "k1_fired": false,
+      "k3_fired": false,
+      "state_candidate_in_tissue": true,
+      "k3_at_operating_point": false,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 3.3631214355966152,
+      "bulk_elevation": 1.2458303666702941,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "CACNA1E",
+      "auc_at_operating_point": 0.5726509238217568,
+      "auc_best_in_grid": 0.7071078431372549,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.06201550387596899,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9699248120300752,
+          "ppv_within_mrd_positive": 0.5853658536585366,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7071078431372549
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25888324873096447,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8857868020304569,
+          "ppv_within_mrd_positive": 0.6623376623376623,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5711726998491704
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.46035805626598464,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8683544303797468,
+          "ppv_within_mrd_positive": 0.7407407407407407,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5202821869488536
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7868020304568528,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.760705289672544,
+          "ppv_within_mrd_positive": 0.7434052757793765,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6247512812782635
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7538860103626943,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7839195979899497,
+          "ppv_within_mrd_positive": 0.751937984496124,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6145833333333334
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.8948717948717949,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6641221374045801,
+          "ppv_within_mrd_positive": 0.7064777327935222,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5726509238217568
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9194805194805195,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.6136363636363636,
+          "ppv_within_mrd_positive": 0.6579925650557621,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5581015106853353
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9664948453608248,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5914786967418546,
+          "ppv_within_mrd_positive": 0.6756756756756757,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5679703703703703
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.7071078431372549
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": true,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 1.1123138360343017,
+      "bulk_elevation": 1.011683763296527,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "KCNA3",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 0.21132209845258854,
+      "bulk_elevation": 0.917955558778464,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "TMEM150C",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 0.36009191303996824,
+      "bulk_elevation": 0.9334317579777887,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "STOML3",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 0.0194237166870714,
+      "bulk_elevation": 0.8979927888411066,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "PIEZO2",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "abundance_fold_state_vs_tumour": 0.15546233864694778,
+      "bulk_elevation": 0.9121445898505518,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "KCNN4",
+      "auc_at_operating_point": 0.9928621553884712,
+      "auc_best_in_grid": 0.9928621553884712,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.0737913486005089,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9445843828715366,
+          "ppv_within_mrd_positive": 0.5272727272727272,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9204244031830239
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25255102040816324,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.9047619047619048,
+          "ppv_within_mrd_positive": 0.6923076923076923,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9584481175390266
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.46153846153846156,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8611111111111112,
+          "ppv_within_mrd_positive": 0.7346938775510204,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9573504273504273
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8397932816537468,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7657430730478589,
+          "ppv_within_mrd_positive": 0.7593457943925234,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9737415982076176
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.823076923076923,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7587939698492462,
+          "ppv_within_mrd_positive": 0.7588652482269503,
+          "auc_electrical_enrichment_within_mrd_positive": 0.981613829332356
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.946969696969697,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6884422110552764,
+          "ppv_within_mrd_positive": 0.7381889763779528,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9928621553884712
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9338422391857506,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5717884130982368,
+          "ppv_within_mrd_positive": 0.6541889483065954,
+          "auc_electrical_enrichment_within_mrd_positive": 0.9896345402960758
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9567430025445293,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5873417721518988,
+          "ppv_within_mrd_positive": 0.6787003610108303,
+          "auc_electrical_enrichment_within_mrd_positive": 0.988121563471193
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 200000,
+        "total_loci": 200,
+        "total_reads_per_draw": 40000000,
+        "auc": 0.9928621553884712
+      },
+      "k1_fired": false,
+      "k3_fired": false,
+      "state_candidate_in_tissue": true,
+      "k3_at_operating_point": false,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 3.6979371667856475,
+      "bulk_elevation": 2.0567587715599567,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "PIEZO1",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 0.8387432193232313,
+      "bulk_elevation": 0.9368371066785357,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "CACNA1E",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 0.3577921622676825,
+      "bulk_elevation": 0.748452716377846,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "KCNA3",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 0.10769771302118385,
+      "bulk_elevation": 0.650492872756072,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "TMEM150C",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 0.5022136466697797,
+      "bulk_elevation": 0.805021369021991,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "STOML3",
+      "auc_at_operating_point": 0.46584739545121057,
+      "auc_best_in_grid": 0.8884711779448622,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.05454545454545454,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.525,
+          "auc_electrical_enrichment_within_mrd_positive": 0.8884711779448622
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.25,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8928571428571429,
+          "ppv_within_mrd_positive": 0.6486486486486487,
+          "auc_electrical_enrichment_within_mrd_positive": 0.7056290064102564
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.45038167938931295,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7224489795918367,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6544948487869724
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8383838383838383,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7341772151898734,
+          "ppv_within_mrd_positive": 0.7410714285714286,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5997091815538014
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.759493670886076,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.798469387755102,
+          "ppv_within_mrd_positive": 0.7731958762886598,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5662878787878788
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.94,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6556122448979592,
+          "ppv_within_mrd_positive": 0.7216890595009597,
+          "auc_electrical_enrichment_within_mrd_positive": 0.46584739545121057
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9289340101522843,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5949367088607594,
+          "ppv_within_mrd_positive": 0.6678832116788321,
+          "auc_electrical_enrichment_within_mrd_positive": 0.561715606797574
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9645569620253165,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5594936708860759,
+          "ppv_within_mrd_positive": 0.6672504378283712,
+          "auc_electrical_enrichment_within_mrd_positive": 0.48519132476861443
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.8884711779448622
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": false,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 0.7572002725316882,
+      "bulk_elevation": 0.9048974361251716,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "PIEZO2",
+      "auc_at_operating_point": 0.49297772733721096,
+      "auc_best_in_grid": 0.876984126984127,
+      "grid": [
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 250000,
+          "mrd_sensitivity": 0.07272727272727272,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.964824120603015,
+          "ppv_within_mrd_positive": 0.6086956521739131,
+          "auc_electrical_enrichment_within_mrd_positive": 0.876984126984127
+        },
+        {
+          "sequencing_depth": 5000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 1000000,
+          "mrd_sensitivity": 0.24936386768447838,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.8844221105527639,
+          "ppv_within_mrd_positive": 0.6621621621621622,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6137755102040816
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 2500000,
+          "mrd_sensitivity": 0.4961636828644501,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.8513853904282116,
+          "ppv_within_mrd_positive": 0.7404580152671756,
+          "auc_electrical_enrichment_within_mrd_positive": 0.6584672528805336
+        },
+        {
+          "sequencing_depth": 50000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.8508997429305912,
+          "mrd_specificity_vs_responders": 0.9825,
+          "mrd_specificity_vs_persistent": 0.7468354430379747,
+          "ppv_within_mrd_positive": 0.7404921700223713,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5763360766746536
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 10000000,
+          "mrd_sensitivity": 0.7917737789203085,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.7858942065491183,
+          "ppv_within_mrd_positive": 0.7642679900744417,
+          "auc_electrical_enrichment_within_mrd_positive": 0.47664046479835953
+        },
+        {
+          "sequencing_depth": 200000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 40000000,
+          "mrd_sensitivity": 0.9368686868686869,
+          "mrd_specificity_vs_responders": 0.99,
+          "mrd_specificity_vs_persistent": 0.6893939393939394,
+          "ppv_within_mrd_positive": 0.7361111111111112,
+          "auc_electrical_enrichment_within_mrd_positive": 0.49297772733721096
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 50,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 25000000,
+          "mrd_sensitivity": 0.9158163265306123,
+          "mrd_specificity_vs_responders": 0.96,
+          "mrd_specificity_vs_persistent": 0.5736040609137056,
+          "ppv_within_mrd_positive": 0.6503623188405797,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5303520140863366
+        },
+        {
+          "sequencing_depth": 500000,
+          "total_loci": 200,
+          "electrical_fraction": 0.25,
+          "total_reads_per_draw": 100000000,
+          "mrd_sensitivity": 0.9635416666666666,
+          "mrd_specificity_vs_responders": 0.985,
+          "mrd_specificity_vs_persistent": 0.5753768844221105,
+          "ppv_within_mrd_positive": 0.6618962432915921,
+          "auc_electrical_enrichment_within_mrd_positive": 0.5282711282711283
+        }
+      ],
+      "best_in_grid": {
+        "sequencing_depth": 5000,
+        "total_loci": 50,
+        "total_reads_per_draw": 250000,
+        "auc": 0.876984126984127
+      },
+      "k1_fired": true,
+      "k3_fired": true,
+      "state_candidate_in_tissue": true,
+      "k3_at_operating_point": true,
+      "k3_cleared_somewhere_in_grid": true,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "abundance_fold_state_vs_tumour": 1.008711203037429,
+      "bulk_elevation": 1.0034121032668861,
+      "basis": "model-based projection: the simulator run with the measured per-cell fold and state fraction, not a plasma measurement"
+    }
+  ],
+  "measured_parameters": [
+    {
+      "dataset": "SCLC",
+      "channel": "KCNN4",
+      "abundance_fold_state_vs_tumour": 2.5538652224413894,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 1.5538652224413894,
+      "bulk_elevation": 1.1616452085935842
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "PIEZO1",
+      "abundance_fold_state_vs_tumour": 3.3631214355966152,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 2.3631214355966152,
+      "bulk_elevation": 1.2458303666702941
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "CACNA1E",
+      "abundance_fold_state_vs_tumour": 1.1123138360343017,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 0.11231383603430167,
+      "bulk_elevation": 1.011683763296527
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "KCNA3",
+      "abundance_fold_state_vs_tumour": 0.21132209845258854,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.917955558778464
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "TMEM150C",
+      "abundance_fold_state_vs_tumour": 0.36009191303996824,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.9334317579777887
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "STOML3",
+      "abundance_fold_state_vs_tumour": 0.0194237166870714,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.8979927888411066
+    },
+    {
+      "dataset": "SCLC",
+      "channel": "PIEZO2",
+      "abundance_fold_state_vs_tumour": 0.15546233864694778,
+      "state_fraction": 0.10402781802376122,
+      "state_fraction_source": "pooled over all libraries",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.9121445898505518
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "KCNN4",
+      "abundance_fold_state_vs_tumour": 3.6979371667856475,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 2.6979371667856475,
+      "bulk_elevation": 2.0567587715599567
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "PIEZO1",
+      "abundance_fold_state_vs_tumour": 0.8387432193232313,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.9368371066785357
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "CACNA1E",
+      "abundance_fold_state_vs_tumour": 0.3577921622676825,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.748452716377846
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "KCNA3",
+      "abundance_fold_state_vs_tumour": 0.10769771302118385,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.650492872756072
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "TMEM150C",
+      "abundance_fold_state_vs_tumour": 0.5022136466697797,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.805021369021991
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "STOML3",
+      "abundance_fold_state_vs_tumour": 0.7572002725316882,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.0,
+      "bulk_elevation": 0.9048974361251716
+    },
+    {
+      "dataset": "NSCLC",
+      "channel": "PIEZO2",
+      "abundance_fold_state_vs_tumour": 1.008711203037429,
+      "state_fraction": 0.3916913946587537,
+      "state_fraction_source": "per-library median at the residual-disease timepoint",
+      "simulator_electrical_fold_change": 0.008711203037429005,
+      "bulk_elevation": 1.0034121032668861
+    }
+  ]
+}

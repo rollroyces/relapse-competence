@@ -16,7 +16,10 @@ treatment recommendation, not a regulatory strategy.
 > serial plasma DNA, (b) mechanistically distinct from bulk tumour burden, and
 > (c) pharmacologically reversible — and show that removing it reduces relapse.
 
-**Falsification.** The programme is dead if any of these is true:
+**Falsification.** The programme is dead if any of these is true. The verdicts
+against the evidence gathered so far are in
+[`GATE-REVIEW.md`](GATE-REVIEW.md): **K4 has fired** for systemic delivery,
+the state candidates survive K1 and K3, and K2 and K5 remain untested.
 
 | # | Killing condition | How it is detected |
 |---|---|---|

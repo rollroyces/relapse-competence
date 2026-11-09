@@ -1,0 +1,22 @@
+condition	status	scope	fired_for	detail
+K1	fired	per dataset and channel	SCLC / CACNA1E, SCLC / KCNA3, SCLC / TMEM150C, SCLC / STOML3, SCLC / PIEZO2, NSCLC / PIEZO1, NSCLC / CACNA1E, NSCLC / KCNA3, NSCLC / TMEM150C, NSCLC / STOML3, NSCLC / PIEZO2	D2: burden-normalised enrichment AUC <= 0.6
+K3	fired	per dataset and channel, over the depth x panel-size grid	SCLC / CACNA1E, SCLC / KCNA3, SCLC / TMEM150C, SCLC / STOML3, SCLC / PIEZO2, NSCLC / PIEZO1, NSCLC / CACNA1E, NSCLC / KCNA3, NSCLC / TMEM150C, NSCLC / STOML3, NSCLC / PIEZO2	D3: enrichment AUC <= 0.65 at 200,000x / 200 loci
+K2	not_evaluable	the condition as written names a methylation delta	-	D2: no state-associated methylation delta between primary and relapsed tissue
+K4	fired	systemic drug delivery	-	D0 gate: GTEx specificity verdict fails
+K5	not_evaluable	requires perturbation and a viability readout	-	D5: no differential killing of the state-bearing clone
+
+dataset	channel	auc_at_200k_200	auc_best_in_grid	k1_fired	k3_fired
+SCLC	KCNN4	0.7065	0.8611	no	no
+SCLC	PIEZO1	0.6945	0.7385	no	no
+SCLC	CACNA1E	0.5727	0.7071	yes	yes
+SCLC	KCNA3	0.4658	0.8885	yes	yes
+SCLC	TMEM150C	0.4658	0.8885	yes	yes
+SCLC	STOML3	0.4658	0.8885	yes	yes
+SCLC	PIEZO2	0.4658	0.8885	yes	yes
+NSCLC	KCNN4	0.9929	0.9929	no	no
+NSCLC	PIEZO1	0.4658	0.8885	yes	yes
+NSCLC	CACNA1E	0.4658	0.8885	yes	yes
+NSCLC	KCNA3	0.4658	0.8885	yes	yes
+NSCLC	TMEM150C	0.4658	0.8885	yes	yes
+NSCLC	STOML3	0.4658	0.8885	yes	yes
+NSCLC	PIEZO2	0.4930	0.8770	yes	yes

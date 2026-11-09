@@ -1579,6 +1579,70 @@ def main(argv: list[str] | None = None) -> int:
                 "not a mechanism" in readme,
             )
 
+    # --- the gate review must agree with its artefact ---
+    gate_artefact_path = Path("results/gate_review/gate_review.json")
+    gate_doc_path = Path("docs/GATE-REVIEW.md")
+    chk("the gate review artefact exists", gate_artefact_path.exists())
+    chk("the gate review report exists", gate_doc_path.exists())
+    if gate_artefact_path.exists() and gate_doc_path.exists():
+        gate = json.loads(gate_artefact_path.read_text())
+        gate_doc = gate_doc_path.read_text()
+        conditions = {c["id"]: c for c in gate["conditions"]}
+        chk(
+            "the gate review covers all five killing conditions",
+            set(conditions) == {"K1", "K2", "K3", "K4", "K5"},
+            str(sorted(conditions)),
+        )
+        for condition_id in ("K1", "K2", "K3", "K4", "K5"):
+            chk(
+                f"the gate review report states the {condition_id} verdict",
+                condition_id in gate_doc,
+            )
+        # A condition that cannot be evaluated must be recorded as such, never
+        # silently passed.
+        for condition_id in ("K2", "K5"):
+            chk(
+                f"the {condition_id} condition is recorded as not evaluable",
+                conditions.get(condition_id, {}).get("status") == "not_evaluable",
+                str(conditions.get(condition_id, {}).get("status")),
+            )
+            chk(
+                f"the gate review report does not pass {condition_id} silently",
+                "not evaluable" in gate_doc.lower(),
+            )
+        chk(
+            "the K4 condition fired for the systemic-drug reading",
+            conditions.get("K4", {}).get("status") == "fired",
+            str(conditions.get("K4", {}).get("status")),
+        )
+        # The per-configuration numbers in the report must match the artefact.
+        for verdict in gate["k1_k3_detail"]:
+            label = f"{verdict['dataset']} / {verdict['channel']}"
+            auc = f"{verdict['auc_at_operating_point']:.4f}"
+            chk(
+                f"the gate review report quotes the {label} enrichment AUC",
+                auc in gate_doc,
+                f"{label} {auc}",
+            )
+        for condition in gate["conditions"]:
+            for fired in condition.get("fired_for") or []:
+                dataset, _, channel = fired.partition(" / ")
+                chk(
+                    f"the gate review report names {fired} as firing for {condition['id']}",
+                    dataset in gate_doc and channel in gate_doc,
+                    fired,
+                )
+        chk(
+            "the gate review states that K1 and K3 rest on a model-based "
+            "projection rather than a plasma measurement",
+            "not a plasma measurement" in gate_doc
+            or "model-based projection" in gate_doc,
+        )
+        chk(
+            "the gate review says what would change each verdict",
+            "would change" in gate_doc.lower(),
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())
