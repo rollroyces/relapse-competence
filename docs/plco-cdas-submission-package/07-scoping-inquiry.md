@@ -22,7 +22,7 @@ topic, and each is short.
 
 | Form field | What to do |
 |---|---|
-| **Your Email Address** | `[TO FILL: your institutional e-mail address]` — required, and CDAS forwards the message to it, so it has to be one you read |
+| **Your Email Address** | `roycelam@umich.edu` — required, and CDAS forwards the message to it, so it has to be one you read |
 | **Select a Subject** | **PLCO** — required, and it is the only subject that routes the message to the PLCO team |
 | **Select a Topic** | Message A: **Data Access/Availability**. Message B: **Biospecimen Availability** |
 | **Message** | the block for that message, copied in full |
@@ -58,8 +58,8 @@ A count of participants rather than a file listing would be enough for me to siz
 
 Thank you for your help.
 
-[TO FILL: name] — [TO FILL: department and institution]
-[TO FILL: institutional e-mail address]
+Royce Lam
+roycelam@umich.edu
 <!-- END MESSAGE A -->
 
 ## 3. Message B — biospecimen availability
@@ -81,8 +81,8 @@ A count of participants rather than a file listing would be enough.
 
 Thank you for your help.
 
-[TO FILL: name] — [TO FILL: department and institution]
-[TO FILL: institutional e-mail address]
+Royce Lam
+roycelam@umich.edu
 <!-- END MESSAGE B -->
 
 ## 4. Before you send
@@ -91,8 +91,12 @@ Thank you for your help.
   will not render, and asterisks around a word look like noise.
 - **The limit is 10,000 characters** per message. Both messages here are
   well inside it.
-- **Replace every `[TO FILL: ...]`** before sending. There are three per
-  message: the name, the department and institution, and the address.
+- **The fields are filled.** The name, the e-mail address and the form's own
+  e-mail field carry `Royce Lam` and `roycelam@umich.edu`. The department
+  and institution were left out of the sign-off; the institutional domain
+  identifies the institution, and adding the department would give CDAS one
+  more route to the right person. If you want it, it is one line:
+  `Royce Lam — [department], University of Michigan`.
 - **Do not paste the proposal.** This is a scope question and commits to
   nothing; it needs no CDAS account, no signature and no Signing Official.
   The proposal is a separate document and goes through the route in

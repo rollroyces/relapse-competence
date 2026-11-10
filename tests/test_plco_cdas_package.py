@@ -121,8 +121,11 @@ def test_the_scoping_inquiry_is_paste_ready() -> None:
         assert begin in inquiry and end in inquiry, tag
         body = inquiry.split(begin)[1].split(end)[0].strip()
         assert len(body) <= 10_000, tag
-        assert "[TO FILL:" in body, tag
+        assert "[TO FILL:" not in body, tag
         assert "**" not in body, tag
+        sign_lines = [line for line in body.splitlines() if line.strip()]
+        assert "@" in sign_lines[-1], tag
+        assert "@" not in sign_lines[-2], tag
     for field in (
         "Your Email Address",
         "Select a Subject",
@@ -137,6 +140,7 @@ def test_the_scoping_inquiry_is_paste_ready() -> None:
     assert "leave it empty" in inquiry.lower()
     assert "antispam1" in inquiry
     assert "govdelivery" in inquiry
+    assert "[TO FILL:" not in inquiry
 
 
 def test_the_signature_blocks_have_a_line_to_sign_on() -> None:

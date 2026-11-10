@@ -277,8 +277,15 @@ def main() -> int:
             len(body) <= 10_000,
         )
         check(
-            f"message {tag} leaves the fields for the PI to fill",
-            "[TO FILL:" in body,
+            f"message {tag} has no field left unfilled",
+            "[TO FILL:" not in body,
+        )
+        sign_lines = [line for line in body.splitlines() if line.strip()]
+        check(
+            f"message {tag} is signed with a name and an e-mail address",
+            len(sign_lines) >= 2
+            and "@" in sign_lines[-1]
+            and "@" not in sign_lines[-2],
         )
         check(f"message {tag} does not carry markdown emphasis", "**" not in body)
     for field in ("Your Email Address", "Select a Subject", "Select a Topic", "Message"):
@@ -286,6 +293,10 @@ def main() -> int:
             f"the scoping inquiry maps the form field {field!r}",
             field in inquiry,
         )
+    check(
+        "the scoping inquiry has no field left unfilled",
+        "[TO FILL:" not in inquiry,
+    )
     check(
         "the scoping inquiry names the PLCO subject",
         "**PLCO**" in inquiry,
