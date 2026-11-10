@@ -83,6 +83,11 @@ class Measurement:
 
     # --- bulk electrical channel ---
     electrical_reads: int = 0
+    electrical_leukocyte_reads: int = 0
+    """Reads at the electrical locus attributable to the leukocyte compartment.
+
+    Zero when the model has no leukocyte compartment, which is the default.
+    """
     """Reads across the ion-channel loci. Zero when the channel is disabled."""
 
     electrical_total_reads: int = 0
@@ -506,6 +511,7 @@ class LongitudinalSimulator:
         # --- bulk electrical channel ---
         electrical_reads = 0
         electrical_total_reads = 0
+        electrical_leukocyte_reads = 0
         if cfg.n_electrical_loci > 0:
             # Bulk feature: present in all tumour cells, so its per-locus signal
             # is not reduced by clonality. The state boosts it in the
@@ -517,6 +523,21 @@ class LongitudinalSimulator:
                 * (1.0 + cfg.electrical_fold_change * state_fraction),
                 1.0,
             )
+            # The leukocyte compartment of the plasma cfDNA pool. It carries
+            # the channel too when the immune cells express it, and in bulk
+            # plasma it is most of the pool. The two contributions are drawn
+            # separately, so that a tumour-fraction-corrected readout can be
+            # computed from them; with no leukocyte compartment the extra draw
+            # is not made at all, and the model is unchanged bit for bit.
+            leukocyte_channel_vaf = 0.0
+            if cfg.leukocyte_channel_fraction > 0.0:
+                tumour_share = min(
+                    cfg.tumor_vaf_per_mm3 * shed_volume * shedding, 1.0
+                )
+                leukocyte_channel_vaf = cfg.leukocyte_channel_fraction * max(
+                    0.0, 1.0 - tumour_share
+                )
+                electrical_vaf = min(electrical_vaf + leukocyte_channel_vaf, 1.0)
             electrical_total_vaf = electrical_vaf + background
             electrical_total_reads = cfg.sequencing_depth * cfg.n_electrical_loci
             if cfg.per_locus_background_log_sd > 0.0:
@@ -531,12 +552,29 @@ class LongitudinalSimulator:
                         cfg.sequencing_depth * (electrical_vaf + background * multiplier)
                     ).sum()
                 )
+                if leukocyte_channel_vaf > 0.0:
+                    electrical_leukocyte_reads = int(
+                        locus_rng.poisson(
+                            cfg.sequencing_depth
+                            * cfg.n_electrical_loci
+                            * leukocyte_channel_vaf
+                            * multiplier
+                        ).sum()
+                    )
             else:
                 electrical_reads = int(
                     rng.poisson(
                         cfg.sequencing_depth * cfg.n_electrical_loci * electrical_total_vaf
                     )
                 )
+                if leukocyte_channel_vaf > 0.0:
+                    electrical_leukocyte_reads = int(
+                        rng.poisson(
+                            cfg.sequencing_depth
+                            * cfg.n_electrical_loci
+                            * leukocyte_channel_vaf
+                        )
+                    )
 
         day = draw_index * cfg.sampling_interval_days
         is_relapse = volume >= cfg.relapse_volume_threshold_mm3
@@ -554,6 +592,7 @@ class LongitudinalSimulator:
             has_chip=has_chip,
             background_vaf=background,
             electrical_reads=electrical_reads,
+            electrical_leukocyte_reads=electrical_leukocyte_reads,
             electrical_total_reads=electrical_total_reads,
             state_fraction=state_fraction,
         )

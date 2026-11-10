@@ -64,6 +64,9 @@ echo "==> revision history"
 echo "==> application tracker"
 "$PY" scripts/application_tracker.py --check
 
+echo "==> leukocyte audit control"
+"$PY" scripts/leukocyte_audit.py --patients 800 --control-only
+
 echo "==> PLCO CDAS submission package"
 "$PY" scripts/check_plco_cdas_package.py
 "$PY" scripts/build_plco_cdas_pdf.py --check

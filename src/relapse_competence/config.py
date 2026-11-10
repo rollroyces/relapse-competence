@@ -168,6 +168,21 @@ class SimulationConfig:
     electrical_fold_change: float = 3.0
     """Fold-upregulation of the ion-channel marker in state-bearing cells."""
 
+    leukocyte_channel_fraction: float = 0.0
+    """The leukocyte compartment's share of the electrical channel's signal.
+
+    The plasma cfDNA pool is not all tumour-derived: most of it is leukocyte
+    cfDNA, and if the immune cells express the channel -- KCa3.1 is
+    expressed in immune cells -- that compartment carries signal too. The
+    bulk electrical channel then measures the mixture of the two compartments
+    rather than the tumour's contribution alone, and the tumour's state is a
+    small perturbation on a large background.
+
+    This is that background, as a fraction of the electrical locus's signal,
+    between 0 and 1. Zero is no leukocyte compartment, and reproduces the
+    model without one bit for bit.
+    """
+
     state_fraction_resistant: float = 0.25
     """Mean fraction of the resistant clone that is relapse-competent."""
 

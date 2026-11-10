@@ -2582,6 +2582,231 @@ def main(argv: list[str] | None = None) -> int:
                 "plco-cdas-submission-package" in roadmap_path.read_text(),
             )
 
+    # --- the leukocyte audit must agree with its artefacts ---
+    leuk_artefact = Path("results/leukocyte_audit/leukocyte_audit.json")
+    leuk_doc = Path("docs/LEUKOCYTE-AUDIT.md")
+    chk("the leukocyte audit artefact exists", leuk_artefact.exists())
+    chk("the leukocyte audit report exists", leuk_doc.exists())
+    if leuk_artefact.exists() and leuk_doc.exists():
+        leuk = json.loads(leuk_artefact.read_text())
+        leuk_text = leuk_doc.read_text()
+
+        # The control: the audit's own code path has to reproduce the
+        # published AUCs, or the sweep is not comparable with them.
+        for entry in leuk["control"]:
+            chk(
+                f"the leukocyte audit's control reproduces the published "
+                f"{entry['dataset']}/{entry['channel']} AUC",
+                entry["matches"] is True,
+                str(entry),
+            )
+
+        # The operating-point table.
+        operating = parse_markdown_table(leuk_text, "## 5. At the published")
+        chk(
+            "the leukocyte audit report has the operating-point table",
+            len(operating) > 1,
+            f"{len(operating)} rows",
+        )
+        if len(operating) > 1:
+            header = [c.replace("*", "").strip() for c in operating[0]]
+            expected_header = [
+                "Configuration",
+                "Leukocyte background",
+                "Measured tumour share",
+                "MRD-positive",
+                "Raw AUC",
+                "Attributable AUC",
+            ]
+            chk(
+                "the leukocyte audit operating-point table has the expected "
+                "columns",
+                header == expected_header,
+                str(header),
+            )
+            if header == expected_header:
+                by_key = {
+                    (f"{r['dataset']} / {r['channel']}", r["leukocyte_fraction"]): r
+                    for r in leuk["sweep"]
+                    if r["tumour_share_multiplier"] == 1
+                }
+                seen = set()
+                for row in operating[1:]:
+                    cells = [c.replace("*", "").strip() for c in row]
+                    if len(cells) != len(expected_header):
+                        continue
+                    label = cells[0]
+                    fraction = float(cells[1])
+                    seen.add((label, fraction))
+                    record = by_key.get((label, fraction))
+                    if record is None:
+                        chk(
+                            f"the leukocyte audit table's {label} is in the artefact",
+                            False,
+                            label,
+                        )
+                        continue
+                    chk(
+                        f"the leukocyte audit table's {label} leukocyte background "
+                        "matches the artefact",
+                        abs(float(cells[1]) - record["leukocyte_fraction"]) < 1e-9,
+                        cells[1],
+                    )
+                    chk(
+                        f"the leukocyte audit table's {label} raw AUC matches the "
+                        "artefact",
+                        abs(float(cells[4]) - record["auc_raw"]) < 5e-5,
+                        cells[4],
+                    )
+                    chk(
+                        f"the leukocyte audit table's {label} attributable AUC "
+                        "matches the artefact",
+                        abs(float(cells[5]) - record["auc_attributable"]) < 5e-5,
+                        cells[5],
+                    )
+                chk(
+                    "the leukocyte audit operating-point table covers every "
+                    "configuration",
+                    seen == set(by_key),
+                    str(sorted(str(k) for k in seen)),
+                )
+
+        # The sweep table, cell by cell.
+        sweep = parse_markdown_table(leuk_text, "## 4. The sweep")
+        chk(
+            "the leukocyte audit report has the sweep table",
+            len(sweep) > 1,
+            f"{len(sweep)} rows",
+        )
+        if len(sweep) > 1:
+            records = [
+                r
+                for r in leuk["sweep"]
+                if r["dataset"] == "NSCLC" and r["channel"] == "KCNN4"
+            ]
+            chk(
+                "the leukocyte audit sweep table has a row for every NSCLC "
+                "configuration",
+                len(sweep) - 1 == len(records),
+                f"{len(sweep) - 1} rows for {len(records)} records",
+            )
+            for row, record in zip(sweep[1:], records, strict=False):
+                cells = [c.replace("*", "").strip() for c in row]
+                if len(cells) < 6:
+                    continue
+                chk(
+                    f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
+                    f"leuk={record['leukocyte_fraction']:.2f} has the right "
+                    "leukocyte background",
+                    abs(float(cells[1]) - record["leukocyte_fraction"]) < 1e-9,
+                    cells[1],
+                )
+                chk(
+                    f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
+                    f"leuk={record['leukocyte_fraction']:.2f} has the right raw AUC",
+                    abs(float(cells[4]) - record["auc_raw"]) < 5e-5,
+                    cells[4],
+                )
+                chk(
+                    f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
+                    f"leuk={record['leukocyte_fraction']:.2f} has the right "
+                    "attributable AUC",
+                    abs(float(cells[5]) - record["auc_attributable"]) < 5e-5,
+                    cells[5],
+                )
+
+        # The tissue table, against the state-expression artefacts.
+        tissue = parse_markdown_table(leuk_text, "## 2. The measurement")
+        chk(
+            "the leukocyte audit report has the tissue table",
+            len(tissue) > 1,
+            f"{len(tissue)} rows",
+        )
+        if len(tissue) > 1:
+            for row in tissue[1:]:
+                cells = [c.replace("*", "").strip() for c in row]
+                if len(cells) < 6:
+                    continue
+                dataset, _, gene = cells[0].partition(" / ")
+                path = Path(
+                    "results/gse299684/state_expression.json"
+                    if dataset == "SCLC"
+                    else "results/gse353299/state_expression.json"
+                )
+                if not path.exists():
+                    continue
+                artefact = json.loads(path.read_text())
+                primary = artefact["audit"]["primary_definition"]
+                sweep_entry = next(
+                    s
+                    for s in artefact["state_definition_sweep"]
+                    if s["definition"] == primary
+                )
+                channel = next(
+                    c for c in sweep_entry["channels"] if c["gene"] == gene
+                )
+                chk(
+                    f"the leukocyte audit tissue row for {dataset}/{gene} has the "
+                    "right state-cell level",
+                    abs(float(cells[1]) - channel["linear_mean_yap1_positive"])
+                    < 5e-5,
+                    cells[1],
+                )
+                chk(
+                    f"the leukocyte audit tissue row for {dataset}/{gene} has the "
+                    "right immune level",
+                    abs(float(cells[3]) - channel["linear_mean_immune"]) < 5e-5,
+                    cells[3],
+                )
+                chk(
+                    f"the leukocyte audit tissue row for {dataset}/{gene} has the "
+                    "right state-to-immune ratio",
+                    abs(
+                        float(cells[5])
+                        - channel["linear_mean_yap1_positive"]
+                        / channel["linear_mean_immune"]
+                    )
+                    < 5e-3,
+                    cells[5],
+                )
+
+        # The claims the document makes, which the artefact has to support.
+        for claim in (
+            "byte-identical",
+            "does not survive",
+            "inverts",
+            "tumour-purified",
+            "one part in a thousand",
+        ):
+            chk(
+                f"the leukocyte audit report states that the readout {claim!r}",
+                claim in leuk_text,
+            )
+        operating_rows = [
+            r
+            for r in leuk["sweep"]
+            if r["dataset"] == "NSCLC"
+            and r["channel"] == "KCNN4"
+            and r["tumour_share_multiplier"] == 1
+        ]
+        by_fraction = {r["leukocyte_fraction"]: r for r in operating_rows}
+        chk(
+            "the leukocyte audit report quotes the published NSCLC AUC",
+            f"{by_fraction[0.0]['auc_raw']:.4f}" in leuk_text,
+        )
+        chk(
+            "the leukocyte audit report quotes the inverted NSCLC AUC",
+            f"{by_fraction[0.5]['auc_raw']:.4f}" in leuk_text,
+        )
+        chk(
+            "the leukocyte audit report quotes the attributable NSCLC AUC",
+            f"{by_fraction[0.5]['auc_attributable']:.4f}" in leuk_text,
+        )
+        chk(
+            "the leukocyte audit report links the per-patient audit",
+            "PER-PATIENT-AUDIT.md" in leuk_text,
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

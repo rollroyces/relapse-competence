@@ -166,6 +166,29 @@ The gate review's published numbers stand as the pooled projection they are;
 the per-patient audit narrows how they may be read, and the two documents say
 so in terms.
 
+### The leukocyte audit — done: the bulk-plasma readout does not survive
+
+Executed 2026-11-10. See [`LEUKOCYTE-AUDIT.md`](LEUKOCYTE-AUDIT.md). The
+plasma model had no leukocyte compartment: the cfDNA pool was all
+tumour-derived, so the electrical channel's signal was the tumour's alone. In
+bulk plasma most cfDNA is leukocyte cfDNA, and KCa3.1 is expressed in immune
+cells.
+
+The compartment was added default-off — with it off the golden fixture is
+byte-identical — and the audit sweeps it against the tumour's cfDNA share.
+The published statistic does not degrade under a leukocyte background, it
+**inverts**: 0.9929 becomes 0.0053 for the surviving NSCLC readout, because
+the leukocyte term divided by the tumour's cfDNA share is inversely related to
+tumour burden. Subtracting the leukocyte reads first — which is what a readout
+that localises the channel transcript to the tumour would measure — leaves
+0.5111, which is chance.
+
+The consequence is a design requirement rather than a refutation: the assay has
+to localise the channel transcript to the tumour, by co-occurrence with a
+tumour-specific variant on the same molecule, or read it after a leukocyte
+correction. Neither is in the proposal yet, and the proposal is what the
+data-access applications are for.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until

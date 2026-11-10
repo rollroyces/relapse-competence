@@ -48,6 +48,9 @@ jobs:
       - name: Application tracker
         run: python scripts/application_tracker.py --check
 
+      - name: Leukocyte audit control
+        run: python scripts/leukocyte_audit.py --patients 800 --control-only
+
       - name: PLCO CDAS submission package
         run: |
           python scripts/check_plco_cdas_package.py

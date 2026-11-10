@@ -215,6 +215,45 @@ class ElectricalChannelDetector:
             return 0.0
         return electrical_vaf / mutation_vaf
 
+    @staticmethod
+    def state_enrichment_attributable(
+        measurements: tuple[Measurement, ...] | list[Measurement],
+    ) -> float:
+        """The enrichment with the leukocyte compartment removed.
+
+        The raw enrichment divides the electrical channel's per-locus signal by
+        the mutation channel's. The mutation channel is tumour-specific, but
+        when the plasma cfDNA pool carries a leukocyte compartment the
+        electrical channel's signal is the mixture of both compartments, so
+        the raw ratio carries the leukocyte contribution divided by the
+        tumour's own cfDNA share -- and that term is inversely related to
+        tumour burden.
+
+        Subtracting the leukocyte reads before the division leaves what the
+        tumour contributed, which is what a readout that localises the channel
+        transcript to the tumour would measure. With no leukocyte compartment
+        this is identical to ``state_enrichment``.
+        """
+        mutation_reads = 0
+        mutation_total = 0
+        electrical_reads = 0
+        electrical_total = 0
+        leukocyte_reads = 0
+        for m in measurements[1:]:
+            mutation_reads += m.mutant_reads
+            mutation_total += m.total_reads
+            electrical_reads += m.electrical_reads
+            electrical_total += m.electrical_total_reads
+            leukocyte_reads += m.electrical_leukocyte_reads
+        if mutation_total <= 0 or electrical_total <= 0:
+            return 0.0
+        mutation_vaf = mutation_reads / mutation_total
+        attributable = max(0, electrical_reads - leukocyte_reads)
+        electrical_vaf = attributable / electrical_total
+        if mutation_vaf <= 0.0:
+            return 0.0
+        return electrical_vaf / mutation_vaf
+
 
 def _weighted_slope(history: list[float], learning_rate: float) -> float:
     """Exponentially weighted slope of a series."""

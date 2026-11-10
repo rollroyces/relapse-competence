@@ -34,7 +34,7 @@ from .detectors import (
     MrdThresholdDetector,
     SequentialRiseDetector,
 )
-from .simulator import LongitudinalSimulator, PatientTrajectory
+from .simulator import LongitudinalSimulator, Measurement, PatientTrajectory
 
 __all__ = [
     "MrdBenchmarkResult",
@@ -489,6 +489,20 @@ class PatientOutcome:
     split: str
     """``calibration`` or ``evaluation``."""
 
+    electrical_enrichment_attributable: float = 0.0
+    """The same ratio with the leukocyte compartment removed.
+
+    Equal to ``electrical_enrichment`` when the model has no leukocyte
+    compartment, which is the default.
+    """
+
+    mutation_vaf: float = 0.0
+    """The mutation channel's pooled per-locus VAF.
+
+    This is the tumour's share of the cfDNA pool, with the sequencing-error
+    floor in it, so it is what the electrical channel has to be read against.
+    """
+
 
 def _auc(scores: list[float], labels: list[bool]) -> float:
     """Tie-corrected Mann-Whitney AUC. Pure numpy, no sklearn dependency."""
@@ -510,6 +524,18 @@ def _auc(scores: list[float], labels: list[bool]) -> float:
     rank_sum = sum(r for r, lab in zip(ranks, labels, strict=False) if lab)
     u = rank_sum - positives * (positives + 1) / 2.0
     return u / (positives * negatives)
+
+
+def _pooled_mutation_vaf(
+    measurements: tuple[Measurement, ...] | list[Measurement],
+) -> float:
+    """The mutation channel's pooled per-locus VAF over the post-baseline draws."""
+    mutant_reads = 0
+    total_reads = 0
+    for m in measurements[1:]:
+        mutant_reads += m.mutant_reads
+        total_reads += m.total_reads
+    return (mutant_reads / total_reads) if total_reads else 0.0
 
 
 def collect_outcomes(
@@ -578,6 +604,12 @@ def collect_outcomes(
                     electrical_enrichment=ElectricalChannelDetector.state_enrichment(
                         patient.measurements
                     ),
+                    electrical_enrichment_attributable=(
+                        ElectricalChannelDetector.state_enrichment_attributable(
+                            patient.measurements
+                        )
+                    ),
+                    mutation_vaf=_pooled_mutation_vaf(patient.measurements),
                     state_fraction=patient.state_fraction,
                     split="calibration" if index % 2 == 0 else "evaluation",
                 )
