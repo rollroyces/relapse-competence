@@ -22,9 +22,18 @@ echo "==> packaging"
 # package metadata. A deprecated licence classifier, or a dependency the
 # tests need but the dev extra does not declare, fails there and nowhere
 # else -- so the wheel is built here too.
+#
+# The build backend is used without isolation when it is already installed,
+# so the check works offline; a fresh virtualenv on Python 3.12 or later has
+# no setuptools, so the isolated build is used there instead. Both paths
+# validate the same metadata, which is the point of the check.
 WHEEL_DIR="$(mktemp -d)"
 trap 'rm -rf "$WHEEL_DIR"' EXIT
-"$PY" -m pip wheel --no-deps --no-build-isolation -w "$WHEEL_DIR" . >/dev/null
+if "$PY" -c "import setuptools" >/dev/null 2>&1; then
+    "$PY" -m pip wheel --no-deps --no-build-isolation -w "$WHEEL_DIR" . >/dev/null
+else
+    "$PY" -m pip wheel --no-deps -w "$WHEEL_DIR" . >/dev/null
+fi
 "$PY" - <<'PY'
 import re
 import tomllib
