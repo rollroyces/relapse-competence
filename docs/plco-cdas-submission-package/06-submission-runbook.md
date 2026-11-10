@@ -123,6 +123,20 @@ path: the sample count determines whether the EEMS application (4–6 months)
 and the assay budget are worth pursuing. The draft is in
 [`07-scoping-inquiry.md`](07-scoping-inquiry.md).
 
+It is **two** messages, not one. The contact form has a single Topic and
+CDAS forward a message to the party best able to answer it, so the data
+questions and the biospecimen questions go separately: message A with the
+topic *Data Access/Availability*, message B with *Biospecimen Availability*.
+
+Two details in the form are worth knowing before sending. The page also
+carries a newsletter form in the footer that posts the e-mail address to
+`public.govdelivery.com`; it is not the contact form. And the contact form
+carries two boxes with no visible label, which are anti-spam traps -- one of
+them sits in a container whose class is `antispam1`, and both are skipped
+when tabbing through the form, so a person never reaches them. Filling one
+in makes the submission look automated, so leave both empty and put the
+sender's details in the message.
+
 ## 7. What gets a proposal delayed
 
 - **A PI whose position title does not show a permanent, professor-level or

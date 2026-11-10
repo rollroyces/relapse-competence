@@ -256,12 +256,52 @@ def main() -> int:
         runbook.count("[GATE]") >= 3,
     )
     check(
-        "the scoping inquiry asks the sample-count question first",
+        "the scoping inquiry asks the sample-count question",
         "how many" in inquiry.lower() and "lung cancer" in inquiry.lower(),
     )
     check(
-        "the scoping inquiry does not pretend to be the proposal",
-        "not the proposal" in inquiry.lower(),
+        "the scoping inquiry is not the proposal",
+        "scope question" in inquiry.lower()
+        and "separate document" in inquiry.lower(),
+    )
+    # The two paste-ready messages, and the form they go into.
+    for tag in ("A", "B"):
+        begin = f"<!-- BEGIN MESSAGE {tag} -->"
+        end = f"<!-- END MESSAGE {tag} -->"
+        if begin not in inquiry or end not in inquiry:
+            check(False, f"the scoping inquiry does not delimit message {tag}")
+            continue
+        body = inquiry.split(begin)[1].split(end)[0].strip()
+        check(
+            f"message {tag} fits the contact form's 10,000-character limit",
+            len(body) <= 10_000,
+        )
+        check(
+            f"message {tag} leaves the fields for the PI to fill",
+            "[TO FILL:" in body,
+        )
+        check(f"message {tag} does not carry markdown emphasis", "**" not in body)
+    for field in ("Your Email Address", "Select a Subject", "Select a Topic", "Message"):
+        check(
+            f"the scoping inquiry maps the form field {field!r}",
+            field in inquiry,
+        )
+    check(
+        "the scoping inquiry names the PLCO subject",
+        "**PLCO**" in inquiry,
+    )
+    for topic in ("Data Access/Availability", "Biospecimen Availability"):
+        check(
+            f"the scoping inquiry names the topic {topic!r}",
+            topic in inquiry,
+        )
+    check(
+        "the scoping inquiry warns about the anti-spam boxes",
+        "leave it empty" in inquiry.lower() and "antispam1" in inquiry,
+    )
+    check(
+        "the scoping inquiry warns against the newsletter form",
+        "govdelivery" in inquiry,
     )
 
     # --- the constraints are stated, so an edit cannot quietly drop them ---

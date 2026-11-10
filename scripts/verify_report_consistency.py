@@ -2555,6 +2555,10 @@ def main(argv: list[str] | None = None) -> int:
             "12 months",
             "DocuSign",
             "separate project proposal",
+            "10,000 characters",
+            "leave it empty",
+            "Data Access/Availability",
+            "Biospecimen Availability",
         ):
             chk(
                 f"the submission package states {phrase!r}",

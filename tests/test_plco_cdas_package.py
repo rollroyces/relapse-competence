@@ -109,7 +109,34 @@ def test_the_scoping_inquiry_goes_first() -> None:
     inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
     assert "how many" in inquiry.lower()
     assert "lung cancer" in inquiry.lower()
-    assert "not the proposal" in inquiry.lower()
+    assert "scope question" in inquiry.lower()
+
+
+def test_the_scoping_inquiry_is_paste_ready() -> None:
+    """Two messages, each inside the form's limit, with the fields marked."""
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    for tag in ("A", "B"):
+        begin = f"<!-- BEGIN MESSAGE {tag} -->"
+        end = f"<!-- END MESSAGE {tag} -->"
+        assert begin in inquiry and end in inquiry, tag
+        body = inquiry.split(begin)[1].split(end)[0].strip()
+        assert len(body) <= 10_000, tag
+        assert "[TO FILL:" in body, tag
+        assert "**" not in body, tag
+    for field in (
+        "Your Email Address",
+        "Select a Subject",
+        "Select a Topic",
+        "Message",
+    ):
+        assert field in inquiry, field
+    assert "**PLCO**" in inquiry
+    assert "Data Access/Availability" in inquiry
+    assert "Biospecimen Availability" in inquiry
+    # The anti-spam boxes and the footer newsletter form are both traps.
+    assert "leave it empty" in inquiry.lower()
+    assert "antispam1" in inquiry
+    assert "govdelivery" in inquiry
 
 
 def test_the_signature_blocks_have_a_line_to_sign_on() -> None:

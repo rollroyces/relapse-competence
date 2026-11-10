@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-10T04:13:47.210137+00:00",
-    "git_commit": "e0c48f2836d79ab5b17025e368fb28c59d54e3c2",
+    "generated_at": "2026-11-10T04:20:10.535489+00:00",
+    "git_commit": "94289ce96c7342513734fefbaf839ef96f4214af",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -342,6 +342,30 @@
       "Fact": "PanSeer specificity",
       "Value": "96% (95% CI 93\u201398)",
       "Source": "Chen X et al. 2020",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS contact form: message length limit",
+      "Value": "10,000 characters",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS contact form: subject for PLCO",
+      "Value": "PLCO",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS contact form: topics",
+      "Value": "Data Access/Availability, Biospecimen Availability",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS contact form: unlabelled anti-spam fields",
+      "Value": "2",
+      "Source": "CDAS contact form",
       "Verified on": "2026-11-10"
     },
     {

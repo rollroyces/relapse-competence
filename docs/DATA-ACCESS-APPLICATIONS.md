@@ -198,6 +198,10 @@ published practice is to answer an initial request within two weeks.
 | TZL participants providing plasma for long-term storage | 123,115 | Chen X et al. 2020 | 2026-11-10 |
 | PanSeer sensitivity in asymptomatic participants diagnosed within 4 years | 95% (95% CI 89–98) | Chen X et al. 2020 | 2026-11-10 |
 | PanSeer specificity | 96% (95% CI 93–98) | Chen X et al. 2020 | 2026-11-10 |
+| CDAS contact form: message length limit | 10,000 characters | CDAS contact form | 2026-11-10 |
+| CDAS contact form: subject for PLCO | PLCO | CDAS contact form | 2026-11-10 |
+| CDAS contact form: topics | Data Access/Availability, Biospecimen Availability | CDAS contact form | 2026-11-10 |
+| CDAS contact form: unlabelled anti-spam fields | 2 | CDAS contact form | 2026-11-10 |
 | KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries | 20 of 23 | this repository's per-library folds | 2026-11-09 |
 | Residual-disease libraries clearing the programme's K3 threshold | 7 of 7 | this repository's per-patient audit | 2026-11-09 |
 
