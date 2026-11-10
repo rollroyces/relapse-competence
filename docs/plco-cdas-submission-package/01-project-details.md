@@ -58,53 +58,18 @@ field. The text between the markers below is what to paste there, and
 be discovered by rejection.
 
 <!-- BEGIN PROJECT DESCRIPTION -->
-The relapse-competent state is a drug-tolerant subpopulation of tumour cells
-associated with relapse. Its definition is transcriptional rather than
-electrical: the paper that defines the population never mentions an ion
-channel, and in EGFR-mutant lung adenocarcinoma the state-bearing cells are a
-minority of the tumour, a median 39% of malignant cells at the residual-disease
-timepoint.
+The relapse-competent state is a drug-tolerant subpopulation of tumour cells associated with relapse. Its definition is transcriptional rather than electrical: the paper that defines the population never mentions an ion channel, and in EGFR-mutant lung adenocarcinoma the state-bearing cells are a minority of the tumour, a median 39% of malignant cells at the residual-disease timepoint.
 
-We have measured, in three public single-cell deposits, that the state is
-nevertheless electrically marked, and that the marking is disease-specific. In
-relapsed small-cell lung cancer the state over-expresses Piezo1. In
-EGFR-mutant lung adenocarcinoma it over-expresses the potassium channel KCa3.1
-at a 2.97x detection ratio. A per-tumour audit shows the KCa3.1 marking is
-carried within an individual patient's tumour in 20 of 23 libraries and in
-every residual-disease library measured, while the same within-tumour contrast
-does not hold in relapsed small-cell lung cancer, where most tumours carry too
-little state to read at all.
+We have measured, in three public single-cell deposits, that the state is nevertheless electrically marked, and the marking is disease-specific. In relapsed small-cell lung cancer the state over-expresses Piezo1. In EGFR-mutant lung adenocarcinoma it over-expresses the potassium channel KCa3.1 at a 2.97x detection ratio. A per-tumour audit shows the KCa3.1 marking is carried within an individual patient's tumour in 20 of 23 libraries and in 7 of 7 residual-disease libraries, while the same within-tumour contrast does not hold in relapsed small-cell lung cancer, where most tumours carry too little state to read at all.
 
-None of this has been measured in blood. Every plasma number this programme
-has produced is a simulation whose inputs are tissue measurements, and when
-the programme's own kill conditions are applied to that evidence, the readout
-survives in EGFR-mutant lung adenocarcinoma and fails in most relapsed-SCLC
-tumours. The decisive unknown is therefore neither the channel nor the read
-depth: it is how the state fraction is distributed across individual patients.
-A projection from a pooled average hides that heterogeneity, and the
-per-tumour audit is what exposed it.
+None of this has been measured in blood. Every plasma number this programme has produced is a simulation built on tissue measurements, and when the programme's own kill conditions are applied to that evidence, the readout survives in EGFR-mutant lung adenocarcinoma and fails in most relapsed-SCLC tumours. The decisive unknown is therefore neither the channel nor the read depth, but how the state fraction is distributed across individual patients.
 
-This project asks for the serial plasma and outcome data needed to measure
-that distribution and to test the projection against reality. The plasma is
-drawn at screening visits, before diagnosis: the question is whether the
-readout separates participants who are diagnosed with lung cancer from
-matched participants who are not, which is the discrimination a
-relapse-prediction assay has to make, measured at the smaller tumour burden of
-an occult tumour. The analysis is pre-specified: the panel, the operating
-point (200,000x depth, 200 loci, 25% of the read budget on the electrical
-channel), the enrichment-AUC thresholds (0.60 for the readout, 0.65 at the
-operating point) and the per-patient applicability rule are fixed before any
-data are opened, and the code behind every published figure is public.
+A second audit changed the assay design. In bulk plasma most cfDNA is leukocyte-derived, and KCa3.1 is expressed in immune cells, so a channel transcript read without localisation is dominated by leukocyte material: at a realistic tumour DNA fraction the state contributes about two per cent of the measurement, and the burden-normalised statistic inverts rather than degrades. The assay must therefore localise the channel transcript to the tumour, by counting only reads that carry a tumour-specific somatic variant on the same molecule; estimate each participant's tumour cfDNA fraction from the somatic variants already read; and include leukocyte reference loci to measure and subtract the background. Our projection assumes localisation works, and is therefore an upper bound.
 
-We request serial plasma at every available visit for participants diagnosed
-with lung cancer, with matched primary tumour tissue where archived; serial
-plasma from matched participants not diagnosed with lung cancer during
-follow-up, at the same visits; and the clinical data needed to align them:
-date and site of diagnosis, treatment, mortality, smoking history, and the
-visit dates of the blood draws. We do not request sequencing data; the assays
-are run locally on the aliquots. Diagnosis dates are essential to this
-question, and we therefore request them in the Limited Data Set.
-<!-- END PROJECT DESCRIPTION -->
+This project asks for the serial plasma and outcome data needed to test that projection against reality. The plasma is drawn at screening visits, before diagnosis: the question is whether the readout separates participants who are diagnosed with lung cancer from matched participants who are not. The analysis is pre-specified: the panel, the operating point, the thresholds and the per-patient applicability rule are fixed before any data are opened, and the code behind every published figure is public.
+
+We request serial plasma at every available visit for participants diagnosed with lung cancer, with their matched primary tumour; serial plasma from matched participants not diagnosed with lung cancer during follow-up, at the same visits; and the clinical data to align them: date and site of diagnosis, treatment, mortality, smoking history, and the visit dates of the blood draws. We do not request sequencing data; the assays are run locally on the aliquots. Diagnosis dates are essential, and we request them in the Limited Data Set.
+<!-- END PROJECT DESCRIPTION --><!-- END PROJECT DESCRIPTION -->
 
 ## 5. Aims
 
@@ -113,18 +78,24 @@ whether the project addresses a scientific question and whether the data are
 appropriate for it. The three aims are the ones the description refers to;
 `02-proposal-narrative.md` states them in full.
 
-1. **Measure the bulk ion-channel enrichment of the state-bearing clone**
-   (KCNN4 and PIEZO1) in serial plasma of participants who progressed to lung
-   cancer, against serial plasma of matched participants who did not, and
-   test the pre-specified burden-normalised enrichment-AUC thresholds (0.60
-   for the readout, 0.65 at the operating point).
-2. **Estimate the per-participant state fraction and its
-   between-participant distribution** — the quantity the simulation has had to
-   assume — so that the projection can be re-run against measured inputs.
+1. **Measure the *localised* ion-channel enrichment of the state-bearing
+   clone** (KCNN4 and PIEZO1) in serial plasma of participants who were
+   diagnosed with lung cancer, against serial plasma of matched participants
+   who were not, counting only the channel-locus reads that carry a
+   tumour-specific somatic variant on the same molecule, and testing the
+   pre-specified thresholds on the tumour-attributable enrichment AUC (0.60 for
+   the readout, 0.65 at the operating point). The raw, unlocalised enrichment
+   is reported as a secondary analysis, because our own audit shows it
+   inverts when the plasma pool carries leukocyte DNA.
+2. **Estimate the per-participant tumour cfDNA fraction and the
+   per-participant state fraction** — the two quantities the simulation has
+   had to assume — from the somatic variants read in the same library, so the
+   projection can be re-run against measured inputs.
 3. **Determine the per-participant applicability of the readout**: what
    fraction of participants carry the state at a frequency plasma can read,
-   and what fraction of tumours express the channel, so that the panel design
-   carries a tumour-expression gate rather than a single-channel assumption.
+   and what fraction of their tumours express the channel, so that the panel
+   design carries a tumour-expression gate rather than a single-channel
+   assumption.
 
 ## 6. Data requested
 
@@ -134,9 +105,9 @@ this is stated element by element. The justification for each is in
 
 | Element | Why it is needed | Limited Data Set? |
 |---|---|---|
-| Serial plasma, participants who progressed to lung cancer | the measured case side of the discrimination | — |
-| Serial plasma, matched participants who did not progress | the comparator the enrichment AUC is computed against | — |
-| Matched primary tumour tissue, where archived | the tumour's own expression set; needed for the tumour-expression gate in aim 3 | — |
+| Serial plasma, participants who were diagnosed with lung cancer | the measured case side of the discrimination | — |
+| Serial plasma, matched participants who were not diagnosed with lung cancer during follow-up | the comparator the enrichment AUC is computed against | — |
+| Matched primary tumour tissue, or the participant's somatic variant profile | **required, not optional**: the somatic variant set is what localises the channel transcript to the tumour, which is the precondition for the primary endpoint in aim 1; it is also what the tumour-expression gate in aim 3 is measured against | — |
 | Date and site of diagnosis | the lead time between draw and diagnosis is the measurement the project turns on | **yes** |
 | Treatment history | distinguishes treatment-emergent from pre-existing state | — |
 | Mortality and follow-up time | defines the outcome window for the non-progressing comparator | — |

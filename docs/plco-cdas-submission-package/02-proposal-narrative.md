@@ -54,17 +54,24 @@ used measures.
 
 ## 2. Aims
 
-**Aim 1 — measure the readout.** Measure the bulk ion-channel enrichment of
-the state-bearing clone (KCNN4 and PIEZO1) in serial plasma of participants
-who progressed to lung cancer, against serial plasma of matched participants
-who did not progress, and test the pre-specified burden-normalised
-enrichment-AUC thresholds: 0.60 for the readout, and 0.65 at the operating
-point.
+**Aim 1 — measure the readout, localised.** Measure the *localised*
+ion-channel enrichment of the state-bearing clone (KCNN4 and PIEZO1) in serial
+plasma of participants who were diagnosed with lung cancer, against serial
+plasma of matched participants who were not, counting only the channel-locus
+reads that carry a tumour-specific somatic variant on the same molecule, and
+test the pre-specified thresholds on the tumour-attributable enrichment AUC:
+0.60 for the readout, and 0.65 at the operating point. The raw, unlocalised
+enrichment is a pre-specified secondary analysis, reported with its own AUC,
+because section 4 shows it inverts when the plasma pool carries leukocyte
+DNA.
 
-**Aim 2 — measure the quantity the simulation assumes.** Estimate the
-per-participant state fraction and its between-participant distribution, so
-that the projection can be re-run against measured inputs rather than assumed
-ones. This is the measurement the per-tumour audit shows to be decisive.
+**Aim 2 — measure the quantities the simulation assumes.** Estimate the
+per-participant tumour cfDNA fraction and the per-participant state fraction
+and its between-participant distribution, from the somatic variants read in
+the same library, so that the projection can be re-run against measured inputs
+rather than assumed ones. The per-tumour audit shows the state fraction's
+distribution to be decisive, and the leukocyte audit shows the tumour fraction
+to be the denominator that has never been measured.
 
 **Aim 3 — determine per-participant applicability.** Establish what fraction
 of participants carry the state at a frequency a plasma assay can read, and
@@ -80,9 +87,9 @@ answer the research questions. Each element is listed with the aim it serves.
 
 | Element | Aim | Why it is necessary | Available from PLCO |
 |---|---|---|---|
-| Serial plasma, participants who progressed to lung cancer | 1, 2 | the case side of the discrimination, and the material the assay reads | yes, at screening visits |
-| Serial plasma, matched participants who did not progress | 1, 2 | the comparator against which the enrichment AUC is computed; without it there is no discrimination to measure | yes |
-| Matched primary tumour tissue, where archived | 3 | the tumour's own expression set, needed for the tumour-expression gate | yes, where archived |
+| Serial plasma, participants who were diagnosed with lung cancer | 1, 2 | the case side of the discrimination, and the material the assay reads | yes, at screening visits |
+| Serial plasma, matched participants who were not diagnosed with lung cancer | 1, 2 | the comparator against which the enrichment AUC is computed; without it there is no discrimination to measure | yes |
+| Matched primary tumour tissue, or the participant's somatic variant profile | 1, 2, 3 | **required, not optional**: the somatic variant set is what localises the channel transcript to the tumour, which is the precondition for aim 1; it is also what the tumour-expression gate in aim 3 is measured against | yes, where archived |
 | Date and site of diagnosis (Limited Data Set) | 1, 2 | the interval between the blood draw and diagnosis is the measurement the project turns on; the standard de-identified dataset removes the dates | yes, in a Limited Data Set |
 | Treatment history | 2 | separates a treatment-emergent state from a pre-existing one | yes |
 | Mortality and follow-up time | 1 | defines the outcome window for the non-progressing comparator | yes |
@@ -90,7 +97,54 @@ answer the research questions. Each element is listed with the aim it serves.
 | Visit dates of the blood draws | 1, 2 | aligns each plasma sample to the clinical timeline | yes |
 | Sequencing data | — | not requested; the assays are run locally on the aliquots | — |
 
-## 4. The analysis is pre-specified
+## 4. The assay design: the channel transcript has to be localised
+
+This is the part of the design that a second audit of our own model changed,
+and it is worth stating plainly, because it is what the requested material
+has to support.
+
+Our plasma model originally had no leukocyte compartment: the cfDNA pool was
+tumour-shed material plus a sequencing-error floor, so the channel's signal
+was the tumour's contribution alone. In bulk plasma that is not the case. Most
+cfDNA is leukocyte cfDNA, and KCa3.1 is expressed in immune cells -- the
+tumour's state-bearing cells express it at 2.40 times the level of the
+neighbouring immune cells, but in relapsed SCLC the tumour's *average* Piezo1
+level is below the immune cells' level. Reading the channel transcript
+without localisation therefore measures leukocyte material.
+
+At the tumour DNA fractions a real MRD cohort sits at, the state's share of a
+bulk channel measurement is about two per cent in EGFR-mutant NSCLC and half
+a per cent in relapsed SCLC. Adding a leukocyte compartment to the model took
+the published enrichment AUC from 0.9929 to 0.0053: not degraded but
+*inverted*, because the leukocyte term divided by the tumour's own cfDNA
+share is inversely related to tumour burden, and relapsing patients carry more
+tumour. Subtracting a leukocyte baseline before the division left 0.5111,
+which is chance: the tumour's contribution was about 1,700 reads out of ten
+million, against a counting noise of about 3,200 on the difference of two
+Poisson counts of five million each.
+
+Three design elements follow, and they are what the data request is for:
+
+1. **Localise the channel transcript to the tumour.** Only reads at the
+   channel locus that also carry a tumour-specific somatic variant on the
+   same molecule are counted. This removes the leukocyte contribution *before*
+   the measurement instead of correcting it afterwards, and the audit found
+   only this version workable. It requires the participant's own somatic
+   variant set, which is what the matched primary tumour provides.
+2. **Estimate each participant's tumour cfDNA fraction** from the somatic
+   variants the mutation panel already reads. This is the denominator the
+   enrichment statistic divides by, and it is a quantity the programme has
+   never had a measurement of.
+3. **Include leukocyte reference loci** -- positions in transcripts the immune
+   cells express and the tumour does not -- so that each library's leukocyte
+   contribution is measured in the same sample rather than assumed.
+
+Our published projection assumes that localisation works, and is therefore an
+upper bound on what the assay can achieve. The model does not yet simulate
+per-read tumour assignment, so the projection cannot be tightened until the
+assay has been run on real plasma.
+
+## 5. The analysis is pre-specified
 
 The analysis is fixed before the data are opened, and the code is public.
 The following are already fixed and will not be re-tuned after the data are
@@ -106,6 +160,19 @@ opened:
 - **The estimand.** The enrichment AUC is computed within the pool of
   plasma-positive participants, separating those who progress from those who
   do not, which is the discrimination a relapse-prediction assay has to make.
+- **The statistic.** The primary statistic is the **tumour-attributable**
+  enrichment: only the channel-locus reads that carry a tumour-specific
+  somatic variant on the same molecule are counted, and the result is divided
+  by the mutation channel's per-locus VAF. The raw, unlocalised enrichment is
+  a pre-specified **secondary** analysis, reported with its own AUC, because
+  the audit in section 4 shows it inverts when the plasma pool carries
+  leukocyte DNA.
+- **The panel.** Loci are allocated to the mutation channel, the ion-channel
+  channel and the leukocyte reference set, and the allocation is fixed before
+  any data are opened. The published operating point was derived without the
+  reference set; the allocation will be re-derived and the audit re-run at it
+  before the data are opened, and the operating point stated in this proposal
+  is the one that will be used unless that re-run changes it.
 - **The per-patient applicability rule.** A tumour is informative for the
   readout when its measured state fraction exceeds the fraction the assay can
   read at the operating point; the readout's sensitivity across participants
@@ -119,7 +186,7 @@ What will **not** be done: no selection of participants, timepoints or
 thresholds after the data are opened; no tuning of the panel to the cohort;
 no post-hoc substitution of a different channel.
 
-## 5. Data handling and security
+## 6. Data handling and security
 
 - All data are downloaded into an access-controlled institutional storage
   location under the PI's control. Nothing is sent to a third-party service
@@ -131,7 +198,7 @@ no post-hoc substitution of a different channel.
 - Access is requested for 12 months, matching CDAS's access term, and the
   project will be closed out rather than extended by default.
 
-## 6. Limitations we would rather state than have the review find
+## 7. Limitations we would rather state than have the review find
 
 - **PLCO is a screening cohort.** Its plasma is collected at screening visits
   before diagnosis, not after treatment. This project therefore measures the
@@ -151,8 +218,14 @@ no post-hoc substitution of a different channel.
 - **A tumour-expression gate will be needed** for any eventual assay. This
   project measures what that gate should be based on; it does not validate an
   assay.
+- **The projection assumes the localisation step works.** Section 4 shows
+  that an unlocalised readout of a channel that immune cells also express
+  measures leukocyte material, and that correcting for it afterwards is not
+  enough. The published AUC is therefore an upper bound, and the model does
+  not simulate per-read tumour assignment, so the number cannot be tightened
+  before the assay has run on real plasma.
 
-## 7. Timeline
+## 8. Timeline
 
 | Stage | Duration |
 |---|---|
@@ -163,7 +236,7 @@ no post-hoc substitution of a different channel.
 | Assays run on the delivered aliquots | to be scoped, once the number of usable samples is confirmed |
 | Analysis, pre-specified, and submission of the manuscript | 3–6 months after delivery |
 
-## 8. Publication plan and data availability
+## 9. Publication plan and data availability
 
 Results will be submitted for peer-reviewed publication whether or not they
 support the hypothesis, including the per-participant distribution and its
@@ -172,7 +245,7 @@ pre-specified parameters and every figure behind the manuscript are public
 from the outset, so that the published numbers can be recomputed. The
 participant-level data will not be released.
 
-## 9. Conflict of interest
+## 10. Conflict of interest
 
 None to declare for this project. The investigators have no financial interest
 in the PLCO data, in the assay platform, or in any therapeutic product
@@ -180,7 +253,7 @@ directed at the channels measured. No commercial sponsor is involved in the
 work proposed here. The analysis is registered as pre-specified analysis with
 a public code base before the data are opened.
 
-## 10. References
+## 11. References
 
 1. Stewart et al. Relapsed small-cell lung cancer with a YAP1-positive
    drug-tolerant state. [PMID 42019833](https://pubmed.ncbi.nlm.nih.gov/42019833/);

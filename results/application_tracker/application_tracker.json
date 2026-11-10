@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-10T04:20:10.535489+00:00",
-    "git_commit": "94289ce96c7342513734fefbaf839ef96f4214af",
+    "generated_at": "2026-11-10T15:32:30.308503+00:00",
+    "git_commit": "15e31a6eb90952620db8672c4a81eccf05eff8cc",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -28,6 +28,13 @@
       "Owner": "programme",
       "Status": "done \u2014 06-submission-runbook.md, 07-scoping-inquiry.md",
       "Depends on": "the package"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it",
+      "Owner": "programme",
+      "Status": "not started \u2014 required by the leukocyte audit",
+      "Depends on": "the leukocyte audit"
     },
     {
       "Application": "PLCO-DATA",

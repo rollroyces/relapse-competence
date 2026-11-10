@@ -2569,6 +2569,39 @@ def main(argv: list[str] | None = None) -> int:
             "Signed" not in cover.split("## 4. Signature")[0],
         )
 
+        # The assay design the leukocyte audit forced: the channel transcript
+        # has to be localised to the tumour, and both the proposal's summary
+        # and its narrative have to say so.
+        details_text = (package / "01-project-details.md").read_text()
+        narrative_text = (package / "02-proposal-narrative.md").read_text()
+        for phrase in (
+            "somatic variant",
+            "leukocyte reference",
+            "tumour cfDNA fraction",
+            "tumour-attributable",
+        ):
+            chk(
+                f"the submission package's project details carry {phrase!r}",
+                phrase in details_text,
+            )
+            chk(
+                f"the submission package's narrative carries {phrase!r}",
+                phrase in narrative_text,
+            )
+        chk(
+            "the proposal states that the raw enrichment is a secondary analysis",
+            "secondary" in narrative_text,
+        )
+        chk(
+            "the proposal states that the projection is an upper bound",
+            "upper bound" in narrative_text,
+        )
+        chk(
+            "the matched primary tumour is a required element, not an optional one",
+            "required, not optional" in details_text
+            or "required, not optional" in narrative_text,
+        )
+
         readme_path = Path("README.md")
         if readme_path.exists():
             chk(

@@ -150,6 +150,29 @@ def test_the_signature_blocks_have_a_line_to_sign_on() -> None:
     assert "Signature: __" in letter
 
 
+def test_the_proposal_carries_the_localisation_design() -> None:
+    """The leukocyte audit changed the assay design; the proposal must say so.
+
+    The channel transcript has to be localised to the tumour, the tumour cfDNA
+    fraction has to be estimated per participant, and the panel has to carry
+    leukocyte reference loci. A proposal that silently drops any of them would
+    describe the assay the audit showed does not work.
+    """
+    details = (PACKAGE / "01-project-details.md").read_text()
+    narrative = (PACKAGE / "02-proposal-narrative.md").read_text()
+    for phrase in (
+        "somatic variant",
+        "leukocyte reference",
+        "tumour cfDNA fraction",
+        "tumour-attributable",
+    ):
+        assert phrase in details, phrase
+        assert phrase in narrative, phrase
+    assert "secondary" in narrative
+    assert "upper bound" in narrative
+    assert "required, not optional" in details or "required, not optional" in narrative
+
+
 def test_the_constraints_are_stated() -> None:
     """The rules that shape the package must not be quietly dropped."""
     text = "\n".join(
