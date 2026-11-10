@@ -2,7 +2,7 @@
 
 **To:** The Cancer Data Access System, National Cancer Institute
 **From:** `[SO's institution]`
-**Date:** `[PI]` — to be dated on signature
+**Date:** to be dated on signature
 
 **Re:** Institutional authorisation for the CDAS data-only project "Validating
 an electrical-channel readout of the relapse-competent state in serial plasma",
@@ -63,12 +63,14 @@ whose products are assessed by it.
 
 ## 5. Signature
 
-| | |
-|---|---|
-| Signature | |
-| Printed name | `[SO]` |
-| Position title | `[SO]` |
-| Institution | `[SO]` |
-| Date | |
+Signature: ______________________________________________________
+
+Printed name: `[SO]`
+
+Position title: `[SO]`
+
+Institution: `[SO]`
+
+Date: ____________________
 
 **Signing Official for `[SO's institution]`**

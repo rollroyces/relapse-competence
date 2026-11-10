@@ -37,18 +37,25 @@ cannot fill this role.
 
 ## 3. Project details
 
+The field names below are CDAS's own, taken from the section headings of a
+published PLCO project: *About this CDAS Project* carries Study, Project ID,
+Title, Summary, Aims and Collaborators.
+
 | Field | Value |
 |---|---|
-| Project name | Validating an electrical-channel readout of the relapse-competent state in serial plasma |
+| Title | Validating an electrical-channel readout of the relapse-competent state in serial plasma |
+| Summary | the text in section 4 below |
 | Project ID | assigned by CDAS on submission (`PLCO-` followed by a number) |
-| Contact email (institutional) | `roycelam@umich.edu` — confirm |
 | Collaborators | none at the time of writing; anyone added later needs a separate proposal if they are at another institution |
+| Initial CDAS Request Approval | filled by CDAS; the date the Data Access Committee approved the project |
 
-## 4. Project description
+## 4. Summary
 
-CDAS caps this at **500 words**. The text between the markers below is the
-description to paste, and `scripts/check_plco_cdas_package.py` counts its
-words so that the cap cannot be discovered by rejection.
+CDAS's instructions describe this as "a brief description of your project
+(500 words or less)", and the published projects show it as the **Summary**
+field. The text between the markers below is what to paste there, and
+`scripts/check_plco_cdas_package.py` counts its words so that the cap cannot
+be discovered by rejection.
 
 <!-- BEGIN PROJECT DESCRIPTION -->
 The relapse-competent state is a drug-tolerant subpopulation of tumour cells
@@ -78,21 +85,25 @@ A projection from a pooled average hides that heterogeneity, and the
 per-tumour audit is what exposed it.
 
 This project asks for the serial plasma and outcome data needed to measure
-that distribution and to test the projection against reality. The analysis is
-pre-specified: the panel, the operating point (200,000x depth, 200 loci, 25%
-of the read budget on the electrical channel), the enrichment-AUC thresholds
-(0.60 for the readout, 0.65 at the operating point) and the per-patient
-applicability rule are fixed before any data are opened, and the code behind
-every published figure is public.
+that distribution and to test the projection against reality. The plasma is
+drawn at screening visits, before diagnosis: the question is whether the
+readout separates participants who are diagnosed with lung cancer from
+matched participants who are not, which is the discrimination a
+relapse-prediction assay has to make, measured at the smaller tumour burden of
+an occult tumour. The analysis is pre-specified: the panel, the operating
+point (200,000x depth, 200 loci, 25% of the read budget on the electrical
+channel), the enrichment-AUC thresholds (0.60 for the readout, 0.65 at the
+operating point) and the per-patient applicability rule are fixed before any
+data are opened, and the code behind every published figure is public.
 
-We request serial plasma at every available visit for participants who
-progressed to lung cancer, with matched primary tumour tissue where archived;
-serial plasma from matched participants who did not progress, at the same
-visits; and the clinical data needed to align them: date and site of
-diagnosis, treatment, mortality, smoking history, and the visit dates of the
-blood draws. We do not request sequencing data; the assays are run locally on
-the aliquots. Diagnosis dates are essential to this question, and we therefore
-request them in the Limited Data Set.
+We request serial plasma at every available visit for participants diagnosed
+with lung cancer, with matched primary tumour tissue where archived; serial
+plasma from matched participants not diagnosed with lung cancer during
+follow-up, at the same visits; and the clinical data needed to align them:
+date and site of diagnosis, treatment, mortality, smoking history, and the
+visit dates of the blood draws. We do not request sequencing data; the assays
+are run locally on the aliquots. Diagnosis dates are essential to this
+question, and we therefore request them in the Limited Data Set.
 <!-- END PROJECT DESCRIPTION -->
 
 ## 5. Aims

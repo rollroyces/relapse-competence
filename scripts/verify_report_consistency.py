@@ -2478,6 +2478,8 @@ def main(argv: list[str] | None = None) -> int:
         "03-pi-cover-sheet.md",
         "04-signing-official-letter.md",
         "05-documents-checklist.md",
+        "06-submission-runbook.md",
+        "07-scoping-inquiry.md",
     )
     for name in package_files:
         chk(f"the submission package carries {name}", (package / name).exists())

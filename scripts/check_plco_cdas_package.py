@@ -35,6 +35,8 @@ REQUIRED_FILES = (
     "03-pi-cover-sheet.md",
     "04-signing-official-letter.md",
     "05-documents-checklist.md",
+    "06-submission-runbook.md",
+    "07-scoping-inquiry.md",
 )
 
 #: CDAS's cap on the project description.
@@ -50,7 +52,8 @@ REQUIRED_FIELDS = (
     "Institutional email",
     "Institution location",
     "Signing Official",
-    "Project name",
+    "Title",
+    "Summary",
     "Project ID",
     "Aims",
     "Approved users",
@@ -233,6 +236,32 @@ def main() -> int:
     check(
         "Signing Official" in letter,
         "the Signing Official letter is not signed by the Signing Official",
+    )
+    for document, name in ((cover, "PI cover sheet"), (letter, "Signing Official letter")):
+        check(
+            f"the {name} has a ruled line to sign on",
+            "Signature: __" in document,
+        )
+
+    # --- the runbook and the scoping inquiry ---
+    runbook = (PACKAGE / "06-submission-runbook.md").read_text()
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    for url in (
+        "https://cdas.cancer.gov/projects/create/plco/data/",
+        "https://cdas.cancer.gov/contact/",
+    ):
+        check(url in runbook, f"the runbook does not carry {url}")
+    check(
+        "the runbook marks the points an agent cannot cross",
+        runbook.count("[GATE]") >= 3,
+    )
+    check(
+        "the scoping inquiry asks the sample-count question first",
+        "how many" in inquiry.lower() and "lung cancer" in inquiry.lower(),
+    )
+    check(
+        "the scoping inquiry does not pretend to be the proposal",
+        "not the proposal" in inquiry.lower(),
     )
 
     # --- the constraints are stated, so an edit cannot quietly drop them ---

@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-10T04:01:39.560878+00:00",
-    "git_commit": "44d69f4aaddfc338e5f2860e628fbcf7be0fa7f4",
+    "generated_at": "2026-11-10T04:13:47.210137+00:00",
+    "git_commit": "e0c48f2836d79ab5b17025e368fb28c59d54e3c2",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -21,6 +21,20 @@
       "Owner": "programme",
       "Status": "done \u2014 scripts/check_plco_cdas_package.py",
       "Depends on": "the package"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Write the submission runbook and the scoping inquiry",
+      "Owner": "programme",
+      "Status": "done \u2014 06-submission-runbook.md, 07-scoping-inquiry.md",
+      "Depends on": "the package"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Send the scoping inquiry to CDAS (subject: PLCO)",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "the scoping inquiry"
     },
     {
       "Application": "PLCO-DATA",

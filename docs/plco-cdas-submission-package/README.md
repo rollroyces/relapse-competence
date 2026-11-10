@@ -21,6 +21,8 @@ reconstruct what was asked from a tracker.
 | [`03-pi-cover-sheet.md`](03-pi-cover-sheet.md) | The Principal Investigator's identity, the attestations CDAS requires of the PI, the approved-users table, and the signature block. | **PI signs** |
 | [`04-signing-official-letter.md`](04-signing-official-letter.md) | The institutional letter. CDAS contacts the Signing Official separately and the Data Transfer and Use Agreement is executed through DocuSign; this letter is the institutional endorsement that sits behind that. | **Signing Official signs** |
 | [`05-documents-checklist.md`](05-documents-checklist.md) | Every document CDAS needs, who supplies it, and where it goes. | — |
+| [`06-submission-runbook.md`](06-submission-runbook.md) | The operational sequence: the exact URLs, the field-by-field paste map, the questions CDAS will ask and the answers, and what gets a proposal delayed. | — |
+| [`07-scoping-inquiry.md`](07-scoping-inquiry.md) | The draft message to CDAS asking how many lung-cancer participants have serial plasma and an archived tumour. This needs no account and no signature, and it goes first. | PI sends |
 
 ## 2. The submission sequence
 
@@ -93,13 +95,22 @@ an application. And the **assay cost and timeline** for running the
 transcript assay on the aliquots is not yet in the package, because it
 depends on that count.
 
-## 5. Checking this package
+## 5. Checking and printing this package
 
 ```bash
-python scripts/check_plco_cdas_package.py
+python scripts/check_plco_cdas_package.py     # check the package
+python scripts/build_plco_cdas_pdf.py         # print it to build/
 ```
 
 The checker verifies the 500-word cap, that every CDAS field is present and
 filled or explicitly marked as the PI's to complete, that the numbers quoted
-in the package match this repository's artefacts, and that both signature
-blocks are present. It runs in CI.
+in the package match this repository's artefacts, that both signature blocks
+have a ruled line to sign on, and that the runbook carries the entry points
+and the points a person has to cross. It runs in CI.
+
+The PDF builder renders the package from these markdown files, so the thing
+that gets signed is the thing that is in the repository. It is a build
+product and is not committed, because a committed PDF would drift from the
+markdown the moment either side was edited. Each document in the PDF ends
+with the hash of the sources it was built from, so a printed copy carries the
+state it was printed from.

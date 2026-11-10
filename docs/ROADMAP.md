@@ -187,8 +187,11 @@ so in terms.
    [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)
    holds the pre-filled CDAS fields, the proposal narrative, the PI cover
    sheet with its attestations, the Signing Official's letter and the
-   documents checklist. `scripts/check_plco_cdas_package.py` checks it in CI,
-   including CDAS's 500-word cap on the project description.
+   documents checklist, a submission runbook and the draft scoping inquiry.
+   `scripts/check_plco_cdas_package.py` checks it in CI, including CDAS's
+   500-word cap on the project description, and
+   `scripts/build_plco_cdas_pdf.py` prints it from the same markdown so that
+   what is signed is what is in the repository.
 7. **Split the model.** *Done:* use the simulator to generate data with known
    ground truth, then apply a detector fitted on the published model to the
    fidelity model and report how much performance is lost to the modelling gap.

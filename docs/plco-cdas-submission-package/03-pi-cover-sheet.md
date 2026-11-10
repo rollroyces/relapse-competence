@@ -69,10 +69,10 @@ By signing below, the Principal Investigator attests that:
 
 ## 4. Signature
 
-| | |
-|---|---|
-| Signature | |
-| Printed name | `[PI]` |
-| Date | |
+Signature: ______________________________________________________
+
+Printed name: `[PI]`
+
+Date: ____________________
 
 **Principal Investigator**

@@ -95,6 +95,30 @@ def test_the_package_quotes_this_repository_s_own_numbers() -> None:
     assert f"{gate['audit']['electrical_fraction']:.0%}" in text
 
 
+def test_the_runbook_marks_the_points_a_person_must_cross() -> None:
+    """The runbook has to be usable by a person, not by an agent."""
+    runbook = (PACKAGE / "06-submission-runbook.md").read_text()
+    assert runbook.count("[GATE]") >= 3
+    assert "https://cdas.cancer.gov/projects/create/plco/data/" in runbook
+    assert "https://cdas.cancer.gov/contact/" in runbook
+    assert "The PI submits it" in runbook
+
+
+def test_the_scoping_inquiry_goes_first() -> None:
+    """The sample count decides whether the EEMS route is worth pursuing."""
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    assert "how many" in inquiry.lower()
+    assert "lung cancer" in inquiry.lower()
+    assert "not the proposal" in inquiry.lower()
+
+
+def test_the_signature_blocks_have_a_line_to_sign_on() -> None:
+    cover = (PACKAGE / "03-pi-cover-sheet.md").read_text()
+    letter = (PACKAGE / "04-signing-official-letter.md").read_text()
+    assert "Signature: __" in cover
+    assert "Signature: __" in letter
+
+
 def test_the_constraints_are_stated() -> None:
     """The rules that shape the package must not be quietly dropped."""
     text = "\n".join(
