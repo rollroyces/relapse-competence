@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import statistics
 import sys
 from dataclasses import replace
@@ -168,6 +169,25 @@ def _run(
         [o.electrical_enrichment_reference_corrected for o in mrd],
         [o.relapsed for o in mrd],
     )
+    # The noise in the burden-normalised enrichment, per arm. The statistic
+    # divides by the patient's own tumour cfDNA share, and the electrical
+    # channel's counting noise is proportional to the whole pool rather than
+    # to that share, so the noise is amplified by its inverse. This is the
+    # arithmetic behind the audit's conclusion, computed rather than argued.
+    electrical_loci = int(round(OPERATING_LOCI * ELECTRICAL_FRACTION))
+    electrical_reads = depth * electrical_loci
+    leukocyte_signal = leukocyte_fraction
+
+    def _noise(share: float | None) -> float | None:
+        if not share or share <= 0.0 or electrical_reads <= 0:
+            return None
+        return math.sqrt(
+            2.0 * max(leukocyte_signal, 0.0) / electrical_reads
+        ) / share
+
+    relapser_shares = [o.mutation_vaf for o in mrd if o.relapsed]
+    non_relapser_shares = [o.mutation_vaf for o in mrd if not o.relapsed]
+
     return {
         "read_threshold": threshold,
         "n_mrd_positive": len(mrd),
@@ -193,6 +213,12 @@ def _run(
         )
         if any(not o.relapsed for o in mrd)
         else None,
+        "enrichment_noise_relapsers": _noise(
+            statistics.median(relapser_shares) if relapser_shares else None
+        ),
+        "enrichment_noise_non_relapsers": _noise(
+            statistics.median(non_relapser_shares) if non_relapser_shares else None
+        ),
     }
 
 
@@ -240,6 +266,12 @@ def _derive_operating_point(patients: int, wanted: list[tuple[str, str]]) -> dic
                     ],
                     "median_tumour_cfDNA_share_non_relapsers": result[
                         "median_tumour_cfDNA_share_non_relapsers"
+                    ],
+                    "enrichment_noise_relapsers": result[
+                        "enrichment_noise_relapsers"
+                    ],
+                    "enrichment_noise_non_relapsers": result[
+                        "enrichment_noise_non_relapsers"
                     ],
                     "auc_raw": result["auc_raw"],
                     "auc_attributable": result["auc_attributable"],
@@ -435,6 +467,12 @@ def main(argv: list[str] | None = None) -> int:
                             ],
                             "median_tumour_cfDNA_share_non_relapsers": result[
                                 "median_tumour_cfDNA_share_non_relapsers"
+                            ],
+                            "enrichment_noise_relapsers": result[
+                                "enrichment_noise_relapsers"
+                            ],
+                            "enrichment_noise_non_relapsers": result[
+                                "enrichment_noise_non_relapsers"
                             ],
                         }
                     )

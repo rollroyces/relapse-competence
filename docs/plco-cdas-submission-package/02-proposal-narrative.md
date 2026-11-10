@@ -101,7 +101,10 @@ answer the research questions. Each element is listed with the aim it serves.
 
 This is the part of the design that a second audit of our own model changed,
 and it is worth stating plainly, because it is what the requested material
-has to support.
+has to support. The full specification -- the analyte, the attribution
+mechanism, the statistic, the panel and the stop rules -- is
+[`PLASMA-ASSAY-SPECIFICATION.md`](../PLASMA-ASSAY-SPECIFICATION.md), and this
+section is the part of it the data request depends on.
 
 Our plasma model originally had no leukocyte compartment: the cfDNA pool was
 tumour-shed material plus a sequencing-error floor, so the channel's signal

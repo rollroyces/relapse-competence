@@ -2,7 +2,7 @@
   "audit": {
     "id": "leukocyte-audit-2026-11",
     "generated_by": "scripts/leukocyte_audit.py",
-    "generated_at": "2026-11-10T16:06:58.424119+00:00",
+    "generated_at": "2026-11-10T23:43:45.548147+00:00",
     "patients_per_arm": 800,
     "operating_point": {
       "sequencing_depth": 200000,
@@ -65,7 +65,9 @@
       "auc_reference_corrected": 0.9928621553884712,
       "median_tumour_cfDNA_share": 8.081363636363637e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003091818181818182,
-      "median_tumour_cfDNA_share_non_relapsers": 1.703030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.703030303030303e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -80,7 +82,9 @@
       "auc_reference_corrected": 0.9949214677294589,
       "median_tumour_cfDNA_share": 7.50034965034965e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003859562937062937,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -95,7 +99,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.7448513424901609,
+      "enrichment_noise_non_relapsers": 188.70734680932463
     },
     {
       "dataset": "NSCLC",
@@ -110,7 +116,9 @@
       "auc_reference_corrected": 0.44049757651764226,
       "median_tumour_cfDNA_share": 6.733566433566434e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003308881118881119,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6013986013986014e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6013986013986014e-06,
+      "enrichment_noise_relapsers": 0.955693948061116,
+      "enrichment_noise_non_relapsers": 197.4697403511259
     },
     {
       "dataset": "NSCLC",
@@ -125,7 +133,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.9993229409639862,
+      "enrichment_noise_non_relapsers": 253.17747319156675
     },
     {
       "dataset": "NSCLC",
@@ -140,7 +150,9 @@
       "auc_reference_corrected": 0.44236092357547935,
       "median_tumour_cfDNA_share": 9.220279720279721e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045485139860139856,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6328671328671329e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6328671328671329e-06,
+      "enrichment_noise_relapsers": 0.9327531365551,
+      "enrichment_noise_non_relapsers": 259.8276737721875
     },
     {
       "dataset": "NSCLC",
@@ -155,7 +167,9 @@
       "auc_reference_corrected": 0.005747126436781609,
       "median_tumour_cfDNA_share": 6.553333333333333e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00036688787878787877,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06,
+      "enrichment_noise_relapsers": 1.2128280462571683,
+      "enrichment_noise_non_relapsers": 264.81646536428156
     },
     {
       "dataset": "NSCLC",
@@ -170,7 +184,9 @@
       "auc_reference_corrected": 0.4475387704237053,
       "median_tumour_cfDNA_share": 9.441608391608392e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045882692307692307,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06,
+      "enrichment_noise_relapsers": 0.9698033982873745,
+      "enrichment_noise_non_relapsers": 275.45880094926747
     },
     {
       "dataset": "NSCLC",
@@ -185,7 +201,9 @@
       "auc_reference_corrected": 0.9815563794330225,
       "median_tumour_cfDNA_share": 7.273939393939395e-05,
       "median_tumour_cfDNA_share_relapsers": 0.001214760606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1318181818181816e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.1318181818181816e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -200,7 +218,9 @@
       "auc_reference_corrected": 0.982174688057041,
       "median_tumour_cfDNA_share": 3.962237762237762e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0010702797202797204,
-      "median_tumour_cfDNA_share_non_relapsers": 2.194055944055944e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.194055944055944e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -215,7 +235,9 @@
       "auc_reference_corrected": 0.0019077757685352621,
       "median_tumour_cfDNA_share": 6.127878787878788e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011193181818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06,
+      "enrichment_noise_relapsers": 0.2825182072028603,
+      "enrichment_noise_non_relapsers": 153.35071680463852
     },
     {
       "dataset": "NSCLC",
@@ -230,7 +252,9 @@
       "auc_reference_corrected": 0.5090642444885988,
       "median_tumour_cfDNA_share": 7.272027972027972e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011080506993006991,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06,
+      "enrichment_noise_relapsers": 0.28539106217469307,
+      "enrichment_noise_non_relapsers": 138.28920654558968
     },
     {
       "dataset": "NSCLC",
@@ -245,7 +269,9 @@
       "auc_reference_corrected": 0.0019097787914992216,
       "median_tumour_cfDNA_share": 5.271212121212121e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011145,
-      "median_tumour_cfDNA_share_non_relapsers": 2.0636363636363635e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.0636363636363635e-06,
+      "enrichment_noise_relapsers": 0.3806765982161763,
+      "enrichment_noise_non_relapsers": 205.59051787802704
     },
     {
       "dataset": "NSCLC",
@@ -260,7 +286,9 @@
       "auc_reference_corrected": 0.5406170890041858,
       "median_tumour_cfDNA_share": 7.997027972027972e-05,
       "median_tumour_cfDNA_share_relapsers": 0.001329465034965035,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1328671328671328e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.1328671328671328e-06,
+      "enrichment_noise_relapsers": 0.31912390138420355,
+      "enrichment_noise_non_relapsers": 198.9172518878878
     },
     {
       "dataset": "NSCLC",
@@ -275,7 +303,9 @@
       "auc_reference_corrected": 0.0025046173251047346,
       "median_tumour_cfDNA_share": 5.578939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011331515151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06,
+      "enrichment_noise_relapsers": 0.3926852704832169,
+      "enrichment_noise_non_relapsers": 215.94225006543252
     },
     {
       "dataset": "NSCLC",
@@ -290,7 +320,9 @@
       "auc_reference_corrected": 0.5377771421637457,
       "median_tumour_cfDNA_share": 8.6006993006993e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0012934353146853146,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06,
+      "enrichment_noise_relapsers": 0.34402331850201484,
+      "enrichment_noise_non_relapsers": 201.04575993453645
     },
     {
       "dataset": "NSCLC",
@@ -305,7 +337,9 @@
       "auc_reference_corrected": 0.969842660615728,
       "median_tumour_cfDNA_share": 6.76090909090909e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003968175757575757,
-      "median_tumour_cfDNA_share_non_relapsers": 4.096969696969697e-06
+      "median_tumour_cfDNA_share_non_relapsers": 4.096969696969697e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -320,7 +354,9 @@
       "auc_reference_corrected": 0.966999285073242,
       "median_tumour_cfDNA_share": 5.437762237762238e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0032276993006993006,
-      "median_tumour_cfDNA_share_non_relapsers": 3.61013986013986e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.61013986013986e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -335,7 +371,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038849363636363635,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.08139844167765045,
+      "enrichment_noise_non_relapsers": 80.95823334798798
     },
     {
       "dataset": "NSCLC",
@@ -350,7 +388,9 @@
       "auc_reference_corrected": 0.5396748740657087,
       "median_tumour_cfDNA_share": 5.0094405594405594e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003199688811188811,
-      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06,
+      "enrichment_noise_relapsers": 0.09883078782881602,
+      "enrichment_noise_non_relapsers": 90.30568255698019
     },
     {
       "dataset": "NSCLC",
@@ -365,7 +405,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003929436363636364,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.10797071881304313,
+      "enrichment_noise_non_relapsers": 108.6168678626349
     },
     {
       "dataset": "NSCLC",
@@ -380,7 +422,9 @@
       "auc_reference_corrected": 0.5444796473098159,
       "median_tumour_cfDNA_share": 4.050349650349651e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038958146853146853,
-      "median_tumour_cfDNA_share_non_relapsers": 3.4685314685314684e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.4685314685314684e-06,
+      "enrichment_noise_relapsers": 0.10890252822116935,
+      "enrichment_noise_non_relapsers": 122.31806819718906
     },
     {
       "dataset": "NSCLC",
@@ -395,7 +439,9 @@
       "auc_reference_corrected": 0.0037540584415584415,
       "median_tumour_cfDNA_share": 3.905757575757576e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003859531818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 3.887878787878788e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.887878787878788e-06,
+      "enrichment_noise_relapsers": 0.1152916804907599,
+      "enrichment_noise_non_relapsers": 114.45107563873275
     },
     {
       "dataset": "NSCLC",
@@ -410,7 +456,9 @@
       "auc_reference_corrected": 0.5440334798807206,
       "median_tumour_cfDNA_share": 4.7452797202797203e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0039926398601398605,
-      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06,
+      "enrichment_noise_relapsers": 0.11144804560713688,
+      "enrichment_noise_non_relapsers": 128.1590795957317
     },
     {
       "dataset": "NSCLC",
@@ -425,7 +473,9 @@
       "auc_reference_corrected": 0.9684282099271689,
       "median_tumour_cfDNA_share": 0.00011146060606060606,
       "median_tumour_cfDNA_share_relapsers": 0.011529424242424242,
-      "median_tumour_cfDNA_share_non_relapsers": 8.945454545454546e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.945454545454546e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -440,7 +490,9 @@
       "auc_reference_corrected": 0.9532388225417716,
       "median_tumour_cfDNA_share": 0.00010798951048951049,
       "median_tumour_cfDNA_share_relapsers": 0.011687923076923077,
-      "median_tumour_cfDNA_share_non_relapsers": 8.125874125874126e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.125874125874126e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -455,7 +507,9 @@
       "auc_reference_corrected": 0.0021783249898525234,
       "median_tumour_cfDNA_share": 5.712424242424243e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010997651515151516,
-      "median_tumour_cfDNA_share_non_relapsers": 8.825757575757576e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.825757575757576e-06,
+      "enrichment_noise_relapsers": 0.02875411769332475,
+      "enrichment_noise_non_relapsers": 35.830098810491506
     },
     {
       "dataset": "NSCLC",
@@ -470,7 +524,9 @@
       "auc_reference_corrected": 0.5414785395763657,
       "median_tumour_cfDNA_share": 9.672727272727273e-05,
       "median_tumour_cfDNA_share_relapsers": 0.009932208041958043,
-      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06,
+      "enrichment_noise_relapsers": 0.03183861681923616,
+      "enrichment_noise_non_relapsers": 41.812825280081206
     },
     {
       "dataset": "NSCLC",
@@ -485,7 +541,9 @@
       "auc_reference_corrected": 0.002577145253588387,
       "median_tumour_cfDNA_share": 5.67e-05,
       "median_tumour_cfDNA_share_relapsers": 0.01108354090909091,
-      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06,
+      "enrichment_noise_relapsers": 0.03827874793730764,
+      "enrichment_noise_non_relapsers": 45.207343453321414
     },
     {
       "dataset": "NSCLC",
@@ -500,7 +558,9 @@
       "auc_reference_corrected": 0.5223891820941234,
       "median_tumour_cfDNA_share": 8.495454545454545e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010382594405594405,
-      "median_tumour_cfDNA_share_non_relapsers": 7.527972027972028e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.527972027972028e-06,
+      "enrichment_noise_relapsers": 0.0408630109333101,
+      "enrichment_noise_non_relapsers": 56.3583481893226
     },
     {
       "dataset": "NSCLC",
@@ -515,7 +575,9 @@
       "auc_reference_corrected": 0.002949174095969913,
       "median_tumour_cfDNA_share": 5.67e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011149795454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06,
+      "enrichment_noise_relapsers": 0.03990852666667866,
+      "enrichment_noise_non_relapsers": 47.413861816110476
     },
     {
       "dataset": "NSCLC",
@@ -530,7 +592,9 @@
       "auc_reference_corrected": 0.5054857862048209,
       "median_tumour_cfDNA_share": 9.666083916083916e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011316545454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06,
+      "enrichment_noise_relapsers": 0.03932047204803215,
+      "enrichment_noise_non_relapsers": 59.16409392773667
     },
     {
       "dataset": "NSCLC",
@@ -545,7 +609,9 @@
       "auc_reference_corrected": 0.9472402597402597,
       "median_tumour_cfDNA_share": 0.0003590772727272727,
       "median_tumour_cfDNA_share_relapsers": 0.041037784848484846,
-      "median_tumour_cfDNA_share_non_relapsers": 2.5142424242424242e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.5142424242424242e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -560,7 +626,9 @@
       "auc_reference_corrected": 0.9447970222793488,
       "median_tumour_cfDNA_share": 0.00020866433566433566,
       "median_tumour_cfDNA_share_relapsers": 0.03710653846153846,
-      "median_tumour_cfDNA_share_non_relapsers": 2.880944055944056e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.880944055944056e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -575,7 +643,9 @@
       "auc_reference_corrected": 0.0024369016536118365,
       "median_tumour_cfDNA_share": 0.00025482727272727274,
       "median_tumour_cfDNA_share_relapsers": 0.04368005606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.804242424242424e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.804242424242424e-05,
+      "enrichment_noise_relapsers": 0.007239637366263268,
+      "enrichment_noise_non_relapsers": 11.276762782100338
     },
     {
       "dataset": "NSCLC",
@@ -590,7 +660,9 @@
       "auc_reference_corrected": 0.5391880501319626,
       "median_tumour_cfDNA_share": 0.00029883566433566434,
       "median_tumour_cfDNA_share_relapsers": 0.04025523076923077,
-      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05,
+      "enrichment_noise_relapsers": 0.007855569573794314,
+      "enrichment_noise_non_relapsers": 14.336393925785154
     },
     {
       "dataset": "NSCLC",
@@ -605,7 +677,9 @@
       "auc_reference_corrected": 0.002417200854700855,
       "median_tumour_cfDNA_share": 0.00025001363636363637,
       "median_tumour_cfDNA_share_relapsers": 0.04368005606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.732575757575758e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.732575757575758e-05,
+      "enrichment_noise_relapsers": 0.009712992770047326,
+      "enrichment_noise_non_relapsers": 15.526159431653605
     },
     {
       "dataset": "NSCLC",
@@ -620,7 +694,9 @@
       "auc_reference_corrected": 0.4848623232528246,
       "median_tumour_cfDNA_share": 0.00029883566433566434,
       "median_tumour_cfDNA_share_relapsers": 0.03920426923076924,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1265734265734265e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.1265734265734265e-05,
+      "enrichment_noise_relapsers": 0.010821884377300098,
+      "enrichment_noise_non_relapsers": 19.95059579934422
     },
     {
       "dataset": "NSCLC",
@@ -635,7 +711,9 @@
       "auc_reference_corrected": 0.002276900477414616,
       "median_tumour_cfDNA_share": 0.00021704242424242423,
       "median_tumour_cfDNA_share_relapsers": 0.04508609696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 2.7281818181818183e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.7281818181818183e-05,
+      "enrichment_noise_relapsers": 0.009869381896703368,
+      "enrichment_noise_non_relapsers": 16.310199938297693
     },
     {
       "dataset": "NSCLC",
@@ -650,7 +728,9 @@
       "auc_reference_corrected": 0.4695438015631785,
       "median_tumour_cfDNA_share": 0.00030313286713286715,
       "median_tumour_cfDNA_share_relapsers": 0.040784,
-      "median_tumour_cfDNA_share_non_relapsers": 2.202097902097902e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.202097902097902e-05,
+      "enrichment_noise_relapsers": 0.01091045285469154,
+      "enrichment_noise_non_relapsers": 20.206726903550585
     },
     {
       "dataset": "NSCLC",
@@ -665,7 +745,9 @@
       "auc_reference_corrected": 0.7983813669891876,
       "median_tumour_cfDNA_share": 0.0008377606060606061,
       "median_tumour_cfDNA_share_relapsers": 0.12742416212121213,
-      "median_tumour_cfDNA_share_non_relapsers": 6.971212121212122e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.971212121212122e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -680,7 +762,9 @@
       "auc_reference_corrected": 0.8131779160026731,
       "median_tumour_cfDNA_share": 0.0008291923076923077,
       "median_tumour_cfDNA_share_relapsers": 0.11146431468531469,
-      "median_tumour_cfDNA_share_non_relapsers": 6.430944055944056e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.430944055944056e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -695,7 +779,9 @@
       "auc_reference_corrected": 0.002735508168354624,
       "median_tumour_cfDNA_share": 0.0005851424242424243,
       "median_tumour_cfDNA_share_relapsers": 0.13940374696969698,
-      "median_tumour_cfDNA_share_non_relapsers": 7.653333333333333e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.653333333333333e-05,
+      "enrichment_noise_relapsers": 0.002268430891499482,
+      "enrichment_noise_non_relapsers": 4.1318958974325515
     },
     {
       "dataset": "NSCLC",
@@ -710,7 +796,9 @@
       "auc_reference_corrected": 0.565,
       "median_tumour_cfDNA_share": 0.000627826923076923,
       "median_tumour_cfDNA_share_relapsers": 0.13094722552447552,
-      "median_tumour_cfDNA_share_non_relapsers": 5.8879370629370635e-05
+      "median_tumour_cfDNA_share_non_relapsers": 5.8879370629370635e-05,
+      "enrichment_noise_relapsers": 0.0024149252857421665,
+      "enrichment_noise_non_relapsers": 5.370773543205893
     },
     {
       "dataset": "NSCLC",
@@ -725,7 +813,9 @@
       "auc_reference_corrected": 0.002728703421667174,
       "median_tumour_cfDNA_share": 0.0005747803030303031,
       "median_tumour_cfDNA_share_relapsers": 0.13944189090909093,
-      "median_tumour_cfDNA_share_non_relapsers": 7.651818181818182e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.651818181818182e-05,
+      "enrichment_noise_relapsers": 0.0030425868865226967,
+      "enrichment_noise_non_relapsers": 5.54461774483927
     },
     {
       "dataset": "NSCLC",
@@ -740,7 +830,9 @@
       "auc_reference_corrected": 0.507630399153099,
       "median_tumour_cfDNA_share": 0.0005678094405594406,
       "median_tumour_cfDNA_share_relapsers": 0.11923946503496503,
-      "median_tumour_cfDNA_share_non_relapsers": 6.213636363636363e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.213636363636363e-05,
+      "enrichment_noise_relapsers": 0.003558084301934095,
+      "enrichment_noise_non_relapsers": 6.827951361859859
     },
     {
       "dataset": "NSCLC",
@@ -755,7 +847,9 @@
       "auc_reference_corrected": 0.0025257344988611928,
       "median_tumour_cfDNA_share": 0.0005644181818181818,
       "median_tumour_cfDNA_share_relapsers": 0.14154245151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 7.818939393939394e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.818939393939394e-05,
+      "enrichment_noise_relapsers": 0.0031437346496581446,
+      "enrichment_noise_non_relapsers": 5.690949715899395
     },
     {
       "dataset": "NSCLC",
@@ -770,7 +864,9 @@
       "auc_reference_corrected": 0.46352026161120685,
       "median_tumour_cfDNA_share": 0.000629340909090909,
       "median_tumour_cfDNA_share_relapsers": 0.1146441013986014,
-      "median_tumour_cfDNA_share_non_relapsers": 6.252447552447552e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.252447552447552e-05,
+      "enrichment_noise_relapsers": 0.0038813327837830497,
+      "enrichment_noise_non_relapsers": 7.116763563279364
     },
     {
       "dataset": "NSCLC",
@@ -785,7 +881,9 @@
       "auc_reference_corrected": 0.5424555131226132,
       "median_tumour_cfDNA_share": 0.0019396575757575757,
       "median_tumour_cfDNA_share_relapsers": 0.2725120212121212,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0002184878787878788
+      "median_tumour_cfDNA_share_non_relapsers": 0.0002184878787878788,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -800,7 +898,9 @@
       "auc_reference_corrected": 0.5698998985921101,
       "median_tumour_cfDNA_share": 0.0018628374125874126,
       "median_tumour_cfDNA_share_relapsers": 0.250582013986014,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0002183881118881119
+      "median_tumour_cfDNA_share_non_relapsers": 0.0002183881118881119,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -815,7 +915,9 @@
       "auc_reference_corrected": 0.0013319242866701268,
       "median_tumour_cfDNA_share": 0.0016244681818181818,
       "median_tumour_cfDNA_share_relapsers": 0.26132306363636365,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000250969696969697
+      "median_tumour_cfDNA_share_non_relapsers": 0.000250969696969697,
+      "enrichment_noise_relapsers": 0.0012101027808891576,
+      "enrichment_noise_non_relapsers": 1.260023699415075
     },
     {
       "dataset": "NSCLC",
@@ -830,7 +932,9 @@
       "auc_reference_corrected": 0.5226685931463392,
       "median_tumour_cfDNA_share": 0.0021017552447552446,
       "median_tumour_cfDNA_share_relapsers": 0.29392144755244753,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00021665384615384616
+      "median_tumour_cfDNA_share_non_relapsers": 0.00021665384615384616,
+      "enrichment_noise_relapsers": 0.0010758921087594673,
+      "enrichment_noise_non_relapsers": 1.4595991330441658
     },
     {
       "dataset": "NSCLC",
@@ -845,7 +949,9 @@
       "auc_reference_corrected": 0.001726078799249531,
       "median_tumour_cfDNA_share": 0.0015354727272727272,
       "median_tumour_cfDNA_share_relapsers": 0.2620070878787879,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455
+      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455,
+      "enrichment_noise_relapsers": 0.0016192847000696614,
+      "enrichment_noise_non_relapsers": 1.787161719352524
     },
     {
       "dataset": "NSCLC",
@@ -860,7 +966,9 @@
       "auc_reference_corrected": 0.4575823029941904,
       "median_tumour_cfDNA_share": 0.0016903776223776224,
       "median_tumour_cfDNA_share_relapsers": 0.26559748076923073,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762
+      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762,
+      "enrichment_noise_relapsers": 0.0015973949281565594,
+      "enrichment_noise_non_relapsers": 1.8930018198663248
     },
     {
       "dataset": "NSCLC",
@@ -875,7 +983,9 @@
       "auc_reference_corrected": 0.0025097150259067356,
       "median_tumour_cfDNA_share": 0.0012607151515151515,
       "median_tumour_cfDNA_share_relapsers": 0.2472394606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00022026212121212122
+      "median_tumour_cfDNA_share_non_relapsers": 0.00022026212121212122,
+      "enrichment_noise_relapsers": 0.0017997608801401507,
+      "enrichment_noise_non_relapsers": 2.020192608592987
     },
     {
       "dataset": "NSCLC",
@@ -890,7 +1000,9 @@
       "auc_reference_corrected": 0.40355644901099447,
       "median_tumour_cfDNA_share": 0.0018462657342657343,
       "median_tumour_cfDNA_share_relapsers": 0.26211291608391607,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993
+      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993,
+      "enrichment_noise_relapsers": 0.0016976344236438962,
+      "enrichment_noise_non_relapsers": 2.0890014123204463
     },
     {
       "dataset": "NSCLC",
@@ -905,7 +1017,9 @@
       "auc_reference_corrected": 0.4481807069746768,
       "median_tumour_cfDNA_share": 0.005371024242424242,
       "median_tumour_cfDNA_share_relapsers": 0.38106486515151516,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0006206060606060606
+      "median_tumour_cfDNA_share_non_relapsers": 0.0006206060606060606,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -920,7 +1034,9 @@
       "auc_reference_corrected": 0.46910522521856457,
       "median_tumour_cfDNA_share": 0.006181222027972028,
       "median_tumour_cfDNA_share_relapsers": 0.37056253496503494,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0006737027972027972
+      "median_tumour_cfDNA_share_non_relapsers": 0.0006737027972027972,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -935,7 +1051,9 @@
       "auc_reference_corrected": 0.0025586883616941993,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36277518484848487,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0008716907308555635,
+      "enrichment_noise_non_relapsers": 0.42919430943874987
     },
     {
       "dataset": "NSCLC",
@@ -950,7 +1068,9 @@
       "auc_reference_corrected": 0.4543842741885664,
       "median_tumour_cfDNA_share": 0.004989510489510489,
       "median_tumour_cfDNA_share_relapsers": 0.3803391678321678,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005728356643356643
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005728356643356643,
+      "enrichment_noise_relapsers": 0.0008314362357662298,
+      "enrichment_noise_non_relapsers": 0.5520392421508484
     },
     {
       "dataset": "NSCLC",
@@ -965,7 +1085,9 @@
       "auc_reference_corrected": 0.002540057135759533,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36088736969696966,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0011756135136238629,
+      "enrichment_noise_non_relapsers": 0.5758245908766746
     },
     {
       "dataset": "NSCLC",
@@ -980,7 +1102,9 @@
       "auc_reference_corrected": 0.3996205165870976,
       "median_tumour_cfDNA_share": 0.004547769230769231,
       "median_tumour_cfDNA_share_relapsers": 0.4043686748251748,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005666031468531468
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005666031468531468,
+      "enrichment_noise_relapsers": 0.0010492011254218821,
+      "enrichment_noise_non_relapsers": 0.7487852319003975
     },
     {
       "dataset": "NSCLC",
@@ -995,7 +1119,9 @@
       "auc_reference_corrected": 0.004588751040075507,
       "median_tumour_cfDNA_share": 0.00440049696969697,
       "median_tumour_cfDNA_share_relapsers": 0.35526007575757573,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606,
+      "enrichment_noise_relapsers": 0.0012525243887224246,
+      "enrichment_noise_non_relapsers": 0.6055225411882109
     },
     {
       "dataset": "NSCLC",
@@ -1010,7 +1136,9 @@
       "auc_reference_corrected": 0.3190060196740567,
       "median_tumour_cfDNA_share": 0.004573115384615385,
       "median_tumour_cfDNA_share_relapsers": 0.38204973076923077,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005602202797202798
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005602202797202798,
+      "enrichment_noise_relapsers": 0.0011646963036194779,
+      "enrichment_noise_non_relapsers": 0.7942802596291517
     },
     {
       "dataset": "NSCLC",
@@ -1025,7 +1153,9 @@
       "auc_reference_corrected": 0.3917845941073325,
       "median_tumour_cfDNA_share": 0.02036361212121212,
       "median_tumour_cfDNA_share_relapsers": 0.4609961590909091,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0022534636363636365
+      "median_tumour_cfDNA_share_non_relapsers": 0.0022534636363636365,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -1040,7 +1170,9 @@
       "auc_reference_corrected": 0.4098549432588548,
       "median_tumour_cfDNA_share": 0.017664905594405596,
       "median_tumour_cfDNA_share_relapsers": 0.46797924475524477,
-      "median_tumour_cfDNA_share_non_relapsers": 0.001474020979020979
+      "median_tumour_cfDNA_share_non_relapsers": 0.001474020979020979,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "NSCLC",
@@ -1055,7 +1187,9 @@
       "auc_reference_corrected": 0.0033940560821484993,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47935448787878787,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786,
+      "enrichment_noise_relapsers": 0.0006596950148859376,
+      "enrichment_noise_non_relapsers": 0.15592025045448696
     },
     {
       "dataset": "NSCLC",
@@ -1070,7 +1204,9 @@
       "auc_reference_corrected": 0.35723045635226325,
       "median_tumour_cfDNA_share": 0.017675256993006993,
       "median_tumour_cfDNA_share_relapsers": 0.4797132097902098,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0024054475524475523
+      "median_tumour_cfDNA_share_non_relapsers": 0.0024054475524475523,
+      "enrichment_noise_relapsers": 0.0006592017054421578,
+      "enrichment_noise_non_relapsers": 0.13146317228786591
     },
     {
       "dataset": "NSCLC",
@@ -1085,7 +1221,9 @@
       "auc_reference_corrected": 0.00332541567695962,
       "median_tumour_cfDNA_share": 0.015162345454545454,
       "median_tumour_cfDNA_share_relapsers": 0.47788671212121214,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020950060606060605
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020950060606060605,
+      "enrichment_noise_relapsers": 0.0008877921439345594,
+      "enrichment_noise_non_relapsers": 0.20251209611737062
     },
     {
       "dataset": "NSCLC",
@@ -1100,7 +1238,9 @@
       "auc_reference_corrected": 0.27528524107471475,
       "median_tumour_cfDNA_share": 0.016523575174825174,
       "median_tumour_cfDNA_share_relapsers": 0.4751067534965035,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0024098409090909092
+      "median_tumour_cfDNA_share_non_relapsers": 0.0024098409090909092,
+      "enrichment_noise_relapsers": 0.0008929868194665661,
+      "enrichment_noise_non_relapsers": 0.17605480391316716
     },
     {
       "dataset": "NSCLC",
@@ -1115,7 +1255,9 @@
       "auc_reference_corrected": 0.003196583728278041,
       "median_tumour_cfDNA_share": 0.014063807575757575,
       "median_tumour_cfDNA_share_relapsers": 0.47935448787878787,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786,
+      "enrichment_noise_relapsers": 0.000928273168349386,
+      "enrichment_noise_non_relapsers": 0.21939924000220257
     },
     {
       "dataset": "NSCLC",
@@ -1130,7 +1272,9 @@
       "auc_reference_corrected": 0.21126656848306333,
       "median_tumour_cfDNA_share": 0.01537615909090909,
       "median_tumour_cfDNA_share_relapsers": 0.45037047027972027,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392
+      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392,
+      "enrichment_noise_relapsers": 0.0009880130661083807,
+      "enrichment_noise_non_relapsers": 0.1929535969969715
     },
     {
       "dataset": "SCLC",
@@ -1145,7 +1289,9 @@
       "auc_reference_corrected": 0.706544901065449,
       "median_tumour_cfDNA_share": 6.071515151515152e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003691090909090909,
-      "median_tumour_cfDNA_share_non_relapsers": 1.7060606060606062e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.7060606060606062e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1160,7 +1306,9 @@
       "auc_reference_corrected": 0.7211004626569729,
       "median_tumour_cfDNA_share": 7.799475524475524e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0004099160839160839,
-      "median_tumour_cfDNA_share_non_relapsers": 1.694055944055944e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.694055944055944e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1175,7 +1323,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.7448513424901609,
+      "enrichment_noise_non_relapsers": 188.70734680932463
     },
     {
       "dataset": "SCLC",
@@ -1190,7 +1340,9 @@
       "auc_reference_corrected": 0.429353386535707,
       "median_tumour_cfDNA_share": 6.775874125874126e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003308881118881119,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6083916083916085e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6083916083916085e-06,
+      "enrichment_noise_relapsers": 0.955693948061116,
+      "enrichment_noise_non_relapsers": 196.61117626264272
     },
     {
       "dataset": "SCLC",
@@ -1205,7 +1357,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.9993229409639862,
+      "enrichment_noise_non_relapsers": 253.17747319156675
     },
     {
       "dataset": "SCLC",
@@ -1220,7 +1374,9 @@
       "auc_reference_corrected": 0.43113960597826084,
       "median_tumour_cfDNA_share": 9.287587412587414e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045485139860139856,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6363636363636363e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6363636363636363e-06,
+      "enrichment_noise_relapsers": 0.9327531365551,
+      "enrichment_noise_non_relapsers": 259.27248643506744
     },
     {
       "dataset": "SCLC",
@@ -1235,7 +1391,9 @@
       "auc_reference_corrected": 0.005747126436781609,
       "median_tumour_cfDNA_share": 6.553333333333333e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00036688787878787877,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06,
+      "enrichment_noise_relapsers": 1.2128280462571683,
+      "enrichment_noise_non_relapsers": 264.81646536428156
     },
     {
       "dataset": "SCLC",
@@ -1250,7 +1408,9 @@
       "auc_reference_corrected": 0.44252201430930105,
       "median_tumour_cfDNA_share": 9.439685314685314e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045882692307692307,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6083916083916085e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6083916083916085e-06,
+      "enrichment_noise_relapsers": 0.9698033982873745,
+      "enrichment_noise_non_relapsers": 276.65644790991644
     },
     {
       "dataset": "SCLC",
@@ -1265,7 +1425,9 @@
       "auc_reference_corrected": 0.6543608164933009,
       "median_tumour_cfDNA_share": 5.249393939393939e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0012483515151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 2.140909090909091e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.140909090909091e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1280,7 +1442,9 @@
       "auc_reference_corrected": 0.639746383808289,
       "median_tumour_cfDNA_share": 7.36625874125874e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0014066223776223775,
-      "median_tumour_cfDNA_share_non_relapsers": 2.104895104895105e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.104895104895105e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1295,7 +1459,9 @@
       "auc_reference_corrected": 0.0019077757685352621,
       "median_tumour_cfDNA_share": 6.127878787878788e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011193181818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06,
+      "enrichment_noise_relapsers": 0.2825182072028603,
+      "enrichment_noise_non_relapsers": 153.35071680463852
     },
     {
       "dataset": "SCLC",
@@ -1310,7 +1476,9 @@
       "auc_reference_corrected": 0.5008515469770082,
       "median_tumour_cfDNA_share": 7.434965034965036e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0010494125874125873,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06,
+      "enrichment_noise_relapsers": 0.3013378816014809,
+      "enrichment_noise_non_relapsers": 138.28920654558968
     },
     {
       "dataset": "SCLC",
@@ -1325,7 +1493,9 @@
       "auc_reference_corrected": 0.0019077757685352621,
       "median_tumour_cfDNA_share": 6.127878787878788e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011193181818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06,
+      "enrichment_noise_relapsers": 0.37903794971217974,
+      "enrichment_noise_non_relapsers": 205.74157630409465
     },
     {
       "dataset": "SCLC",
@@ -1340,7 +1510,9 @@
       "auc_reference_corrected": 0.5221392493979128,
       "median_tumour_cfDNA_share": 8.234265734265734e-05,
       "median_tumour_cfDNA_share_relapsers": 0.001281402097902098,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1468531468531466e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.1468531468531466e-06,
+      "enrichment_noise_relapsers": 0.33109362736843534,
+      "enrichment_noise_non_relapsers": 197.621374025426
     },
     {
       "dataset": "SCLC",
@@ -1355,7 +1527,9 @@
       "auc_reference_corrected": 0.0025046173251047346,
       "median_tumour_cfDNA_share": 5.578939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011331515151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06,
+      "enrichment_noise_relapsers": 0.3926852704832169,
+      "enrichment_noise_non_relapsers": 215.94225006543252
     },
     {
       "dataset": "SCLC",
@@ -1370,7 +1544,9 @@
       "auc_reference_corrected": 0.5342278156257042,
       "median_tumour_cfDNA_share": 8.6006993006993e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0012934353146853146,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06,
+      "enrichment_noise_relapsers": 0.34402331850201484,
+      "enrichment_noise_non_relapsers": 201.04575993453645
     },
     {
       "dataset": "SCLC",
@@ -1385,7 +1561,9 @@
       "auc_reference_corrected": 0.595213518933585,
       "median_tumour_cfDNA_share": 5.3980303030303034e-05,
       "median_tumour_cfDNA_share_relapsers": 0.004350754545454545,
-      "median_tumour_cfDNA_share_non_relapsers": 4.356060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 4.356060606060606e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1400,7 +1578,9 @@
       "auc_reference_corrected": 0.6051581701540129,
       "median_tumour_cfDNA_share": 6.49458041958042e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0036824475524475523,
-      "median_tumour_cfDNA_share_non_relapsers": 3.479020979020979e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.479020979020979e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1415,7 +1595,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038849363636363635,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.08139844167765045,
+      "enrichment_noise_non_relapsers": 80.95823334798798
     },
     {
       "dataset": "SCLC",
@@ -1430,7 +1612,9 @@
       "auc_reference_corrected": 0.5222298221614227,
       "median_tumour_cfDNA_share": 5.212237762237762e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0035950874125874124,
-      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06,
+      "enrichment_noise_relapsers": 0.08796107847326202,
+      "enrichment_noise_non_relapsers": 90.30568255698019
     },
     {
       "dataset": "SCLC",
@@ -1445,7 +1629,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038849363636363635,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.10920746931226705,
+      "enrichment_noise_non_relapsers": 108.6168678626349
     },
     {
       "dataset": "SCLC",
@@ -1460,7 +1646,9 @@
       "auc_reference_corrected": 0.5222009637188209,
       "median_tumour_cfDNA_share": 3.921328671328672e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003909977272727273,
-      "median_tumour_cfDNA_share_non_relapsers": 3.4475524475524474e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.4475524475524474e-06,
+      "enrichment_noise_relapsers": 0.10850806516734492,
+      "enrichment_noise_non_relapsers": 123.06239721258778
     },
     {
       "dataset": "SCLC",
@@ -1475,7 +1663,9 @@
       "auc_reference_corrected": 0.0028690870362186012,
       "median_tumour_cfDNA_share": 4.1643939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003991278787878788,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.1114860506805703,
+      "enrichment_noise_non_relapsers": 113.91833207485968
     },
     {
       "dataset": "SCLC",
@@ -1490,7 +1680,9 @@
       "auc_reference_corrected": 0.5320435705067915,
       "median_tumour_cfDNA_share": 4.7452797202797203e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0039926398601398605,
-      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06,
+      "enrichment_noise_relapsers": 0.11144804560713688,
+      "enrichment_noise_non_relapsers": 128.1590795957317
     },
     {
       "dataset": "SCLC",
@@ -1505,7 +1697,9 @@
       "auc_reference_corrected": 0.5580151415404871,
       "median_tumour_cfDNA_share": 8.216666666666667e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010407633333333333,
-      "median_tumour_cfDNA_share_non_relapsers": 8.084848484848485e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.084848484848485e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1520,7 +1714,9 @@
       "auc_reference_corrected": 0.5584959964319811,
       "median_tumour_cfDNA_share": 8.853146853146853e-05,
       "median_tumour_cfDNA_share_relapsers": 0.009971465034965035,
-      "median_tumour_cfDNA_share_non_relapsers": 7.622377622377622e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.622377622377622e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1535,7 +1731,9 @@
       "auc_reference_corrected": 0.0024622211399272158,
       "median_tumour_cfDNA_share": 5.826060606060606e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011050269696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 9.433333333333333e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.433333333333333e-06,
+      "enrichment_noise_relapsers": 0.028617198918100318,
+      "enrichment_noise_non_relapsers": 33.52237802298635
     },
     {
       "dataset": "SCLC",
@@ -1550,7 +1748,9 @@
       "auc_reference_corrected": 0.5061803232998885,
       "median_tumour_cfDNA_share": 9.672727272727273e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00991106993006993,
-      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06,
+      "enrichment_noise_relapsers": 0.03190652152068982,
+      "enrichment_noise_non_relapsers": 41.812825280081206
     },
     {
       "dataset": "SCLC",
@@ -1565,7 +1765,9 @@
       "auc_reference_corrected": 0.0026177302182118266,
       "median_tumour_cfDNA_share": 5.67e-05,
       "median_tumour_cfDNA_share_relapsers": 0.01108354090909091,
-      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.384848484848484e-06,
+      "enrichment_noise_relapsers": 0.03827874793730764,
+      "enrichment_noise_non_relapsers": 45.207343453321414
     },
     {
       "dataset": "SCLC",
@@ -1580,7 +1782,9 @@
       "auc_reference_corrected": 0.49692678991412786,
       "median_tumour_cfDNA_share": 8.847202797202798e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010866213286713286,
-      "median_tumour_cfDNA_share_non_relapsers": 7.5437062937062935e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.5437062937062935e-06,
+      "enrichment_noise_relapsers": 0.03904433472060588,
+      "enrichment_noise_non_relapsers": 56.240798911523314
     },
     {
       "dataset": "SCLC",
@@ -1595,7 +1799,9 @@
       "auc_reference_corrected": 0.0029356457744287665,
       "median_tumour_cfDNA_share": 5.67e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011023960606060607,
-      "median_tumour_cfDNA_share_non_relapsers": 9.403030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.403030303030303e-06,
+      "enrichment_noise_relapsers": 0.04036406924214778,
+      "enrichment_noise_non_relapsers": 47.322181773926566
     },
     {
       "dataset": "SCLC",
@@ -1610,7 +1816,9 @@
       "auc_reference_corrected": 0.498864538017456,
       "median_tumour_cfDNA_share": 9.666083916083916e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011316545454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06,
+      "enrichment_noise_relapsers": 0.03932047204803215,
+      "enrichment_noise_non_relapsers": 59.16409392773667
     },
     {
       "dataset": "SCLC",
@@ -1625,7 +1833,9 @@
       "auc_reference_corrected": 0.5146160558464223,
       "median_tumour_cfDNA_share": 0.00021875757575757576,
       "median_tumour_cfDNA_share_relapsers": 0.03888953484848485,
-      "median_tumour_cfDNA_share_non_relapsers": 2.4418181818181817e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.4418181818181817e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1640,7 +1850,9 @@
       "auc_reference_corrected": 0.5089776211913617,
       "median_tumour_cfDNA_share": 0.00024345454545454545,
       "median_tumour_cfDNA_share_relapsers": 0.043335977272727276,
-      "median_tumour_cfDNA_share_non_relapsers": 2.6517482517482516e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.6517482517482516e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1655,7 +1867,9 @@
       "auc_reference_corrected": 0.002417200854700855,
       "median_tumour_cfDNA_share": 0.00025001363636363637,
       "median_tumour_cfDNA_share_relapsers": 0.04297624696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 2.732575757575758e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.732575757575758e-05,
+      "enrichment_noise_relapsers": 0.007358198733356443,
+      "enrichment_noise_non_relapsers": 11.57251597289232
     },
     {
       "dataset": "SCLC",
@@ -1670,7 +1884,9 @@
       "auc_reference_corrected": 0.46782052339325964,
       "median_tumour_cfDNA_share": 0.0002698636363636364,
       "median_tumour_cfDNA_share_relapsers": 0.03975094405594406,
-      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05,
+      "enrichment_noise_relapsers": 0.007955226561960146,
+      "enrichment_noise_non_relapsers": 14.336393925785154
     },
     {
       "dataset": "SCLC",
@@ -1685,7 +1901,9 @@
       "auc_reference_corrected": 0.001749465811965812,
       "median_tumour_cfDNA_share": 0.0002249378787878788,
       "median_tumour_cfDNA_share_relapsers": 0.04368005606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.731666666666667e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.731666666666667e-05,
+      "enrichment_noise_relapsers": 0.009712992770047326,
+      "enrichment_noise_non_relapsers": 15.5313264934202
     },
     {
       "dataset": "SCLC",
@@ -1700,7 +1918,9 @@
       "auc_reference_corrected": 0.4604646141597339,
       "median_tumour_cfDNA_share": 0.0002840314685314685,
       "median_tumour_cfDNA_share_relapsers": 0.03926652447552448,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1713286713286712e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.1713286713286712e-05,
+      "enrichment_noise_relapsers": 0.01080472678391437,
+      "enrichment_noise_non_relapsers": 19.539375789309428
     },
     {
       "dataset": "SCLC",
@@ -1715,7 +1935,9 @@
       "auc_reference_corrected": 0.0022243829668207307,
       "median_tumour_cfDNA_share": 0.00021423939393939393,
       "median_tumour_cfDNA_share_relapsers": 0.04508609696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 2.5998484848484848e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.5998484848484848e-05,
+      "enrichment_noise_relapsers": 0.009869381896703368,
+      "enrichment_noise_non_relapsers": 17.115301596187905
     },
     {
       "dataset": "SCLC",
@@ -1730,7 +1952,9 @@
       "auc_reference_corrected": 0.45779371185723783,
       "median_tumour_cfDNA_share": 0.0002710472027972028,
       "median_tumour_cfDNA_share_relapsers": 0.04196139160839161,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1755244755244756e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.1755244755244756e-05,
+      "enrichment_noise_relapsers": 0.010604317258552324,
+      "enrichment_noise_non_relapsers": 20.45354645428505
     },
     {
       "dataset": "SCLC",
@@ -1745,7 +1969,9 @@
       "auc_reference_corrected": 0.4617243539746065,
       "median_tumour_cfDNA_share": 0.0007709393939393939,
       "median_tumour_cfDNA_share_relapsers": 0.10867587272727272,
-      "median_tumour_cfDNA_share_non_relapsers": 7.719393939393939e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.719393939393939e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1760,7 +1986,9 @@
       "auc_reference_corrected": 0.4453683236518789,
       "median_tumour_cfDNA_share": 0.0006467692307692308,
       "median_tumour_cfDNA_share_relapsers": 0.11813646853146853,
-      "median_tumour_cfDNA_share_non_relapsers": 7.39965034965035e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.39965034965035e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1775,7 +2003,9 @@
       "auc_reference_corrected": 0.002735508168354624,
       "median_tumour_cfDNA_share": 0.0005851424242424243,
       "median_tumour_cfDNA_share_relapsers": 0.13944189090909093,
-      "median_tumour_cfDNA_share_non_relapsers": 7.653333333333333e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.653333333333333e-05,
+      "enrichment_noise_relapsers": 0.0022678103685713964,
+      "enrichment_noise_non_relapsers": 4.1318958974325515
     },
     {
       "dataset": "SCLC",
@@ -1790,7 +2020,9 @@
       "auc_reference_corrected": 0.4885372714486639,
       "median_tumour_cfDNA_share": 0.0006202657342657343,
       "median_tumour_cfDNA_share_relapsers": 0.12305087412587412,
-      "median_tumour_cfDNA_share_non_relapsers": 6.0437062937062935e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.0437062937062935e-05,
+      "enrichment_noise_relapsers": 0.0025698945112194384,
+      "enrichment_noise_non_relapsers": 5.232348341383608
     },
     {
       "dataset": "SCLC",
@@ -1805,7 +2037,9 @@
       "auc_reference_corrected": 0.002532033088633914,
       "median_tumour_cfDNA_share": 0.0005726742424242424,
       "median_tumour_cfDNA_share_relapsers": 0.13945883333333334,
-      "median_tumour_cfDNA_share_non_relapsers": 7.911515151515152e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.911515151515152e-05,
+      "enrichment_noise_relapsers": 0.0030422172520105347,
+      "enrichment_noise_non_relapsers": 5.362614626740325
     },
     {
       "dataset": "SCLC",
@@ -1820,7 +2054,9 @@
       "auc_reference_corrected": 0.4730431058373013,
       "median_tumour_cfDNA_share": 0.0006091538461538462,
       "median_tumour_cfDNA_share_relapsers": 0.11923946503496503,
-      "median_tumour_cfDNA_share_non_relapsers": 5.7437062937062936e-05
+      "median_tumour_cfDNA_share_non_relapsers": 5.7437062937062936e-05,
+      "enrichment_noise_relapsers": 0.003558084301934095,
+      "enrichment_noise_non_relapsers": 7.386590591806876
     },
     {
       "dataset": "SCLC",
@@ -1835,7 +2071,9 @@
       "auc_reference_corrected": 0.002532033088633914,
       "median_tumour_cfDNA_share": 0.0005726742424242424,
       "median_tumour_cfDNA_share_relapsers": 0.14154245151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 7.854848484848485e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.854848484848485e-05,
+      "enrichment_noise_relapsers": 0.0031437346496581446,
+      "enrichment_noise_non_relapsers": 5.664933067570469
     },
     {
       "dataset": "SCLC",
@@ -1850,7 +2088,9 @@
       "auc_reference_corrected": 0.46141282155982033,
       "median_tumour_cfDNA_share": 0.0006425839160839161,
       "median_tumour_cfDNA_share_relapsers": 0.11650316083916083,
-      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05
+      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05,
+      "enrichment_noise_relapsers": 0.0038193977401183867,
+      "enrichment_noise_non_relapsers": 7.778373329170685
     },
     {
       "dataset": "SCLC",
@@ -1865,7 +2105,9 @@
       "auc_reference_corrected": 0.30843021805299137,
       "median_tumour_cfDNA_share": 0.0017598969696969698,
       "median_tumour_cfDNA_share_relapsers": 0.28415515454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0002184878787878788
+      "median_tumour_cfDNA_share_non_relapsers": 0.0002184878787878788,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1880,7 +2122,9 @@
       "auc_reference_corrected": 0.3253795420607267,
       "median_tumour_cfDNA_share": 0.0015493111888111887,
       "median_tumour_cfDNA_share_relapsers": 0.27526043006993006,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00021367482517482519
+      "median_tumour_cfDNA_share_non_relapsers": 0.00021367482517482519,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -1895,7 +2139,9 @@
       "auc_reference_corrected": 0.001726078799249531,
       "median_tumour_cfDNA_share": 0.0015354727272727272,
       "median_tumour_cfDNA_share_relapsers": 0.2620070878787879,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00024202121212121212
+      "median_tumour_cfDNA_share_non_relapsers": 0.00024202121212121212,
+      "enrichment_noise_relapsers": 0.001206943554760374,
+      "enrichment_noise_non_relapsers": 1.3066117768985503
     },
     {
       "dataset": "SCLC",
@@ -1910,7 +2156,9 @@
       "auc_reference_corrected": 0.42574363162358264,
       "median_tumour_cfDNA_share": 0.0021017552447552446,
       "median_tumour_cfDNA_share_relapsers": 0.29392144755244753,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762
+      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762,
+      "enrichment_noise_relapsers": 0.0010758921087594673,
+      "enrichment_noise_non_relapsers": 1.4109602502506382
     },
     {
       "dataset": "SCLC",
@@ -1925,7 +2173,9 @@
       "auc_reference_corrected": 0.001275645795684065,
       "median_tumour_cfDNA_share": 0.0015683772727272728,
       "median_tumour_cfDNA_share_relapsers": 0.26132306363636365,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0002429878787878788
+      "median_tumour_cfDNA_share_non_relapsers": 0.0002429878787878788,
+      "enrichment_noise_relapsers": 0.0016235232466978136,
+      "enrichment_noise_non_relapsers": 1.746029764234859
     },
     {
       "dataset": "SCLC",
@@ -1940,7 +2190,9 @@
       "auc_reference_corrected": 0.4556643825413377,
       "median_tumour_cfDNA_share": 0.0016903776223776224,
       "median_tumour_cfDNA_share_relapsers": 0.26559748076923073,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00021567832167832167
+      "median_tumour_cfDNA_share_non_relapsers": 0.00021567832167832167,
+      "enrichment_noise_relapsers": 0.0015973949281565594,
+      "enrichment_noise_non_relapsers": 1.9671150322873283
     },
     {
       "dataset": "SCLC",
@@ -1955,7 +2207,9 @@
       "auc_reference_corrected": 0.0027216247161063875,
       "median_tumour_cfDNA_share": 0.001443160606060606,
       "median_tumour_cfDNA_share_relapsers": 0.2430971303030303,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00024334242424242425
+      "median_tumour_cfDNA_share_non_relapsers": 0.00024334242424242425,
+      "enrichment_noise_relapsers": 0.0018304284738822894,
+      "enrichment_noise_non_relapsers": 1.8285833660572348
     },
     {
       "dataset": "SCLC",
@@ -1970,7 +2224,9 @@
       "auc_reference_corrected": 0.43762564217109673,
       "median_tumour_cfDNA_share": 0.0018462657342657343,
       "median_tumour_cfDNA_share_relapsers": 0.26211291608391607,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993
+      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993,
+      "enrichment_noise_relapsers": 0.0016976344236438962,
+      "enrichment_noise_non_relapsers": 2.0890014123204463
     },
     {
       "dataset": "SCLC",
@@ -1985,7 +2241,9 @@
       "auc_reference_corrected": 0.29009339084905833,
       "median_tumour_cfDNA_share": 0.006284309090909091,
       "median_tumour_cfDNA_share_relapsers": 0.3539257060606061,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005951151515151516
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005951151515151516,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2000,7 +2258,9 @@
       "auc_reference_corrected": 0.28489863365066836,
       "median_tumour_cfDNA_share": 0.004397148601398601,
       "median_tumour_cfDNA_share_relapsers": 0.3951210314685315,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0006500384615384614
+      "median_tumour_cfDNA_share_non_relapsers": 0.0006500384615384614,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2015,7 +2275,9 @@
       "auc_reference_corrected": 0.002540057135759533,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36088736969696966,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0008762505772434443,
+      "enrichment_noise_non_relapsers": 0.42919430943874987
     },
     {
       "dataset": "SCLC",
@@ -2030,7 +2292,9 @@
       "auc_reference_corrected": 0.36929263230716014,
       "median_tumour_cfDNA_share": 0.004732269230769231,
       "median_tumour_cfDNA_share_relapsers": 0.3771064947552447,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005697412587412587
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005697412587412587,
+      "enrichment_noise_relapsers": 0.0008385635633830195,
+      "enrichment_noise_non_relapsers": 0.5550375037178922
     },
     {
       "dataset": "SCLC",
@@ -2045,7 +2309,9 @@
       "auc_reference_corrected": 0.002540057135759533,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36088736969696966,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0011756135136238629,
+      "enrichment_noise_non_relapsers": 0.5758245908766746
     },
     {
       "dataset": "SCLC",
@@ -2060,7 +2326,9 @@
       "auc_reference_corrected": 0.36922464965424395,
       "median_tumour_cfDNA_share": 0.004477597902097902,
       "median_tumour_cfDNA_share_relapsers": 0.40432269755244754,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000564027972027972
+      "median_tumour_cfDNA_share_non_relapsers": 0.000564027972027972,
+      "enrichment_noise_relapsers": 0.0010493204345939401,
+      "enrichment_noise_non_relapsers": 0.752203950429054
     },
     {
       "dataset": "SCLC",
@@ -2075,7 +2343,9 @@
       "auc_reference_corrected": 0.004588751040075507,
       "median_tumour_cfDNA_share": 0.00440049696969697,
       "median_tumour_cfDNA_share_relapsers": 0.35526007575757573,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606,
+      "enrichment_noise_relapsers": 0.0012525243887224246,
+      "enrichment_noise_non_relapsers": 0.6055225411882109
     },
     {
       "dataset": "SCLC",
@@ -2090,7 +2360,9 @@
       "auc_reference_corrected": 0.3447301117243236,
       "median_tumour_cfDNA_share": 0.004960965034965035,
       "median_tumour_cfDNA_share_relapsers": 0.38325803846153844,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005620279720279721
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005620279720279721,
+      "enrichment_noise_relapsers": 0.001161024334967457,
+      "enrichment_noise_non_relapsers": 0.7917255570397012
     },
     {
       "dataset": "SCLC",
@@ -2105,7 +2377,9 @@
       "auc_reference_corrected": 0.24786308950319919,
       "median_tumour_cfDNA_share": 0.02036361212121212,
       "median_tumour_cfDNA_share_relapsers": 0.48625087272727274,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002290921212121212
+      "median_tumour_cfDNA_share_non_relapsers": 0.002290921212121212,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2120,7 +2394,9 @@
       "auc_reference_corrected": 0.2500077407528966,
       "median_tumour_cfDNA_share": 0.018244129370629372,
       "median_tumour_cfDNA_share_relapsers": 0.46797924475524477,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0021606783216783216
+      "median_tumour_cfDNA_share_non_relapsers": 0.0021606783216783216,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2135,7 +2411,9 @@
       "auc_reference_corrected": 0.0032521228278041075,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47935448787878787,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786,
+      "enrichment_noise_relapsers": 0.0006596950148859376,
+      "enrichment_noise_non_relapsers": 0.15592025045448696
     },
     {
       "dataset": "SCLC",
@@ -2150,7 +2428,9 @@
       "auc_reference_corrected": 0.27560404339250494,
       "median_tumour_cfDNA_share": 0.016655157342657344,
       "median_tumour_cfDNA_share_relapsers": 0.48039096503496503,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392
+      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392,
+      "enrichment_noise_relapsers": 0.0006582716766828066,
+      "enrichment_noise_non_relapsers": 0.13712615034382028
     },
     {
       "dataset": "SCLC",
@@ -2165,7 +2445,9 @@
       "auc_reference_corrected": 0.003146497208254928,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47788671212121214,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020357
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020357,
+      "enrichment_noise_relapsers": 0.0008877921439345594,
+      "enrichment_noise_non_relapsers": 0.2084118822576649
     },
     {
       "dataset": "SCLC",
@@ -2180,7 +2462,9 @@
       "auc_reference_corrected": 0.25478707413292756,
       "median_tumour_cfDNA_share": 0.015780884615384617,
       "median_tumour_cfDNA_share_relapsers": 0.4766461958041958,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0023314195804195804
+      "median_tumour_cfDNA_share_non_relapsers": 0.0023314195804195804,
+      "enrichment_noise_relapsers": 0.0008901027060461725,
+      "enrichment_noise_non_relapsers": 0.18197671164603269
     },
     {
       "dataset": "SCLC",
@@ -2195,7 +2479,9 @@
       "auc_reference_corrected": 0.003066992496050553,
       "median_tumour_cfDNA_share": 0.013699325757575757,
       "median_tumour_cfDNA_share_relapsers": 0.47935448787878787,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020155166666666665
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020155166666666665,
+      "enrichment_noise_relapsers": 0.000928273168349386,
+      "enrichment_noise_non_relapsers": 0.22077312313256642
     },
     {
       "dataset": "SCLC",
@@ -2210,7 +2496,9 @@
       "auc_reference_corrected": 0.23832842415316643,
       "median_tumour_cfDNA_share": 0.01537615909090909,
       "median_tumour_cfDNA_share_relapsers": 0.45037047027972027,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392
+      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392,
+      "enrichment_noise_relapsers": 0.0009880130661083807,
+      "enrichment_noise_non_relapsers": 0.1929535969969715
     },
     {
       "dataset": "SCLC",
@@ -2225,7 +2513,9 @@
       "auc_reference_corrected": 0.6945048256673333,
       "median_tumour_cfDNA_share": 0.00010890909090909091,
       "median_tumour_cfDNA_share_relapsers": 0.00038384242424242425,
-      "median_tumour_cfDNA_share_non_relapsers": 1.762121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.762121212121212e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2240,7 +2530,9 @@
       "auc_reference_corrected": 0.6859562885927852,
       "median_tumour_cfDNA_share": 0.00015974125874125875,
       "median_tumour_cfDNA_share_relapsers": 0.0004286311188811189,
-      "median_tumour_cfDNA_share_non_relapsers": 1.674825174825175e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.674825174825175e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2255,7 +2547,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.7448513424901609,
+      "enrichment_noise_non_relapsers": 188.70734680932463
     },
     {
       "dataset": "SCLC",
@@ -2270,7 +2564,9 @@
       "auc_reference_corrected": 0.43262549571230047,
       "median_tumour_cfDNA_share": 6.733566433566434e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003308881118881119,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6013986013986014e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6013986013986014e-06,
+      "enrichment_noise_relapsers": 0.955693948061116,
+      "enrichment_noise_non_relapsers": 197.4697403511259
     },
     {
       "dataset": "SCLC",
@@ -2285,7 +2581,9 @@
       "auc_reference_corrected": 0.005257740121941563,
       "median_tumour_cfDNA_share": 4.5878787878787883e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00042455151515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6757575757575757e-06,
+      "enrichment_noise_relapsers": 0.9993229409639862,
+      "enrichment_noise_non_relapsers": 253.17747319156675
     },
     {
       "dataset": "SCLC",
@@ -2300,7 +2598,9 @@
       "auc_reference_corrected": 0.4360991088306778,
       "median_tumour_cfDNA_share": 9.220279720279721e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045485139860139856,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6328671328671329e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6328671328671329e-06,
+      "enrichment_noise_relapsers": 0.9327531365551,
+      "enrichment_noise_non_relapsers": 259.8276737721875
     },
     {
       "dataset": "SCLC",
@@ -2315,7 +2615,9 @@
       "auc_reference_corrected": 0.005747126436781609,
       "median_tumour_cfDNA_share": 6.553333333333333e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0003616363636363636,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6803030303030303e-06,
+      "enrichment_noise_relapsers": 1.230440171313006,
+      "enrichment_noise_non_relapsers": 264.81646536428156
     },
     {
       "dataset": "SCLC",
@@ -2330,7 +2632,9 @@
       "auc_reference_corrected": 0.4406933674882304,
       "median_tumour_cfDNA_share": 9.441608391608392e-05,
       "median_tumour_cfDNA_share_relapsers": 0.00045882692307692307,
-      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06
+      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06,
+      "enrichment_noise_relapsers": 0.9698033982873745,
+      "enrichment_noise_non_relapsers": 275.45880094926747
     },
     {
       "dataset": "SCLC",
@@ -2345,7 +2649,9 @@
       "auc_reference_corrected": 0.6519941726264805,
       "median_tumour_cfDNA_share": 6.28969696969697e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0012634636363636363,
-      "median_tumour_cfDNA_share_non_relapsers": 2.015151515151515e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.015151515151515e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2360,7 +2666,9 @@
       "auc_reference_corrected": 0.6567406657046473,
       "median_tumour_cfDNA_share": 7.602272727272728e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0010364615384615384,
-      "median_tumour_cfDNA_share_non_relapsers": 2.083916083916084e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.083916083916084e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2375,7 +2683,9 @@
       "auc_reference_corrected": 0.0019077757685352621,
       "median_tumour_cfDNA_share": 6.127878787878788e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011193181818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06,
+      "enrichment_noise_relapsers": 0.2825182072028603,
+      "enrichment_noise_non_relapsers": 153.35071680463852
     },
     {
       "dataset": "SCLC",
@@ -2390,7 +2700,9 @@
       "auc_reference_corrected": 0.5016084776232378,
       "median_tumour_cfDNA_share": 7.272027972027972e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011080506993006991,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2867132867132866e-06,
+      "enrichment_noise_relapsers": 0.28539106217469307,
+      "enrichment_noise_non_relapsers": 138.28920654558968
     },
     {
       "dataset": "SCLC",
@@ -2405,7 +2717,9 @@
       "auc_reference_corrected": 0.0019077757685352621,
       "median_tumour_cfDNA_share": 6.127878787878788e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011193181818181818,
-      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.062121212121212e-06,
+      "enrichment_noise_relapsers": 0.37903794971217974,
+      "enrichment_noise_non_relapsers": 205.74157630409465
     },
     {
       "dataset": "SCLC",
@@ -2420,7 +2734,9 @@
       "auc_reference_corrected": 0.5287287597002943,
       "median_tumour_cfDNA_share": 8.234265734265734e-05,
       "median_tumour_cfDNA_share_relapsers": 0.001281402097902098,
-      "median_tumour_cfDNA_share_non_relapsers": 2.131118881118881e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.131118881118881e-06,
+      "enrichment_noise_relapsers": 0.33109362736843534,
+      "enrichment_noise_non_relapsers": 199.08043257032247
     },
     {
       "dataset": "SCLC",
@@ -2435,7 +2751,9 @@
       "auc_reference_corrected": 0.0025046173251047346,
       "median_tumour_cfDNA_share": 5.578939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0011331515151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.0606060606060607e-06,
+      "enrichment_noise_relapsers": 0.3926852704832169,
+      "enrichment_noise_non_relapsers": 215.94225006543252
     },
     {
       "dataset": "SCLC",
@@ -2450,7 +2768,9 @@
       "auc_reference_corrected": 0.5350772271048937,
       "median_tumour_cfDNA_share": 8.6006993006993e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0012934353146853146,
-      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06
+      "median_tumour_cfDNA_share_non_relapsers": 2.2132867132867135e-06,
+      "enrichment_noise_relapsers": 0.34402331850201484,
+      "enrichment_noise_non_relapsers": 201.04575993453645
     },
     {
       "dataset": "SCLC",
@@ -2465,7 +2785,9 @@
       "auc_reference_corrected": 0.5896958410924892,
       "median_tumour_cfDNA_share": 3.284545454545455e-05,
       "median_tumour_cfDNA_share_relapsers": 0.004141159090909091,
-      "median_tumour_cfDNA_share_non_relapsers": 3.584848484848485e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.584848484848485e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2480,7 +2802,9 @@
       "auc_reference_corrected": 0.5905359473157112,
       "median_tumour_cfDNA_share": 7.417832167832168e-05,
       "median_tumour_cfDNA_share_relapsers": 0.004521402097902098,
-      "median_tumour_cfDNA_share_non_relapsers": 3.7657342657342656e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.7657342657342656e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2495,7 +2819,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038849363636363635,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.08139844167765045,
+      "enrichment_noise_non_relapsers": 80.95823334798798
     },
     {
       "dataset": "SCLC",
@@ -2510,7 +2836,9 @@
       "auc_reference_corrected": 0.5220329286595242,
       "median_tumour_cfDNA_share": 5.0094405594405594e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003256713286713287,
-      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.5017482517482516e-06,
+      "enrichment_noise_relapsers": 0.09710027815680965,
+      "enrichment_noise_non_relapsers": 90.30568255698019
     },
     {
       "dataset": "SCLC",
@@ -2525,7 +2853,9 @@
       "auc_reference_corrected": 0.002333603896103896,
       "median_tumour_cfDNA_share": 4.7901515151515156e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003929436363636364,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.10797071881304313,
+      "enrichment_noise_non_relapsers": 108.6168678626349
     },
     {
       "dataset": "SCLC",
@@ -2540,7 +2870,9 @@
       "auc_reference_corrected": 0.5315231027663782,
       "median_tumour_cfDNA_share": 4.050349650349651e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0038958146853146853,
-      "median_tumour_cfDNA_share_non_relapsers": 3.4685314685314684e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.4685314685314684e-06,
+      "enrichment_noise_relapsers": 0.10890252822116935,
+      "enrichment_noise_non_relapsers": 122.31806819718906
     },
     {
       "dataset": "SCLC",
@@ -2555,7 +2887,9 @@
       "auc_reference_corrected": 0.0028690870362186012,
       "median_tumour_cfDNA_share": 4.1643939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.003958766666666667,
-      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.906060606060606e-06,
+      "enrichment_noise_relapsers": 0.11240165099207827,
+      "enrichment_noise_non_relapsers": 113.91833207485968
     },
     {
       "dataset": "SCLC",
@@ -2570,7 +2904,9 @@
       "auc_reference_corrected": 0.5344896724191984,
       "median_tumour_cfDNA_share": 4.7452797202797203e-05,
       "median_tumour_cfDNA_share_relapsers": 0.0039926398601398605,
-      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06
+      "median_tumour_cfDNA_share_non_relapsers": 3.472027972027972e-06,
+      "enrichment_noise_relapsers": 0.11144804560713688,
+      "enrichment_noise_non_relapsers": 128.1590795957317
     },
     {
       "dataset": "SCLC",
@@ -2585,7 +2921,9 @@
       "auc_reference_corrected": 0.5395736903008627,
       "median_tumour_cfDNA_share": 6.298939393939394e-05,
       "median_tumour_cfDNA_share_relapsers": 0.013437657575757576,
-      "median_tumour_cfDNA_share_non_relapsers": 8.765151515151515e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.765151515151515e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2600,7 +2938,9 @@
       "auc_reference_corrected": 0.5462658227848102,
       "median_tumour_cfDNA_share": 0.00011488811188811188,
       "median_tumour_cfDNA_share_relapsers": 0.01202901048951049,
-      "median_tumour_cfDNA_share_non_relapsers": 7.746503496503496e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.746503496503496e-06,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2615,7 +2955,9 @@
       "auc_reference_corrected": 0.0022121499120552023,
       "median_tumour_cfDNA_share": 5.712424242424243e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010883121212121212,
-      "median_tumour_cfDNA_share_non_relapsers": 8.825757575757576e-06
+      "median_tumour_cfDNA_share_non_relapsers": 8.825757575757576e-06,
+      "enrichment_noise_relapsers": 0.02905671634573318,
+      "enrichment_noise_non_relapsers": 35.830098810491506
     },
     {
       "dataset": "SCLC",
@@ -2630,7 +2972,9 @@
       "auc_reference_corrected": 0.5113154960981048,
       "median_tumour_cfDNA_share": 9.672727272727273e-05,
       "median_tumour_cfDNA_share_relapsers": 0.009932208041958043,
-      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.562937062937063e-06,
+      "enrichment_noise_relapsers": 0.03183861681923616,
+      "enrichment_noise_non_relapsers": 41.812825280081206
     },
     {
       "dataset": "SCLC",
@@ -2645,7 +2989,9 @@
       "auc_reference_corrected": 0.0026313297347024364,
       "median_tumour_cfDNA_share": 5.712424242424243e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011050269696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 9.533333333333332e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.533333333333332e-06,
+      "enrichment_noise_relapsers": 0.038394001263903445,
+      "enrichment_noise_non_relapsers": 44.50322399076173
     },
     {
       "dataset": "SCLC",
@@ -2660,7 +3006,9 @@
       "auc_reference_corrected": 0.4997538697150358,
       "median_tumour_cfDNA_share": 8.847202797202798e-05,
       "median_tumour_cfDNA_share_relapsers": 0.010866213286713286,
-      "median_tumour_cfDNA_share_non_relapsers": 7.5437062937062935e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.5437062937062935e-06,
+      "enrichment_noise_relapsers": 0.03904433472060588,
+      "enrichment_noise_non_relapsers": 56.240798911523314
     },
     {
       "dataset": "SCLC",
@@ -2675,7 +3023,9 @@
       "auc_reference_corrected": 0.002949174095969913,
       "median_tumour_cfDNA_share": 5.67e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011149795454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 9.403030303030303e-06
+      "median_tumour_cfDNA_share_non_relapsers": 9.403030303030303e-06,
+      "enrichment_noise_relapsers": 0.03990852666667866,
+      "enrichment_noise_non_relapsers": 47.322181773926566
     },
     {
       "dataset": "SCLC",
@@ -2690,7 +3040,9 @@
       "auc_reference_corrected": 0.4973186680894142,
       "median_tumour_cfDNA_share": 9.666083916083916e-05,
       "median_tumour_cfDNA_share_relapsers": 0.011316545454545454,
-      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06
+      "median_tumour_cfDNA_share_non_relapsers": 7.520979020979021e-06,
+      "enrichment_noise_relapsers": 0.03932047204803215,
+      "enrichment_noise_non_relapsers": 59.16409392773667
     },
     {
       "dataset": "SCLC",
@@ -2705,7 +3057,9 @@
       "auc_reference_corrected": 0.5097206841392888,
       "median_tumour_cfDNA_share": 0.00029932727272727273,
       "median_tumour_cfDNA_share_relapsers": 0.0486173606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.3887878787878787e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.3887878787878787e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2720,7 +3074,9 @@
       "auc_reference_corrected": 0.5215966164419773,
       "median_tumour_cfDNA_share": 0.00024459615384615383,
       "median_tumour_cfDNA_share_relapsers": 0.04002730244755245,
-      "median_tumour_cfDNA_share_non_relapsers": 2.7833916083916084e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.7833916083916084e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2735,7 +3091,9 @@
       "auc_reference_corrected": 0.001749465811965812,
       "median_tumour_cfDNA_share": 0.0002249378787878788,
       "median_tumour_cfDNA_share_relapsers": 0.04297624696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 2.731666666666667e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.731666666666667e-05,
+      "enrichment_noise_relapsers": 0.007358198733356443,
+      "enrichment_noise_non_relapsers": 11.57636727334367
     },
     {
       "dataset": "SCLC",
@@ -2750,7 +3108,9 @@
       "auc_reference_corrected": 0.4695553344664152,
       "median_tumour_cfDNA_share": 0.00029883566433566434,
       "median_tumour_cfDNA_share_relapsers": 0.03975094405594406,
-      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.205769230769231e-05,
+      "enrichment_noise_relapsers": 0.007955226561960146,
+      "enrichment_noise_non_relapsers": 14.336393925785154
     },
     {
       "dataset": "SCLC",
@@ -2765,7 +3125,9 @@
       "auc_reference_corrected": 0.0024369016536118365,
       "median_tumour_cfDNA_share": 0.00025482727272727274,
       "median_tumour_cfDNA_share_relapsers": 0.04368005606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 2.804242424242424e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.804242424242424e-05,
+      "enrichment_noise_relapsers": 0.009712992770047326,
+      "enrichment_noise_non_relapsers": 15.1293648881496
     },
     {
       "dataset": "SCLC",
@@ -2780,7 +3142,9 @@
       "auc_reference_corrected": 0.4606934769485386,
       "median_tumour_cfDNA_share": 0.00029920104895104897,
       "median_tumour_cfDNA_share_relapsers": 0.03926652447552448,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1713286713286712e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.1713286713286712e-05,
+      "enrichment_noise_relapsers": 0.01080472678391437,
+      "enrichment_noise_non_relapsers": 19.539375789309428
     },
     {
       "dataset": "SCLC",
@@ -2795,7 +3159,9 @@
       "auc_reference_corrected": 0.0030125321336760924,
       "median_tumour_cfDNA_share": 0.00024332727272727273,
       "median_tumour_cfDNA_share_relapsers": 0.04508609696969697,
-      "median_tumour_cfDNA_share_non_relapsers": 2.8018181818181816e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.8018181818181816e-05,
+      "enrichment_noise_relapsers": 0.009869381896703368,
+      "enrichment_noise_non_relapsers": 15.881541211820695
     },
     {
       "dataset": "SCLC",
@@ -2810,7 +3176,9 @@
       "auc_reference_corrected": 0.4548970376819811,
       "median_tumour_cfDNA_share": 0.00028104720279720284,
       "median_tumour_cfDNA_share_relapsers": 0.04196139160839161,
-      "median_tumour_cfDNA_share_non_relapsers": 2.1755244755244756e-05
+      "median_tumour_cfDNA_share_non_relapsers": 2.1755244755244756e-05,
+      "enrichment_noise_relapsers": 0.010604317258552324,
+      "enrichment_noise_non_relapsers": 20.45354645428505
     },
     {
       "dataset": "SCLC",
@@ -2825,7 +3193,9 @@
       "auc_reference_corrected": 0.4629156010230179,
       "median_tumour_cfDNA_share": 0.0004957727272727273,
       "median_tumour_cfDNA_share_relapsers": 0.1286257,
-      "median_tumour_cfDNA_share_non_relapsers": 6.736212121212121e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.736212121212121e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2840,7 +3210,9 @@
       "auc_reference_corrected": 0.46451976376729004,
       "median_tumour_cfDNA_share": 0.0005873811188811189,
       "median_tumour_cfDNA_share_relapsers": 0.09313612762237763,
-      "median_tumour_cfDNA_share_non_relapsers": 6.693006993006994e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.693006993006994e-05,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2855,7 +3227,9 @@
       "auc_reference_corrected": 0.0025257344988611928,
       "median_tumour_cfDNA_share": 0.0005644181818181818,
       "median_tumour_cfDNA_share_relapsers": 0.1394249484848485,
-      "median_tumour_cfDNA_share_non_relapsers": 7.883181818181819e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.883181818181819e-05,
+      "enrichment_noise_relapsers": 0.0022680859448278934,
+      "enrichment_noise_non_relapsers": 4.011422967404967
     },
     {
       "dataset": "SCLC",
@@ -2870,7 +3244,9 @@
       "auc_reference_corrected": 0.47043855806642787,
       "median_tumour_cfDNA_share": 0.000607479020979021,
       "median_tumour_cfDNA_share_relapsers": 0.12504782867132866,
-      "median_tumour_cfDNA_share_non_relapsers": 6.0223776223776223e-05
+      "median_tumour_cfDNA_share_non_relapsers": 6.0223776223776223e-05,
+      "enrichment_noise_relapsers": 0.0025288545141235515,
+      "enrichment_noise_non_relapsers": 5.250879068788647
     },
     {
       "dataset": "SCLC",
@@ -2885,7 +3261,9 @@
       "auc_reference_corrected": 0.002532033088633914,
       "median_tumour_cfDNA_share": 0.0005726742424242424,
       "median_tumour_cfDNA_share_relapsers": 0.13945883333333334,
-      "median_tumour_cfDNA_share_non_relapsers": 7.911515151515152e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.911515151515152e-05,
+      "enrichment_noise_relapsers": 0.0030422172520105347,
+      "enrichment_noise_non_relapsers": 5.362614626740325
     },
     {
       "dataset": "SCLC",
@@ -2900,7 +3278,9 @@
       "auc_reference_corrected": 0.454935122197027,
       "median_tumour_cfDNA_share": 0.0005960629370629371,
       "median_tumour_cfDNA_share_relapsers": 0.09952654195804195,
-      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05
+      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05,
+      "enrichment_noise_relapsers": 0.004262823367165597,
+      "enrichment_noise_non_relapsers": 7.416387974549939
     },
     {
       "dataset": "SCLC",
@@ -2915,7 +3295,9 @@
       "auc_reference_corrected": 0.0025257344988611928,
       "median_tumour_cfDNA_share": 0.0005644181818181818,
       "median_tumour_cfDNA_share_relapsers": 0.14154245151515152,
-      "median_tumour_cfDNA_share_non_relapsers": 7.818939393939394e-05
+      "median_tumour_cfDNA_share_non_relapsers": 7.818939393939394e-05,
+      "enrichment_noise_relapsers": 0.0031437346496581446,
+      "enrichment_noise_non_relapsers": 5.690949715899395
     },
     {
       "dataset": "SCLC",
@@ -2930,7 +3312,9 @@
       "auc_reference_corrected": 0.43842698746741215,
       "median_tumour_cfDNA_share": 0.0006425839160839161,
       "median_tumour_cfDNA_share_relapsers": 0.11650316083916083,
-      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05
+      "median_tumour_cfDNA_share_non_relapsers": 5.720629370629371e-05,
+      "enrichment_noise_relapsers": 0.0038193977401183867,
+      "enrichment_noise_non_relapsers": 7.778373329170685
     },
     {
       "dataset": "SCLC",
@@ -2945,7 +3329,9 @@
       "auc_reference_corrected": 0.31373743718592967,
       "median_tumour_cfDNA_share": 0.002439778787878788,
       "median_tumour_cfDNA_share_relapsers": 0.26437129545454546,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00024158333333333334
+      "median_tumour_cfDNA_share_non_relapsers": 0.00024158333333333334,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2960,7 +3346,9 @@
       "auc_reference_corrected": 0.32109286878054893,
       "median_tumour_cfDNA_share": 0.0016732097902097901,
       "median_tumour_cfDNA_share_relapsers": 0.2645497867132867,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0002138653846153846
+      "median_tumour_cfDNA_share_non_relapsers": 0.0002138653846153846,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -2975,7 +3363,9 @@
       "auc_reference_corrected": 0.001726078799249531,
       "median_tumour_cfDNA_share": 0.0015354727272727272,
       "median_tumour_cfDNA_share_relapsers": 0.2620070878787879,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455
+      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455,
+      "enrichment_noise_relapsers": 0.001206943554760374,
+      "enrichment_noise_non_relapsers": 1.3320716970858817
     },
     {
       "dataset": "SCLC",
@@ -2990,7 +3380,9 @@
       "auc_reference_corrected": 0.3981405283161102,
       "median_tumour_cfDNA_share": 0.0021017552447552446,
       "median_tumour_cfDNA_share_relapsers": 0.2926575,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762
+      "median_tumour_cfDNA_share_non_relapsers": 0.00022412237762237762,
+      "enrichment_noise_relapsers": 0.0010805387390271492,
+      "enrichment_noise_non_relapsers": 1.4109602502506382
     },
     {
       "dataset": "SCLC",
@@ -3005,7 +3397,9 @@
       "auc_reference_corrected": 0.001726078799249531,
       "median_tumour_cfDNA_share": 0.0015354727272727272,
       "median_tumour_cfDNA_share_relapsers": 0.2620070878787879,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455
+      "median_tumour_cfDNA_share_non_relapsers": 0.00023739545454545455,
+      "enrichment_noise_relapsers": 0.0016192847000696614,
+      "enrichment_noise_non_relapsers": 1.787161719352524
     },
     {
       "dataset": "SCLC",
@@ -3020,7 +3414,9 @@
       "auc_reference_corrected": 0.4214956055414867,
       "median_tumour_cfDNA_share": 0.0016903776223776224,
       "median_tumour_cfDNA_share_relapsers": 0.26559748076923073,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00021567832167832167
+      "median_tumour_cfDNA_share_non_relapsers": 0.00021567832167832167,
+      "enrichment_noise_relapsers": 0.0015973949281565594,
+      "enrichment_noise_non_relapsers": 1.9671150322873283
     },
     {
       "dataset": "SCLC",
@@ -3035,7 +3431,9 @@
       "auc_reference_corrected": 0.0025034874451972896,
       "median_tumour_cfDNA_share": 0.0012607151515151515,
       "median_tumour_cfDNA_share_relapsers": 0.2472394606060606,
-      "median_tumour_cfDNA_share_non_relapsers": 0.00022026212121212122
+      "median_tumour_cfDNA_share_non_relapsers": 0.00022026212121212122,
+      "enrichment_noise_relapsers": 0.0017997608801401507,
+      "enrichment_noise_non_relapsers": 2.020192608592987
     },
     {
       "dataset": "SCLC",
@@ -3050,7 +3448,9 @@
       "auc_reference_corrected": 0.40075819621274167,
       "median_tumour_cfDNA_share": 0.0018462657342657343,
       "median_tumour_cfDNA_share_relapsers": 0.26211291608391607,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993
+      "median_tumour_cfDNA_share_non_relapsers": 0.000213006993006993,
+      "enrichment_noise_relapsers": 0.0016976344236438962,
+      "enrichment_noise_non_relapsers": 2.0890014123204463
     },
     {
       "dataset": "SCLC",
@@ -3065,7 +3465,9 @@
       "auc_reference_corrected": 0.2715017825311943,
       "median_tumour_cfDNA_share": 0.00596089696969697,
       "median_tumour_cfDNA_share_relapsers": 0.3753641515151515,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0006049484848484848
+      "median_tumour_cfDNA_share_non_relapsers": 0.0006049484848484848,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -3080,7 +3482,9 @@
       "auc_reference_corrected": 0.27874753451676526,
       "median_tumour_cfDNA_share": 0.005420956293706294,
       "median_tumour_cfDNA_share_relapsers": 0.3668395472027972,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005641206293706294
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005641206293706294,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -3095,7 +3499,9 @@
       "auc_reference_corrected": 0.002540057135759533,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36088736969696966,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0008762505772434443,
+      "enrichment_noise_non_relapsers": 0.42919430943874987
     },
     {
       "dataset": "SCLC",
@@ -3110,7 +3516,9 @@
       "auc_reference_corrected": 0.35003150598613736,
       "median_tumour_cfDNA_share": 0.004989510489510489,
       "median_tumour_cfDNA_share_relapsers": 0.3661266398601399,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005666031468531468
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005666031468531468,
+      "enrichment_noise_relapsers": 0.0008637114363970803,
+      "enrichment_noise_non_relapsers": 0.558111559692411
     },
     {
       "dataset": "SCLC",
@@ -3125,7 +3533,9 @@
       "auc_reference_corrected": 0.002540057135759533,
       "median_tumour_cfDNA_share": 0.0048146,
       "median_tumour_cfDNA_share_relapsers": 0.36088736969696966,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007367939393939394,
+      "enrichment_noise_relapsers": 0.0011756135136238629,
+      "enrichment_noise_non_relapsers": 0.5758245908766746
     },
     {
       "dataset": "SCLC",
@@ -3140,7 +3550,9 @@
       "auc_reference_corrected": 0.3472186524692491,
       "median_tumour_cfDNA_share": 0.004477597902097902,
       "median_tumour_cfDNA_share_relapsers": 0.40432269755244754,
-      "median_tumour_cfDNA_share_non_relapsers": 0.000564027972027972
+      "median_tumour_cfDNA_share_non_relapsers": 0.000564027972027972,
+      "enrichment_noise_relapsers": 0.0010493204345939401,
+      "enrichment_noise_non_relapsers": 0.752203950429054
     },
     {
       "dataset": "SCLC",
@@ -3155,7 +3567,9 @@
       "auc_reference_corrected": 0.004588751040075507,
       "median_tumour_cfDNA_share": 0.00440049696969697,
       "median_tumour_cfDNA_share_relapsers": 0.35526007575757573,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606
+      "median_tumour_cfDNA_share_non_relapsers": 0.0007348560606060606,
+      "enrichment_noise_relapsers": 0.0012525243887224246,
+      "enrichment_noise_non_relapsers": 0.6055225411882109
     },
     {
       "dataset": "SCLC",
@@ -3170,7 +3584,9 @@
       "auc_reference_corrected": 0.31696887388048745,
       "median_tumour_cfDNA_share": 0.004547769230769231,
       "median_tumour_cfDNA_share_relapsers": 0.38204973076923077,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0005602202797202798
+      "median_tumour_cfDNA_share_non_relapsers": 0.0005602202797202798,
+      "enrichment_noise_relapsers": 0.0011646963036194779,
+      "enrichment_noise_non_relapsers": 0.7942802596291517
     },
     {
       "dataset": "SCLC",
@@ -3185,7 +3601,9 @@
       "auc_reference_corrected": 0.2333740952098619,
       "median_tumour_cfDNA_share": 0.018233184848484848,
       "median_tumour_cfDNA_share_relapsers": 0.5031757545454545,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002313857575757576
+      "median_tumour_cfDNA_share_non_relapsers": 0.002313857575757576,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -3200,7 +3618,9 @@
       "auc_reference_corrected": 0.24059725585149314,
       "median_tumour_cfDNA_share": 0.02046232167832168,
       "median_tumour_cfDNA_share_relapsers": 0.4915056433566434,
-      "median_tumour_cfDNA_share_non_relapsers": 0.001962318181818182
+      "median_tumour_cfDNA_share_non_relapsers": 0.001962318181818182,
+      "enrichment_noise_relapsers": 0.0,
+      "enrichment_noise_non_relapsers": 0.0
     },
     {
       "dataset": "SCLC",
@@ -3215,7 +3635,9 @@
       "auc_reference_corrected": 0.0031588364129931826,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47788671212121214,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020357
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020357,
+      "enrichment_noise_relapsers": 0.0006617211945759841,
+      "enrichment_noise_non_relapsers": 0.1553410453489404
     },
     {
       "dataset": "SCLC",
@@ -3230,7 +3652,9 @@
       "auc_reference_corrected": 0.25653714602656147,
       "median_tumour_cfDNA_share": 0.017675256993006993,
       "median_tumour_cfDNA_share_relapsers": 0.4797132097902098,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0024054475524475523
+      "median_tumour_cfDNA_share_non_relapsers": 0.0024054475524475523,
+      "enrichment_noise_relapsers": 0.0006592017054421578,
+      "enrichment_noise_non_relapsers": 0.13146317228786591
     },
     {
       "dataset": "SCLC",
@@ -3245,7 +3669,9 @@
       "auc_reference_corrected": 0.003233609794628752,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47935448787878787,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020281378787878786,
+      "enrichment_noise_relapsers": 0.0008850737386216152,
+      "enrichment_noise_non_relapsers": 0.20918896745101517
     },
     {
       "dataset": "SCLC",
@@ -3260,7 +3686,9 @@
       "auc_reference_corrected": 0.23324600744826401,
       "median_tumour_cfDNA_share": 0.015780884615384617,
       "median_tumour_cfDNA_share_relapsers": 0.4766461958041958,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0023314195804195804
+      "median_tumour_cfDNA_share_non_relapsers": 0.0023314195804195804,
+      "enrichment_noise_relapsers": 0.0008901027060461725,
+      "enrichment_noise_non_relapsers": 0.18197671164603269
     },
     {
       "dataset": "SCLC",
@@ -3275,7 +3703,9 @@
       "auc_reference_corrected": 0.00323287164142271,
       "median_tumour_cfDNA_share": 0.014450387878787878,
       "median_tumour_cfDNA_share_relapsers": 0.47788671212121214,
-      "median_tumour_cfDNA_share_non_relapsers": 0.0020950060606060605
+      "median_tumour_cfDNA_share_non_relapsers": 0.0020950060606060605,
+      "enrichment_noise_relapsers": 0.0009311242558945146,
+      "enrichment_noise_non_relapsers": 0.21239647826938252
     },
     {
       "dataset": "SCLC",
@@ -3290,7 +3720,9 @@
       "auc_reference_corrected": 0.21180657830142366,
       "median_tumour_cfDNA_share": 0.01537615909090909,
       "median_tumour_cfDNA_share_relapsers": 0.45037047027972027,
-      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392
+      "median_tumour_cfDNA_share_non_relapsers": 0.002306108391608392,
+      "enrichment_noise_relapsers": 0.0009880130661083807,
+      "enrichment_noise_non_relapsers": 0.1929535969969715
     }
   ]
 }

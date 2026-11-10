@@ -76,7 +76,9 @@ We request serial plasma at every visit for participants diagnosed with lung can
 CDAS collects aims separately from the description, and the review asks
 whether the project addresses a scientific question and whether the data are
 appropriate for it. The three aims are the ones the description refers to;
-`02-proposal-narrative.md` states them in full.
+`02-proposal-narrative.md` states them in full. What is measured, in which
+analyte, and how the signal is attributed to the tumour are specified in
+[`PLASMA-ASSAY-SPECIFICATION.md`](../PLASMA-ASSAY-SPECIFICATION.md).
 
 1. **Measure the *localised* ion-channel enrichment of the state-bearing
    clone** (KCNN4 and PIEZO1) in serial plasma of participants who were

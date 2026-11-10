@@ -2908,6 +2908,73 @@ def main(argv: list[str] | None = None) -> int:
                         cells[6],
                     )
 
+    # --- the plasma assay specification must agree with the artefacts ---
+    spec_doc = Path("docs/PLASMA-ASSAY-SPECIFICATION.md")
+    chk("the plasma assay specification exists", spec_doc.exists())
+    if spec_doc.exists() and leuk_artefact.exists():
+        spec_text = spec_doc.read_text()
+        leuk = json.loads(leuk_artefact.read_text())
+        operating = next(
+            r
+            for r in leuk["sweep"]
+            if r["dataset"] == "NSCLC"
+            and r["channel"] == "KCNN4"
+            and r["tumour_share_multiplier"] == 1
+            and r["leukocyte_fraction"] == 0.99
+            and r["n_leukocyte_reference_loci"] == 0
+        )
+        chk(
+            "the specification quotes the relapsing arm's tumour cfDNA share",
+            f"{operating['median_tumour_cfDNA_share_relapsers']:.2e}" in spec_text,
+            f"{operating['median_tumour_cfDNA_share_relapsers']:.2e}",
+        )
+        chk(
+            "the specification quotes the non-relapsing arm's tumour cfDNA share",
+            f"{operating['median_tumour_cfDNA_share_non_relapsers']:.2e}" in spec_text,
+            f"{operating['median_tumour_cfDNA_share_non_relapsers']:.2e}",
+        )
+        chk(
+            "the specification quotes the relapsing arm's enrichment noise",
+            f"{operating['enrichment_noise_relapsers']:.1f}" in spec_text,
+            f"{operating['enrichment_noise_relapsers']:.1f}",
+        )
+        chk(
+            "the specification quotes the non-relapsing arm's enrichment noise",
+            f"{operating['enrichment_noise_non_relapsers']:.0f}" in spec_text,
+            f"{operating['enrichment_noise_non_relapsers']:.0f}",
+        )
+        # The design elements the audit forced.
+        for phrase in (
+            "cfRNA",
+            "per molecule",
+            "heterozygous germline SNP",
+            "control and a normalisation check",
+            "0.65",
+            "0.98",
+        ):
+            chk(
+                f"the assay specification states {phrase!r}",
+                phrase in spec_text,
+            )
+        # The panel it specifies adds up.
+        chk(
+            "the specification's panel adds up to the published one",
+            "150" in spec_text and "38" in spec_text and "12" in spec_text,
+        )
+        # The stop rules, and the thresholds that are the programme's own.
+        for rule in ("S1", "S2", "S3", "S4", "S5", "S6"):
+            chk(
+                f"the assay specification carries the stop rule {rule}",
+                f"**{rule}**" in spec_text,
+            )
+        chk(
+            "the assay specification is linked from the package",
+            "PLASMA-ASSAY-SPECIFICATION.md"
+            in (Path("docs/plco-cdas-submission-package/01-project-details.md").read_text()
+                if Path("docs/plco-cdas-submission-package/01-project-details.md").exists()
+                else ""),
+        )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

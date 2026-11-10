@@ -190,6 +190,26 @@ tumour-specific variant on the same molecule, or read it after a leukocyte
 correction. Neither is in the proposal yet, and the proposal is what the
 data-access applications are for.
 
+### The assay specification — done: what is measured, and what would stop us
+
+Executed 2026-11-11. See [`PLASMA-ASSAY-SPECIFICATION.md`](PLASMA-ASSAY-SPECIFICATION.md).
+Every plasma number this programme has published is a projection, and the
+leukocyte audit showed what the projection was assuming: a tumour-purified
+measurement. The assay itself had never been written down, which is why the
+model could carry a compartment-free pool without anyone noticing the
+assumption.
+
+The specification fixes the analyte (cfRNA for the channel, cfDNA for the
+mutation panel, because only a transcript assay reports a transcript), the
+attribution (per molecule, by a germline heterozygous SNP that the
+participant's own tumour shifts — the matched primary tumour is what makes it
+available, which is why the data request makes it required rather than
+optional), the statistic, the panel, the controls and six numeric stop rules.
+The attribution has to be per molecule because the alternative — subtracting
+the background — is amplified by the inverse of the patient's own tumour cfDNA
+share, and the two arms of the MRD-positive cohort sit two orders of
+magnitude apart in that share.
+
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
