@@ -25,6 +25,7 @@ AUDIT = Path("results/leukocyte_audit/leukocyte_audit.json")
 REPORT = Path("docs/LEUKOCYTE-AUDIT.md")
 FIXTURE = Path("tests/fixtures/default_model_reference.json")
 CAPTURE = Path("scripts/capture_default_model_reference.py")
+CHECK = Path("scripts/check_default_model_reference.py")
 
 #: The published operating-point AUCs, which the audit's control reproduces.
 PUBLISHED_AUC = {
@@ -53,15 +54,46 @@ def test_the_compartment_is_default_off() -> None:
     assert SimulationConfig().leukocyte_channel_fraction == 0.0
 
 
-def test_the_golden_fixture_is_byte_identical_with_the_compartment_off() -> None:
-    """The guard that the extension does not move the published model."""
+def test_the_golden_fixture_is_unchanged_with_the_compartment_off() -> None:
+    """The guard that the extension does not move the published model.
+
+    The committed fixture was captured on macOS, and the simulator's last-bit
+    float output differs on Linux by the one or two units in the last place
+    that ``exp`` and ``log`` produce differently there. So the invariant is
+    the one the repository's own golden check already uses: the regenerated
+    fixture must match the committed one within that platform tolerance, on
+    every platform. On the platform that captured it, the two are byte
+    identical.
+    """
     capture = _load_script("capture_default_model_reference", CAPTURE)
-    regenerated = json.dumps(capture.capture(), indent=1) + "\n"
-    committed = FIXTURE.read_text()
-    assert regenerated == committed, (
-        f"the fixture changed: {len(committed)} bytes committed, "
-        f"{len(regenerated)} bytes regenerated"
+    checker = _load_script("check_default_model_reference", CHECK)
+    committed = json.loads(FIXTURE.read_text())
+    problems = checker.diff(committed, capture.capture())
+    assert not problems, problems[:5]
+
+
+def test_the_compartment_off_makes_no_extra_random_draw() -> None:
+    """The platform-independent half of the guard.
+
+    The extra Poisson draw that carries the leukocyte compartment is inside a
+    guard on the compartment being present, so with it off every measurement
+    records no leukocyte reads at all.
+    """
+    base = SimulationConfig(
+        regime=Regime.POST_TREATMENT,
+        seed=20261106,
+        n_patients_per_arm=40,
+        n_electrical_loci=50,
+        n_loci=150,
     )
+    cohort = LongitudinalSimulator(base).generate_cohort()
+    seen = 0
+    for trajectories in cohort.values():
+        for trajectory in trajectories:
+            for m in trajectory.measurements:
+                assert m.electrical_leukocyte_reads == 0
+                seen += 1
+    assert seen > 0
 
 
 def test_the_compartment_does_something_when_it_is_on() -> None:

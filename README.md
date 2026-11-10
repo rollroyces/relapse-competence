@@ -118,6 +118,9 @@ Four things follow.
   is not tumour-purified. Localising the channel transcript to the tumour, by
   co-occurrence with a tumour-specific variant on the same molecule, is a
   design requirement the programme now has to carry.
+  The compartment was added default-off, and with it off the golden fixture is
+  byte-identical on the machine that captured it, so the published model is
+  untouched.
 - **The readout works for the individual patient in NSCLC, and not yet in
   SCLC.** The fold and state fraction the plasma projection uses are
   cell-count weighted: in the relapsed-SCLC deposit three libraries hold

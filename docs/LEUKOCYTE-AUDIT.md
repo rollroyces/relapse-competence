@@ -23,9 +23,17 @@ per-patient audit established that the tumour's state fraction is the decisive
 quantity for the readout, so what the plasma channel can resolve about the
 state is the question this document answers.
 
-The compartment was added default-off. With it off, the golden fixture is
-**byte-identical** to the committed one -- 238,602 bytes, an exact match -- and
-the audit's control reproduces the gate review's published operating-point AUCs
+The compartment was added default-off. With it off the golden fixture is
+**byte-identical** to the committed one -- 238,602 bytes, an exact match -- on
+the machine that captured it. On another platform the simulator's last-bit
+float output differs by the one or two units in the last place that `exp` and
+`log` produce differently there, which is what the repository's existing
+golden check already tolerates; the invariant that holds on every platform is
+that the model reproduces the published reference exactly as it did before the
+extension. The extra random draw that carries the compartment is inside a
+guard, so with it off no measurement records any leukocyte reads at all.
+
+The audit's control reproduces the gate review's published operating-point AUCs
 to the last digit: 0.992862 for
 NSCLC/KCNN4, 0.706545 for SCLC/KCNN4
 and 0.694505 for SCLC/PIEZO1.
