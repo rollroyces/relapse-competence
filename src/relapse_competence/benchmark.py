@@ -496,6 +496,13 @@ class PatientOutcome:
     compartment, which is the default.
     """
 
+    electrical_enrichment_reference_corrected: float = 0.0
+    """The enrichment with the background estimated from the reference loci.
+
+    Equal to ``electrical_enrichment`` when the model has no leukocyte
+    compartment and no reference set, which is the default.
+    """
+
     mutation_vaf: float = 0.0
     """The mutation channel's pooled per-locus VAF.
 
@@ -609,6 +616,11 @@ def collect_outcomes(
                             patient.measurements
                         )
                     ),
+                    electrical_enrichment_reference_corrected=(
+                        ElectricalChannelDetector.state_enrichment_reference_corrected(
+                            patient.measurements
+                        )
+                    ),
                     mutation_vaf=_pooled_mutation_vaf(patient.measurements),
                     state_fraction=patient.state_fraction,
                     split="calibration" if index % 2 == 0 else "evaluation",
@@ -644,6 +656,7 @@ def run_channel_allocation_sweep(
     electrical_fractions: tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0),
     target_specificity: float = 0.98,
     target_retained_sensitivity: float = 0.90,
+    n_leukocyte_reference_loci: int = 0,
 ) -> list[dict[str, object]]:
     """Sweep how a fixed read budget is split between the two channels.
 
@@ -660,13 +673,14 @@ def run_channel_allocation_sweep(
     for loci in total_loci:
         for fraction in electrical_fractions:
             n_electrical = int(round(loci * fraction))
-            n_mutation = loci - n_electrical
+            n_mutation = loci - n_electrical - n_leukocyte_reference_loci
             cfg = replace(
                 base_config,
                 regime=Regime.POST_TREATMENT,
                 sequencing_depth=depth,
                 n_loci=n_mutation,
                 n_electrical_loci=n_electrical,
+                n_leukocyte_reference_loci=n_leukocyte_reference_loci,
             )
             outcomes, k = collect_outcomes(cfg, target_specificity=target_specificity)
 
@@ -749,6 +763,7 @@ def run_channel_allocation_sweep(
                     "n_mutation_loci": n_mutation,
                     "n_electrical_loci": n_electrical,
                     "total_reads_per_draw": depth * loci,
+                    "n_leukocyte_reference_loci": n_leukocyte_reference_loci,
                     "mutation_read_threshold": k,
                     "mrd_sensitivity": mrd_sensitivity,
                     "mrd_specificity": mrd_specificity,

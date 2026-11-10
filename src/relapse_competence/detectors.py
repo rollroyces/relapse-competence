@@ -254,6 +254,50 @@ class ElectricalChannelDetector:
             return 0.0
         return electrical_vaf / mutation_vaf
 
+    @staticmethod
+    def state_enrichment_reference_corrected(
+        measurements: tuple[Measurement, ...] | list[Measurement],
+    ) -> float:
+        """The enrichment with the background *estimated* from the reference loci.
+
+        The leukocyte reference loci carry the leukocyte compartment's signal
+        in the same library, so their reads estimate the background the
+        electrical channel sits on. Subtracting that estimate leaves what the
+        tumour contributed.
+
+        The difference from ``state_enrichment_attributable`` is that the
+        background is measured rather than known, and the measurement's own
+        counting noise is amplified: the result is divided by the tumour's
+        own cfDNA share, which is small, so an error in the background
+        estimate is multiplied up. That is the price of measuring the
+        background in the sample rather than subtracting it with foreknowledge.
+        """
+        mutation_reads = 0
+        mutation_total = 0
+        electrical_reads = 0
+        electrical_total = 0
+        reference_reads = 0
+        reference_total = 0
+        for m in measurements[1:]:
+            mutation_reads += m.mutant_reads
+            mutation_total += m.total_reads
+            electrical_reads += m.electrical_reads
+            electrical_total += m.electrical_total_reads
+            reference_reads += m.leukocyte_reference_reads
+            reference_total += m.leukocyte_reference_total_reads
+        if mutation_total <= 0 or electrical_total <= 0:
+            return 0.0
+        mutation_vaf = mutation_reads / mutation_total
+        if mutation_vaf <= 0.0:
+            return 0.0
+        attributable_reads = electrical_reads
+        if reference_total > 0:
+            background_fraction = reference_reads / reference_total
+            attributable_reads = max(
+                0, electrical_reads - background_fraction * electrical_total
+            )
+        return (attributable_reads / electrical_total) / mutation_vaf
+
 
 def _weighted_slope(history: list[float], learning_rate: float) -> float:
     """Exponentially weighted slope of a series."""

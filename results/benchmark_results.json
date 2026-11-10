@@ -1,8 +1,8 @@
 {
   "metadata": {
     "mode": "simulated",
-    "generated_at": "2026-11-10T15:37:38.188513+00:00",
-    "git_commit": "15e31a6eb90952620db8672c4a81eccf05eff8cc",
+    "generated_at": "2026-11-10T16:24:32.423642+00:00",
+    "git_commit": "d537ac0f2110133fc60c144de2b07bc149e5a112",
     "package": "relapse_competence",
     "python": "3.14.4"
   },
@@ -31,6 +31,7 @@
     "baseline_volume_cv": 0.9,
     "n_electrical_loci": 0,
     "electrical_fold_change": 3.0,
+    "n_leukocyte_reference_loci": 0,
     "leukocyte_channel_fraction": 0.0,
     "state_fraction_resistant": 0.25,
     "state_fraction_resistant_sd": 0.12,

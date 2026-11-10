@@ -88,6 +88,12 @@ class Measurement:
 
     Zero when the model has no leukocyte compartment, which is the default.
     """
+
+    leukocyte_reference_reads: int = 0
+    """Reads at the leukocyte reference loci, which estimate the background."""
+
+    leukocyte_reference_total_reads: int = 0
+    """Total reads at the leukocyte reference loci."""
     """Reads across the ion-channel loci. Zero when the channel is disabled."""
 
     electrical_total_reads: int = 0
@@ -512,6 +518,8 @@ class LongitudinalSimulator:
         electrical_reads = 0
         electrical_total_reads = 0
         electrical_leukocyte_reads = 0
+        leukocyte_reference_reads = 0
+        leukocyte_reference_total_reads = 0
         if cfg.n_electrical_loci > 0:
             # Bulk feature: present in all tumour cells, so its per-locus signal
             # is not reduced by clonality. The state boosts it in the
@@ -575,6 +583,21 @@ class LongitudinalSimulator:
                             * leukocyte_channel_vaf
                         )
                     )
+            # --- leukocyte reference loci ---
+            # Proxy positions in leukocyte-expressed transcripts. Their reads
+            # estimate the leukocyte contribution to the bulk channel in this
+            # same library, so the background can be measured rather than
+            # assumed. The draw is made only when a reference set exists, so
+            # the model without one is unchanged bit for bit.
+            if cfg.n_leukocyte_reference_loci > 0:
+                leukocyte_reference_total_reads = (
+                    cfg.sequencing_depth * cfg.n_leukocyte_reference_loci
+                )
+                leukocyte_reference_reads = int(
+                    rng.poisson(
+                        leukocyte_reference_total_reads * leukocyte_channel_vaf
+                    )
+                )
 
         day = draw_index * cfg.sampling_interval_days
         is_relapse = volume >= cfg.relapse_volume_threshold_mm3
@@ -593,6 +616,8 @@ class LongitudinalSimulator:
             background_vaf=background,
             electrical_reads=electrical_reads,
             electrical_leukocyte_reads=electrical_leukocyte_reads,
+            leukocyte_reference_reads=leukocyte_reference_reads,
+            leukocyte_reference_total_reads=leukocyte_reference_total_reads,
             electrical_total_reads=electrical_total_reads,
             state_fraction=state_fraction,
         )

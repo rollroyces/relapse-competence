@@ -220,7 +220,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Assemble the submission package | programme | done — `docs/plco-cdas-submission-package/` | — |
 | PLCO-DATA | Check the package: 500-word cap, fields, numbers, signature blocks | programme | done — `scripts/check_plco_cdas_package.py` | the package |
 | PLCO-DATA | Write the submission runbook and the scoping inquiry | programme | done — `06-submission-runbook.md`, `07-scoping-inquiry.md` | the package |
-| PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | not started — required by the leukocyte audit | the leukocyte audit |
+| PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
 | PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | not started | the scoping inquiry |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |

@@ -1,0 +1,152 @@
+{
+  "audit": {
+    "id": "leukocyte-audit-operating-point-2026-11",
+    "generated_by": "scripts/leukocyte_audit.py",
+    "generated_at": "2026-11-10T16:06:28.493825+00:00",
+    "patients_per_arm": 800,
+    "configuration": "NSCLC/KCNN4",
+    "criterion": {
+      "statistic": "reference-corrected enrichment AUC",
+      "threshold": 0.65,
+      "leukocyte_fraction": 0.99,
+      "total_loci": 200,
+      "electrical_fraction": 0.25,
+      "tumour_share_multiplier": 1
+    },
+    "note": "The reference set takes its loci from the mutation panel, so the panel cannot grow past the point where the mutation channel has no loci left. The selection is the cheapest configuration in reads per draw that clears the threshold; the whole frontier is reported so the trade can be made differently."
+  },
+  "frontier": [
+    {
+      "depth": 200000,
+      "n_leukocyte_reference_loci": 5,
+      "total_reads_per_draw": 40000000,
+      "n_mrd_positive": 571,
+      "median_tumour_cfDNA_share": 6.494043887147335e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.00045968338557993735,
+      "median_tumour_cfDNA_share_non_relapsers": 1.5329153605015674e-06,
+      "auc_raw": 0.005700480469068107,
+      "auc_attributable": 0.501560845842721,
+      "auc_reference_corrected": 0.3771410733190369,
+      "clears_k3": false
+    },
+    {
+      "depth": 200000,
+      "n_leukocyte_reference_loci": 20,
+      "total_reads_per_draw": 40000000,
+      "n_mrd_positive": 525,
+      "median_tumour_cfDNA_share": 9.441608391608392e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.00045882692307692307,
+      "median_tumour_cfDNA_share_non_relapsers": 1.6153846153846154e-06,
+      "auc_raw": 0.0054867072833010245,
+      "auc_attributable": 0.522059332594849,
+      "auc_reference_corrected": 0.4475387704237053,
+      "clears_k3": false
+    },
+    {
+      "depth": 200000,
+      "n_leukocyte_reference_loci": 50,
+      "total_reads_per_draw": 40000000,
+      "n_mrd_positive": 451,
+      "median_tumour_cfDNA_share": 0.00011674545454545455,
+      "median_tumour_cfDNA_share_relapsers": 0.0003332590909090909,
+      "median_tumour_cfDNA_share_non_relapsers": 1.9363636363636363e-06,
+      "auc_raw": 0.007511132571489887,
+      "auc_attributable": 0.46560974301196417,
+      "auc_reference_corrected": 0.5132651966307206,
+      "clears_k3": false
+    },
+    {
+      "depth": 2000000,
+      "n_leukocyte_reference_loci": 5,
+      "total_reads_per_draw": 400000000,
+      "n_mrd_positive": 586,
+      "median_tumour_cfDNA_share": 4.486912225705329e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.00040983385579937306,
+      "median_tumour_cfDNA_share_non_relapsers": 1.521473354231975e-06,
+      "auc_raw": 0.004718440594059406,
+      "auc_attributable": 0.48721122112211224,
+      "auc_reference_corrected": 0.5011473803630363,
+      "clears_k3": false
+    },
+    {
+      "depth": 2000000,
+      "n_leukocyte_reference_loci": 20,
+      "total_reads_per_draw": 400000000,
+      "n_mrd_positive": 581,
+      "median_tumour_cfDNA_share": 7.343181818181818e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.0004324055944055944,
+      "median_tumour_cfDNA_share_non_relapsers": 1.5145104895104895e-06,
+      "auc_raw": 0.003441727984808925,
+      "auc_attributable": 0.5795685312656592,
+      "auc_reference_corrected": 0.5815333491573701,
+      "clears_k3": false
+    },
+    {
+      "depth": 2000000,
+      "n_leukocyte_reference_loci": 50,
+      "total_reads_per_draw": 400000000,
+      "n_mrd_positive": 593,
+      "median_tumour_cfDNA_share": 5.852590909090909e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.0004077470454545455,
+      "median_tumour_cfDNA_share_non_relapsers": 1.4945454545454545e-06,
+      "auc_raw": 0.005619383745087732,
+      "auc_attributable": 0.567007083677505,
+      "auc_reference_corrected": 0.5506370303621937,
+      "clears_k3": false
+    },
+    {
+      "depth": 20000000,
+      "n_leukocyte_reference_loci": 5,
+      "total_reads_per_draw": 4000000000,
+      "n_mrd_positive": 561,
+      "median_tumour_cfDNA_share": 6.92060501567398e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.0003160272727272727,
+      "median_tumour_cfDNA_share_non_relapsers": 1.5423824451410657e-06,
+      "auc_raw": 0.007231404958677686,
+      "auc_attributable": 0.549512987012987,
+      "auc_reference_corrected": 0.4681375442739079,
+      "clears_k3": false
+    },
+    {
+      "depth": 20000000,
+      "n_leukocyte_reference_loci": 20,
+      "total_reads_per_draw": 4000000000,
+      "n_mrd_positive": 564,
+      "median_tumour_cfDNA_share": 6.711552447552448e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.00037300868881118884,
+      "median_tumour_cfDNA_share_non_relapsers": 1.5347552447552448e-06,
+      "auc_raw": 0.010468225521988964,
+      "auc_attributable": 0.5385873584798316,
+      "auc_reference_corrected": 0.5363614382431586,
+      "clears_k3": false
+    },
+    {
+      "depth": 20000000,
+      "n_leukocyte_reference_loci": 50,
+      "total_reads_per_draw": 4000000000,
+      "n_mrd_positive": 594,
+      "median_tumour_cfDNA_share": 5.2425159090909094e-05,
+      "median_tumour_cfDNA_share_relapsers": 0.00031847368181818183,
+      "median_tumour_cfDNA_share_non_relapsers": 1.5589545454545454e-06,
+      "auc_raw": 0.00918411731808861,
+      "auc_attributable": 0.542633443111912,
+      "auc_reference_corrected": 0.5115391785248244,
+      "clears_k3": false
+    }
+  ],
+  "selected": {
+    "depth": 2000000,
+    "n_leukocyte_reference_loci": 20,
+    "total_reads_per_draw": 400000000,
+    "n_mrd_positive": 581,
+    "median_tumour_cfDNA_share": 7.343181818181818e-05,
+    "median_tumour_cfDNA_share_relapsers": 0.0004324055944055944,
+    "median_tumour_cfDNA_share_non_relapsers": 1.5145104895104895e-06,
+    "auc_raw": 0.003441727984808925,
+    "auc_attributable": 0.5795685312656592,
+    "auc_reference_corrected": 0.5815333491573701,
+    "clears_k3": false
+  },
+  "selected_reads_per_draw": 400000000,
+  "anything_clears_k3": false
+}

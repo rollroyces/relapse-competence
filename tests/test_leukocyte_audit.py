@@ -209,12 +209,88 @@ def test_the_attributable_statistic_is_at_chance(audit: dict) -> None:
     assert by_fraction[0.5]["auc_attributable"] > 0.4
 
 
+def test_the_reference_set_is_default_off() -> None:
+    """Another extension that is on by default would move the published model."""
+    assert SimulationConfig().n_leukocyte_reference_loci == 0
+
+
+def test_the_reference_set_draws_reads_and_the_model_without_it_does_not() -> None:
+    base = SimulationConfig(
+        regime=Regime.POST_TREATMENT,
+        seed=20261106,
+        n_patients_per_arm=40,
+        n_electrical_loci=50,
+        n_loci=100,
+    )
+    without = LongitudinalSimulator(base).generate_cohort()
+    with_reference = LongitudinalSimulator(
+        replace(
+            base,
+            n_leukocyte_reference_loci=20,
+            leukocyte_channel_fraction=0.9,
+        )
+    ).generate_cohort()
+
+    def reference_reads(cohort) -> list[int]:
+        return [
+            m.leukocyte_reference_reads
+            for trajectories in cohort.values()
+            for trajectory in trajectories
+            for m in trajectory.measurements
+        ]
+
+    assert sum(reference_reads(without)) == 0
+    assert sum(reference_reads(with_reference)) > 0
+
+
+def test_the_reference_correction_equals_the_raw_without_a_reference_set() -> None:
+    """With no reference set there is nothing to subtract."""
+    base = SimulationConfig(
+        regime=Regime.POST_TREATMENT,
+        seed=20261106,
+        n_patients_per_arm=40,
+        n_electrical_loci=50,
+        n_loci=100,
+    )
+    cohort = LongitudinalSimulator(base).generate_cohort()
+    for trajectories in cohort.values():
+        for trajectory in trajectories:
+            assert ElectricalChannelDetector.state_enrichment_reference_corrected(
+                trajectory.measurements
+            ) == pytest.approx(
+                ElectricalChannelDetector.state_enrichment(trajectory.measurements),
+                abs=1e-12,
+            )
+
+
+def test_no_panel_in_the_search_space_clears_k3() -> None:
+    """The re-derivation's finding: the correction is not a budget problem.
+
+    The search covered 200,000x to 20,000,000x with reference sets from 5 to 50
+    loci, and nothing in it reached the programme's own K3 threshold. That is
+    the reason the proposal asks for localisation rather than a bigger panel.
+    """
+    derivation_path = Path("results/leukocyte_audit/operating_point.json")
+    if not derivation_path.exists():
+        pytest.skip("the operating-point derivation has not been generated")
+    derivation = json.loads(derivation_path.read_text())
+    assert derivation["anything_clears_k3"] is False
+    assert len(derivation["frontier"]) >= 6
+    best = max(r["auc_reference_corrected"] for r in derivation["frontier"])
+    assert best < 0.65
+    # Even a perfect background subtraction does not reach it.
+    best_oracle = max(r["auc_attributable"] for r in derivation["frontier"])
+    assert best_oracle < 0.65
+
+
 def test_the_report_states_the_finding() -> None:
     text = REPORT.read_text()
     for phrase in (
         "byte-identical",
         "inverts",
-        "tumour-purified",
-        "one part in a thousand",
+        "cannot survive",
+        "upper bound",
+        "QC and tumour-fraction tool",
+        "localisation rate",
     ):
         assert phrase in text, phrase

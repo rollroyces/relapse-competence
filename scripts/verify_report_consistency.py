@@ -2635,7 +2635,9 @@ def main(argv: list[str] | None = None) -> int:
             )
 
         # The operating-point table.
-        operating = parse_markdown_table(leuk_text, "## 5. At the published")
+        operating = parse_markdown_table(
+            leuk_text, "### At the published operating point"
+        )
         chk(
             "the leukocyte audit report has the operating-point table",
             len(operating) > 1,
@@ -2649,7 +2651,7 @@ def main(argv: list[str] | None = None) -> int:
                 "Measured tumour share",
                 "MRD-positive",
                 "Raw AUC",
-                "Attributable AUC",
+                "Oracle-corrected AUC",
             ]
             chk(
                 "the leukocyte audit operating-point table has the expected "
@@ -2658,10 +2660,13 @@ def main(argv: list[str] | None = None) -> int:
                 str(header),
             )
             if header == expected_header:
+                # The operating-point table is the one without a reference
+                # set, so the rows it is checked against are those.
                 by_key = {
                     (f"{r['dataset']} / {r['channel']}", r["leukocyte_fraction"]): r
                     for r in leuk["sweep"]
                     if r["tumour_share_multiplier"] == 1
+                    and r["n_leukocyte_reference_loci"] == 0
                 }
                 seen = set()
                 for row in operating[1:]:
@@ -2705,7 +2710,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
 
         # The sweep table, cell by cell.
-        sweep = parse_markdown_table(leuk_text, "## 4. The sweep")
+        sweep = parse_markdown_table(leuk_text, "## 5. The sweep, with the reference set")
         chk(
             "the leukocyte audit report has the sweep table",
             len(sweep) > 1,
@@ -2725,7 +2730,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             for row, record in zip(sweep[1:], records, strict=False):
                 cells = [c.replace("*", "").strip() for c in row]
-                if len(cells) < 6:
+                if len(cells) < 8:
                     continue
                 chk(
                     f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
@@ -2736,16 +2741,31 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 chk(
                     f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
+                    f"leuk={record['leukocyte_fraction']:.2f} has the right "
+                    "reference-set size",
+                    abs(float(cells[2]) - record["n_leukocyte_reference_loci"])
+                    < 1e-9,
+                    cells[2],
+                )
+                chk(
+                    f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
                     f"leuk={record['leukocyte_fraction']:.2f} has the right raw AUC",
-                    abs(float(cells[4]) - record["auc_raw"]) < 5e-5,
-                    cells[4],
+                    abs(float(cells[5]) - record["auc_raw"]) < 5e-5,
+                    cells[5],
                 )
                 chk(
                     f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
                     f"leuk={record['leukocyte_fraction']:.2f} has the right "
-                    "attributable AUC",
-                    abs(float(cells[5]) - record["auc_attributable"]) < 5e-5,
-                    cells[5],
+                    "oracle-corrected AUC",
+                    abs(float(cells[6]) - record["auc_attributable"]) < 5e-5,
+                    cells[6],
+                )
+                chk(
+                    f"the leukocyte audit sweep row for x{record['tumour_share_multiplier']} "
+                    f"leuk={record['leukocyte_fraction']:.2f} has the right "
+                    "reference-corrected AUC",
+                    abs(float(cells[7]) - record["auc_reference_corrected"]) < 5e-5,
+                    cells[7],
                 )
 
         # The tissue table, against the state-expression artefacts.
@@ -2806,10 +2826,12 @@ def main(argv: list[str] | None = None) -> int:
         # The claims the document makes, which the artefact has to support.
         for claim in (
             "byte-identical",
-            "does not survive",
+            "cannot survive",
             "inverts",
-            "tumour-purified",
-            "one part in a thousand",
+            "upper bound",
+            "QC and tumour-fraction tool",
+            "reference-corrected",
+            "localisation rate",
         ):
             chk(
                 f"the leukocyte audit report states that the readout {claim!r}",
@@ -2839,6 +2861,52 @@ def main(argv: list[str] | None = None) -> int:
             "the leukocyte audit report links the per-patient audit",
             "PER-PATIENT-AUDIT.md" in leuk_text,
         )
+        # The re-derived operating point: nothing in the search space clears K3.
+        derivation_path = Path("results/leukocyte_audit/operating_point.json")
+        chk(
+            "the operating-point derivation artefact exists",
+            derivation_path.exists(),
+        )
+        if derivation_path.exists():
+            derivation = json.loads(derivation_path.read_text())
+            chk(
+                "the derivation searched a panel space rather than one point",
+                len(derivation["frontier"]) >= 6,
+                str(len(derivation["frontier"])),
+            )
+            chk(
+                "the derivation reports whether anything clears K3",
+                "anything_clears_k3" in derivation,
+            )
+            frontier_table = parse_markdown_table(
+                leuk_text, "## 6. The re-derived operating point"
+            )
+            chk(
+                "the leukocyte audit report has the frontier table",
+                len(frontier_table) - 1 == len(derivation["frontier"]),
+                f"{len(frontier_table) - 1} rows for "
+                f"{len(derivation['frontier'])} frontier rows",
+            )
+            if len(frontier_table) - 1 == len(derivation["frontier"]):
+                for row, record in zip(
+                    frontier_table[1:], derivation["frontier"], strict=False
+                ):
+                    cells = [c.replace("*", "").strip() for c in row]
+                    if len(cells) < 8:
+                        continue
+                    chk(
+                        f"the frontier row for depth {record['depth']} matches "
+                        "the artefact",
+                        abs(float(cells[4]) - record["auc_raw"]) < 5e-5,
+                        cells[4],
+                    )
+                    chk(
+                        f"the frontier row for depth {record['depth']} matches "
+                        "the artefact's reference-corrected AUC",
+                        abs(float(cells[6]) - record["auc_reference_corrected"])
+                        < 5e-5,
+                        cells[6],
+                    )
 
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")

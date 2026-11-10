@@ -137,12 +137,31 @@ Three design elements follow, and they are what the data request is for:
    never had a measurement of.
 3. **Include leukocyte reference loci** -- positions in transcripts the immune
    cells express and the tumour does not -- so that each library's leukocyte
-   contribution is measured in the same sample rather than assumed.
+   contribution and its tumour fraction are measured in the same sample rather
+   than assumed, and a library whose background is inconsistent with its
+   tumour fraction can be caught.
+
+The third element is a check, not a fix, and we tested it rather than
+assuming it. Re-allocating the panel to carry a leukocyte reference set and
+re-deriving the operating point against it does not rescue the readout: no
+configuration between 200,000x and 20,000,000x, with reference sets from 5 to
+50 loci, brings the reference-corrected enrichment AUC above 0.58, against a
+threshold of 0.65. The reason is structural rather than budgetary -- the
+statistic divides by the patient's own tumour cfDNA share, so an error in the
+background estimate is multiplied up, and the non-relapsing arm of an
+MRD-positive cohort sits two orders of magnitude lower in tumour cfDNA than
+the relapsing arm. Subtracting the background *perfectly*, with foreknowledge,
+does not help either. Only localisation does, because it restores the
+proportionality the statistic depends on.
 
 Our published projection assumes that localisation works, and is therefore an
-upper bound on what the assay can achieve. The model does not yet simulate
-per-read tumour assignment, so the projection cannot be tightened until the
-assay has been run on real plasma.
+upper bound on what the assay can achieve. It also holds only for a localised
+assay at the right effective depth: localisation keeps the reads that happen
+to carry a variant, so the quantity that sets the readout's precision is the
+depth multiplied by the localisation rate, and the localisation rate is set by
+how many tumour-specific variants the mutation panel reads per participant.
+The model does not yet simulate per-read tumour assignment, so the projection
+cannot be tightened until the assay has been run on real plasma.
 
 ## 5. The analysis is pre-specified
 
@@ -170,9 +189,9 @@ opened:
 - **The panel.** Loci are allocated to the mutation channel, the ion-channel
   channel and the leukocyte reference set, and the allocation is fixed before
   any data are opened. The published operating point was derived without the
-  reference set; the allocation will be re-derived and the audit re-run at it
-  before the data are opened, and the operating point stated in this proposal
-  is the one that will be used unless that re-run changes it.
+  reference set, and the reference set has been added on the strength of the
+  audit in section 4, which shows it is a check on each library rather than a
+  correction to the readout.
 - **The per-patient applicability rule.** A tumour is informative for the
   readout when its measured state fraction exceeds the fraction the assay can
   read at the operating point; the readout's sensitivity across participants
@@ -221,9 +240,15 @@ no post-hoc substitution of a different channel.
 - **The projection assumes the localisation step works.** Section 4 shows
   that an unlocalised readout of a channel that immune cells also express
   measures leukocyte material, and that correcting for it afterwards is not
-  enough. The published AUC is therefore an upper bound, and the model does
+  enough -- the re-derived panel does not clear the threshold at any depth we
+  searched. The published AUC is therefore an upper bound, and the model does
   not simulate per-read tumour assignment, so the number cannot be tightened
   before the assay has run on real plasma.
+- **The localisation rate is not modelled.** It depends on how many
+  tumour-specific variants the mutation panel reads per participant, and it
+  divides the effective depth. The projection is for an assay that localises
+  well; an assay that localises poorly pays for the mutation panel's depth
+  twice.
 
 ## 8. Timeline
 

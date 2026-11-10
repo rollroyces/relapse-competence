@@ -168,6 +168,21 @@ class SimulationConfig:
     electrical_fold_change: float = 3.0
     """Fold-upregulation of the ion-channel marker in state-bearing cells."""
 
+    n_leukocyte_reference_loci: int = 0
+    """Loci in transcripts the immune cells express and the tumour does not.
+
+    Their reads estimate the leukocyte compartment's contribution to the bulk
+    channel, in the same library, so that the background can be measured
+    rather than assumed. Zero is no reference set, and reproduces the model
+    without one bit for bit.
+
+    The model assumes a reference locus carries the same leukocyte signal as
+    the channel itself, which is the optimistic case: a leukocyte-restricted
+    transcript such as PTPRC is more abundant in leukocytes than KCa3.1 is,
+    so a real reference set would overestimate the background rather than
+    match it.
+    """
+
     leukocyte_channel_fraction: float = 0.0
     """The leukocyte compartment's share of the electrical channel's signal.
 
