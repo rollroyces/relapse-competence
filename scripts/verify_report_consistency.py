@@ -2967,6 +2967,47 @@ def main(argv: list[str] | None = None) -> int:
                 f"the assay specification carries the stop rule {rule}",
                 f"**{rule}**" in spec_text,
             )
+        # The scoping inquiry has to ask the three questions the
+        # specification makes decisive, and stay inside the form's limit.
+        inquiry_path = Path(
+            "docs/plco-cdas-submission-package/07-scoping-inquiry.md"
+        )
+        if inquiry_path.exists():
+            inquiry = inquiry_path.read_text()
+            for phrase in (
+                "How many participants were diagnosed with lung cancer",
+                "How many have primary tumour tissue archived",
+                "whole-exome sequencing",
+                "whole-genome sequencing",
+                "germline DNA sample",
+                "more than one screening visit",
+            ):
+                chk(
+                    f"the scoping inquiry asks {phrase!r}",
+                    phrase in inquiry,
+                )
+            for tag in ("A", "B"):
+                begin = f"<!-- BEGIN MESSAGE {tag} -->"
+                end = f"<!-- END MESSAGE {tag} -->"
+                if begin not in inquiry or end not in inquiry:
+                    chk(False, f"the scoping inquiry does not delimit message {tag}")
+                    continue
+                body = inquiry.split(begin)[1].split(end)[0].strip()
+                chk(
+                    f"scoping inquiry message {tag} is inside the form's "
+                    "10,000-character limit",
+                    len(body) <= 10_000,
+                    str(len(body)),
+                )
+                chk(
+                    f"scoping inquiry message {tag} is plain text",
+                    "**" not in body,
+                )
+                chk(
+                    f"scoping inquiry message {tag} has no unfilled field",
+                    "[TO FILL:" not in body,
+                )
+
         chk(
             "the assay specification is linked from the package",
             "PLASMA-ASSAY-SPECIFICATION.md"

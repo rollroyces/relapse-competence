@@ -173,6 +173,40 @@ def test_the_proposal_carries_the_localisation_design() -> None:
     assert "required, not optional" in details or "required, not optional" in narrative
 
 
+def test_the_scoping_inquiry_asks_the_decisive_questions() -> None:
+    """The three answers that decide the plasma arm.
+
+    The specification makes the matched tumour and a germline sample
+    required, because the per-molecule attribution needs each participant's
+    own somatic profile and heterozygous positions. An inquiry that does not
+    ask for them cannot produce the answer the proposal depends on.
+    """
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    for phrase in (
+        "How many participants were diagnosed with lung cancer",
+        "How many have primary tumour tissue archived",
+        "whole-exome sequencing",
+        "whole-genome sequencing",
+        "germline DNA sample",
+        "more than one screening visit",
+    ):
+        assert phrase in inquiry, phrase
+
+
+def test_the_scoping_messages_fit_the_form() -> None:
+    """Plain textarea, 10,000 characters, no markdown, nothing unfilled."""
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    for tag in ("A", "B"):
+        body = inquiry.split(f"<!-- BEGIN MESSAGE {tag} -->")[1].split(
+            f"<!-- END MESSAGE {tag} -->"
+        )[0].strip()
+        assert 0 < len(body) <= 10_000, tag
+        assert "**" not in body, tag
+        assert "[TO FILL:" not in body, tag
+        assert body.splitlines()[-2].strip() == "Royce Lam"
+        assert body.splitlines()[-1].strip() == "roycelam@umich.edu"
+
+
 def test_the_constraints_are_stated() -> None:
     """The rules that shape the package must not be quietly dropped."""
     text = "\n".join(
