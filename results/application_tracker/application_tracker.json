@@ -1,0 +1,332 @@
+{
+  "audit": {
+    "id": "data-access-applications-2026-11",
+    "generated_by": "scripts/application_tracker.py",
+    "generated_at": "2026-11-10T03:51:02.993487+00:00",
+    "git_commit": "5a933f657392af9fa71335342ccab2680639066b",
+    "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
+    "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
+  },
+  "steps": [
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Create the CDAS account and log in with RAS",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Fill the data-only project proposal from \u00a72.1",
+      "Owner": "PI or delegate",
+      "Status": "prepared",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "PI reviews and submits the proposal",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "proposal text"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Signing Official signs the proposal",
+      "Owner": "Signing Official",
+      "Status": "blocked",
+      "Depends on": "PI submission"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Supply PI CV, institutional letter and ethics determination",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Accept the CDAS data use agreement",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "List project staff",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Confirm the scope: lung cases with serial plasma and matched tumour",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-EEMS",
+      "Step": "Confirm the EEMS preliminary application deadline",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-EEMS",
+      "Step": "Prepare the EEMS preliminary application",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "PLCO-DATA scoping"
+    },
+    {
+      "Application": "PLCO-EEMS",
+      "Step": "Submit the EEMS preliminary application before the deadline",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "deadline, application text"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Re-check the EGA catalogue for a Taizhou or PanSeer deposit",
+      "Owner": "PI",
+      "Status": "done \u2014 no deposit found",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Create and validate an EGA user account on an institutional address",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Identify the dataset, its EGAD accession and its DAC",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "a deposit existing"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Request access, naming the files wanted",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "the above"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Email the DAC directly",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "the above"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Step": "Accept the Data Access Agreement",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Step": "Identify the current contact for collaboration at the Taizhou Institute",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Step": "Prepare the collaboration request from \u00a72.3, with the conflict disclosure",
+      "Owner": "PI",
+      "Status": "prepared",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Step": "Send the request",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "contact identified"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Step": "Register the EGA account in parallel",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    }
+  ],
+  "applications": [
+    {
+      "Application": "PLCO-DATA",
+      "Dataset": "PLCO",
+      "Access route": "CDAS Data-Only Project",
+      "Route verified": "yes, 2026-11-10",
+      "Expected turnaround": "1\u20134 weeks to data delivery",
+      "Status": "blocked on PI submission"
+    },
+    {
+      "Application": "PLCO-EEMS",
+      "Dataset": "PLCO",
+      "Access route": "CDAS EEMS biospecimen preliminary application",
+      "Route verified": "yes, 2026-11-10",
+      "Expected turnaround": "4\u20136 months from the deadline",
+      "Status": "blocked on PI submission"
+    },
+    {
+      "Application": "TZL-EGA",
+      "Dataset": "Taizhou Longitudinal Study",
+      "Access route": "EGA Data Access Committee",
+      "Route verified": "no, 2026-11-10",
+      "Expected turnaround": "no published turnaround; DAC practice is a reply within 2 weeks",
+      "Status": "blocked on the route"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Dataset": "Taizhou Longitudinal Study",
+      "Access route": "direct request to the study investigators",
+      "Route verified": "n/a",
+      "Expected turnaround": "unknown",
+      "Status": "not started"
+    }
+  ],
+  "prerequisites": [
+    {
+      "#": "1",
+      "Prerequisite": "Institutional email address for the PI",
+      "Owner": "PI",
+      "Status": "available as roycelam@umich.edu in the repository's git configuration; confirm it is the current official address",
+      "Applies to": "all"
+    },
+    {
+      "#": "2",
+      "Prerequisite": "PI curriculum vitae",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "all"
+    },
+    {
+      "#": "3",
+      "Prerequisite": "Institutional letter of support on headed paper",
+      "Owner": "Signing Official",
+      "Status": "not started",
+      "Applies to": "PLCO-DATA, PLCO-EEMS"
+    },
+    {
+      "#": "4",
+      "Prerequisite": "Ethics determination for secondary use of human plasma",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "all"
+    },
+    {
+      "#": "5",
+      "Prerequisite": "Data use agreement, signed",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "all"
+    },
+    {
+      "#": "6",
+      "Prerequisite": "List of research-group members who will hold accounts",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "TZL-EGA, TZL-DIRECT"
+    },
+    {
+      "#": "7",
+      "Prerequisite": "Statement of where the data will be stored and who will access it",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "TZL-EGA, TZL-DIRECT"
+    },
+    {
+      "#": "8",
+      "Prerequisite": "Pre-specified analysis plan",
+      "Owner": "programme",
+      "Status": "prepared; \u00a72.1 aims 1\u20133",
+      "Applies to": "all"
+    },
+    {
+      "#": "9",
+      "Prerequisite": "Confirmation that the panel and operating point will not be re-tuned after the data are opened",
+      "Owner": "programme",
+      "Status": "prepared",
+      "Applies to": "all"
+    }
+  ],
+  "external_facts": [
+    {
+      "Fact": "EGA studies in the catalogue",
+      "Value": "10,814",
+      "Source": "EGA public metadata API",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "EGA datasets in the catalogue",
+      "Value": "21,922",
+      "Source": "EGA public metadata API",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "EGA records matching Taizhou, PanSeer or Chen Xingdong",
+      "Value": "0",
+      "Source": "EGA public metadata API",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PLCO participants enrolled 1993\u20132001",
+      "Value": "155,000",
+      "Source": "CDAS PLCO trial summary",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PLCO data-only delivery time",
+      "Value": "1\u20134 weeks",
+      "Source": "CDAS PLCO instructions",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PLCO EEMS review outcome",
+      "Value": "4\u20136 months from the preliminary application deadline",
+      "Source": "CDAS PLCO instructions",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PLCO diagnoses and mortality follow-up",
+      "Value": "diagnoses through 2009, mortality through 2022",
+      "Source": "CDAS PLCO trial summary",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "TZL participants providing plasma for long-term storage",
+      "Value": "123,115",
+      "Source": "Chen X et al. 2020",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PanSeer sensitivity in asymptomatic participants diagnosed within 4 years",
+      "Value": "95% (95% CI 89\u201398)",
+      "Source": "Chen X et al. 2020",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PanSeer specificity",
+      "Value": "96% (95% CI 93\u201398)",
+      "Source": "Chen X et al. 2020",
+      "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries",
+      "Value": "20 of 23",
+      "Source": "this repository's per-library folds",
+      "Verified on": "2026-11-09"
+    },
+    {
+      "Fact": "Residual-disease libraries clearing the programme's K3 threshold",
+      "Value": "7 of 7",
+      "Source": "this repository's per-patient audit",
+      "Verified on": "2026-11-09"
+    }
+  ]
+}

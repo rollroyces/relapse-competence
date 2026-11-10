@@ -369,6 +369,7 @@ exercise:
 - [`docs/RESEARCH-PLAN.md`](docs/RESEARCH-PLAN.md) — **the executable plan**: targets (KCa3.1, Piezo1, Cav2.3), the D0–D5 experiment ladder with entry/exit/kill criteria, the risk register, and the MRD-guided clinical path
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — what comes next, and the open dependencies
 - [`docs/DATASETS.md`](docs/DATASETS.md) — dataset requirements and access routes
+- [`docs/DATA-ACCESS-APPLICATIONS.md`](docs/DATA-ACCESS-APPLICATIONS.md) — **the two data-access applications, prepared and tracked**: the drafted CDAS fields for PLCO, the drafted collaboration request for the Taizhou study, the shared prerequisites and the approval tracker. Neither has been submitted: both need the PI's account, the PI's submission and a signature. The review corrected the route — the Taizhou study has no EGA deposit, and neither cohort is post-treatment
 - [`MODEL_CARD.md`](MODEL_CARD.md) — intended use, calibration sources, performance and limitations of the simulator
 
 ### The research plan

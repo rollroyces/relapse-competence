@@ -169,7 +169,19 @@ so in terms.
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
-   it runs on real serial plasma.
+   it runs on real serial plasma. **The two applications are prepared and
+   tracked**: [`DATA-ACCESS-APPLICATIONS.md`](DATA-ACCESS-APPLICATIONS.md)
+   holds the drafted CDAS fields, the drafted Taizhou collaboration request,
+   the prerequisite list and the approval tracker, and
+   `results/application_tracker/application_tracker.json` is its machine-
+   readable state, checked in CI. Neither application has been submitted --
+   both need the PI's account, the PI's submission and a signature.
+   The review also corrected the route: the Taizhou study has **no EGA
+   deposit** (the catalogue holds 10,814 studies and 21,922 datasets, none of
+   them a match), so the route is a direct request to the investigators, and
+   neither PLCO nor TZL is post-treatment -- both are screening cohorts, so
+   what they can settle is the per-participant state fraction rather than the
+   post-treatment MRD claim.
 7. **Split the model.** *Done:* use the simulator to generate data with known
    ground truth, then apply a detector fitted on the published model to the
    fidelity model and report how much performance is lost to the modelling gap.

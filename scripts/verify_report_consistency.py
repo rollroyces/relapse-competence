@@ -1636,6 +1636,22 @@ def main(argv: list[str] | None = None) -> int:
                     "86.4%" in readme,
                 )
             chk(
+                "the README links the data-access applications",
+                "docs/DATA-ACCESS-APPLICATIONS.md" in readme,
+            )
+            roadmap = Path("docs/ROADMAP.md")
+            if roadmap.exists():
+                chk(
+                    "the roadmap links the data-access applications",
+                    "DATA-ACCESS-APPLICATIONS.md" in roadmap.read_text(),
+                )
+            datasets_doc = Path("docs/DATASETS.md")
+            if datasets_doc.exists():
+                chk(
+                    "the dataset survey links the data-access applications",
+                    "DATA-ACCESS-APPLICATIONS.md" in datasets_doc.read_text(),
+                )
+            chk(
                 "the README states that the measurements are correlational",
                 "not a mechanism" in readme,
             )
@@ -2354,6 +2370,104 @@ def main(argv: list[str] | None = None) -> int:
             "the per-patient audit keeps the projection's assumption visible",
             "never measured" in text or "has never been measured" in text,
         )
+
+    # --- the data-access applications must agree with their artefacts ---
+    tracker_artefact = Path("results/application_tracker/application_tracker.json")
+    tracker_doc = Path("docs/DATA-ACCESS-APPLICATIONS.md")
+    chk("the application tracker artefact exists", tracker_artefact.exists())
+    chk("the data-access applications document exists", tracker_doc.exists())
+    if tracker_artefact.exists() and tracker_doc.exists():
+        tracker = json.loads(tracker_artefact.read_text())
+        tracker_text = tracker_doc.read_text()
+
+        applications = {
+            row["Application"]: row for row in tracker["applications"]
+        }
+        chk(
+            "the tracker covers both applications",
+            {"PLCO-DATA", "PLCO-EEMS", "TZL-EGA", "TZL-DIRECT"} == set(applications),
+            str(sorted(applications)),
+        )
+        chk(
+            "the tracker records every step of both applications",
+            len(tracker["steps"]) >= 20,
+            str(len(tracker["steps"])),
+        )
+        chk(
+            "the tracker records the shared prerequisites",
+            len(tracker["prerequisites"]) >= 8,
+            str(len(tracker["prerequisites"])),
+        )
+        for application in ("PLCO-DATA", "PLCO-EEMS", "TZL-EGA", "TZL-DIRECT"):
+            chk(
+                f"the tracker document names {application}",
+                application in tracker_text,
+            )
+
+        # The route finding is load-bearing: if the EGA deposit turns up, the
+        # document has to change, and this check has to change with it.
+        chk(
+            "the document states that the EGA route is unverified",
+            applications["TZL-EGA"]["Route verified"].startswith("no"),
+            applications["TZL-EGA"]["Route verified"],
+        )
+        chk(
+            "the document says the EGA catalogue holds no Taizhou deposit",
+            "10,814" in tracker_text and "21,922" in tracker_text,
+        )
+        facts = {row["Fact"]: row["Value"] for row in tracker["external_facts"]}
+        chk(
+            "the tracker records that no EGA record matches the study",
+            any(
+                "matching Taizhou" in fact and value == "0"
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+
+        # Neither application has been submitted, and the document has to say
+        # so: a data-access request is an institutional act, and the record
+        # of it belongs to the person who makes it.
+        chk(
+            "the document states that neither application has been submitted",
+            "Neither application has been submitted" in tracker_text,
+        )
+        chk(
+            "the document states that neither cohort is post-treatment",
+            "Neither PLCO nor TZL is a" in tracker_text,
+        )
+
+        # The numbers the applications are justified by are this repository's
+        # own measurements, and they have to match those artefacts.
+        folds_path = Path("results/per_library_folds/per_library_folds.json")
+        if folds_path.exists() and audit_artefact.exists():
+            folds_data = json.loads(folds_path.read_text())
+            nsclc = folds_data["composition"]["NSCLC"]["KCNN4"]
+            chk(
+                "the document quotes the NSCLC within-tumour fold yield",
+                f"{nsclc['n_libraries_with_fold_above_one']} of "
+                f"{nsclc['n_libraries_with_fold_computable']}" in tracker_text,
+                f"{nsclc['n_libraries_with_fold_above_one']}/"
+                f"{nsclc['n_libraries_with_fold_computable']}",
+            )
+            mrd = [
+                r
+                for r in audit["per_library"]
+                if r["dataset"] == "NSCLC" and r["treatment"] == "osi_mrd"
+            ]
+            clearing = sum(
+                1 for r in mrd if not r["operating_point"]["k3_fired"]
+            )
+            chk(
+                "the document quotes the residual-disease libraries that clear K3",
+                f"{clearing} of {len(mrd)}" in tracker_text,
+                f"{clearing}/{len(mrd)}",
+            )
+            chk(
+                "the document does not claim a residual-disease library fails",
+                "7 of 7" in tracker_text
+                or f"{clearing} of {len(mrd)}" in tracker_text,
+            )
 
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
