@@ -175,7 +175,8 @@ bulk plasma most cfDNA is leukocyte cfDNA, and KCa3.1 is expressed in immune
 cells.
 
 The compartment was added default-off — with it off the golden fixture is
-byte-identical — and the audit sweeps it against the tumour's cfDNA share.
+byte-identical on the machine that captured it, so the published model is
+untouched — and the audit sweeps it against the tumour's cfDNA share.
 The published statistic does not degrade under a leukocyte background, it
 **inverts**: 0.9929 becomes 0.0053 for the surviving NSCLC readout, because
 the leukocyte term divided by the tumour's cfDNA share is inversely related to
