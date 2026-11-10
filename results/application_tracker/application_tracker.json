@@ -2,12 +2,26 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-10T03:51:02.993487+00:00",
-    "git_commit": "5a933f657392af9fa71335342ccab2680639066b",
+    "generated_at": "2026-11-10T04:01:39.560878+00:00",
+    "git_commit": "44d69f4aaddfc338e5f2860e628fbcf7be0fa7f4",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
   "steps": [
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Assemble the submission package",
+      "Owner": "programme",
+      "Status": "done \u2014 docs/plco-cdas-submission-package/",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Check the package: 500-word cap, fields, numbers, signature blocks",
+      "Owner": "programme",
+      "Status": "done \u2014 scripts/check_plco_cdas_package.py",
+      "Depends on": "the package"
+    },
     {
       "Application": "PLCO-DATA",
       "Step": "Create the CDAS account and log in with RAS",
@@ -17,7 +31,7 @@
     },
     {
       "Application": "PLCO-DATA",
-      "Step": "Fill the data-only project proposal from \u00a72.1",
+      "Step": "Fill the data-only project proposal from the package",
       "Owner": "PI or delegate",
       "Status": "prepared",
       "Depends on": "\u2014"
@@ -31,7 +45,7 @@
     },
     {
       "Application": "PLCO-DATA",
-      "Step": "Signing Official signs the proposal",
+      "Step": "Signing Official signs the institutional letter",
       "Owner": "Signing Official",
       "Status": "blocked",
       "Depends on": "PI submission"

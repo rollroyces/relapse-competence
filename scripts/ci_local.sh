@@ -64,6 +64,9 @@ echo "==> revision history"
 echo "==> application tracker"
 "$PY" scripts/application_tracker.py --check
 
+echo "==> PLCO CDAS submission package"
+"$PY" scripts/check_plco_cdas_package.py
+
 echo "==> report consistency"
 "$PY" scripts/verify_report_consistency.py
 

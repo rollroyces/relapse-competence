@@ -2469,6 +2469,113 @@ def main(argv: list[str] | None = None) -> int:
                 or f"{clearing} of {len(mrd)}" in tracker_text,
             )
 
+    # --- the PLCO CDAS submission package must agree with its artefacts ---
+    package = Path("docs/plco-cdas-submission-package")
+    package_files = (
+        "README.md",
+        "01-project-details.md",
+        "02-proposal-narrative.md",
+        "03-pi-cover-sheet.md",
+        "04-signing-official-letter.md",
+        "05-documents-checklist.md",
+    )
+    for name in package_files:
+        chk(f"the submission package carries {name}", (package / name).exists())
+    if all((package / name).exists() for name in package_files):
+        details = (package / "01-project-details.md").read_text()
+        narrative = (package / "02-proposal-narrative.md").read_text()
+        cover = (package / "03-pi-cover-sheet.md").read_text()
+        letter = (package / "04-signing-official-letter.md").read_text()
+        package_text = "\n".join(
+            (package / name).read_text() for name in package_files
+        )
+
+        # CDAS caps the project description at 500 words.
+        if "<!-- BEGIN PROJECT DESCRIPTION -->" in details and (
+            "<!-- END PROJECT DESCRIPTION -->" in details
+        ):
+            description = details.split("<!-- BEGIN PROJECT DESCRIPTION -->")[1].split(
+                "<!-- END PROJECT DESCRIPTION -->"
+            )[0]
+            word_count = len(description.split())
+            chk(
+                "the submission package's project description is within CDAS's "
+                "500-word cap",
+                word_count <= 500,
+                str(word_count),
+            )
+        else:
+            chk(
+                "the submission package marks out the project description",
+                False,
+                "the description markers are missing",
+            )
+
+        # Both documents that someone signs have to carry a signature block.
+        chk(
+            "the PI cover sheet carries a signature block",
+            "## 4. Signature" in cover and "Principal Investigator" in cover,
+        )
+        chk(
+            "the Signing Official letter carries a signature block",
+            "## 5. Signature" in letter and "Signing Official" in letter,
+        )
+
+        # The package's justification is this repository's own measurements.
+        folds_path = Path("results/per_library_folds/per_library_folds.json")
+        if folds_path.exists():
+            folds_data = json.loads(folds_path.read_text())
+            nsclc = folds_data["composition"]["NSCLC"]["KCNN4"]
+            chk(
+                "the submission package quotes the NSCLC within-tumour fold yield",
+                f"{nsclc['n_libraries_with_fold_above_one']} of "
+                f"{nsclc['n_libraries_with_fold_computable']}" in narrative,
+            )
+        gate_path = Path("results/gate_review/gate_review.json")
+        if gate_path.exists():
+            gate = json.loads(gate_path.read_text())
+            chk(
+                "the submission package quotes the pre-specified thresholds",
+                f"{gate['audit']['k1_auc_threshold']:.2f}" in package_text
+                and f"{gate['audit']['k3_auc_threshold']:.2f}" in package_text,
+            )
+            chk(
+                "the submission package quotes the electrical-channel allocation",
+                f"{gate['audit']['electrical_fraction']:.0%}" in package_text,
+            )
+
+        # The constraints that shape the package must not be quietly dropped.
+        for phrase in (
+            "500 words",
+            "Limited Data Set",
+            "published on the CDAS website",
+            "professor",
+            "12 months",
+            "DocuSign",
+            "separate project proposal",
+        ):
+            chk(
+                f"the submission package states {phrase!r}",
+                phrase in package_text,
+            )
+        chk(
+            "the submission package does not read as if it had been submitted",
+            "Signed" not in cover.split("## 4. Signature")[0],
+        )
+
+        readme_path = Path("README.md")
+        if readme_path.exists():
+            chk(
+                "the README links the submission package",
+                "plco-cdas-submission-package" in readme_path.read_text(),
+            )
+        roadmap_path = Path("docs/ROADMAP.md")
+        if roadmap_path.exists():
+            chk(
+                "the roadmap links the submission package",
+                "plco-cdas-submission-package" in roadmap_path.read_text(),
+            )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())

@@ -182,6 +182,13 @@ so in terms.
    neither PLCO nor TZL is post-treatment -- both are screening cohorts, so
    what they can settle is the per-participant state fraction rather than the
    post-treatment MRD claim.
+
+   The PLCO side now has a **package ready to sign**:
+   [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)
+   holds the pre-filled CDAS fields, the proposal narrative, the PI cover
+   sheet with its attestations, the Signing Official's letter and the
+   documents checklist. `scripts/check_plco_cdas_package.py` checks it in CI,
+   including CDAS's 500-word cap on the project description.
 7. **Split the model.** *Done:* use the simulator to generate data with known
    ground truth, then apply a detector fitted on the published model to the
    fidelity model and report how much performance is lost to the modelling gap.

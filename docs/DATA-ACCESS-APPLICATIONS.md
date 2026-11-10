@@ -67,6 +67,13 @@ directly.
 **Route:** [cdas.cancer.gov/plco](https://cdas.cancer.gov/plco/) → "Begin a
 Data-Only Project". **Verified 2026-11-10.**
 
+**The signed-and-submitted package is in
+[`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)**:
+the CDAS form fields pre-filled, the proposal narrative, the PI cover sheet
+with its attestations, the Signing Official's letter, and the documents
+checklist. What is drafted there is what the CDAS form asks for; what is
+missing there is marked `[PI]` or `[SO]` and is listed in the checklist.
+
 **What CDAS says this needs:** an institution, a Principal Investigator, a
 Signing Official and project staff; the proposal must be submitted by the PI;
 expected time for a new project to have data delivered is 1–4 weeks.
@@ -206,10 +213,12 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 
 | Application | Step | Owner | Status | Depends on |
 |---|---|---|---|---|
+| PLCO-DATA | Assemble the submission package | programme | done — `docs/plco-cdas-submission-package/` | — |
+| PLCO-DATA | Check the package: 500-word cap, fields, numbers, signature blocks | programme | done — `scripts/check_plco_cdas_package.py` | the package |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
-| PLCO-DATA | Fill the data-only project proposal from §2.1 | PI or delegate | prepared | — |
+| PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
-| PLCO-DATA | Signing Official signs the proposal | Signing Official | blocked | PI submission |
+| PLCO-DATA | Signing Official signs the institutional letter | Signing Official | blocked | PI submission |
 | PLCO-DATA | Supply PI CV, institutional letter and ethics determination | PI | blocked | — |
 | PLCO-DATA | Accept the CDAS data use agreement | PI | blocked | — |
 | PLCO-DATA | List project staff | PI | blocked | — |

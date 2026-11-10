@@ -48,6 +48,9 @@ jobs:
       - name: Application tracker
         run: python scripts/application_tracker.py --check
 
+      - name: PLCO CDAS submission package
+        run: python scripts/check_plco_cdas_package.py
+
   benchmark:
     runs-on: ubuntu-latest
     steps:
