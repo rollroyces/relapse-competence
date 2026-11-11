@@ -2550,6 +2550,13 @@ def main(argv: list[str] | None = None) -> int:
             "the data-access document records the pilot precedent",
             "Analytical Suitability and Storage-Stability Pilot" in flat,
         )
+        # A collaborator named on the application is a smaller ask than a
+        # host PI, and it is the form to aim for when the collaboration is
+        # scientific rather than administrative.
+        chk(
+            "the data-access document records that a collaborator need not be the PI",
+            "Investigative Team" in flat and "recuse" in flat,
+        )
 
         # The host invitation is outbound correspondence rather than a
         # submission document, so it is checked here instead of in the

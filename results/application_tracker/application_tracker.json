@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T09:30:38.488972+00:00",
-    "git_commit": "44ddcfbef810379a914bd215d36ba6f1a3fa1493",
+    "generated_at": "2026-11-11T09:40:28.489885+00:00",
+    "git_commit": "3625456c885a2c6cb85ab151a285785901e988e3",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -445,6 +445,12 @@
       "Fact": "CDAS: PLCO approved-project list",
       "Value": "public, with the Principal Investigator and institution for every project, and filterable by biospecimen type",
       "Source": "CDAS approved projects",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO EEMS investigative team",
+      "Value": "every member is listed and supplies an NIH biosketch; EEMS panel members may be co-investigators, with recusal",
+      "Source": "PLCO EEMS Application Process and Policies & Procedures",
       "Verified on": "2026-11-11"
     },
     {

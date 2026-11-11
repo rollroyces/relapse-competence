@@ -248,6 +248,17 @@ original and once as a continuation credited to a different Principal
 Investigator, which shows the role can change hands inside a project's life
 rather than being fixed for its duration.
 
+**A collaborator does not have to be the PI.** The EEMS application has an
+"Investigative Team": every member is listed and supplies an NIH biosketch,
+and the EEMS review panel's own members are allowed to submit an
+application or to be a co-investigator on one, provided they recuse
+themselves from the applications they are not on. So a mechanistic
+collaborator can be named on the application, with their institution behind
+the Material Transfer Agreement, without being the person who registers,
+submits, renews and closes out. That distinction is what makes a
+collaboration a smaller ask than a host PI, and it is the form to aim for
+when the collaboration is scientific rather than administrative.
+
 **The number of lung-cancer participants with usable serial plasma and a
 matched tumour is the scoping question that has to be answered first.** It
 determines whether this application is worth the 4–6 months, and it can be
@@ -320,6 +331,7 @@ published practice is to answer an initial request within two weeks.
 | CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; preliminary applications are rolling | CDAS PLCO page, and the EEMS policies | 2026-11-11 |
 | CDAS: PLCO approved-project list | public, with the Principal Investigator and institution for every project, and filterable by biospecimen type | CDAS approved projects | 2026-11-11 |
+| PLCO EEMS investigative team | every member is listed and supplies an NIH biosketch; EEMS panel members may be co-investigators, with recusal | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
 | PLCO EEMS eligibility | a self-funded applicant may register and apply: "If you have your own source of funding and wish to obtain PLCO biospecimens"; the resource is "available to the entire scientific community" | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
 | PLCO biospecimens in the repository | about 2.9 million specimens; plasma banked at T0, T3, T4, T5 but not T1 or T2 | PLCO EEMS Policies & Procedures | 2026-11-11 |
 | PLCO lung tumour collection | 435 PLCO cases in 3,773 cores, plus 446 NLST-LSS cases in 3,951 cores | PLCO EEMS Policies & Procedures | 2026-11-11 |
