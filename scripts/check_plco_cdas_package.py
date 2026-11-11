@@ -565,26 +565,31 @@ def main(argv: list[str] | None = None) -> int:
         # the markers that are still left. Only the places a value can
         # actually go are counted -- a table cell, or the label of a
         # signature line -- so the prose that merely names the markers does
-        # not inflate the count.
-        remaining: dict[str, int] = {}
+        # not inflate the count, and each one is listed with its line so
+        # that filling it in is mechanical.
+        remaining: dict[str, list[str]] = {}
+        total = 0
         for name in REQUIRED_FILES:
-            text = (package / name).read_text()
-            fillable = "\n".join(
-                line
-                for line in text.splitlines()
-                if line.strip().startswith("|")
-                or re.match(r"^[A-Z][A-Za-z ]+: `?\[", line)
-            )
-            count = len(
-                re.findall(r"\[(?:PI|SO)(?:'s institution)?\]", fillable)
-            )
-            if count:
-                remaining[name] = count
-        total = sum(remaining.values())
-        print(
-            "values still to fill in: "
-            + (", ".join(f"{n} ({c})" for n, c in remaining.items()) or "none")
-        )
+            lines = (package / name).read_text().splitlines()
+            hits: list[str] = []
+            for number, line in enumerate(lines, 1):
+                if not (
+                    line.strip().startswith("|")
+                    or re.match(r"^[A-Z][A-Za-z ]+: `?\[", line)
+                ):
+                    continue
+                count = len(
+                    re.findall(r"\[(?:PI|SO)(?:'s institution)?\]", line)
+                )
+                if count:
+                    total += count
+                    hits.append(f"{name}:{number} ({count}): {line.strip()}")
+            if hits:
+                remaining[name] = hits
+        print(f"values still to fill in: {total}")
+        for hits in remaining.values():
+            for hit in hits:
+                print(f"  {hit}")
         check(
             total == 0 or args.allow_incomplete,
             f"the local copy still has {total} unfilled value(s)",

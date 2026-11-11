@@ -125,6 +125,10 @@ through the CDAS contact form on 2026-11-11. The two messages as they went,
 and the sending record with the date, the topic and the length of each, are
 in [`07-scoping-inquiry.md`](07-scoping-inquiry.md).
 
+The EEMS preliminary application period closes on **Feb 18 at 11:59 PM EST**
+(read from the CDAS PLCO study page on 2026-11-11), so the answers, the
+institutional PI and the draft all have to land before then.
+
 It is **two** messages, not one. The contact form has a single Topic and
 CDAS forward a message to the party best able to answer it, so the data
 questions and the biospecimen questions go separately: message A with the

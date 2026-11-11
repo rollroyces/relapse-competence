@@ -11,6 +11,16 @@ permanent employee at professor level — assistant, associate, tenure-track or
 tenured professor, or a senior researcher. The instructions state that a
 post-doc, trainee or lab technician cannot fill this role.
 
+CDAS's own instructions, read on 2026-11-11, put it this way: the PI "must
+be a permanent employee of your institution at a level equivalent to... an
+academic professor... or senior researcher", cannot be "a post-doc, trainee,
+or lab technician", and "will register and be responsible for the project,
+its submission, renewals and close-out". **A researcher with no such
+appointment cannot fill this sheet.** The route then needs an institutional PI
+who agrees to carry the proposal, and a Signing Official permanently employed
+at the same institution; the science can still be the researcher's, as an
+approved user.
+
 **Fill this in a local copy, not in the repository.** The details below are
 the PI's own: name, degrees, title, telephone, ORCID. This repository is
 public, and a telephone number committed to it cannot be taken back. Run

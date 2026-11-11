@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T04:30:40.711185+00:00",
-    "git_commit": "d3f0324919a3bacbd5b8bf496086b034265d6882",
+    "generated_at": "2026-11-11T06:22:10.465602+00:00",
+    "git_commit": "3eee1f341675755e3d7d573a1914781d8a34eba2",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -42,6 +42,13 @@
       "Owner": "PI",
       "Status": "done \u2014 two messages sent 2026-11-11; the form issues no inquiry number",
       "Depends on": "the scoping inquiry"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Secure an institutional PI to be the Data Access Requestor, and a Signing Official",
+      "Owner": "PI",
+      "Status": "not started \u2014 the PI must be a permanent employee at professor level and is the person who submits",
+      "Depends on": "an institutional relationship"
     },
     {
       "Application": "PLCO-DATA",
@@ -103,8 +110,8 @@
       "Application": "PLCO-EEMS",
       "Step": "Confirm the EEMS preliminary application deadline",
       "Owner": "PI",
-      "Status": "not started",
-      "Depends on": "\u2014"
+      "Status": "done \u2014 Feb 18, 11:59 PM EST",
+      "Depends on": "the CDAS PLCO page, read 2026-11-11"
     },
     {
       "Application": "PLCO-EEMS",
@@ -288,6 +295,13 @@
       "Owner": "programme",
       "Status": "prepared",
       "Applies to": "all"
+    },
+    {
+      "#": "10",
+      "Prerequisite": "An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "PLCO-DATA, PLCO-EEMS"
     }
   ],
   "external_facts": [
@@ -374,6 +388,30 @@
       "Value": "2",
       "Source": "CDAS contact form",
       "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS PI eligibility",
+      "Value": "permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out",
+      "Source": "CDAS instructions for accessing data (PDF)",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS Signing Official eligibility",
+      "Value": "permanently employed at the institution and authorised to sign legally binding documents",
+      "Source": "CDAS instructions for accessing data (PDF)",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS approved users",
+      "Value": "names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal",
+      "Source": "CDAS instructions for accessing data (PDF)",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO EEMS biospecimen application deadline",
+      "Value": "Feb 18, 11:59 PM EST",
+      "Source": "CDAS PLCO study page",
+      "Verified on": "2026-11-11"
     },
     {
       "Fact": "CDAS contact form: message field limit, enforced by the field",

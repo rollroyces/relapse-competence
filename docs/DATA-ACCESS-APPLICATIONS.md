@@ -36,6 +36,23 @@ Signing Official's signature. The sending record is in
 §0, and the CDAS form issues no inquiry number, so there is no reference to
 quote until the reply arrives.
 
+**The PI role cannot be filled by a personal contributor.** CDAS's own
+instructions, read on 2026-11-11, say the Principal Investigator — the Data
+Access Requestor — "must be a permanent employee of your institution at a
+level equivalent to... an academic professor... or senior researcher", cannot
+be "a post-doc, trainee, or lab technician", and "will register and be
+responsible for the project, its submission, renewals and close-out". The
+Signing Official is likewise "permanently employed at the institution". A
+researcher without such an appointment therefore cannot submit either
+PLCO application, and cannot be an approved user at an institution they do
+not belong to.
+
+That is the route's real dependency, and it is not a form to fill: it is an
+institutional home with a professor-level PI who agrees to carry the
+proposal, and a Signing Official who can sign for the institution. The
+package's PI cover sheet cannot be completed until that person exists, which
+is why its fields are still markers.
+
 ### 1.1 What changed in the route
 
 One finding from this review is worth stating before the tables, because it
@@ -136,6 +153,11 @@ expected time for a new project to have data delivered is 1–4 weeks.
 EEMS Biospecimens Application" (preliminary application). **Verified
 2026-11-10.**
 
+**Deadline:** the CDAS PLCO study page carries the EEMS application period
+closing on **Feb 18 at 11:59 PM EST** (read 2026-11-11). That is the date
+the preliminary application has to be in, so the scoping inquiry's answers
+have to arrive, and the institutional PI has to be in place, well before it.
+
 **Why it is a separate application.** The Data-Only route delivers the
 phenotype data. The plasma itself is a biospecimen, and aliquots are
 released through the NCI's Etiologic and Early Marker Studies programme, whose
@@ -212,6 +234,10 @@ published practice is to answer an initial request within two weeks.
 | CDAS contact form: subject for PLCO | PLCO | CDAS contact form | 2026-11-10 |
 | CDAS contact form: topics | Data Access/Availability, Biospecimen Availability | CDAS contact form | 2026-11-10 |
 | CDAS contact form: unlabelled anti-spam fields | 2 | CDAS contact form | 2026-11-10 |
+| CDAS PI eligibility | permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out | CDAS instructions for accessing data (PDF) | 2026-11-11 |
+| CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
+| CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
+| PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST | CDAS PLCO study page | 2026-11-11 |
 | CDAS contact form: message field limit, enforced by the field | 10,000 characters | CDAS contact form | 2026-11-11 |
 | CDAS contact form: inquiry reference number issued | none — the form returns only a confirmation banner | CDAS contact form | 2026-11-11 |
 | CDAS contact form: topic list appears only after a subject is chosen | yes | CDAS contact form | 2026-11-11 |
@@ -238,6 +264,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Write the submission runbook and the scoping inquiry | programme | done — `06-submission-runbook.md`, `07-scoping-inquiry.md` | the package |
 | PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
 | PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — two messages sent 2026-11-11; the form issues no inquiry number | the scoping inquiry |
+| PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — the PI must be a permanent employee at professor level and is the person who submits | an institutional relationship |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
@@ -246,7 +273,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Accept the CDAS data use agreement | PI | blocked | — |
 | PLCO-DATA | List project staff | PI | blocked | — |
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
-| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | not started | — |
+| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — Feb 18, 11:59 PM EST | the CDAS PLCO page, read 2026-11-11 |
 | PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started | PLCO-DATA scoping |
 | PLCO-EEMS | **Submit the EEMS preliminary application before the deadline** | PI | blocked | deadline, application text |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |
@@ -282,6 +309,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | 7 | Statement of where the data will be stored and who will access it | PI | not started | TZL-EGA, TZL-DIRECT |
 | 8 | Pre-specified analysis plan | programme | prepared; §2.1 aims 1–3 | all |
 | 9 | Confirmation that the panel and operating point will not be re-tuned after the data are opened | programme | prepared | all |
+| 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started | PLCO-DATA, PLCO-EEMS |
 
 ## 5. What these applications cannot deliver, and what would
 

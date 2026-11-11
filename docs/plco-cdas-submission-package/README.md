@@ -62,6 +62,14 @@ package.
   associate, tenure-track or tenured professor, or a senior researcher. CDAS
   states that the PI cannot be a post-doc, trainee or lab technician. The
   position title field has to reflect that.
+- **The PI is the person who submits, renews and closes out the project.**
+  CDAS's instructions say the Data Access Requestor "will register and be
+  responsible for the project, its submission, renewals and close-out", and
+  the Signing Official is "permanently employed at the institution" and
+  authorised to sign for it. A researcher with no institutional appointment
+  at professor level therefore cannot submit either PLCO application; the
+  route needs an institutional PI who agrees to carry it, with the
+  researcher's own work done under it.
 - **The project description is capped at 500 words.** The checker
   `scripts/check_plco_cdas_package.py` counts the words between the markers
   in `01-project-details.md` and fails if the cap is exceeded, so the limit
