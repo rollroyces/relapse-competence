@@ -28,6 +28,10 @@ soon as possible."*
 |---|---|---|---|---|
 | A | PLCO | Data Access/Availability | 1152 | 2026-11-11 12:27 |
 | B | PLCO | Biospecimen Availability | 1789 | 2026-11-11 12:28 |
+| C | PLCO | Data Access/Availability | 2121 | 2026-11-11 16:45 |
+
+Message C is the eligibility question, sent later the same day after CDAS's
+own instructions turned out to require an institutional PI; it is in §6.
 
 The character counts are the lengths of the two message blocks below, and
 `scripts/verify_report_consistency.py` checks them against those blocks, so
@@ -174,3 +178,44 @@ to know which positions are heterozygous in each participant. And if B3
 answers "whole-exome only", the informative positions may be too few near the
 channel transcript, which is the condition the specification's first stop rule
 is about.
+
+## 6. Message C — the eligibility question
+
+This one is not about the data. It is about who is allowed to ask for it, and
+it was found by reading CDAS's own instructions for accessing data on
+2026-11-11: the Principal Investigator — the Data Access Requestor — "must be
+a permanent employee of your institution at a level equivalent to... an
+academic professor... or senior researcher", cannot be "a post-doc, trainee,
+or lab technician", and "will register and be responsible for the project,
+its submission, renewals and close-out". The Signing Official is likewise
+"permanently employed at the institution".
+
+The person writing to CDAS holds no current institutional appointment, so
+the question is not academic: the answer decides whether this route is open
+at all, and it has to be answered well before the EEMS deadline of Feb 18.
+
+Subject: **PLCO** · Topic: **Data Access/Availability** · Message:
+
+<!-- BEGIN MESSAGE C -->
+Dear CDAS team,
+
+I am preparing a data-only project proposal for PLCO and have one eligibility question before I go further.
+
+The instructions for accessing data say that the Principal Investigator, the Data Access Requestor, must be a permanent employee of your institution at a level equivalent to that of an academic professor or a senior researcher, that this individual cannot be a post-doc, trainee or lab technician, and that this individual will register and be responsible for the project, its submission, renewals and close-out. The Signing Official is likewise permanently employed at the institution.
+
+My own situation: I studied at the institution whose e-mail address I am writing from, but I hold no current appointment there and no institutional position at all. I am doing the research myself, and what CDAS requires of the person who submits decides whether this route is open to me, so I would rather ask than have the proposal turned down.
+
+1. Must the Data Access Requestor be a current permanent employee of some institution at professor level or senior-researcher level, with no exception for an individual researcher who holds no institutional appointment?
+
+2. The instructions say the PI will register and that the PI must submit the proposal, while the project overview also says that a proposal may be filled in by someone who is not the PI, for the PI to review and submit. If a professor at an institution is the PI, may that professor register and submit, while I do the work of filling in the fields?
+
+3. For the approved-users list: must every approved user hold a current appointment at the PI's institution, and is an institutional e-mail address at an institution where the person no longer holds an appointment acceptable for that list?
+
+4. If the Data Access Requestor must be a current permanent employee, is there any route by which a researcher without an institutional appointment can take part in a PLCO project, for instance as a collaborator named on a proposal submitted by someone else?
+
+Any of these answers would help. Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE C -->
+

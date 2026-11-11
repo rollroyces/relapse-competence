@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T06:22:10.465602+00:00",
-    "git_commit": "3eee1f341675755e3d7d573a1914781d8a34eba2",
+    "generated_at": "2026-11-11T08:47:43.628337+00:00",
+    "git_commit": "240d191cbb86f364a3d5378ff391c1ff4cb296cf",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -40,7 +40,7 @@
       "Application": "PLCO-DATA",
       "Step": "Send the scoping inquiry to CDAS (subject: PLCO)",
       "Owner": "PI",
-      "Status": "done \u2014 two messages sent 2026-11-11; the form issues no inquiry number",
+      "Status": "done \u2014 three messages sent 2026-11-11; the form issues no inquiry number",
       "Depends on": "the scoping inquiry"
     },
     {
@@ -445,7 +445,7 @@
     },
     {
       "Fact": "Scoping inquiries sent to CDAS",
-      "Value": "2 \u2014 Data Access/Availability and Biospecimen Availability",
+      "Value": "3 \u2014 Data Access/Availability, Biospecimen Availability, and the PI eligibility question",
       "Source": "this repository's sending record",
       "Verified on": "2026-11-11"
     },

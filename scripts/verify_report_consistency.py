@@ -2477,10 +2477,10 @@ def main(argv: list[str] | None = None) -> int:
             str(sorted(fact_rows)),
         )
         chk(
-            "the tracker records that two scoping inquiries were sent",
+            "the tracker records that three scoping inquiries were sent",
             any(
                 "Scoping inquiries sent to CDAS" in fact
-                and fact_rows[fact]["Value"].startswith("2")
+                and fact_rows[fact]["Value"].startswith("3")
                 and fact_rows[fact]["Verified on"] == "2026-11-11"
                 for fact in fact_rows
             ),
@@ -3036,7 +3036,7 @@ def main(argv: list[str] | None = None) -> int:
                     f"the scoping inquiry asks {phrase!r}",
                     phrase in inquiry,
                 )
-            for tag in ("A", "B"):
+            for tag in ("A", "B", "C"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
                 if begin not in inquiry or end not in inquiry:
@@ -3064,6 +3064,7 @@ def main(argv: list[str] | None = None) -> int:
             topics = {
                 "A": "Data Access/Availability",
                 "B": "Biospecimen Availability",
+                "C": "Data Access/Availability",
             }
             for tag, topic in topics.items():
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"

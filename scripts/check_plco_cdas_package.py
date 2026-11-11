@@ -317,7 +317,7 @@ def main(argv: list[str] | None = None) -> int:
         and "separate document" in inquiry.lower(),
     )
     # The two paste-ready messages, and the form they go into.
-    for tag in ("A", "B"):
+    for tag in ("A", "B", "C"):
         begin = f"<!-- BEGIN MESSAGE {tag} -->"
         end = f"<!-- END MESSAGE {tag} -->"
         if begin not in inquiry or end not in inquiry:
@@ -385,6 +385,7 @@ def main(argv: list[str] | None = None) -> int:
     for tag, topic in (
         ("A", "Data Access/Availability"),
         ("B", "Biospecimen Availability"),
+        ("C", "Data Access/Availability"),
     ):
         begin = f"<!-- BEGIN MESSAGE {tag} -->"
         end = f"<!-- END MESSAGE {tag} -->"
