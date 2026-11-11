@@ -63,12 +63,12 @@ published PLCO project.
 | Principal Investigator → Position Title | `03` §1 | your title, showing a permanent professor-level or senior-researcher position |
 | Principal Investigator → Email | `03` §1 | your institutional email |
 | Project Details → contact information | `03` §1 | your institutional email and telephone |
-| Institution and location | `03` §2 | your institution and its city and state |
-| Signing Official | `04` §2 | the name and title of the person who signs for the institution |
+| Institution and location | `03` §1 | your institution and its city and state |
+| Signing Official | `04` §5 | the name and title of the person who signs for the institution |
 | Approved users | `03` §2 | names and institutional e-mail addresses; anyone at another institution needs their own proposal |
 | About this CDAS Project → Study | the form | PLCO |
 | About this CDAS Project → Title | `01` §3 | Validating an electrical-channel readout of the relapse-competent state in serial plasma |
-| About this CDAS Project → Summary | `01` §4, between the markers | the 456-word text, verbatim |
+| About this CDAS Project → Summary | `01` §4, between the markers | the 498-word text, verbatim |
 | About this CDAS Project → Aims | `01` §5 | the three aims |
 | About this CDAS Project → Collaborators | `01` §3 | none, or the collaborators' names and institutions |
 | Data requested | `01` §6 | the data-requested table, if the form asks for it |

@@ -39,7 +39,7 @@ The state of the application as a whole is tracked in
   Principal Investigator, and that the PI is the person who submits the
   proposal and is responsible for renewals and close-out.
 - **The project description is capped at 500 words.** The text in
-  `01-project-details.md` is 405 words, and
+  `01-project-details.md` is 498 words, and
   `scripts/check_plco_cdas_package.py` fails if it goes over.
 - **The proposal will be published** on the CDAS website once access is
   granted. The narrative is written for that, and it carries the

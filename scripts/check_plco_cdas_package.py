@@ -369,15 +369,71 @@ def main() -> int:
         "the runbook says the form issues no inquiry number",
         "no inquiry number" in runbook,
     )
-    # The runbook quotes the description's word count back at the reader.
-    # If the two disagree, one is wrong and the reader cannot tell which.
-    quoted = re.search(r"The one here is (\d+)", runbook)
+    # Every place the package quotes the description's word count back at
+    # the reader has to agree with the checker. The cap is CDAS's number,
+    # not the description's, so it is the one value allowed to differ. This
+    # gate exists because the package carried 456 in the runbook and 405 in
+    # the checklist while the description was 498, and nothing noticed.
+    for name in REQUIRED_FILES:
+        text = (PACKAGE / name).read_text()
+        for match in re.finditer(r"(\d+)[- ]words?\b", text):
+            quoted = int(match.group(1))
+            if quoted == WORD_CAP:
+                continue
+            check(
+                quoted == len(words),
+                f"{name} quotes a project-description word count of {quoted}, "
+                f"and the description is {len(words)}",
+            )
+    # The markers have to appear once each. A duplicated end marker makes
+    # "the text between the markers" ambiguous for a reader, even when the
+    # extractor happens to take the first one and the content is unaffected.
     check(
-        quoted is not None and int(quoted.group(1)) == len(words),
-        "the runbook quotes a project-description word count of "
-        f"{quoted.group(1) if quoted else 'none'}, and the description is "
-        f"{len(words)}",
+        "the project description has one begin marker and one end marker",
+        details.count(DESCRIPTION_BEGIN) == 1
+        and details.count(DESCRIPTION_END) == 1,
     )
+
+    # The field map has to point at the section that actually holds the
+    # value, because the package is filled in by a person. A pointer to a
+    # section that exists but holds something else sends them to the wrong
+    # table, which is worse than a missing pointer.
+    package_files = {
+        "01": "01-project-details.md",
+        "03": "03-pi-cover-sheet.md",
+        "04": "04-signing-official-letter.md",
+    }
+
+    def _section(document: str, number: str) -> str:
+        """The text of a numbered section of a document."""
+        start = document.find(f"## {number}.")
+        if start == -1:
+            return ""
+        rest = document[start:]
+        end = rest.find("\n## ", 1)
+        return rest if end == -1 else rest[:end]
+
+    for row_label, doc_id, number, phrase in (
+        ("Institution and location", "03", "1", "Institution location"),
+        ("Signing Official", "04", "5", "[SO]"),
+    ):
+        row = next(
+            (
+                line
+                for line in runbook.splitlines()
+                if line.strip().startswith(f"| {row_label} |")
+            ),
+            "",
+        )
+        check(
+            bool(row) and f"`{doc_id}` §{number}" in row,
+            f"the field map does not point the {row_label!r} row at "
+            f"`{doc_id}` §{number}",
+        )
+        check(
+            phrase in _section((PACKAGE / package_files[doc_id]).read_text(), number),
+            f"{doc_id} §{number} does not hold {phrase!r}",
+        )
 
     # --- the constraints are stated, so an edit cannot quietly drop them ---
     for phrase, where in (

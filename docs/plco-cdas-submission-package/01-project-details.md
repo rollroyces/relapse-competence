@@ -69,7 +69,7 @@ A second audit changed the assay design. In bulk plasma most cfDNA is leukocyte-
 This project asks for the serial plasma and outcome data needed to test that projection. The plasma is drawn at screening visits, before diagnosis: the question is whether the readout separates participants diagnosed with lung cancer from matched participants who are not. The analysis is pre-specified: the panel, operating point, thresholds and per-patient applicability rule are fixed before any data are opened, and the code behind every published figure is public.
 
 We request serial plasma at every visit for participants diagnosed with lung cancer, with their matched primary tumour; serial plasma from matched participants not diagnosed with lung cancer during follow-up, at the same visits; and the clinical data to align them: date and site of diagnosis, treatment, mortality, smoking history, and the visit dates of the blood draws. We do not request sequencing data; assays are run locally on the aliquots. Diagnosis dates are essential, and we request them in the Limited Data Set.
-<!-- END PROJECT DESCRIPTION --><!-- END PROJECT DESCRIPTION --><!-- END PROJECT DESCRIPTION -->
+<!-- END PROJECT DESCRIPTION -->
 
 ## 5. Aims
 

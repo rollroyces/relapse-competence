@@ -267,16 +267,57 @@ def test_the_sending_record_says_the_form_issues_no_reference() -> None:
 
 
 def test_the_runbook_quotes_the_description_word_count_correctly() -> None:
-    """The runbook quotes the word count back at the reader; it has to be right.
+    """Every quoted word count in the package has to agree with the checker.
 
-    This gate exists because the runbook carried 456 while the checker
-    counted 498, and nothing noticed: the drift was in a sentence that only
-    the reader would have been misled by.
+    This gate exists because the package carried 456 in the runbook and 405
+    in the checklist while the description was 498, and nothing noticed: the
+    drift was in a sentence that only the reader would have been misled by.
     """
     details = (PACKAGE / "01-project-details.md").read_text()
     words = len(checker._description(details).split())
+    for name in checker.REQUIRED_FILES:
+        text = (PACKAGE / name).read_text()
+        for match in re.finditer(r"(\d+)[- ]words?\b", text):
+            quoted = int(match.group(1))
+            if quoted == checker.WORD_CAP:
+                continue
+            assert quoted == words, (name, quoted, words)
+
+
+def test_the_description_markers_appear_once_each() -> None:
+    """A duplicated end marker makes 'the text between the markers' ambiguous."""
+    details = (PACKAGE / "01-project-details.md").read_text()
+    assert details.count(checker.DESCRIPTION_BEGIN) == 1
+    assert details.count(checker.DESCRIPTION_END) == 1
+
+
+def test_the_field_map_points_at_the_sections_that_hold_the_values() -> None:
+    """A pointer to a section that exists but holds something else is worse
+    than no pointer at all: it sends the person filling the form to the
+    wrong table. This gate exists because the Institution and location row
+    pointed at the approved-users table and the Signing Official row at the
+    authorised-individuals table.
+    """
     runbook = (PACKAGE / "06-submission-runbook.md").read_text()
-    quoted = re.search(r"The one here is (\d+)", runbook)
-    assert quoted, "the runbook does not quote the word count"
-    assert int(quoted.group(1)) == words, (quoted.group(1), words)
+    for label, filename, number, phrase in (
+        ("Institution and location", "03-pi-cover-sheet.md", "1", "Institution location"),
+        ("Signing Official", "04-signing-official-letter.md", "5", "[SO]"),
+    ):
+        row = next(
+            (
+                line
+                for line in runbook.splitlines()
+                if line.strip().startswith(f"| {label} |")
+            ),
+            "",
+        )
+        assert row, label
+        assert f"`{filename[:2]}` §{number}" in row, (label, row)
+        document = (PACKAGE / filename).read_text()
+        start = document.find(f"## {number}.")
+        assert start != -1, (filename, number)
+        rest = document[start:]
+        end = rest.find("\n## ", 1)
+        section = rest if end == -1 else rest[:end]
+        assert phrase in section, (label, number)
 
