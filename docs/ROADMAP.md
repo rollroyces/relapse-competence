@@ -128,11 +128,17 @@ simulator's assumptions.
   two are not lung targets at all, and the rest fail the specificity verdict.
   The pharmacological arm survives only as a *state-directed* modality, which
   does not exist.
-- **The readout is now named.** KCa3.1 for EGFR-mutant NSCLC (enrichment AUC
-  0.9929 at 200,000× / 200 loci); PIEZO1 for relapsed SCLC, but only just
-  (0.6945 against a 0.65 threshold). PIEZO1 as the NSCLC readout is dead:
-  the state does not over-express it there, so it carries no information and
-  both K1 and K3 fire.
+- **K3 has fired as well.** In the projection the plasma pool carried no
+  leukocyte compartment, so the channel's signal was the tumour's alone and
+  KCa3.1 scored 0.9929 for EGFR-mutant NSCLC. With a leukocyte
+  compartment, which is what bulk plasma is, the same statistic does not
+  degrade — it **inverts** to 0.0053, and no configuration in the searched
+  space clears K3 (the best is 0.5815 against 0.65). The readout that
+  survives is therefore a **tissue-level** one: KCa3.1 in EGFR-mutant
+  NSCLC, where it is carried in 20 of 23 libraries and all 7 residual-disease
+  libraries. PIEZO1 as the NSCLC readout is dead: the state does not
+  over-express it there, so it carries no information and both K1 and K3
+  fire.
 - **K2 and K5 are untested**, and are recorded as untested rather than
   passed. The evidence so far points against K2 (the state is more frequent
   after treatment in NSCLC), but the methylation comparison the condition

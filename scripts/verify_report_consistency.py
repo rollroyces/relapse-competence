@@ -1692,6 +1692,52 @@ def main(argv: list[str] | None = None) -> int:
             conditions.get("K4", {}).get("status") == "fired",
             str(conditions.get("K4", {}).get("status")),
         )
+        # The headline has to agree with the verdicts table. A document whose
+        # first line says one condition has fired while the table below says
+        # three is exactly the drift a reader cannot see, and this one sat
+        # here because the table was updated and the prose was not.
+        fired = sum(
+            1 for c in conditions.values() if c.get("status") == "fired"
+        )
+        untested = sum(
+            1 for c in conditions.values() if c.get("status") == "not_evaluable"
+        )
+        words = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
+        chk(
+            "the gate review headline counts the conditions that have fired",
+            f"{words[fired]} conditions have fired" in gate_doc,
+            f"{fired} fired",
+        )
+        chk(
+            "the gate review headline counts the conditions that cannot be tested",
+            f"{words[untested]} cannot yet be tested" in gate_doc,
+            f"{untested} not evaluable",
+        )
+        # And the qualification that changed the plasma arm has to be in the
+        # document, not only in the audit it came from.
+        chk(
+            "the gate review records the leukocyte-audit qualification",
+            "no leukocyte compartment" in gate_doc
+            and "LEUKOCYTE-AUDIT.md" in gate_doc,
+        )
+        # The two documents a reader meets first must not carry the
+        # pre-audit framing, where a plasma readout was named as surviving.
+        # They each contradicted their own leukocyte-audit section.
+        for path, name in (
+            (Path("README.md"), "the README"),
+            (Path("docs/ROADMAP.md"), "the roadmap"),
+        ):
+            if path.exists():
+                text = path.read_text()
+                chk(
+                    f"{name} does not present the pre-audit readout as surviving",
+                    "readout is now named" not in text,
+                )
+        if Path("README.md").exists():
+            chk(
+                "the README states that K3 has fired",
+                "K1, K3 and K4 have fired" in Path("README.md").read_text(),
+            )
         # The per-configuration numbers in the report must match the artefact.
         for verdict in gate["k1_k3_detail"]:
             label = f"{verdict['dataset']} / {verdict['channel']}"

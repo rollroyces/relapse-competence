@@ -25,8 +25,8 @@ verdicts down. It is deliberately unflattering in two directions:
 - a condition that rests on a **model-based projection** rather than a
   measurement says so, and the projection's inputs are stated.
 
-The headline: **one condition has fired, two cannot yet be tested, and the
-surviving readout for each disease is now named.**
+The headline: **three conditions have fired, two cannot yet be tested, and the
+one readout that survives is a tissue-level readout, not a plasma one.**
 
 ### A qualification added after this document was first written
 
@@ -50,6 +50,33 @@ SCLC rows here may be read:
 So the programme has **one** established readout — KCa3.1 in EGFR-mutant
 NSCLC — not three. The numbers in this document are unchanged; the reading is
 narrower.
+
+### A second qualification added after the leukocyte audit
+
+The plasma numbers in this document come from a model whose plasma cfDNA pool
+has **no leukocyte compartment**: it is tumour-shed material plus a 1e-6
+sequencing-error floor, so the electrical channel's signal is the tumour's
+contribution alone. In bulk plasma that is not the case. Most cfDNA is
+leukocyte-derived and KCa3.1 is expressed in immune cells, so the channel
+locus carries a large leukocyte background and the tumour's state is a small
+perturbation on it.
+
+The leukocyte audit ([`LEUKOCYTE-AUDIT.md`](LEUKOCYTE-AUDIT.md)) added that
+compartment and re-ran the projection. With a realistic background the
+statistic does not degrade, it **inverts**: NSCLC/KCNN4 goes from 0.9929 to
+0.0053, and with a perfect tumour-cell oracle it reaches only 0.5111. Across
+the whole searched operating space — depth 200,000 to 20,000,000, five to
+fifty reference loci — the best reference-corrected AUC is **0.5815** against
+K3's 0.65. Nothing in that space clears K3, and deepening the panel a
+hundredfold does not change the verdict.
+
+**What this means for the reading of this document.** The AUC column in
+section 2's configurations table, the prose in section 3, and the K1 and K3
+rows in section 4 describe the review **as it stood before** the leukocyte
+compartment existed. The verdicts table in section 2 is the verdict of record:
+K3 has fired for all three state candidates. Where the two differ, the
+verdicts table governs, and the audit is the document to read for the plasma
+arm.
 
 ## 2. The verdicts
 
@@ -77,10 +104,12 @@ built on it. The consequence is not cosmetic.
 | NSCLC | PIEZO1 | 0.839 | 0.392 | 0.937 | 0.4658 | **fire** | **fire** |
 
 The three state candidates are the configurations whose channel over-expresses
-the state in tissue. **All three survive K1 and K3.** The configurations that
-fire are the ones with nothing to measure. The marginal entries (CACNA1E in
-SCLC, fold 1.112; PIEZO2 in NSCLC, fold 1.009) are artefacts of a mechanical
-threshold — CACNA1E was ruled out as a lung target at D0 regardless.
+the state in tissue. **In the projection this table was built from, all three
+survive K1 and K3** — that projection has no leukocyte compartment, and the
+leukocyte audit overturns it. The configurations that fire are the ones with
+nothing to measure. The marginal entries (CACNA1E in SCLC, fold 1.112;
+PIEZO2 in NSCLC, fold 1.009) are artefacts of a mechanical threshold —
+CACNA1E was ruled out as a lung target at D0 regardless.
 
 These are **pooled** verdicts. Read per tumour, and against the per-patient
 audit, the two SCLC candidates do not hold: the channel's within-tumour fold
@@ -90,12 +119,20 @@ representative of its individual libraries.
 
 ## 3. What follows
 
+This section is the review as it stood **before** the leukocyte compartment
+was added to the plasma pool. Where it differs from the verdicts table in
+section 2, that table governs; the qualification in section 1 says what
+changed and why.
+
 **1. The readout for EGFR-mutant NSCLC is KCa3.1, and PIEZO1 is dead there.**
 The NSCLC state does not over-express PIEZO1 (fold 0.839), so the enrichment
 AUC is 0.4658 — chance — and both K1 and K3 fire. Had the programme chosen
 PIEZO1 as the NSCLC readout on the strength of the SCLC result, **its own kill
 conditions would have ended the programme.** The channel that works there is
-KCa3.1, at AUC 0.9929.
+KCa3.1, at a projected AUC of 0.9929 — a projection with no leukocyte
+background, which the leukocyte audit overturned: with a realistic
+background the same statistic inverts to 0.0053, and a perfect tumour-cell
+oracle reaches only 0.5111.
 
 **2. The relapsed-SCLC readout survives, but only just.** 0.6945 (PIEZO1) and
 0.7065 (KCNN4) against K3's 0.65. That margin is thin: the SCLC state
@@ -106,7 +143,8 @@ not yet established** — it is above the bar on the evidence available, and the
 evidence is thin. The per-patient audit makes this quantitative: the readout
 clears K3 in 4 of 14 SCLC libraries for PIEZO1 and 1 of 12 for KCNN4, and
 KCNN4's within-tumour fold exceeds 1 in 3 of 12 libraries, so the SCLC/KCNN4
-candidate does not survive per tumour at all.
+candidate does not survive per tumour at all. And with the leukocyte
+compartment in the pool, both projections invert to 0.0053.
 
 **3. K4 has fired, so the systemic drug arm is dead.** No candidate channel has
 a bulk-tissue therapeutic window: CACNA1E and STOML3 are not lung targets at
@@ -138,9 +176,9 @@ and cannot be measured.
 
 | Condition | What would change it |
 |---|---|
-| **K1** | A measured plasma cohort in which the matched channel separates relapsers from MRD-positive non-relapsers with an enrichment AUC above 0.6. For NSCLC/KCNN4 the projection is far above the threshold (0.9929) and only a large measurement error would move it; for SCLC/PIEZO1 (0.6945) a modestly lower state fraction would move it under the threshold |
+| **K1** | A measured plasma cohort in which the matched channel separates relapsers from MRD-positive non-relapsers with an enrichment AUC above 0.6. The projection that reached 0.9929 for NSCLC/KCNN4 had no leukocyte compartment, so what a measured cohort would have to beat is the audit's inverted 0.0053 with an oracle ceiling of 0.5111, not 0.9929 |
 | **K2** | A primary-versus-relapsed tissue comparison showing no state-associated methylation delta, or a treatment-naive SCLC cohort showing the state is already present before therapy |
-| **K3** | A plasma cohort in which the matched channel does not clear AUC 0.65 at 200,000× / 200 loci. The projection clears it at every configuration tested, so a real cohort would have to fail the *measurement*, not the model |
+| **K3** | A measured plasma cohort in which the matched channel clears AUC 0.65. The projection cleared it at every configuration tested, but only because the pool had no leukocyte compartment; with one, no configuration in the searched space clears it, the best being 0.5815 |
 | **K4** | A modality that reaches the state selectively: a state-directed conjugate, a tumour-localised agent, or an allele-selective channel modulator. Bulk-tissue specificity alone will not rescue it |
 | **K5** | A patient-derived model in which suppressing the state does **not** reduce relapse competence. No such experiment has been run |
 
@@ -150,7 +188,10 @@ and cannot be measured.
   the simulator run with the measured per-cell fold and the measured state
   fraction, at 800 patients per arm, with thresholds calibrated on a held-out
   split. A real plasma cohort could move them, and the SCLC margins are small
-  enough that it could.
+  enough that it could. **The projection also had no leukocyte compartment**,
+  which the leukocyte audit later added; with one, the same statistic inverts
+  and K3 fires for all three state candidates. The verdicts table in section 2
+  is the current state; the AUC column above is the pre-audit projection.
 - **The verdict uses the plan's own operating point**, not the best
   configuration in the grid. A configuration with a handful of MRD-positive
   patients can produce an AUC of 1.0 by chance; the best-in-grid column is
