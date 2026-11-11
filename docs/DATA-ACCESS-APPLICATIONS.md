@@ -55,6 +55,14 @@ proposal, and a Signing Official who can sign for the institution. The
 package's PI cover sheet cannot be completed until that person exists, which
 is why its fields are still markers.
 
+The letter that asks such a person is drafted and waiting for review:
+[`HOST-INVITATION.md`](HOST-INVITATION.md). It has not been sent to anyone.
+It states what the PI would actually be taking on — registering, reviewing
+and submitting, the renewal and the close-out, and the institution's DTUA —
+because a request that hides those is a request that ends in a no, and the
+approved-user question it raises is the one most likely to end the
+correspondence anyway.
+
 ### 1.1 What changed in the route
 
 One finding from this review is worth stating before the tables, because it
@@ -267,6 +275,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
 | PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — three messages sent 2026-11-11; the form issues no inquiry number | the scoping inquiry |
 | PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — the PI must be a permanent employee at professor level and is the person who submits | an institutional relationship |
+| PLCO-DATA | Approach a host PI with the invitation letter | PI | draft prepared, not sent — `docs/HOST-INVITATION.md` | the eligibility answer |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |

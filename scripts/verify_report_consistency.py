@@ -2487,6 +2487,63 @@ def main(argv: list[str] | None = None) -> int:
             str(sorted(fact_rows)),
         )
 
+        # The host invitation is outbound correspondence rather than a
+        # submission document, so it is checked here instead of in the
+        # package checker. It has to say what it is, and the figures it
+        # quotes have to be this repository's own.
+        host_invitation = Path("docs/HOST-INVITATION.md")
+        chk("the host invitation document exists", host_invitation.exists())
+        if host_invitation.exists():
+            invitation = host_invitation.read_text()
+            chk(
+                "the host invitation is marked as a draft, not sent",
+                "draft, not sent" in invitation,
+            )
+            begin = "<!-- BEGIN HOST LETTER -->"
+            end = "<!-- END HOST LETTER -->"
+            chk(
+                "the host invitation delimits the letter",
+                begin in invitation and end in invitation,
+            )
+            if begin in invitation and end in invitation:
+                letter = invitation.split(begin)[1].split(end)[0].strip()
+                chk("the host invitation is plain text", "**" not in letter)
+                chk(
+                    "the host invitation has one placeholder, the host's name",
+                    letter.count("[HOST]") == 1,
+                    str(letter.count("[HOST]")),
+                )
+                chk(
+                    "the host invitation is short enough to read",
+                    len(letter) <= 6_000,
+                    str(len(letter)),
+                )
+                # The letter has to tell the recipient what they would be
+                # taking on, and has to be honest about the requester's
+                # standing, or it wastes the one thing a professor gives a
+                # stranger: their attention.
+                for phrase in (
+                    "Principal Investigator",
+                    "Register on CDAS",
+                    "submit the proposal",
+                    "renewal",
+                    "close-out",
+                    "DocuSign",
+                    "18 February",
+                    "one to four weeks",
+                    "I hold no current institutional appointment",
+                ):
+                    chk(
+                        f"the host invitation tells the PI about {phrase!r}",
+                        phrase in letter,
+                    )
+                for figure in ("2.97", "20 of 23", "7 of 7", "155,000"):
+                    chk(
+                        f"the host invitation quotes the repository's figure "
+                        f"{figure!r}",
+                        figure in letter,
+                    )
+
         # The numbers the applications are justified by are this repository's
         # own measurements, and they have to match those artefacts.
         folds_path = Path("results/per_library_folds/per_library_folds.json")

@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T08:47:43.628337+00:00",
-    "git_commit": "240d191cbb86f364a3d5378ff391c1ff4cb296cf",
+    "generated_at": "2026-11-11T09:00:25.831155+00:00",
+    "git_commit": "a192581a83b13adc23bcea5cac43372533c1ca04",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -49,6 +49,13 @@
       "Owner": "PI",
       "Status": "not started \u2014 the PI must be a permanent employee at professor level and is the person who submits",
       "Depends on": "an institutional relationship"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Approach a host PI with the invitation letter",
+      "Owner": "PI",
+      "Status": "draft prepared, not sent \u2014 docs/HOST-INVITATION.md",
+      "Depends on": "the eligibility answer"
     },
     {
       "Application": "PLCO-DATA",
