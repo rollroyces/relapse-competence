@@ -59,7 +59,7 @@ has the tools to answer.
 |---|---|---|
 | **P1** | KCNN4's elevation in the relapse-competent state is a transcriptional output of the basaloid programme, not a separate electrical axis | **Supported in cells, direction not settled.** Co-allocation is established; membership is not |
 | **P2** | If P1 is false, the channel and the programme share an upstream cause, and the channel's plasma readout can report the state *earlier* than the programme's own transcripts can | **Untested.** This is what the plasma arm's premise rests on |
-| **P3** | The state's KCNN4 elevation is not explained by copy-number amplification at the KCNN4 locus | **Untested.** A local copy-number estimate would settle it from the same public data |
+| **P3** | The state's KCNN4 elevation is not explained by copy-number amplification at the KCNN4 locus | **Narrowed, not closed.** A regional or genome-wide copy-number gain is excluded: the KCNN4 region rises ×1.05 while the gene rises ×3.53, and the locus shows no significant excess among control loci (p = 0.139). A *focal* amplification of the gene itself cannot be told from transcriptional regulation in RNA at all, and would need DNA — the same tumour profiling the scoping inquiry already asks about |
 
 ## 3. The experiment
 

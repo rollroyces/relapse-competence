@@ -1793,6 +1793,60 @@ def main(argv: list[str] | None = None) -> int:
                 in Path("docs/HOST-INVITATION.md").read_text(),
             )
 
+        # The copy-number audit: the broad routes are excluded, and the
+        # document has to say which routes those are.
+        cn_artefact = Path(
+            "results/kcnn4_copy_number/kcnn4_copy_number.json"
+        )
+        cn_doc = Path("docs/KCNN4-COPY-NUMBER.md")
+        chk("the copy-number audit artefact exists", cn_artefact.exists())
+        chk("the copy-number audit document exists", cn_doc.exists())
+        if cn_artefact.exists() and cn_doc.exists():
+            cn = json.loads(cn_artefact.read_text())
+            cn_text = cn_doc.read_text()
+            nsclc_cn = cn["datasets"].get("GSE353299", {})
+            summary = nsclc_cn.get("result", {}).get("summary", {})
+            chk(
+                "the copy-number audit's per-library summary is present",
+                summary.get("n_comparable", 0) >= 10,
+                str(summary.get("n_comparable")),
+            )
+            chk(
+                "the neighbourhood does not rise with the gene",
+                summary.get("median_fold_neighbourhood", 99) < 2.0
+                and summary.get("median_fold_own", 0) > 2.0,
+                f"own {summary.get('median_fold_own')}, "
+                f"neighbourhood {summary.get('median_fold_neighbourhood')}",
+            )
+            chk(
+                "the document quotes the neighbourhood and gene folds",
+                f"\u00d7{summary.get('median_fold_neighbourhood', 0):.2f}" in cn_text
+                and f"\u00d7{summary.get('median_fold_own', 0):.2f}" in cn_text,
+            )
+            chk(
+                "the copy-number locus test is not significant",
+                nsclc_cn.get("result", {}).get("permutation_p", 0.0) > 0.05,
+                str(nsclc_cn.get("result", {}).get("permutation_p")),
+            )
+            for phrase in (
+                "Ruled out",
+                "Not ruled out",
+                "needs DNA",
+                "focal amplification",
+            ):
+                chk(
+                    f"the copy-number document states {phrase!r}",
+                    phrase in cn_text,
+                )
+            chk(
+                "the copy-number document points at the scoping inquiry",
+                "whole-exome sequencing" in cn_text,
+            )
+            chk(
+                "the perturbation question records the narrowed P3",
+                "Narrowed, not closed" in pq,
+            )
+
     # --- the gate review must agree with its artefact ---
     gate_artefact_path = Path("results/gate_review/gate_review.json")
     gate_doc_path = Path("docs/GATE-REVIEW.md")

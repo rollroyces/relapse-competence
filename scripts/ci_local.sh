@@ -74,21 +74,34 @@ echo "==> driver-versus-passenger audit"
 # the committed artefact is checked by the report-consistency step below.
 if [ -d "$ROOT/data/gse353299" ] && [ -d "$ROOT/data/gse299684" ]; then
     "$PY" scripts/driver_passenger_audit.py --permutations 200
+    "$PY" scripts/kcnn4_copy_number_audit.py --permutations 200
 else
-    echo "no local copy of the public deposits; checking the committed artefact only"
+    echo "no local copy of the public deposits; checking the committed artefacts only"
     "$PY" - <<'PY'
 import json
 from pathlib import Path
 
-artefact = Path("results/driver_passenger_audit/driver_passenger_audit.json")
-if not artefact.exists():
-    raise SystemExit(f"missing: {artefact}")
-payload = json.loads(artefact.read_text())
-for dataset, body in payload["datasets"].items():
-    print(
-        f"  {dataset} ({body['cohort']}): {body['n_libraries']} libraries, "
-        f"{len(body['tests'])} genes tested"
-    )
+for artefact, name in (
+    (
+        "results/driver_passenger_audit/driver_passenger_audit.json",
+        "driver-passenger",
+    ),
+    (
+        "results/kcnn4_copy_number/kcnn4_copy_number.json",
+        "copy-number",
+    ),
+):
+    path = Path(artefact)
+    if not path.exists():
+        raise SystemExit(f"missing: {path}")
+    payload = json.loads(path.read_text())
+    for dataset, body in payload["datasets"].items():
+        print(
+            f"  {name}: {dataset} "
+            f"({body.get('cohort', '?')}): "
+            f"{body.get('n_libraries', len(body.get('libraries', [])))} "
+            "libraries"
+        )
 PY
 fi
 

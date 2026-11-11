@@ -178,11 +178,13 @@ has no power at nine libraries and is not yet able to discriminate.
 
 **The natural experiment still to run.** The state cells carry copy-number
 divergence, and a gene amplified in the state would be elevated for a reason
-that has nothing to do with the programme. The proxy this repository already
-computes is positional and programme-wide; a local estimate at the KCNN4
-locus, compared against the channel's elevation in the same cells, would
-separate "amplified" from "regulated". Until that is run, the copy-number
-route to a passenger state stays open.
+that has nothing to do with the programme. The copy-number audit
+([`KCNN4-COPY-NUMBER.md`](KCNN4-COPY-NUMBER.md)) has since run: a regional or
+genome-wide gain is excluded — the KCNN4 region rises ×1.05 while the gene
+rises ×3.53 — but a *focal* amplification of the gene itself cannot be
+separated from transcriptional regulation in RNA, and would need DNA. That
+is the same tumour profiling the scoping inquiry already asks about, so the
+question is answerable in the cohort if the cohort has it.
 
 **The experiment only a laboratory can run, and the falsifiable prediction.**
 In tumour cell models that carry the state, perturb KCNN4 — knock it down,
