@@ -1742,6 +1742,56 @@ def main(argv: list[str] | None = None) -> int:
                 "perturbation experiment",
                 "conditional on that experiment" in spec_text,
             )
+        # The question a laboratory is asked has to be a question: named
+        # propositions, a named perturbation, a prediction that can fail, and
+        # a stated consequence for each outcome. Without those it is a
+        # request for attention.
+        pq_doc = Path("docs/PERTURBATION-QUESTION.md")
+        chk("the perturbation question exists", pq_doc.exists())
+        if pq_doc.exists():
+            pq = pq_doc.read_text()
+            for proposition in ("**P1**", "**P2**", "**P3**"):
+                chk(
+                    f"the perturbation question states {proposition}",
+                    proposition in pq,
+                )
+            chk(
+                "the perturbation question names the perturbation",
+                "Knock KCNN4 down" in pq,
+            )
+            chk(
+                "the perturbation question states a prediction that can fail",
+                "collapses" in pq and "leaves both intact" in pq,
+            )
+            chk(
+                "the perturbation question states a consequence for each outcome",
+                "instructive" in pq and "passenger" in pq,
+            )
+            chk(
+                "the perturbation question records that the direction is not settled",
+                "direction not settled" in pq,
+            )
+            chk(
+                "the perturbation question names the model obstacle",
+                "not identified a cell line or a patient-derived model" in pq,
+            )
+            chk(
+                "the perturbation question carries the deadline",
+                "18 February" in pq,
+            )
+            chk(
+                "the perturbation question quotes the measurement it rests on",
+                "6.8 null standard deviations" in pq,
+            )
+            chk(
+                "the perturbation question does not claim the channel is a passenger",
+                "does not claim the channel is a passenger" in pq,
+            )
+            chk(
+                "the host invitation points at the perturbation question",
+                "PERTURBATION-QUESTION.md"
+                in Path("docs/HOST-INVITATION.md").read_text(),
+            )
 
     # --- the gate review must agree with its artefact ---
     gate_artefact_path = Path("results/gate_review/gate_review.json")

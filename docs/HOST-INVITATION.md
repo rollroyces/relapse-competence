@@ -47,6 +47,14 @@ checker does not treat it as a submission document. Its own gate is in
    an institution where they no longer hold an appointment. If either
    answer is no, the letter has to change before it goes.
 
+5. **If the letter is going to a laboratory rather than to a data-access
+   office, it must carry the question, not the programme.** The mechanistic
+   version of this invitation is
+   [`PERTURBATION-QUESTION.md`](PERTURBATION-QUESTION.md): the pre-registered
+   propositions, the measurement they rest on, the perturbation, and what
+   each outcome does to the programme. A request that carries no prediction
+   is a request for attention rather than for work.
+
 ## 2. The letter
 
 Plain text, ready to paste into an e-mail. The subject line is given
@@ -62,7 +70,7 @@ I am writing to ask whether you would be willing to be the Principal Investigato
 
 Why I am asking you rather than applying myself: CDAS's instructions require the Principal Investigator, the Data Access Requestor, to be a permanent employee of the submitting institution at professor level or senior-researcher level, to register on CDAS, and to be responsible for the proposal's submission, its renewals and its close-out. I hold no current institutional appointment, so I cannot take that role. What I am asking is that you carry it and let me do the research under it.
 
-The project. The relapse-competent state is a drug-tolerant subpopulation of tumour cells. Its definition is transcriptional rather than electrical, but we have measured, in three public single-cell deposits, that it is electrically marked and disease-specifically so: it over-expresses the potassium channel KCa3.1 at a 2.97-fold detection ratio in EGFR-mutant lung adenocarcinoma, that marking is carried within an individual patient's tumour in 20 of 23 libraries and in 7 of 7 residual-disease libraries, and it does not hold in relapsed small-cell lung cancer, where most tumours carry too little of the state to read. Whether the same state is readable in blood is the open question, and it has to be settled in a real cohort rather than in a simulation. PLCO can settle it: archived plasma drawn at screening visits, with the clinical data to align them, in a cohort of about 155,000 participants.
+The project. The relapse-competent state is a drug-tolerant subpopulation of tumour cells. Its definition is transcriptional rather than electrical, but we have measured, in three public single-cell deposits, that it is electrically marked and disease-specifically so: it over-expresses the potassium channel KCa3.1 at a 2.97-fold detection ratio in EGFR-mutant lung adenocarcinoma, that marking is carried within an individual patient's tumour in 20 of 23 libraries and in 7 of 7 residual-disease libraries, and it does not hold in relapsed small-cell lung cancer, where most tumours carry too little of the state to read. We have also measured, in the same data, that the channel's expression co-allocates with the state's transcriptional programme beyond what cell complexity explains, so we know the question is the direction of causation and not whether the two travel together. Whether the same plasma measurement can carry that, and how to assay it, is written down in [`../PLASMA-ASSAY-SPECIFICATION.md`](../PLASMA-ASSAY-SPECIFICATION.md). Whether the state can be read in blood at all is the open question, and it has to be settled in a real cohort rather than in a simulation. PLCO can settle it: archived plasma drawn at screening visits, with the clinical data to align them, in a cohort of about 155,000 participants.
 
 What I would ask you to do. Register on CDAS with RAS, and give CDAS your institution and its location. Review and submit the proposal: the fields are already written, the project description, the aims, the data requested and the reason each element is necessary, and the analysis is pre-specified, with the panel, the operating point, the thresholds and the per-patient applicability rule fixed before any data are opened, and the code behind every published figure public. Be the point of contact for CDAS staff's questions, for the renewal at twelve months, and for the close-out. And let your institution's Signing Official execute the Data Transfer and Use Agreement through DocuSign, which is the institution's step and starts from your giving CDAS the contact details.
 
