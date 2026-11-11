@@ -53,7 +53,7 @@ def test_the_project_description_is_within_the_cap() -> None:
 
 
 def test_the_check_passes_on_the_committed_package() -> None:
-    assert checker.main() == 0
+    assert checker.main([]) == 0
 
 
 def test_the_cap_is_enforced(tmp_path: Path) -> None:
@@ -360,16 +360,35 @@ def test_the_committed_package_holds_no_personal_data() -> None:
     assert "**From:** `[SO's institution]`" in letter
 
 
-def test_the_builder_makes_a_local_copy_and_never_overwrites_one(
+def test_the_builder_refresh_never_overwrites_an_edited_file(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """The copy the PI fills in is made once and never silently clobbered."""
+    """The local copy is the only place the PI's details exist.
+
+    A refresh must bring the template's later edits into the copy without
+    taking away what has been filled in. This gate exists because the copy
+    was once deleted and rebuilt wholesale, which would have destroyed a
+    filled copy that could not be recovered.
+    """
     builder = _load_builder()
     monkeypatch.setattr(builder, "BUILD", tmp_path)
     assert builder.main(["--init-local"]) == 0
     target = tmp_path / "package-private"
     assert (target / "03-pi-cover-sheet.md").exists()
-    assert (target / "04-signing-official-letter.md").exists()
-    # A second run must refuse rather than overwrite a copy that may
-    # already hold filled-in details.
-    assert builder.main(["--init-local"]) == 1
+    edited = target / "03-pi-cover-sheet.md"
+    edited.write_text(edited.read_text().replace("`[PI]`", "`Dr Example`"))
+    # A refresh must not take the fill away.
+    assert builder.main(["--init-local"]) == 0
+    assert "`Dr Example`" in edited.read_text()
+
+
+def test_the_checker_reports_the_markers_left_in_a_local_copy(
+    tmp_path: Path,
+) -> None:
+    """Checking the local copy is how the PI learns what is still to fill."""
+    package = tmp_path / "package"
+    package.mkdir()
+    for name in checker.REQUIRED_FILES:
+        (package / name).write_text((PACKAGE / name).read_text())
+    assert checker.main(["--package-dir", str(package)]) == 1
+    assert checker.main(["--package-dir", str(package), "--allow-incomplete"]) == 0

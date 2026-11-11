@@ -190,22 +190,33 @@ def _init_local(package: Path) -> int:
     The committed package keeps the PI's and the Signing Official's details
     as markers, because the repository is public and a telephone number
     committed here cannot be taken back. This makes the copy they fill in.
-    An existing copy is never overwritten, so a filled one cannot be lost
-    by a second run.
+
+    A file that has already been edited is never overwritten: that copy is
+    the only place the PI's details exist, so a refresh that clobbered it
+    would destroy work that cannot be recovered. Files still identical to
+    the template are refreshed, so a later edit to the template reaches the
+    copy without touching what has been filled in.
     """
     target = BUILD / "package-private"
-    if target.exists() and any(target.iterdir()):
-        print(
-            f"{target} already exists and is not empty; it may hold "
-            "filled-in details, so it is left alone. Remove it yourself if "
-            "you want a fresh copy.",
-            file=sys.stderr,
-        )
-        return 1
     target.mkdir(parents=True, exist_ok=True)
+    refreshed: list[str] = []
+    kept: list[str] = []
     for name in DOCUMENTS:
-        shutil.copy2(package / name, target / name)
-    print(f"wrote a local copy of the package to {target}")
+        source = package / name
+        destination = target / name
+        if destination.exists() and destination.read_bytes() != source.read_bytes():
+            kept.append(name)
+            continue
+        shutil.copy2(source, destination)
+        refreshed.append(name)
+    print(f"the local package copy is at {target}")
+    if refreshed:
+        print(f"refreshed {len(refreshed)} document(s) from the template")
+    if kept:
+        print(
+            "left alone, because they had already been edited: "
+            + ", ".join(kept)
+        )
     print("fill in the [PI] and [SO] markers there, then print it with:")
     print(f"  python scripts/build_plco_cdas_pdf.py --package-dir {target}")
     print("(build/ is gitignored, so nothing in it reaches the repository)")

@@ -20,6 +20,7 @@ Exit code is 0 when every check passes, 1 otherwise.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 from pathlib import Path
@@ -155,7 +156,33 @@ def _artefact_numbers() -> dict[str, object]:
     return numbers
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--package-dir",
+        default=str(PACKAGE),
+        help=(
+            "the directory holding the package markdown; point it at the "
+            "local copy to check what the PI has filled in"
+        ),
+    )
+    parser.add_argument(
+        "--allow-incomplete",
+        action="store_true",
+        help=(
+            "report the markers still to fill in a local copy, without "
+            "failing on them"
+        ),
+    )
+    args = parser.parse_args(argv)
+    package = Path(args.package_dir).expanduser()
+    package = package if package.is_absolute() else (REPO / package)
+    package = package.resolve()
+    # The committed package and the local copy are checked differently: the
+    # committed one must hold no personal data at all, and the local one is
+    # supposed to be filled in.
+    is_committed = package == PACKAGE.resolve()
+
     problems: list[str] = []
 
     def check(condition: bool, message: str) -> None:
@@ -164,19 +191,19 @@ def main() -> int:
 
     # --- the package exists and is complete ---
     for name in REQUIRED_FILES:
-        path = PACKAGE / name
+        path = package / name
         check(path.exists(), f"missing package file: {name}")
     if problems:
         for problem in problems:
             print(f"FAIL: {problem}")
         return 1
 
-    details = (PACKAGE / "01-project-details.md").read_text()
-    narrative = (PACKAGE / "02-proposal-narrative.md").read_text()
-    cover = (PACKAGE / "03-pi-cover-sheet.md").read_text()
-    letter = (PACKAGE / "04-signing-official-letter.md").read_text()
-    checklist = (PACKAGE / "05-documents-checklist.md").read_text()
-    readme = (PACKAGE / "README.md").read_text()
+    details = (package / "01-project-details.md").read_text()
+    narrative = (package / "02-proposal-narrative.md").read_text()
+    cover = (package / "03-pi-cover-sheet.md").read_text()
+    letter = (package / "04-signing-official-letter.md").read_text()
+    checklist = (package / "05-documents-checklist.md").read_text()
+    readme = (package / "README.md").read_text()
     everything = "\n".join([details, narrative, cover, letter, checklist, readme])
 
     # --- the 500-word cap ---
@@ -269,8 +296,8 @@ def main() -> int:
         )
 
     # --- the runbook and the scoping inquiry ---
-    runbook = (PACKAGE / "06-submission-runbook.md").read_text()
-    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    runbook = (package / "06-submission-runbook.md").read_text()
+    inquiry = (package / "07-scoping-inquiry.md").read_text()
     for url in (
         "https://cdas.cancer.gov/projects/create/plco/data/",
         "https://cdas.cancer.gov/contact/",
@@ -400,7 +427,7 @@ def main() -> int:
     # gate exists because the package carried 456 in the runbook and 405 in
     # the checklist while the description was 498, and nothing noticed.
     for name in REQUIRED_FILES:
-        text = (PACKAGE / name).read_text()
+        text = (package / name).read_text()
         for match in re.finditer(r"(\d+)[- ]words?\b", text):
             quoted = int(match.group(1))
             if quoted == WORD_CAP:
@@ -456,7 +483,7 @@ def main() -> int:
             f"`{doc_id}` §{number}",
         )
         check(
-            phrase in _section((PACKAGE / package_files[doc_id]).read_text(), number),
+            phrase in _section((package / package_files[doc_id]).read_text(), number),
             f"{doc_id} §{number} does not hold {phrase!r}",
         )
 
@@ -478,60 +505,90 @@ def main() -> int:
     # is public and a telephone number committed here cannot be taken back.
     # They are filled in a local copy -- build/package-private, which
     # build/ keeps out of the repository -- and printed from there.
-    cover_values = _field_values(cover)
-    for field in (
-        "Full name",
-        "Degrees",
-        "Position title",
-        "Department and institution",
-        "Institution location",
-        "Telephone",
-        "ORCID",
-    ):
-        value = _plain(cover_values.get(field, ""))
+    if is_committed:
+        cover_values = _field_values(cover)
+        for field in (
+            "Full name",
+            "Degrees",
+            "Position title",
+            "Department and institution",
+            "Institution location",
+            "Telephone",
+            "ORCID",
+        ):
+            value = _plain(cover_values.get(field, ""))
+            check(
+                value == "[PI]",
+                f"the committed cover sheet fills in {field!r} ({value!r}); the "
+                "PI's own details belong in a local copy, not in the public "
+                "repository",
+            )
+        user_tables = [
+            table
+            for table in _all_tables(cover)
+            if table and len(table[0]) == 5 and table[0][0] == "Name"
+        ]
         check(
-            value == "[PI]",
-            f"the committed cover sheet fills in {field!r} ({value!r}); the "
-            "PI's own details belong in a local copy, not in the public "
-            "repository",
+            len(user_tables) == 1,
+            "the cover sheet's approved-users table is not the table this check reads",
         )
-    user_tables = [
-        table
-        for table in _all_tables(cover)
-        if table and len(table[0]) == 5 and table[0][0] == "Name"
-    ]
-    check(
-        len(user_tables) == 1,
-        "the cover sheet's approved-users table is not the table this check reads",
-    )
-    for row in user_tables[0][1:] if user_tables else []:
+        for row in user_tables[0][1:] if user_tables else []:
+            check(
+                _plain(row[0]) == "[PI]",
+                f"the committed approved-users table fills in a name ({row[0]!r})",
+            )
+            check(
+                _plain(row[1]) in ("[PI]", "roycelam@umich.edu"),
+                f"the committed approved-users table fills in an e-mail address "
+                f"({row[1]!r})",
+            )
+            check(
+                _plain(row[2]) == "[PI]",
+                f"the committed approved-users table fills in an institution "
+                f"({row[2]!r})",
+            )
+        for label in ("Printed name", "Position title", "Institution"):
+            check(
+                f"{label}: `[SO]`" in letter,
+                f"the committed Signing Official letter fills in {label!r}",
+            )
         check(
-            _plain(row[0]) == "[PI]",
-            f"the committed approved-users table fills in a name ({row[0]!r})",
+            "**Signing Official for `[SO's institution]`**" in letter,
+            "the committed Signing Official letter fills in the institution",
         )
         check(
-            _plain(row[1]) in ("[PI]", "roycelam@umich.edu"),
-            f"the committed approved-users table fills in an e-mail address "
-            f"({row[1]!r})",
+            "**From:** `[SO's institution]`" in letter,
+            "the committed Signing Official letter fills in the sending institution",
+        )
+    else:
+        # A local copy is supposed to be filled in, so what matters there is
+        # the markers that are still left. Only the places a value can
+        # actually go are counted -- a table cell, or the label of a
+        # signature line -- so the prose that merely names the markers does
+        # not inflate the count.
+        remaining: dict[str, int] = {}
+        for name in REQUIRED_FILES:
+            text = (package / name).read_text()
+            fillable = "\n".join(
+                line
+                for line in text.splitlines()
+                if line.strip().startswith("|")
+                or re.match(r"^[A-Z][A-Za-z ]+: `?\[", line)
+            )
+            count = len(
+                re.findall(r"\[(?:PI|SO)(?:'s institution)?\]", fillable)
+            )
+            if count:
+                remaining[name] = count
+        total = sum(remaining.values())
+        print(
+            "values still to fill in: "
+            + (", ".join(f"{n} ({c})" for n, c in remaining.items()) or "none")
         )
         check(
-            _plain(row[2]) == "[PI]",
-            f"the committed approved-users table fills in an institution "
-            f"({row[2]!r})",
+            total == 0 or args.allow_incomplete,
+            f"the local copy still has {total} unfilled value(s)",
         )
-    for label in ("Printed name", "Position title", "Institution"):
-        check(
-            f"{label}: `[SO]`" in letter,
-            f"the committed Signing Official letter fills in {label!r}",
-        )
-    check(
-        "**Signing Official for `[SO's institution]`**" in letter,
-        "the committed Signing Official letter fills in the institution",
-    )
-    check(
-        "**From:** `[SO's institution]`" in letter,
-        "the committed Signing Official letter fills in the sending institution",
-    )
 
     if problems:
         for problem in problems:
