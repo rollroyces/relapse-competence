@@ -3491,7 +3491,7 @@ def main(argv: list[str] | None = None) -> int:
                     f"the scoping inquiry asks {phrase!r}",
                     phrase in inquiry,
                 )
-            for tag in ("A", "B", "C"):
+            for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
                 if begin not in inquiry or end not in inquiry:
@@ -3566,6 +3566,23 @@ def main(argv: list[str] | None = None) -> int:
             chk(
                 "the scoping inquiry records that the form issues no inquiry number",
                 "no inquiry number" in inquiry,
+            )
+            # Messages D and E are drafted, not sent, so they must not appear
+            # in the sending record, and the document has to say so.
+            record = inquiry.split("## 1.")[0]
+            chk(
+                "the sending record has no row for a message that was not sent",
+                "| D |" not in record and "| E |" not in record,
+            )
+            chk(
+                "the scoping inquiry records that the biospecimen questions "
+                "are drafted, not sent",
+                "have not been sent" in inquiry,
+            )
+            chk(
+                "the drafted messages carry the two different topics",
+                "Biospecimen Application Process" in inquiry
+                and "Biospecimen Transfer Agreements" in inquiry,
             )
             chk(
                 "the scoping inquiry records the confirmation the form returned",

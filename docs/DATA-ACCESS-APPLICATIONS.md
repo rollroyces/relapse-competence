@@ -229,6 +229,15 @@ instrument for an institution, so this needs a counterparty — but it does not
 have to be the institution that employs the applicant, and it does not have
 to be the PI's institution.
 
+**Whether the route is open to an applicant with no institutional appointment
+at all is the first question, and it has been drafted and not sent.** The two
+questions — whether such an applicant may submit a preliminary application,
+and who may sign the transfer agreement — are in
+[`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
+§7, as messages D and E. The answer to D1 decides whether the rest of this
+section is worth doing, which is why it goes before the deadline rather than
+with the application.
+
 **Expected time to a review outcome:** 4–6 months from the final application
 deadline.
 
@@ -377,6 +386,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
 | PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — preliminary applications are rolling; Feb 18 is the final-application deadline for the January/February round | the EEMS policies, read 2026-11-11 |
 | PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, so it does not have to wait for Feb 18 | PLCO-DATA scoping |
+| PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | drafted, not sent — `07-scoping-inquiry.md` §7 | the answer to D1 |
 | PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, the application text |
 | PLCO-EEMS | **Submit the EEMS final application by Feb 18, 11:59 PM EST** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |

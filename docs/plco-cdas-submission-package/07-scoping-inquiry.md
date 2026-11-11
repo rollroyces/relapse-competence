@@ -30,8 +30,9 @@ soon as possible."*
 | B | PLCO | Biospecimen Availability | 1789 | 2026-11-11 12:28 |
 | C | PLCO | Data Access/Availability | 2121 | 2026-11-11 16:45 |
 
-Message C is the eligibility question, sent later the same day after CDAS's
-own instructions turned out to require an institutional PI; it is in §6.
+Message C asked about the data route's own eligibility requirement; it is in
+§6. Messages D and E, which ask about the biospecimen route, are drafted in
+§7 and **have not been sent**.
 
 The character counts are the lengths of the two message blocks below, and
 `scripts/verify_report_consistency.py` checks them against those blocks, so
@@ -218,4 +219,99 @@ Any of these answers would help. Thank you for your help.
 Royce Lam
 roycelam@umich.edu
 <!-- END MESSAGE C -->
+
+## 7. Messages D and E — the biospecimen route (drafted, not sent)
+
+These two ask whether the **biospecimen** route is open to an applicant
+with no current institutional appointment. They are separate messages because
+the form carries one Topic and CDAS forward a message to the party best
+able to answer it: who may apply is a question for the EEMS programme, and
+who may sign the transfer agreement is a question for the agreements side.
+A and B were split for the same reason.
+
+Neither has been sent. Both need a decision on the row marked "send" in the
+tracker, and D is the one that decides whether the EEMS route is open at
+all: if an applicant with no institutional appointment may not apply, the
+transfer-agreement question does not arise.
+
+### Message D — who may apply
+
+Subject: **PLCO** · Topic: **Biospecimen Application Process** · Message:
+
+<!-- BEGIN MESSAGE D -->
+Dear CDAS team,
+
+I am preparing a preliminary EEMS application for PLCO and have one eligibility question before I go further.
+
+The application process says that if you have your own source of funding and wish to obtain PLCO biospecimens, you should register with CDAS and begin the EEMS Application, and the policies say the biospecimens resource is available to the entire scientific community. The application asks for the contact information of a Principal Investigator. The separate instructions for accessing PLCO data require that Data Access Requestor to be a permanent employee of the submitting institution at professor level or senior-researcher level, and to be the person who registers and submits.
+
+I do not hold a current institutional appointment: I am not employed by any institution, and the work is self-funded. Before I go further I would like to know how that bears on the biospecimen route.
+
+1. May an applicant who holds no current institutional appointment submit an EEMS preliminary application, provided the funding is their own?
+
+2. If the Principal Investigator named on an EEMS application must be a permanent employee at professor level of some institution, must that institution also be the one that holds the transfer agreement for the specimens, or may the applicant be a member of an investigative team based elsewhere?
+
+3. What does the preliminary application require from an applicant in that position — an institutional e-mail address, a CV, an NIH biosketch, an ethics determination, and if so, from which body?
+
+4. Is there a route by which a researcher without an institutional appointment can take part in a PLCO biospecimen study, whether as the applicant or as a member of the investigative team?
+
+I would rather ask than have an application returned on a formality.
+
+Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE D -->
+
+### Message E — who may sign the transfer agreement
+
+Subject: **PLCO** · Topic: **Biospecimen Transfer Agreements** · Message:
+
+<!-- BEGIN MESSAGE E -->
+Dear CDAS team,
+
+I am preparing an EEMS application for PLCO and have a question about the transfer agreement that goes with it.
+
+The instructions say that recipients of PLCO samples must sign and abide by an NCI Material Transfer Agreement, that extramural investigators are contacted by a member of the NCI Technology Transfer Center to start that process, and that no agreement is needed for projects conducted by NIH employees. My situation is that I would be the applicant for the preliminary application while holding no current institutional appointment, so there is no institution that employs me and could be the counterparty.
+
+1. Can the Material Transfer Agreement for the shipment of specimens be executed with an institution other than the applicant's employer — for example the laboratory that will run the assays, or a host institution that agrees to carry the project?
+
+2. Must the institution that executes the Material Transfer Agreement be the same one that hosts the Principal Investigator named on the application?
+
+3. Whose institutional e-mail address must be used for the CDAS account and for the approved-user list in that arrangement, and must each approved user hold an appointment at the institution that executes the agreement?
+
+Any light you can shed on this before I put an application in would be much appreciated.
+
+Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE E -->
+
+### What the answers decide
+
+| Answer | What it settles |
+|---|---|
+| D1 — an applicant with no institutional appointment may apply | The EEMS route is open to the requester, and E becomes the question about who signs |
+| D1 — no, an institutional PI is required | The EEMS route needs a host PI before anything else, and the requester can be a team member only |
+| E1 — the MTA counterparty need not be the applicant's employer | A laboratory or host institution can carry the specimens, which is what makes a self-funded application workable |
+| E1 — the MTA counterparty must be the applicant's employer | The specimen route cannot be run by the requester alone, and the host has to be the employer |
+| E3 — approved users must hold appointments at the MTA institution | The requester needs an institutional email at that institution, which is a condition the application would have to satisfy |
+
+## 8. Before you send
+
+- **Both messages are plain text.** The field is a plain textarea; markdown
+  will not render, and asterisks around a word look like noise.
+- **The limit is 10,000 characters** per message. Both are well inside it.
+- **The fields are filled.** The name, the e-mail address and the form's own
+  e-mail field carry `Royce Lam` and `roycelam@umich.edu`.
+- **The two unlabelled boxes stay empty.** They are anti-spam traps; a
+  submission carrying a value in one of them can be discarded without a
+  reply.
+- **Send D first.** E is conditional on D: if an applicant with no
+  institutional appointment may not apply, the question of who signs the
+  transfer agreement is not yet a live question.
+- **Neither is a request for access.** These ask about eligibility. No
+  proposal is attached, nothing is committed, and no signature is asked for.
+
 
