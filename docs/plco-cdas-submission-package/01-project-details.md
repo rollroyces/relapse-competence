@@ -1,8 +1,12 @@
 # CDAS project details, pre-filled
 
 Every field the CDAS project form asks for, with the value to paste. Fields
-that only the PI can supply are marked `[PI]` and must be completed before
-submission; the checker refuses a package where one of them is still blank.
+that only the PI can supply are marked `[PI]`, and they are filled in a
+**local copy** of this package rather than in the repository: the repository
+is public, and a telephone number committed here cannot be taken back. The
+checker holds that line — it fails if a `[PI]` field in the committed package
+has been filled in. See the package README §4 for the two commands that make
+the copy and print it.
 
 **Study:** PLCO
 **Project type:** Data-Only Project (study data only — no images, no

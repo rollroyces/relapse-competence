@@ -28,6 +28,15 @@ def _load_script():
     return module
 
 
+def _load_builder():
+    spec = importlib.util.spec_from_file_location(
+        "build_plco_cdas_pdf", Path("scripts/build_plco_cdas_pdf.py")
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 checker = _load_script()
 
 
@@ -321,3 +330,46 @@ def test_the_field_map_points_at_the_sections_that_hold_the_values() -> None:
         section = rest if end == -1 else rest[:end]
         assert phrase in section, (label, number)
 
+
+
+def test_the_committed_package_holds_no_personal_data() -> None:
+    """The repository is public; the PI's own details stay markers in it.
+
+    The telephone number and the ORCID are the ones that would not be
+    public anyway -- CDAS publishes the proposal, the PI's name and title
+    with it, but not these. So the committed package keeps every field that
+    only a person can supply as a marker, and the filled copy lives in
+    build/, which is gitignored.
+    """
+    cover = (PACKAGE / "03-pi-cover-sheet.md").read_text()
+    letter = (PACKAGE / "04-signing-official-letter.md").read_text()
+    values = checker._field_values(cover)
+    for field in (
+        "Full name",
+        "Degrees",
+        "Position title",
+        "Department and institution",
+        "Institution location",
+        "Telephone",
+        "ORCID",
+    ):
+        assert checker._plain(values.get(field, "")) == "[PI]", field
+    for label in ("Printed name", "Position title", "Institution"):
+        assert f"{label}: `[SO]`" in letter, label
+    assert "**Signing Official for `[SO's institution]`**" in letter
+    assert "**From:** `[SO's institution]`" in letter
+
+
+def test_the_builder_makes_a_local_copy_and_never_overwrites_one(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The copy the PI fills in is made once and never silently clobbered."""
+    builder = _load_builder()
+    monkeypatch.setattr(builder, "BUILD", tmp_path)
+    assert builder.main(["--init-local"]) == 0
+    target = tmp_path / "package-private"
+    assert (target / "03-pi-cover-sheet.md").exists()
+    assert (target / "04-signing-official-letter.md").exists()
+    # A second run must refuse rather than overwrite a copy that may
+    # already hold filled-in details.
+    assert builder.main(["--init-local"]) == 1

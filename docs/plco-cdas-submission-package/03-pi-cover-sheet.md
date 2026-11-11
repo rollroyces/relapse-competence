@@ -11,6 +11,13 @@ permanent employee at professor level — assistant, associate, tenure-track or
 tenured professor, or a senior researcher. The instructions state that a
 post-doc, trainee or lab technician cannot fill this role.
 
+**Fill this in a local copy, not in the repository.** The details below are
+the PI's own: name, degrees, title, telephone, ORCID. This repository is
+public, and a telephone number committed to it cannot be taken back. Run
+`python scripts/build_plco_cdas_pdf.py --init-local`, fill in
+`build/package-private/03-pi-cover-sheet.md`, and print it from there. The
+checker fails if any of these fields is filled in in the committed package.
+
 ---
 
 ## 1. Identity

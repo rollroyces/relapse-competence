@@ -4,6 +4,12 @@
 **From:** `[SO's institution]`
 **Date:** to be dated on signature
 
+**The Signing Official's own details are filled in a local copy**, not in this
+repository: run `python scripts/build_plco_cdas_pdf.py --init-local`, fill in
+`build/package-private/04-signing-official-letter.md`, and print it from
+there. The checker fails if these fields are filled in in the committed
+package.
+
 **Re:** Institutional authorisation for the CDAS data-only project "Validating
 an electrical-channel readout of the relapse-competent state in serial plasma",
 PLCO

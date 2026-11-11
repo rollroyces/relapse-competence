@@ -82,7 +82,20 @@ package.
 
 ## 4. What is still missing
 
-Everything marked `[PI]` or `[SO]` needs a person. The checklist in
+Everything marked `[PI]` or `[SO]` needs a person, and it is filled in a
+**local copy** of this package, not in the repository:
+
+```bash
+python scripts/build_plco_cdas_pdf.py --init-local        # copy into build/package-private
+$EDITOR build/package-private/03-pi-cover-sheet.md        # fill in the markers
+python scripts/build_plco_cdas_pdf.py --package-dir build/package-private
+```
+
+`build/` is gitignored, so the filled copy never reaches the repository, and
+the checker fails if a `[PI]` or `[SO]` field is filled in in the committed
+package — the repository stays a template, and what gets signed is the copy.
+
+The checklist in
 `05-documents-checklist.md` is the authoritative list; the state of the
 application as a whole is tracked in
 [`../DATA-ACCESS-APPLICATIONS.md`](../DATA-ACCESS-APPLICATIONS.md) and, in
@@ -100,13 +113,19 @@ depends on that count.
 ```bash
 python scripts/check_plco_cdas_package.py     # check the package
 python scripts/build_plco_cdas_pdf.py         # print it to build/
+python scripts/build_plco_cdas_pdf.py --init-local
+                                            # copy it for filling in, and print
+                                            # the filled copy with
+                                            #   --package-dir build/package-private
 ```
 
 The checker verifies the 500-word cap, that every CDAS field is present and
 filled or explicitly marked as the PI's to complete, that the numbers quoted
 in the package match this repository's artefacts, that both signature blocks
-have a ruled line to sign on, and that the runbook carries the entry points
-and the points a person has to cross. It runs in CI.
+have a ruled line to sign on, that the runbook carries the entry points
+and the points a person has to cross, and that the committed package still
+holds the PI's and the Signing Official's own details as markers rather than
+filled in. It runs in CI.
 
 The PDF builder renders the package from these markdown files, so the thing
 that gets signed is the thing that is in the repository. It is a build

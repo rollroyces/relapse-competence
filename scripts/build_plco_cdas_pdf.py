@@ -14,6 +14,17 @@ from the markdown the moment either side was edited. Each document ends with
 the SHA-256 of the package sources it was built from, so a printed copy
 carries the state it was printed from.
 
+The PI's and the Signing Official's own details -- telephone, ORCID, degrees,
+position title -- are deliberately left as markers in the committed package,
+because the repository is public and a telephone number committed here cannot
+be taken back. They are filled in a local copy instead:
+
+    python scripts/build_plco_cdas_pdf.py --init-local
+    $EDITOR build/package-private/03-pi-cover-sheet.md
+    python scripts/build_plco_cdas_pdf.py --package-dir build/package-private
+
+``build/`` is gitignored, so the filled copy never reaches the repository.
+
 Chrome is used to print, because it is present on the machines this is
 likely to be built on and produces better print typography than the other
 options; ``--check`` does not need it, so CI can verify the inputs on
@@ -98,12 +109,12 @@ a { color: #111; text-decoration: none; }
 """
 
 
-def _source_hash() -> str:
+def _source_hash(package: Path) -> str:
     """A hash of every document that goes into the PDF."""
     digest = hashlib.sha256()
     for name in DOCUMENTS:
         digest.update(name.encode())
-        digest.update((PACKAGE / name).read_bytes())
+        digest.update((package / name).read_bytes())
     return digest.hexdigest()[:16]
 
 
@@ -115,10 +126,10 @@ def _chrome() -> str | None:
     return found
 
 
-def _check() -> list[str]:
+def _check(package: Path) -> list[str]:
     problems: list[str] = []
     for name in DOCUMENTS:
-        path = PACKAGE / name
+        path = package / name
         if not path.exists():
             problems.append(f"missing package document: {name}")
             continue
@@ -128,14 +139,20 @@ def _check() -> list[str]:
     return problems
 
 
-def _html(source_hash: str) -> str:
+def _html(source_hash: str, package: Path) -> str:
     """The package as one HTML document, with print styling."""
     parts: list[str] = []
+    from_repo = package.resolve() == PACKAGE.resolve()
+    regenerate = "python scripts/build_plco_cdas_pdf.py"
+    origin = "the repository markdown"
+    if not from_repo:
+        regenerate = f"python scripts/build_plco_cdas_pdf.py --package-dir {package}"
+        origin = "a local copy of the package"
     for name in DOCUMENTS:
         body = subprocess.run(
             [
                 "pandoc",
-                str(PACKAGE / name),
+                str(package / name),
                 "--from=markdown",
                 "--to=html5",
                 "--standalone",
@@ -157,14 +174,42 @@ def _html(source_hash: str) -> str:
         parts.append(
             f'<section class="document">{body}'
             f'<p class="source-hash">PLCO CDAS submission package — '
-            f'source hash {source_hash}. Generated from the repository markdown; '
-            f"regenerate with <code>python scripts/build_plco_cdas_pdf.py</code>.</p>"
+            f'source hash {source_hash}. Generated from {origin}; '
+            f"regenerate with <code>{regenerate}</code>.</p>"
             f"</section>"
         )
     return (
         "<!DOCTYPE html><html><head><meta charset='utf-8'>"
         f"<style>{STYLE}</style></head><body>" + "\n".join(parts) + "</body></html>"
     )
+
+
+def _init_local(package: Path) -> int:
+    """Copy the package into a local, gitignored directory to fill in.
+
+    The committed package keeps the PI's and the Signing Official's details
+    as markers, because the repository is public and a telephone number
+    committed here cannot be taken back. This makes the copy they fill in.
+    An existing copy is never overwritten, so a filled one cannot be lost
+    by a second run.
+    """
+    target = BUILD / "package-private"
+    if target.exists() and any(target.iterdir()):
+        print(
+            f"{target} already exists and is not empty; it may hold "
+            "filled-in details, so it is left alone. Remove it yourself if "
+            "you want a fresh copy.",
+            file=sys.stderr,
+        )
+        return 1
+    target.mkdir(parents=True, exist_ok=True)
+    for name in DOCUMENTS:
+        shutil.copy2(package / name, target / name)
+    print(f"wrote a local copy of the package to {target}")
+    print("fill in the [PI] and [SO] markers there, then print it with:")
+    print(f"  python scripts/build_plco_cdas_pdf.py --package-dir {target}")
+    print("(build/ is gitignored, so nothing in it reaches the repository)")
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -175,12 +220,35 @@ def main(argv: list[str] | None = None) -> int:
         help="check the inputs and the toolchain, without building the PDF",
     )
     parser.add_argument(
+        "--package-dir",
+        default=str(PACKAGE),
+        help=(
+            "the directory holding the package markdown; point it at a local "
+            "copy to print the PI's own details"
+        ),
+    )
+    parser.add_argument(
+        "--init-local",
+        action="store_true",
+        help=(
+            "copy the package into build/package-private for the PI to fill in, "
+            "and stop"
+        ),
+    )
+    parser.add_argument(
         "--out",
         default=str(BUILD / "plco-cdas-submission-package.pdf"),
     )
     args = parser.parse_args(argv)
 
-    problems = _check()
+    package = Path(args.package_dir).expanduser()
+    package = package if package.is_absolute() else (REPO / package)
+    package = package.resolve()
+
+    if args.init_local:
+        return _init_local(package)
+
+    problems = _check(package)
     if problems:
         for problem in problems:
             print(f"FAIL: {problem}")
@@ -210,8 +278,8 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    source_hash = _source_hash()
-    html = _html(source_hash)
+    source_hash = _source_hash(package)
+    html = _html(source_hash, package)
     with tempfile.TemporaryDirectory() as tmp:
         html_path = Path(tmp) / "package.html"
         html_path.write_text(html)

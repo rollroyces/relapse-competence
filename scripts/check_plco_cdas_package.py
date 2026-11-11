@@ -83,6 +83,31 @@ def _table(text: str) -> list[list[str]]:
     return rows
 
 
+def _plain(cell: str) -> str:
+    """A table cell without its markdown emphasis or code ticks."""
+    return cell.replace("**", "").replace("`", "").strip()
+
+
+def _all_tables(text: str) -> list[list[list[str]]]:
+    """Every markdown table in a document, in order."""
+    tables: list[list[list[str]]] = []
+    current: list[list[str]] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            if current:
+                tables.append(current)
+                current = []
+            continue
+        cells = [c.strip() for c in stripped.strip("|").split("|")]
+        if all(set(cell) <= set("-: ") and cell for cell in cells):
+            continue
+        current.append(cells)
+    if current:
+        tables.append(current)
+    return tables
+
+
 def _field_values(text: str) -> dict[str, str]:
     """The `| Field | Value |` rows of a document, keyed by field name."""
     values: dict[str, str] = {}
@@ -447,6 +472,66 @@ def main() -> int:
         ("separate project proposal", details),
     ):
         check(phrase in where, f"{phrase!r} is not stated where it belongs")
+
+    # The committed package is a template, not a record. The PI's and the
+    # Signing Official's own details stay as markers, because the repository
+    # is public and a telephone number committed here cannot be taken back.
+    # They are filled in a local copy -- build/package-private, which
+    # build/ keeps out of the repository -- and printed from there.
+    cover_values = _field_values(cover)
+    for field in (
+        "Full name",
+        "Degrees",
+        "Position title",
+        "Department and institution",
+        "Institution location",
+        "Telephone",
+        "ORCID",
+    ):
+        value = _plain(cover_values.get(field, ""))
+        check(
+            value == "[PI]",
+            f"the committed cover sheet fills in {field!r} ({value!r}); the "
+            "PI's own details belong in a local copy, not in the public "
+            "repository",
+        )
+    user_tables = [
+        table
+        for table in _all_tables(cover)
+        if table and len(table[0]) == 5 and table[0][0] == "Name"
+    ]
+    check(
+        len(user_tables) == 1,
+        "the cover sheet's approved-users table is not the table this check reads",
+    )
+    for row in user_tables[0][1:] if user_tables else []:
+        check(
+            _plain(row[0]) == "[PI]",
+            f"the committed approved-users table fills in a name ({row[0]!r})",
+        )
+        check(
+            _plain(row[1]) in ("[PI]", "roycelam@umich.edu"),
+            f"the committed approved-users table fills in an e-mail address "
+            f"({row[1]!r})",
+        )
+        check(
+            _plain(row[2]) == "[PI]",
+            f"the committed approved-users table fills in an institution "
+            f"({row[2]!r})",
+        )
+    for label in ("Printed name", "Position title", "Institution"):
+        check(
+            f"{label}: `[SO]`" in letter,
+            f"the committed Signing Official letter fills in {label!r}",
+        )
+    check(
+        "**Signing Official for `[SO's institution]`**" in letter,
+        "the committed Signing Official letter fills in the institution",
+    )
+    check(
+        "**From:** `[SO's institution]`" in letter,
+        "the committed Signing Official letter fills in the sending institution",
+    )
 
     if problems:
         for problem in problems:
