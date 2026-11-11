@@ -1788,8 +1788,8 @@ def main(argv: list[str] | None = None) -> int:
                 "does not claim the channel is a passenger" in pq,
             )
             chk(
-                "the host invitation points at the perturbation question",
-                "PERTURBATION-QUESTION.md"
+                "the host invitation points at the laboratory invitation",
+                "LABORATORY-INVITATION.md"
                 in Path("docs/HOST-INVITATION.md").read_text(),
             )
 
@@ -1846,6 +1846,96 @@ def main(argv: list[str] | None = None) -> int:
                 "the perturbation question records the narrowed P3",
                 "Narrowed, not closed" in pq,
             )
+
+        # The laboratory invitation carries the propositions, the
+        # perturbation, the predictions and the decision table, and its
+        # numbers have to be the artefacts' numbers.
+        lab_doc = Path("docs/LABORATORY-INVITATION.md")
+        chk("the laboratory invitation exists", lab_doc.exists())
+        if lab_doc.exists():
+            lab = lab_doc.read_text()
+            chk(
+                "the laboratory invitation points at the perturbation question",
+                "PERTURBATION-QUESTION.md" in lab,
+            )
+            chk(
+                "the laboratory invitation is marked as a draft, not sent",
+                "draft, not sent" in lab,
+            )
+            begin = "<!-- BEGIN LABORATORY LETTER -->"
+            end = "<!-- END LABORATORY LETTER -->"
+            chk(
+                "the laboratory invitation delimits the letter",
+                begin in lab and end in lab,
+            )
+            if begin in lab and end in lab:
+                body = lab.split(begin)[1].split(end)[0].strip()
+                chk("the laboratory letter is plain text", "**" not in body)
+                for phrase in (
+                    "knock KCNN4 down",
+                    "specificity arm",
+                    "twenty-minute conversation",
+                    "does not appear to be an axis of its own",
+                    "no institutional appointment",
+                    "have not identified a cell line or a patient-derived model",
+                ):
+                    chk(
+                        f"the laboratory letter states {phrase!r}",
+                        phrase in body,
+                    )
+            for phrase in (
+                "instructive",
+                "passenger",
+                "The state programme and the drug-tolerant phenotype **collapse**",
+                "**unchanged**",
+            ):
+                chk(
+                    f"the laboratory invitation's decision table states {phrase!r}",
+                    phrase in lab,
+                )
+            chk(
+                "the laboratory invitation states what it does not promise",
+                "does not promise a result, a paper, or a position" in lab,
+            )
+            # Its numbers must be the artefacts' numbers.
+            if dpa_artefact.exists():
+                dpa_payload = json.loads(dpa_artefact.read_text())
+                effect = (
+                    dpa_payload["datasets"]
+                    .get("GSE353299", {})
+                    .get("tests", {})
+                    .get("KCNN4", {})
+                    .get("within_state_cells", {})
+                    .get("effect_in_null_sd")
+                )
+                if effect is not None:
+                    chk(
+                        "the laboratory letter quotes the measured coupling",
+                        f"{effect:.1f}" in lab,
+                        f"{effect:.1f}",
+                    )
+            if cn_artefact.exists():
+                cn_payload = json.loads(cn_artefact.read_text())
+                cn_summary = (
+                    cn_payload["datasets"]
+                    .get("GSE353299", {})
+                    .get("result", {})
+                    .get("summary", {})
+                )
+                own = cn_summary.get("median_fold_own")
+                neighbourhood = cn_summary.get("median_fold_neighbourhood")
+                if own is not None:
+                    chk(
+                        "the laboratory letter quotes the gene's fold",
+                        f"{own:.1f}" in lab,
+                        f"{own:.1f}",
+                    )
+                if neighbourhood is not None:
+                    chk(
+                        "the laboratory letter quotes the neighbourhood's fold",
+                        f"{neighbourhood:.2f}" in lab,
+                        f"{neighbourhood:.2f}",
+                    )
 
     # --- the gate review must agree with its artefact ---
     gate_artefact_path = Path("results/gate_review/gate_review.json")

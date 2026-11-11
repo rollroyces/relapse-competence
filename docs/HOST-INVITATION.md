@@ -48,12 +48,12 @@ checker does not treat it as a submission document. Its own gate is in
    answer is no, the letter has to change before it goes.
 
 5. **If the letter is going to a laboratory rather than to a data-access
-   office, it must carry the question, not the programme.** The mechanistic
-   version of this invitation is
-   [`PERTURBATION-QUESTION.md`](PERTURBATION-QUESTION.md): the pre-registered
-   propositions, the measurement they rest on, the perturbation, and what
-   each outcome does to the programme. A request that carries no prediction
-   is a request for attention rather than for work.
+   office, it must carry the question, not the programme.** That is a
+   different letter: [`LABORATORY-INVITATION.md`](LABORATORY-INVITATION.md)
+   asks whether a perturbation is worth running, and carries the
+   propositions, the measurement they rest on, and the decision table. A
+   request that carries no prediction is a request for attention rather than
+   for work.
 
 ## 2. The letter
 
