@@ -1,6 +1,6 @@
 # Data access applications: the prepared packages, and the approval tracker
 
-**Last reviewed:** 2026-11-10
+**Last reviewed:** 2026-11-11
 **Machine-readable state:** `results/application_tracker/application_tracker.json`
 **Regenerate it from this document:** `python scripts/application_tracker.py`
 **Check it in CI:** `python scripts/application_tracker.py --check`
@@ -25,6 +25,16 @@ account flagged. The remaining steps are listed as steps, not performed.
 What this document does instead is remove everything that does not need the
 PI's identity or signature, so that what remains is a short list of human
 actions with nothing else to prepare.
+
+**One thing has been sent: the scoping inquiry, on 2026-11-11.** It went
+through CDAS's public contact form as two messages, one per topic, and it is
+a question, not an application: it asks what exists before anything is
+requested, and it commits the PI to nothing. The proposals and the EEMS
+application are untouched and still require the PI's own submission and the
+Signing Official's signature. The sending record is in
+[`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
+§0, and the CDAS form issues no inquiry number, so there is no reference to
+quote until the reply arrives.
 
 ### 1.1 What changed in the route
 
@@ -202,6 +212,12 @@ published practice is to answer an initial request within two weeks.
 | CDAS contact form: subject for PLCO | PLCO | CDAS contact form | 2026-11-10 |
 | CDAS contact form: topics | Data Access/Availability, Biospecimen Availability | CDAS contact form | 2026-11-10 |
 | CDAS contact form: unlabelled anti-spam fields | 2 | CDAS contact form | 2026-11-10 |
+| CDAS contact form: message field limit, enforced by the field | 10,000 characters | CDAS contact form | 2026-11-11 |
+| CDAS contact form: inquiry reference number issued | none — the form returns only a confirmation banner | CDAS contact form | 2026-11-11 |
+| CDAS contact form: topic list appears only after a subject is chosen | yes | CDAS contact form | 2026-11-11 |
+| CDAS contact form: hidden decoy submit buttons | 10, plus the visible one | CDAS contact form | 2026-11-11 |
+| CDAS contact form: anti-spam traps, both left empty at submission | `id_name` in `antispam1`; `id_phone` in `antispam2` | CDAS contact form | 2026-11-11 |
+| Scoping inquiries sent to CDAS | 2 — Data Access/Availability and Biospecimen Availability | this repository's sending record | 2026-11-11 |
 | KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries | 20 of 23 | this repository's per-library folds | 2026-11-09 |
 | Residual-disease libraries clearing the programme's K3 threshold | 7 of 7 | this repository's per-patient audit | 2026-11-09 |
 
@@ -221,7 +237,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Check the package: 500-word cap, fields, numbers, signature blocks | programme | done — `scripts/check_plco_cdas_package.py` | the package |
 | PLCO-DATA | Write the submission runbook and the scoping inquiry | programme | done — `06-submission-runbook.md`, `07-scoping-inquiry.md` | the package |
 | PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
-| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | not started | the scoping inquiry |
+| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — two messages sent 2026-11-11; the form issues no inquiry number | the scoping inquiry |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
@@ -257,7 +273,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 
 | # | Prerequisite | Owner | Status | Applies to |
 |---|---|---|---|---|
-| 1 | Institutional email address for the PI | PI | available as `roycelam@umich.edu` in the repository's git configuration; confirm it is the current official address | all |
+| 1 | Institutional email address for the PI | PI | confirmed — `roycelam@umich.edu` carried both scoping inquiries on 2026-11-11 | all |
 | 2 | PI curriculum vitae | PI | not started | all |
 | 3 | Institutional letter of support on headed paper | Signing Official | not started | PLCO-DATA, PLCO-EEMS |
 | 4 | Ethics determination for secondary use of human plasma | PI | not started | all |

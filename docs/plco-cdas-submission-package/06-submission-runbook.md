@@ -36,7 +36,7 @@ Opening the data-only URL without being logged in redirects to
 
 | # | Step | Who | Gate |
 |---|---|---|---|
-| 1 | Ask the scoping question (§6) so the sample count is known before the EEMS application is drafted | PI | — |
+| 1 | Ask the scoping question (§6) so the sample count is known before the EEMS application is drafted | PI | **done 2026-11-11** |
 | 2 | Register a CDAS account through RAS | PI | **[GATE]** |
 | 3 | Fill in the private profile: institution and its location | PI | — |
 | 4 | Agree to the Data Use Policies | PI | **[GATE]** |
@@ -116,32 +116,42 @@ aliquots; no sequencing data is requested.
 - The proposal's own Discussion tab is where questions about a submitted
   project are asked, rather than the general contact form.
 
-## 6. Do this first: the scoping inquiry
+## 6. Do this first: the scoping inquiry — sent 2026-11-11
 
 It needs no account, no signature and no proposal, and it is on the critical
 path: the sample count determines whether the EEMS application (4–6 months)
-and the assay budget are worth pursuing. The draft is in
-[`07-scoping-inquiry.md`](07-scoping-inquiry.md).
+and the assay budget are worth pursuing. **It has been sent** — two messages
+through the CDAS contact form on 2026-11-11. The two messages as they went,
+and the sending record with the date, the topic and the length of each, are
+in [`07-scoping-inquiry.md`](07-scoping-inquiry.md).
 
 It is **two** messages, not one. The contact form has a single Topic and
 CDAS forward a message to the party best able to answer it, so the data
 questions and the biospecimen questions go separately: message A with the
 topic *Data Access/Availability*, message B with *Biospecimen Availability*.
 
-Two details in the form are worth knowing before sending. The page also
-carries a newsletter form in the footer that posts the e-mail address to
-`public.govdelivery.com`; it is not the contact form. And the contact form
-carries two boxes with no visible label, which are anti-spam traps -- one of
-them sits in a container whose class is `antispam1`, and both are skipped
-when tabbing through the form, so a person never reaches them. Filling one
-in makes the submission look automated, so leave both empty and put the
-sender's details in the message.
+CDAS's form issues **no inquiry number**. It returns a banner and nothing
+else, so the reply is the only reference there will be; do not look for a
+ticket number to quote.
+
+Four details in the form are worth knowing, all read off the live form on
+2026-11-11. The page also carries a newsletter form in the footer that posts
+the e-mail address to `public.govdelivery.com`; it is not the contact form.
+The contact form carries two boxes with no visible label, which are anti-spam
+traps — `id_name` in a container whose class is `antispam1` and `id_phone` in
+`antispam2` — and both are skipped when tabbing through the form, so a person
+never reaches them. Filling one in makes the submission look automated, so
+leave both empty and put the sender's details in the message. The topic list
+does not appear until a subject has been chosen, so pick *PLCO* first and the
+topics follow. And the form renders ten hidden decoy submit buttons besides
+the visible one; press the visible one, because a submission carrying a
+hidden button's name is the shape the server is checking for.
 
 ## 7. What gets a proposal delayed
 
 - **A PI whose position title does not show a permanent, professor-level or
   senior-researcher role.** CDAS checks this.
-- **A summary over 500 words.** The one here is 456, and the checker counts
+- **A summary over 500 words.** The one here is 498, and the checker counts
   it.
 - **An incomplete Data Use Policies agreement**, which blocks the form.
 - **Data requested that are not available**, which is the most common cause

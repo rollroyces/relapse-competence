@@ -2437,6 +2437,56 @@ def main(argv: list[str] | None = None) -> int:
             "Neither PLCO nor TZL is a" in tracker_text,
         )
 
+        # The scoping inquiry is the one thing that has been sent, and the
+        # tracker has to say so, with the same date the sending record
+        # carries and the same absence of a reference number.
+        steps = {
+            (row["Application"], row["Step"]): row for row in tracker["steps"]
+        }
+        inquiry_step = steps.get(
+            ("PLCO-DATA", "Send the scoping inquiry to CDAS (subject: PLCO)")
+        )
+        chk(
+            "the tracker records the scoping inquiry as sent",
+            inquiry_step is not None and inquiry_step["Status"].startswith("done"),
+            inquiry_step["Status"] if inquiry_step else "missing",
+        )
+        chk(
+            "the tracker dates the scoping inquiry",
+            inquiry_step is not None and "2026-11-11" in inquiry_step["Status"],
+            inquiry_step["Status"] if inquiry_step else "missing",
+        )
+        chk(
+            "the tracker says the form issued no inquiry number",
+            inquiry_step is not None and "no inquiry number" in inquiry_step["Status"],
+            inquiry_step["Status"] if inquiry_step else "missing",
+        )
+        chk(
+            "the document records that the scoping inquiry was sent",
+            "the scoping inquiry, on 2026-11-11" in tracker_text,
+        )
+        fact_rows = {row["Fact"]: row for row in tracker["external_facts"]}
+        chk(
+            "the tracker records that the contact form issues no inquiry number",
+            any(
+                "inquiry reference number" in fact
+                and fact_rows[fact]["Value"].startswith("none")
+                and fact_rows[fact]["Verified on"] == "2026-11-11"
+                for fact in fact_rows
+            ),
+            str(sorted(fact_rows)),
+        )
+        chk(
+            "the tracker records that two scoping inquiries were sent",
+            any(
+                "Scoping inquiries sent to CDAS" in fact
+                and fact_rows[fact]["Value"].startswith("2")
+                and fact_rows[fact]["Verified on"] == "2026-11-11"
+                for fact in fact_rows
+            ),
+            str(sorted(fact_rows)),
+        )
+
         # The numbers the applications are justified by are this repository's
         # own measurements, and they have to match those artefacts.
         folds_path = Path("results/per_library_folds/per_library_folds.json")
@@ -3007,6 +3057,64 @@ def main(argv: list[str] | None = None) -> int:
                     f"scoping inquiry message {tag} has no unfilled field",
                     "[TO FILL:" not in body,
                 )
+
+            # The sending record has to bind the counts it quotes to the
+            # text that was actually submitted, so that the record cannot
+            # drift away from the messages.
+            topics = {
+                "A": "Data Access/Availability",
+                "B": "Biospecimen Availability",
+            }
+            for tag, topic in topics.items():
+                begin = f"<!-- BEGIN MESSAGE {tag} -->"
+                end = f"<!-- END MESSAGE {tag} -->"
+                if begin not in inquiry or end not in inquiry:
+                    chk(False, f"the scoping inquiry does not delimit message {tag}")
+                    continue
+                body = inquiry.split(begin)[1].split(end)[0].strip()
+                rows = [
+                    line.strip()
+                    for line in inquiry.splitlines()
+                    if line.strip().startswith(f"| {tag} |")
+                ]
+                if not rows:
+                    chk(
+                        False,
+                        f"the scoping inquiry records the sending of message {tag}",
+                    )
+                    continue
+                cells = [c.strip() for c in rows[0].strip("|").split("|")]
+                chk(
+                    f"the sending record for message {tag} names the subject",
+                    len(cells) == 5 and cells[1] == "PLCO",
+                    cells[1] if len(cells) > 1 else "",
+                )
+                chk(
+                    f"the sending record for message {tag} names the topic",
+                    len(cells) == 5 and cells[2] == topic,
+                    cells[2] if len(cells) > 2 else "",
+                )
+                chk(
+                    f"the sending record for message {tag} quotes the length of "
+                    "the message that was sent",
+                    len(cells) == 5 and cells[3] == str(len(body)),
+                    f"recorded {cells[3] if len(cells) > 3 else ''}, "
+                    f"actual {len(body)}",
+                )
+                chk(
+                    f"the sending record for message {tag} carries the date it "
+                    "was sent",
+                    len(cells) == 5 and cells[4].startswith("2026-11-11"),
+                    cells[4] if len(cells) > 4 else "",
+                )
+            chk(
+                "the scoping inquiry records that the form issues no inquiry number",
+                "no inquiry number" in inquiry,
+            )
+            chk(
+                "the scoping inquiry records the confirmation the form returned",
+                "Your message was sent successfully" in inquiry,
+            )
 
         chk(
             "the assay specification is linked from the package",

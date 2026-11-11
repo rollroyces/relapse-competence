@@ -231,11 +231,21 @@ magnitude apart in that share.
    [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)
    holds the pre-filled CDAS fields, the proposal narrative, the PI cover
    sheet with its attestations, the Signing Official's letter and the
-   documents checklist, a submission runbook and the draft scoping inquiry.
+   documents checklist, a submission runbook and the scoping inquiry.
    `scripts/check_plco_cdas_package.py` checks it in CI, including CDAS's
    500-word cap on the project description, and
    `scripts/build_plco_cdas_pdf.py` prints it from the same markdown so that
    what is signed is what is in the repository.
+   **The scoping inquiry has been sent** — two messages through the CDAS
+   contact form on 2026-11-11, one per topic, the clinical data and the
+   archived material. CDAS's form issues no inquiry number, so the reply is
+   the only reference there will be; the sending record and the length of
+   each message are in
+   [`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
+   §0, and the verifier checks those lengths against the message blocks
+   themselves. The answers decide whether the EEMS route is worth starting
+   and how large the pilot has to be, so nothing else moves until they
+   arrive.
 7. **Split the model.** *Done:* use the simulator to generate data with known
    ground truth, then apply a detector fitted on the published model to the
    fidelity model and report how much performance is lost to the modelling gap.

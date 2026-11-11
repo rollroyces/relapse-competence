@@ -22,7 +22,7 @@ reconstruct what was asked from a tracker.
 | [`04-signing-official-letter.md`](04-signing-official-letter.md) | The institutional letter. CDAS contacts the Signing Official separately and the Data Transfer and Use Agreement is executed through DocuSign; this letter is the institutional endorsement that sits behind that. | **Signing Official signs** |
 | [`05-documents-checklist.md`](05-documents-checklist.md) | Every document CDAS needs, who supplies it, and where it goes. | — |
 | [`06-submission-runbook.md`](06-submission-runbook.md) | The operational sequence: the exact URLs, the field-by-field paste map, the questions CDAS will ask and the answers, and what gets a proposal delayed. | — |
-| [`07-scoping-inquiry.md`](07-scoping-inquiry.md) | The two paste-ready messages to CDAS, with the contact form's fields mapped and the ones to fill marked. These ask how many lung-cancer participants have serial plasma and an archived tumour. No account, no signature, and they go first. | PI sends |
+| [`07-scoping-inquiry.md`](07-scoping-inquiry.md) | The two messages to CDAS, with the contact form's fields mapped and the traps marked. These ask how many lung-cancer participants have serial plasma and an archived tumour. No account, no signature, and they go first. **Sent on 2026-11-11**; §0 is the sending record. | **sent 2026-11-11** |
 
 ## 2. The submission sequence
 

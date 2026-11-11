@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-10T16:23:07.046207+00:00",
-    "git_commit": "d537ac0f2110133fc60c144de2b07bc149e5a112",
+    "generated_at": "2026-11-11T04:30:40.711185+00:00",
+    "git_commit": "d3f0324919a3bacbd5b8bf496086b034265d6882",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -40,7 +40,7 @@
       "Application": "PLCO-DATA",
       "Step": "Send the scoping inquiry to CDAS (subject: PLCO)",
       "Owner": "PI",
-      "Status": "not started",
+      "Status": "done \u2014 two messages sent 2026-11-11; the form issues no inquiry number",
       "Depends on": "the scoping inquiry"
     },
     {
@@ -230,7 +230,7 @@
       "#": "1",
       "Prerequisite": "Institutional email address for the PI",
       "Owner": "PI",
-      "Status": "available as roycelam@umich.edu in the repository's git configuration; confirm it is the current official address",
+      "Status": "confirmed \u2014 roycelam@umich.edu carried both scoping inquiries on 2026-11-11",
       "Applies to": "all"
     },
     {
@@ -374,6 +374,42 @@
       "Value": "2",
       "Source": "CDAS contact form",
       "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS contact form: message field limit, enforced by the field",
+      "Value": "10,000 characters",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS contact form: inquiry reference number issued",
+      "Value": "none \u2014 the form returns only a confirmation banner",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS contact form: topic list appears only after a subject is chosen",
+      "Value": "yes",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS contact form: hidden decoy submit buttons",
+      "Value": "10, plus the visible one",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS contact form: anti-spam traps, both left empty at submission",
+      "Value": "id_name in antispam1; id_phone in antispam2",
+      "Source": "CDAS contact form",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "Scoping inquiries sent to CDAS",
+      "Value": "2 \u2014 Data Access/Availability and Biospecimen Availability",
+      "Source": "this repository's sending record",
+      "Verified on": "2026-11-11"
     },
     {
       "Fact": "KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries",

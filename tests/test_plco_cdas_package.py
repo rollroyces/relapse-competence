@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -222,3 +223,60 @@ def test_the_constraints_are_stated() -> None:
         "separate project proposal",
     ):
         assert phrase in text, phrase
+
+
+def test_the_sending_record_binds_its_counts_to_the_messages() -> None:
+    """The record of what was sent cannot drift away from what was sent.
+
+    CDAS's contact form issues no inquiry number, so the date and the length
+    of each message are the only evidence that the two messages went out. If
+    the quoted length stops matching the message, the record is describing
+    something that was not sent.
+    """
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    for tag, topic in (
+        ("A", "Data Access/Availability"),
+        ("B", "Biospecimen Availability"),
+    ):
+        body = inquiry.split(f"<!-- BEGIN MESSAGE {tag} -->")[1].split(
+            f"<!-- END MESSAGE {tag} -->"
+        )[0].strip()
+        rows = [
+            line.strip()
+            for line in inquiry.splitlines()
+            if line.strip().startswith(f"| {tag} |")
+        ]
+        assert rows, f"message {tag} has no sending record"
+        cells = [c.strip() for c in rows[0].strip("|").split("|")]
+        assert len(cells) == 5, cells
+        assert cells[1] == "PLCO", cells
+        assert cells[2] == topic, cells
+        assert cells[3] == str(len(body)), cells
+        assert cells[4].startswith("2026-11-11"), cells
+
+
+def test_the_sending_record_says_the_form_issues_no_reference() -> None:
+    """A form that issues no number must not be recorded as if it did."""
+    inquiry = (PACKAGE / "07-scoping-inquiry.md").read_text()
+    runbook = (PACKAGE / "06-submission-runbook.md").read_text()
+    for text in (inquiry, runbook):
+        assert "no inquiry number" in text
+    assert "Your message was sent successfully" in inquiry
+    assert "2026-11-11" in inquiry
+    assert "has been sent" in runbook
+
+
+def test_the_runbook_quotes_the_description_word_count_correctly() -> None:
+    """The runbook quotes the word count back at the reader; it has to be right.
+
+    This gate exists because the runbook carried 456 while the checker
+    counted 498, and nothing noticed: the drift was in a sentence that only
+    the reader would have been misled by.
+    """
+    details = (PACKAGE / "01-project-details.md").read_text()
+    words = len(checker._description(details).split())
+    runbook = (PACKAGE / "06-submission-runbook.md").read_text()
+    quoted = re.search(r"The one here is (\d+)", runbook)
+    assert quoted, "the runbook does not quote the word count"
+    assert int(quoted.group(1)) == words, (quoted.group(1), words)
+

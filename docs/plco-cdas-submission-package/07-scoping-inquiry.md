@@ -17,14 +17,35 @@ questions are split by topic below.
 
 ---
 
+## 0. The sending record
+
+Both messages were submitted on **2026-11-11**, from `roycelam@umich.edu`,
+through the form in the page body. Each submission came back with the banner
+*"Your message was sent successfully. We will respond to your inquiry as
+soon as possible."*
+
+| Message | Subject | Topic | Characters | Sent (HKT) |
+|---|---|---|---|---|
+| A | PLCO | Data Access/Availability | 1152 | 2026-11-11 12:27 |
+| B | PLCO | Biospecimen Availability | 1789 | 2026-11-11 12:28 |
+
+The character counts are the lengths of the two message blocks below, and
+`scripts/verify_report_consistency.py` checks them against those blocks, so
+this table cannot drift away from the text that was actually sent.
+
+**There is no inquiry number, and none is recorded here.** The contact form
+issues no reference: the only thing it returns is the banner quoted above,
+and the reply arrives by e-mail at `roycelam@umich.edu`. If CDAS quotes a
+reference in the reply, that belongs with the reply, not here.
+
 ## 1. The form, field by field
 
 | Form field | What to do |
 |---|---|
 | **Your Email Address** | `roycelam@umich.edu` — required, and CDAS forwards the message to it, so it has to be one you read |
-| **Select a Subject** | **PLCO** — required, and it is the only subject that routes the message to the PLCO team |
+| **Select a Subject** | **PLCO** — required, and it is the only subject that routes the message to the PLCO team. Choose it **first**: the topic list is not on the page until a subject has been picked, and it appears with `-------` and the five topics. |
 | **Select a Topic** | Message A: **Data Access/Availability**. Message B: **Biospecimen Availability** |
-| **Message** | the block for that message, copied in full |
+| **Message** | the block for that message, copied in full. The field carries `maxlength="10000"`, so the limit is enforced by the browser as well as by the server. |
 | the box next to *Your Email Address* but with no label | **leave it empty** |
 | the other box with no label | **leave it empty** |
 
@@ -33,6 +54,17 @@ questions are split by topic below.
 when tabbing through the form, so a person never reaches them. If one of them
 carries a value the submission looks automated and may be discarded without a
 reply. Do not fill in your name there — put it in the message.
+
+Read from the live form on 2026-11-11, the two are `id_name` (class
+`antispam1`) and `id_phone` (class `antispam2`), both with `tabindex="-1"`.
+
+**The form also renders ten hidden decoy submit buttons.** All of them are
+labelled *Send Message*, and they differ only in their `name` and in whether
+their class is `antispam1` or `antispam2`; the CSS keeps them out of sight.
+The visible button is the one whose class is `antispam3`. Press the visible
+one. A submission that arrives with one of the hidden button names in it is
+the shape the server is checking for, and it will not be treated as a
+message.
 
 ## 2. Message A — the clinical data
 
@@ -92,7 +124,7 @@ Royce Lam
 roycelam@umich.edu
 <!-- END MESSAGE B -->
 
-## 4. Before you send
+## 4. Before you send — and the record of what was sent
 
 - **Both messages are plain text.** The field is a plain textarea; markdown
   will not render, and asterisks around a word look like noise.
@@ -115,6 +147,10 @@ roycelam@umich.edu
   germline SNP that the participant's own tumour shifts. The matched tumour and
   a germline sample are what make that possible, which is why the data
   request carries them as required elements rather than as a convenience.
+- **The two blocks above are now the record of what was sent.** They were
+  submitted verbatim on 2026-11-11 (see §0). Do not edit them to improve the
+  wording: they are the evidence of what CDAS received. If a question has to
+  change, that is a new message, and the old one stays as it was.
 
 ## 5. Which answer decides what
 

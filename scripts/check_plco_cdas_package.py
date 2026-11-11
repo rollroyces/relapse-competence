@@ -314,6 +314,70 @@ def main() -> int:
         "the scoping inquiry warns against the newsletter form",
         "govdelivery" in inquiry,
     )
+    # The sending record. The form issues no inquiry number, so the date and
+    # the length of each message are the only evidence that the two messages
+    # went out; they have to be in the document, and the lengths have to be
+    # the lengths of the messages.
+    check(
+        "the scoping inquiry records the sending date",
+        "2026-11-11" in inquiry,
+    )
+    check(
+        "the scoping inquiry records that the form issues no inquiry number",
+        "no inquiry number" in inquiry,
+    )
+    check(
+        "the scoping inquiry records the confirmation the form returned",
+        "Your message was sent successfully" in inquiry,
+    )
+    for tag, topic in (
+        ("A", "Data Access/Availability"),
+        ("B", "Biospecimen Availability"),
+    ):
+        begin = f"<!-- BEGIN MESSAGE {tag} -->"
+        end = f"<!-- END MESSAGE {tag} -->"
+        if begin not in inquiry or end not in inquiry:
+            continue
+        body = inquiry.split(begin)[1].split(end)[0].strip()
+        rows = [
+            line.strip()
+            for line in inquiry.splitlines()
+            if line.strip().startswith(f"| {tag} |")
+        ]
+        if not rows:
+            check(False, f"the scoping inquiry does not record the sending of message {tag}")
+            continue
+        cells = [c.strip() for c in rows[0].strip("|").split("|")]
+        check(
+            f"the sending record for message {tag} names the subject and topic",
+            len(cells) == 5 and cells[1] == "PLCO" and cells[2] == topic,
+        )
+        check(
+            f"the sending record for message {tag} quotes the length of the "
+            "message that was sent",
+            len(cells) == 5 and cells[3] == str(len(body)),
+        )
+        check(
+            f"the sending record for message {tag} carries the date it was sent",
+            len(cells) == 5 and cells[4].startswith("2026-11-11"),
+        )
+    check(
+        "the runbook records that the scoping inquiry was sent",
+        "2026-11-11" in runbook and "has been sent" in runbook,
+    )
+    check(
+        "the runbook says the form issues no inquiry number",
+        "no inquiry number" in runbook,
+    )
+    # The runbook quotes the description's word count back at the reader.
+    # If the two disagree, one is wrong and the reader cannot tell which.
+    quoted = re.search(r"The one here is (\d+)", runbook)
+    check(
+        quoted is not None and int(quoted.group(1)) == len(words),
+        "the runbook quotes a project-description word count of "
+        f"{quoted.group(1) if quoted else 'none'}, and the description is "
+        f"{len(words)}",
+    )
 
     # --- the constraints are stated, so an edit cannot quietly drop them ---
     for phrase, where in (
