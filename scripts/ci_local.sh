@@ -67,6 +67,31 @@ echo "==> application tracker"
 echo "==> leukocyte audit control"
 "$PY" scripts/leukocyte_audit.py --patients 800 --control-only
 
+echo "==> driver-versus-passenger audit"
+# The audit reads the cached public deposits, which are gitignored and
+# therefore absent on a CI runner. Where the cache is there the audit is
+# re-run and its artefact has to match the committed one; where it is not,
+# the committed artefact is checked by the report-consistency step below.
+if [ -d "$ROOT/data/gse353299" ] && [ -d "$ROOT/data/gse299684" ]; then
+    "$PY" scripts/driver_passenger_audit.py --permutations 200
+else
+    echo "no local copy of the public deposits; checking the committed artefact only"
+    "$PY" - <<'PY'
+import json
+from pathlib import Path
+
+artefact = Path("results/driver_passenger_audit/driver_passenger_audit.json")
+if not artefact.exists():
+    raise SystemExit(f"missing: {artefact}")
+payload = json.loads(artefact.read_text())
+for dataset, body in payload["datasets"].items():
+    print(
+        f"  {dataset} ({body['cohort']}): {body['n_libraries']} libraries, "
+        f"{len(body['tests'])} genes tested"
+    )
+PY
+fi
+
 echo "==> PLCO CDAS submission package"
 "$PY" scripts/check_plco_cdas_package.py
 "$PY" scripts/build_plco_cdas_pdf.py --check

@@ -1,0 +1,1968 @@
+{
+  "audit": {
+    "id": "driver-passenger-audit-2026-11",
+    "generated_by": "scripts/driver_passenger_audit.py",
+    "generated_at": "2026-11-11T10:17:05.317659+00:00",
+    "question": "Is the channel's elevation in the relapse-competent state part of the transcriptional programme that defines the state, or a separate axis?",
+    "limits": "No measurement here is causal. The within-library test bounds whether the channel and the programme are coupled at all; only a perturbation experiment can settle whether the channel is instructive.",
+    "permutations": 200,
+    "seed": 20261111
+  },
+  "datasets": {
+    "GSE299684": {
+      "cohort": "SCLC",
+      "state_gene": "YAP1",
+      "programme_up": [
+        "CD276",
+        "TACSTD2",
+        "ERBB2"
+      ],
+      "programme_down": [
+        "DLL3",
+        "SEZ6",
+        "CEACAM5"
+      ],
+      "n_libraries": 5,
+      "libraries": [
+        {
+          "accession": "GSM9043712",
+          "cohort": "SCLC",
+          "n_state": 1965,
+          "n_tumour": 3286,
+          "state_fraction": 0.37421443534564847,
+          "programme_strength": 0.3437070499390325,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 1.0368915251467923,
+              "detection_ratio": 1.7331152308251545,
+              "mannwhitney_p": 5.974262042507147e-27
+            },
+            "PIEZO1": {
+              "linear_fold": 0.8227688702777549,
+              "detection_ratio": 1.7204627344442531,
+              "mannwhitney_p": 5.918229929373812e-27
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "KCNA3": {
+              "linear_fold": 0.8360581536765636,
+              "detection_ratio": 1.672264631043257,
+              "mannwhitney_p": 0.6037425740483094
+            },
+            "TMEM150C": {
+              "linear_fold": 1.2467739001706084,
+              "detection_ratio": 2.7776598956311727,
+              "mannwhitney_p": 6.521863317567747e-11
+            },
+            "STOML3": {
+              "linear_fold": 1.0508071568741029,
+              "detection_ratio": 0.8361323155216285,
+              "mannwhitney_p": 0.8841832444428791
+            },
+            "PIEZO2": {
+              "linear_fold": 0.0985812418737215,
+              "detection_ratio": 0.6270992366412214,
+              "mannwhitney_p": 0.48458061219352333
+            },
+            "CD276": {
+              "linear_fold": 1.2438540157176827,
+              "detection_ratio": 1.8093355024402453,
+              "mannwhitney_p": 1.5288703677552104e-37
+            },
+            "ACTB": {
+              "linear_fold": 1.134842604576292,
+              "detection_ratio": 1.0735729829435323,
+              "mannwhitney_p": 6.690227988196422e-17
+            },
+            "KRT14": {
+              "linear_fold": 2.2733594585502916,
+              "detection_ratio": 1.9695561210065027,
+              "mannwhitney_p": 0.0006101885143770405
+            },
+            "KRT15": {
+              "linear_fold": 0.9584420346300564,
+              "detection_ratio": 1.624003025529743,
+              "mannwhitney_p": 1.0897679590529814e-19
+            }
+          }
+        },
+        {
+          "accession": "GSM9043713",
+          "cohort": "SCLC",
+          "n_state": 105,
+          "n_tumour": 900,
+          "state_fraction": 0.1044776119402985,
+          "programme_strength": 1.5180883248518697,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 0.2758604124558823,
+              "detection_ratio": 0.5500381970970206,
+              "mannwhitney_p": 0.013120851021778573
+            },
+            "PIEZO1": {
+              "linear_fold": 6.000119308978597,
+              "detection_ratio": 7.59941089837997,
+              "mannwhitney_p": 7.825656290097805e-72
+            },
+            "CACNA1E": {
+              "linear_fold": 0.9941217897168159,
+              "detection_ratio": 1.7142857142857144,
+              "mannwhitney_p": 0.6194774631450033
+            },
+            "KCNA3": {
+              "linear_fold": 0.3515096940012035,
+              "detection_ratio": 2.857142857142857,
+              "mannwhitney_p": 0.34393989532654234
+            },
+            "TMEM150C": {
+              "linear_fold": 0.353598428503671,
+              "detection_ratio": 0.7535321821036106,
+              "mannwhitney_p": 0.027180985620284325
+            },
+            "STOML3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "PIEZO2": {
+              "linear_fold": 7.557110992886488,
+              "detection_ratio": 9.085714285714285,
+              "mannwhitney_p": 9.97848164489695e-47
+            },
+            "CD276": {
+              "linear_fold": 1.2589063551450734,
+              "detection_ratio": 3.116883116883117,
+              "mannwhitney_p": 5.266709259299019e-17
+            },
+            "ACTB": {
+              "linear_fold": 1.3594783813226958,
+              "detection_ratio": 1.0792113455551713,
+              "mannwhitney_p": 3.4253757101684084e-08
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "KRT15": {
+              "linear_fold": 0.29219923856703717,
+              "detection_ratio": 0.9022556390977443,
+              "mannwhitney_p": 0.3598434653219802
+            }
+          }
+        },
+        {
+          "accession": "GSM9043717",
+          "cohort": "SCLC",
+          "n_state": 345,
+          "n_tumour": 641,
+          "state_fraction": 0.34989858012170383,
+          "programme_strength": 0.8685033321599492,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 0.5875600708184926,
+              "detection_ratio": 0.7296485360558588,
+              "mannwhitney_p": 8.683448718658788e-05
+            },
+            "PIEZO1": {
+              "linear_fold": 2.7349474487337764,
+              "detection_ratio": 4.8708969839404626,
+              "mannwhitney_p": 2.138273603724626e-21
+            },
+            "CACNA1E": {
+              "linear_fold": 12.425860184461259,
+              "detection_ratio": 0.5308488612836438,
+              "mannwhitney_p": 0.4204393150273732
+            },
+            "KCNA3": {
+              "linear_fold": 2.5306692893304747,
+              "detection_ratio": 1.5483091787439613,
+              "mannwhitney_p": 0.4617717887801833
+            },
+            "TMEM150C": {
+              "linear_fold": 0.701848262431876,
+              "detection_ratio": 0.8467474459491566,
+              "mannwhitney_p": 0.0061162725961143435
+            },
+            "STOML3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "PIEZO2": {
+              "linear_fold": 0.9073253910383378,
+              "detection_ratio": 1.582716049382716,
+              "mannwhitney_p": 0.027455632542063714
+            },
+            "CD276": {
+              "linear_fold": 1.7153461915187176,
+              "detection_ratio": 1.9835095965530747,
+              "mannwhitney_p": 9.492854287526574e-12
+            },
+            "ACTB": {
+              "linear_fold": 1.0029986327840184,
+              "detection_ratio": 1.0056636760984587,
+              "mannwhitney_p": 0.6792443696050263
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.17353024190914512
+            },
+            "KRT15": {
+              "linear_fold": 0.7820630389551293,
+              "detection_ratio": 1.234223602484472,
+              "mannwhitney_p": 0.21362425166170063
+            }
+          }
+        },
+        {
+          "accession": "GSM9043721",
+          "cohort": "SCLC",
+          "n_state": 97,
+          "n_tumour": 265,
+          "state_fraction": 0.26795580110497236,
+          "programme_strength": 1.945804484477816,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 2.1820690887456458,
+              "detection_ratio": 6.829896907216495,
+              "mannwhitney_p": 0.007758663043190117
+            },
+            "PIEZO1": {
+              "linear_fold": 1.0800929499726435,
+              "detection_ratio": 3.4149484536082477,
+              "mannwhitney_p": 1.8298128625834559e-06
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.09963482267991845
+            },
+            "KCNA3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "TMEM150C": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.0009120025654881462
+            },
+            "STOML3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "PIEZO2": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.09963482267991845
+            },
+            "CD276": {
+              "linear_fold": 5.2342508196404465,
+              "detection_ratio": 13.659793814432991,
+              "mannwhitney_p": 3.6578200774623074e-08
+            },
+            "ACTB": {
+              "linear_fold": 0.9559420455931361,
+              "detection_ratio": 1.0433070866141732,
+              "mannwhitney_p": 0.6714657726188211
+            },
+            "KRT14": {
+              "linear_fold": 0.8066848258086606,
+              "detection_ratio": 1.3550515463917525,
+              "mannwhitney_p": 0.2622830598410174
+            },
+            "KRT15": {
+              "linear_fold": 1.4497786224216107,
+              "detection_ratio": 2.9140893470790377,
+              "mannwhitney_p": 0.001914905587624409
+            }
+          }
+        },
+        {
+          "accession": "GSM9043724",
+          "cohort": "SCLC",
+          "n_state": 172,
+          "n_tumour": 759,
+          "state_fraction": 0.18474758324382384,
+          "programme_strength": 0.5866941029321161,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 0.9106887900873722,
+              "detection_ratio": 2.0902692778457777,
+              "mannwhitney_p": 0.06301087002440867
+            },
+            "PIEZO1": {
+              "linear_fold": 3.560234018911727,
+              "detection_ratio": 11.977574750830565,
+              "mannwhitney_p": 2.5519684951312464e-25
+            },
+            "CACNA1E": {
+              "linear_fold": 0.9213372478698666,
+              "detection_ratio": 1.4354861305687867,
+              "mannwhitney_p": 0.11568184746954993
+            },
+            "KCNA3": {
+              "linear_fold": 2.0972005228904536,
+              "detection_ratio": 2.2063953488372094,
+              "mannwhitney_p": 0.10406296944931245
+            },
+            "TMEM150C": {
+              "linear_fold": 1.141844980080891,
+              "detection_ratio": 1.6702618995870464,
+              "mannwhitney_p": 5.679422374643487e-05
+            },
+            "STOML3": {
+              "linear_fold": 0.0,
+              "detection_ratio": 0.0,
+              "mannwhitney_p": 0.6360189898203652
+            },
+            "PIEZO2": {
+              "linear_fold": 8.098676019284156,
+              "detection_ratio": 6.177906976744186,
+              "mannwhitney_p": 3.4911086404518534e-10
+            },
+            "CD276": {
+              "linear_fold": 1.2992144535444357,
+              "detection_ratio": 2.10941093789931,
+              "mannwhitney_p": 4.6418069490575237e-10
+            },
+            "ACTB": {
+              "linear_fold": 1.1146898943689094,
+              "detection_ratio": 1.0981448606426416,
+              "mannwhitney_p": 0.1504168013202847
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 2.591001634338629e-05
+            },
+            "KRT15": {
+              "linear_fold": 0.32514152795947293,
+              "detection_ratio": 0.8825581395348837,
+              "mannwhitney_p": 0.8691334968822692
+            }
+          }
+        }
+      ],
+      "tests": {
+        "KCNN4": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 6.648472729555817,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.1141966550801714,
+            "null_sd": 0.5560755786249304,
+            "effect_in_null_sd": 9.952381092082595,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 5.497879060558395
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 2.5925780966471605
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 4.757831531748534
+              },
+              {
+                "accession": "GSM9043721",
+                "z": -0.5123475382979799
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 2.530495819184274
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 5,
+            "spearman_rho_vs_programme_strength": 0.0,
+            "permutation_p": 1.0
+          }
+        },
+        "PIEZO1": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 7.332494869577198,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.2390233519097036,
+            "null_sd": 0.5602210627073,
+            "effect_in_null_sd": 10.876905427690364,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 0.7114902467222983
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 3.4454270768564355
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 6.286221325656978
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 1.098518696442803
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 4.854299627364558
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 5,
+            "spearman_rho_vs_programme_strength": 0.3,
+            "permutation_p": 0.6716417910447762
+          }
+        },
+        "CACNA1E": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 3,
+            "stouffer_z": -0.33269111471524937,
+            "permutation_p": 0.5422885572139303,
+            "null_mean": 0.34022151270834633,
+            "null_sd": 0.4369603822792139,
+            "effect_in_null_sd": -1.539985441960755,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": null
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM9043717",
+                "z": -0.7071067811865475
+              },
+              {
+                "accession": "GSM9043721",
+                "z": null
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 0.13086886727300978
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 3,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "KCNA3": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 3,
+            "stouffer_z": 0.15918538799747103,
+            "permutation_p": 0.8059701492537313,
+            "null_mean": 0.34352985579027306,
+            "null_sd": 0.4811945678357568,
+            "effect_in_null_sd": -0.38309756617145185,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM9043713",
+                "z": null
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 0.653681652843412
+              },
+              {
+                "accession": "GSM9043721",
+                "z": null
+              },
+              {
+                "accession": "GSM9043724",
+                "z": -0.3779644730092272
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 4,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "TMEM150C": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 4.943499762251923,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.16240568915157,
+            "null_sd": 0.6032099645835868,
+            "effect_in_null_sd": 6.268288481790169,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 0.9018798448654511
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 2.383987769137603
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 7.05709361911626
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 0.7110402820300351
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 4,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "STOML3": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 1,
+            "stouffer_z": 0.0,
+            "permutation_p": 1.0,
+            "null_mean": 0.0,
+            "null_sd": 0.0,
+            "effect_in_null_sd": null,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM9043713",
+                "z": null
+              },
+              {
+                "accession": "GSM9043717",
+                "z": null
+              },
+              {
+                "accession": "GSM9043721",
+                "z": null
+              },
+              {
+                "accession": "GSM9043724",
+                "z": null
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 1,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "PIEZO2": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 2.9684677655582767,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 0.7856367306403544,
+            "null_sd": 0.592004875242764,
+            "effect_in_null_sd": 3.687184221283324,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 0.7071067811865475
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 2.4357998725487033
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 2.1673809320077173
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 1.327408127062249
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 4,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "CD276": {
+          "role": "power control",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 11.127448738146624,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.3331655115480427,
+            "null_sd": 0.5754537406333071,
+            "effect_in_null_sd": 17.02010524046577,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 12.8006974501005
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 1.4899124612174879
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 5.240437161173471
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 1.1576184258289581
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 4.193066296319692
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 5,
+            "spearman_rho_vs_programme_strength": 0.7,
+            "permutation_p": 0.24378109452736318
+          }
+        },
+        "ACTB": {
+          "role": "specificity control",
+          "within_state_cells": {
+            "n_libraries": 3,
+            "stouffer_z": 3.154156691125498,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 0.4497144535029818,
+            "null_sd": 0.5266465007858789,
+            "effect_in_null_sd": 5.1352135323919565,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 2.049259797299971
+              },
+              {
+                "accession": "GSM9043713",
+                "z": null
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 0.7229988054812212
+              },
+              {
+                "accession": "GSM9043721",
+                "z": null
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 2.690901041281504
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 5,
+            "spearman_rho_vs_programme_strength": -0.39999999999999997,
+            "permutation_p": 0.5373134328358209
+          }
+        },
+        "KRT14": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 4,
+            "stouffer_z": 1.8894339947456344,
+            "permutation_p": 0.014925373134328358,
+            "null_mean": 0.6590836748635346,
+            "null_sd": 0.519352250083366,
+            "effect_in_null_sd": 2.369009318212456,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 2.5408312132484436
+              },
+              {
+                "accession": "GSM9043713",
+                "z": null
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 0.14433756729740638
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 0.3865924277588715
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 0.7071067811865475
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 2,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "KRT15": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": 6.225921298908528,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.1041518358843627,
+            "null_sd": 0.5279764178247753,
+            "effect_in_null_sd": 9.70075421952648,
+            "per_library_z": [
+              {
+                "accession": "GSM9043712",
+                "z": 8.736943364265823
+              },
+              {
+                "accession": "GSM9043713",
+                "z": 1.408104619937615
+              },
+              {
+                "accession": "GSM9043717",
+                "z": 1.995919509388714
+              },
+              {
+                "accession": "GSM9043721",
+                "z": 1.0735089721445532
+              },
+              {
+                "accession": "GSM9043724",
+                "z": 0.7071067811865475
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 5,
+            "spearman_rho_vs_programme_strength": 0.09999999999999999,
+            "permutation_p": 0.9353233830845771
+          }
+        }
+      }
+    },
+    "GSE353299": {
+      "cohort": "NSCLC",
+      "state_gene": "KRT17",
+      "programme_up": [
+        "KRT14",
+        "KRT15"
+      ],
+      "programme_down": [],
+      "n_libraries": 9,
+      "libraries": [
+        {
+          "accession": "GSM10173933",
+          "cohort": "NSCLC",
+          "n_state": 118,
+          "n_tumour": 305,
+          "state_fraction": 0.2789598108747045,
+          "programme_strength": 3.1443666706775253,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 32.16439586713536,
+              "detection_ratio": 23.693502824858754,
+              "mannwhitney_p": 1.04650966998572e-31
+            },
+            "PIEZO1": {
+              "linear_fold": 1.5054317303509723,
+              "detection_ratio": 2.8095062638172434,
+              "mannwhitney_p": 1.7626890237688477e-08
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.10905762551470859
+            },
+            "KCNA3": {
+              "linear_fold": 0.40571846672420925,
+              "detection_ratio": 0.8615819209039547,
+              "mannwhitney_p": 0.8926957541439804
+            },
+            "TMEM150C": {
+              "linear_fold": 0.5817753645778136,
+              "detection_ratio": 1.6154661016949152,
+              "mannwhitney_p": 0.39300016610791855
+            },
+            "STOML3": {
+              "linear_fold": 0.6242720173236572,
+              "detection_ratio": 1.292372881355932,
+              "mannwhitney_p": 0.8356687905467304
+            },
+            "PIEZO2": {
+              "linear_fold": 0.09810468831031903,
+              "detection_ratio": 0.2871939736346516,
+              "mannwhitney_p": 0.19744165275248593
+            },
+            "CD276": {
+              "linear_fold": 0.26857805975558624,
+              "detection_ratio": 0.7417096536477524,
+              "mannwhitney_p": 0.001217164122797326
+            },
+            "ACTB": {
+              "linear_fold": 3.107926045285063,
+              "detection_ratio": 1.0578141021774534,
+              "mannwhitney_p": 7.46879400198636e-26
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.005300281670416379
+            },
+            "KRT15": {
+              "linear_fold": 8.84196283735314,
+              "detection_ratio": 7.495762711864407,
+              "mannwhitney_p": 1.4182727275328272e-23
+            }
+          }
+        },
+        {
+          "accession": "GSM10173935",
+          "cohort": "NSCLC",
+          "n_state": 1238,
+          "n_tumour": 101,
+          "state_fraction": 0.9245705750560119,
+          "programme_strength": 2.841472359112873,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 3.31024821281788,
+              "detection_ratio": 2.9713459739818044,
+              "mannwhitney_p": 9.774728214954241e-12
+            },
+            "PIEZO1": {
+              "linear_fold": 1.0879307124484383,
+              "detection_ratio": 1.90978851520047,
+              "mannwhitney_p": 0.001835901902277676
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.3652632244447266
+            },
+            "KCNA3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.7773303611748797
+            },
+            "TMEM150C": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.05422345446999697
+            },
+            "STOML3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "PIEZO2": {
+              "linear_fold": 0.117571316386759,
+              "detection_ratio": 1.2033521809369951,
+              "mannwhitney_p": 0.7593355958915312
+            },
+            "CD276": {
+              "linear_fold": 1.1639803445614427,
+              "detection_ratio": 1.8254240710823908,
+              "mannwhitney_p": 0.013359616816622847
+            },
+            "ACTB": {
+              "linear_fold": 1.8090304422471346,
+              "detection_ratio": 1.1204092622509425,
+              "mannwhitney_p": 5.567542076516413e-10
+            },
+            "KRT14": {
+              "linear_fold": 54.92922635391145,
+              "detection_ratio": 9.96946688206785,
+              "mannwhitney_p": 2.410001041109957e-16
+            },
+            "KRT15": {
+              "linear_fold": 0.9352621129058086,
+              "detection_ratio": 1.8036501768327295,
+              "mannwhitney_p": 0.0003182038225660218
+            }
+          }
+        },
+        {
+          "accession": "GSM10173937",
+          "cohort": "NSCLC",
+          "n_state": 429,
+          "n_tumour": 450,
+          "state_fraction": 0.4880546075085324,
+          "programme_strength": 5.537550506307764,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 6.162271195061285,
+              "detection_ratio": 5.38779402415766,
+              "mannwhitney_p": 4.342091177282733e-19
+            },
+            "PIEZO1": {
+              "linear_fold": 0.6070482959716874,
+              "detection_ratio": 0.6691584277791175,
+              "mannwhitney_p": 0.00024437409684205114
+            },
+            "CACNA1E": {
+              "linear_fold": 2.2583431204842106,
+              "detection_ratio": 2.097902097902098,
+              "mannwhitney_p": 0.37956684144641717
+            },
+            "KCNA3": {
+              "linear_fold": 1.0347310021009999,
+              "detection_ratio": 1.048951048951049,
+              "mannwhitney_p": 0.9561570616544917
+            },
+            "TMEM150C": {
+              "linear_fold": 1.006881598130114,
+              "detection_ratio": 0.7770007770007771,
+              "mannwhitney_p": 0.39944095677684077
+            },
+            "STOML3": {
+              "linear_fold": 0.4142529006644001,
+              "detection_ratio": 0.4195804195804196,
+              "mannwhitney_p": 0.06137331534573635
+            },
+            "PIEZO2": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.07595693900620927
+            },
+            "CD276": {
+              "linear_fold": 1.3878088686993157,
+              "detection_ratio": 1.193633952254642,
+              "mannwhitney_p": 0.2222578768301987
+            },
+            "ACTB": {
+              "linear_fold": 3.5854799593018387,
+              "detection_ratio": 1.0273972602739725,
+              "mannwhitney_p": 6.917614139546279e-76
+            },
+            "KRT14": {
+              "linear_fold": 320.66736265325727,
+              "detection_ratio": 66.08391608391608,
+              "mannwhitney_p": 1.5783806178804622e-16
+            },
+            "KRT15": {
+              "linear_fold": 6.727951465787911,
+              "detection_ratio": 2.272727272727273,
+              "mannwhitney_p": 6.528492208110753e-45
+            }
+          }
+        },
+        {
+          "accession": "GSM10173938",
+          "cohort": "NSCLC",
+          "n_state": 159,
+          "n_tumour": 211,
+          "state_fraction": 0.4297297297297297,
+          "programme_strength": 4.128268161051325,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 3.5043068473947785,
+              "detection_ratio": 2.919496855345912,
+              "mannwhitney_p": 9.974792988815702e-12
+            },
+            "PIEZO1": {
+              "linear_fold": 0.7741014426005254,
+              "detection_ratio": 1.1866835994194485,
+              "mannwhitney_p": 0.34355618708162217
+            },
+            "CACNA1E": {
+              "linear_fold": 0.1289533835496132,
+              "detection_ratio": 0.4423480083857443,
+              "mannwhitney_p": 0.29177544393217414
+            },
+            "KCNA3": {
+              "linear_fold": 0.15148730228568197,
+              "detection_ratio": 0.4976415094339622,
+              "mannwhitney_p": 0.28705846458805184
+            },
+            "TMEM150C": {
+              "linear_fold": 0.4076621197934669,
+              "detection_ratio": 1.4929245283018868,
+              "mannwhitney_p": 0.42617447061197533
+            },
+            "STOML3": {
+              "linear_fold": 0.8122844937436128,
+              "detection_ratio": 1.7693920335429771,
+              "mannwhitney_p": 0.45640450449777104
+            },
+            "PIEZO2": {
+              "linear_fold": 0.0,
+              "detection_ratio": 0.0,
+              "mannwhitney_p": 0.2204093759527853
+            },
+            "CD276": {
+              "linear_fold": 1.1774016532676344,
+              "detection_ratio": 1.5659119496855345,
+              "mannwhitney_p": 0.011758115508704335
+            },
+            "ACTB": {
+              "linear_fold": 2.5995969581611593,
+              "detection_ratio": 1.0765306122448979,
+              "mannwhitney_p": 2.8188320220990883e-18
+            },
+            "KRT14": {
+              "linear_fold": 93.09339513806297,
+              "detection_ratio": 10.616352201257861,
+              "mannwhitney_p": 0.004880850620628847
+            },
+            "KRT15": {
+              "linear_fold": 3.2850820698204726,
+              "detection_ratio": 2.3795272175233135,
+              "mannwhitney_p": 2.1780611100835016e-15
+            }
+          }
+        },
+        {
+          "accession": "GSM10173939",
+          "cohort": "NSCLC",
+          "n_state": 132,
+          "n_tumour": 205,
+          "state_fraction": 0.3916913946587537,
+          "programme_strength": 4.450442703814787,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 3.5578856205308966,
+              "detection_ratio": 3.4943181818181817,
+              "mannwhitney_p": 1.283040940760928e-06
+            },
+            "PIEZO1": {
+              "linear_fold": 0.6951442713660204,
+              "detection_ratio": 1.3045454545454547,
+              "mannwhitney_p": 0.6974037779975487
+            },
+            "CACNA1E": {
+              "linear_fold": 2.5968833648747722,
+              "detection_ratio": 1.553030303030303,
+              "mannwhitney_p": 0.7533234813493747
+            },
+            "KCNA3": {
+              "linear_fold": 4.7746838616972616,
+              "detection_ratio": 3.106060606060606,
+              "mannwhitney_p": 0.1607145319746669
+            },
+            "TMEM150C": {
+              "linear_fold": 0.6668214925633049,
+              "detection_ratio": 1.553030303030303,
+              "mannwhitney_p": 0.666839239061567
+            },
+            "STOML3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "PIEZO2": {
+              "linear_fold": 5.2935616711269375,
+              "detection_ratio": 3.106060606060606,
+              "mannwhitney_p": 0.0845975783921558
+            },
+            "CD276": {
+              "linear_fold": 0.5542301425403173,
+              "detection_ratio": 1.1925054112554112,
+              "mannwhitney_p": 0.825408988680286
+            },
+            "ACTB": {
+              "linear_fold": 2.885877742267588,
+              "detection_ratio": 1.0682219015552348,
+              "mannwhitney_p": 2.80843375291224e-25
+            },
+            "KRT14": {
+              "linear_fold": 25.40337516066936,
+              "detection_ratio": 17.083333333333332,
+              "mannwhitney_p": 0.00015449820994254014
+            },
+            "KRT15": {
+              "linear_fold": 18.816639896591177,
+              "detection_ratio": 10.6986531986532,
+              "mannwhitney_p": 7.516504381957971e-21
+            }
+          }
+        },
+        {
+          "accession": "GSM10173940",
+          "cohort": "NSCLC",
+          "n_state": 168,
+          "n_tumour": 320,
+          "state_fraction": 0.3442622950819672,
+          "programme_strength": 2.463893012725305,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 1.119154066193954,
+              "detection_ratio": 1.1517165005537098,
+              "mannwhitney_p": 0.2287150617196586
+            },
+            "PIEZO1": {
+              "linear_fold": 0.7017765509755572,
+              "detection_ratio": 1.073762838468721,
+              "mannwhitney_p": 0.9060607735085632
+            },
+            "CACNA1E": {
+              "linear_fold": 1.9133599975167728,
+              "detection_ratio": 0.6349206349206349,
+              "mannwhitney_p": 0.6970106868333156
+            },
+            "KCNA3": {
+              "linear_fold": 2.158557135974132,
+              "detection_ratio": 1.2698412698412698,
+              "mannwhitney_p": 0.787771650737126
+            },
+            "TMEM150C": {
+              "linear_fold": 0.6391019106916678,
+              "detection_ratio": 0.9523809523809523,
+              "mannwhitney_p": 0.9091534927413337
+            },
+            "STOML3": {
+              "linear_fold": 0.9208468434102614,
+              "detection_ratio": 1.9047619047619047,
+              "mannwhitney_p": 0.6470080618696754
+            },
+            "PIEZO2": {
+              "linear_fold": 1.6117243740615657,
+              "detection_ratio": 2.3809523809523805,
+              "mannwhitney_p": 0.17998659974995201
+            },
+            "CD276": {
+              "linear_fold": 1.2971196111497787,
+              "detection_ratio": 1.400560224089636,
+              "mannwhitney_p": 0.005447593252992285
+            },
+            "ACTB": {
+              "linear_fold": 2.4355391993777498,
+              "detection_ratio": 1.0223642172523961,
+              "mannwhitney_p": 1.3264933400822014e-22
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.0006831542567860245
+            },
+            "KRT15": {
+              "linear_fold": 5.517034540288515,
+              "detection_ratio": 1.978733240869163,
+              "mannwhitney_p": 5.945868031835312e-15
+            }
+          }
+        },
+        {
+          "accession": "GSM10173945",
+          "cohort": "NSCLC",
+          "n_state": 187,
+          "n_tumour": 115,
+          "state_fraction": 0.6192052980132451,
+          "programme_strength": 3.901312917471185,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 3.978742567303043,
+              "detection_ratio": 2.459893048128342,
+              "mannwhitney_p": 0.0083776626736001
+            },
+            "PIEZO1": {
+              "linear_fold": 0.46157244259664537,
+              "detection_ratio": 1.0366692131398012,
+              "mannwhitney_p": 0.7308440506336102
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "KCNA3": {
+              "linear_fold": 0.0,
+              "detection_ratio": 0.0,
+              "mannwhitney_p": 0.20466870678397087
+            },
+            "TMEM150C": {
+              "linear_fold": 2.1828329314976913,
+              "detection_ratio": 1.844919786096257,
+              "mannwhitney_p": 0.5929614090125298
+            },
+            "STOML3": {
+              "linear_fold": 0.36127934526668265,
+              "detection_ratio": 0.8199643493761141,
+              "mannwhitney_p": 0.7825913655002548
+            },
+            "PIEZO2": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.43693274547983074
+            },
+            "CD276": {
+              "linear_fold": 0.6068867137482876,
+              "detection_ratio": 0.884024064171123,
+              "mannwhitney_p": 0.5954248261512185
+            },
+            "ACTB": {
+              "linear_fold": 1.4271312265108733,
+              "detection_ratio": 1.0437619584948241,
+              "mannwhitney_p": 0.0006111614888442756
+            },
+            "KRT14": {
+              "linear_fold": 48.91465947154788,
+              "detection_ratio": 7.072192513368984,
+              "mannwhitney_p": 0.001069787770984336
+            },
+            "KRT15": {
+              "linear_fold": 4.564417762979129,
+              "detection_ratio": 2.8903743315508024,
+              "mannwhitney_p": 0.0006285538454981227
+            }
+          }
+        },
+        {
+          "accession": "GSM10173946",
+          "cohort": "NSCLC",
+          "n_state": 1058,
+          "n_tumour": 572,
+          "state_fraction": 0.649079754601227,
+          "programme_strength": -0.6765551298026427,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 1.311873499660403,
+              "detection_ratio": 2.7965973534971647,
+              "mannwhitney_p": 4.146558322569705e-33
+            },
+            "PIEZO1": {
+              "linear_fold": 0.9312407997025817,
+              "detection_ratio": 2.2454113055674125,
+              "mannwhitney_p": 3.088188986952377e-19
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.46294956204475446
+            },
+            "KCNA3": {
+              "linear_fold": 0.4715568028012124,
+              "detection_ratio": 0.5406427221172023,
+              "mannwhitney_p": 0.65856916833848
+            },
+            "TMEM150C": {
+              "linear_fold": 2.3377413437130623,
+              "detection_ratio": 3.4841419869775256,
+              "mannwhitney_p": 0.00017748804886780274
+            },
+            "STOML3": {
+              "linear_fold": 1.2347683813175256,
+              "detection_ratio": 1.0812854442344046,
+              "mannwhitney_p": 0.9496689800169167
+            },
+            "PIEZO2": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.46294956204475446
+            },
+            "CD276": {
+              "linear_fold": 1.2022661297516297,
+              "detection_ratio": 2.68241965973535,
+              "mannwhitney_p": 6.712846501960953e-13
+            },
+            "ACTB": {
+              "linear_fold": 1.455495148939065,
+              "detection_ratio": 1.1503736622737226,
+              "mannwhitney_p": 7.625210065991509e-16
+            },
+            "KRT14": {
+              "linear_fold": 0.3240359979450493,
+              "detection_ratio": 2.7032136105860114,
+              "mannwhitney_p": 0.020978787046074775
+            },
+            "KRT15": {
+              "linear_fold": 1.208036244950585,
+              "detection_ratio": 2.615202004659955,
+              "mannwhitney_p": 5.685587729215827e-10
+            }
+          }
+        },
+        {
+          "accession": "GSM10173947",
+          "cohort": "NSCLC",
+          "n_state": 127,
+          "n_tumour": 112,
+          "state_fraction": 0.5313807531380753,
+          "programme_strength": 1.4499296304168423,
+          "folds": {
+            "KCNN4": {
+              "linear_fold": 6.872975727731486,
+              "detection_ratio": 7.231496062992125,
+              "mannwhitney_p": 9.60397339317786e-08
+            },
+            "PIEZO1": {
+              "linear_fold": 0.4321685902731811,
+              "detection_ratio": 1.4614173228346456,
+              "mannwhitney_p": 0.12977330747254714
+            },
+            "CACNA1E": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 1.0
+            },
+            "KCNA3": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.35200611615957245
+            },
+            "TMEM150C": {
+              "linear_fold": 2.268943952818196,
+              "detection_ratio": 4.409448818897638,
+              "mannwhitney_p": 0.033748043130757126
+            },
+            "STOML3": {
+              "linear_fold": 0.2456019705750019,
+              "detection_ratio": 0.1763779527559055,
+              "mannwhitney_p": 0.0726000832574224
+            },
+            "PIEZO2": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.35200611615957245
+            },
+            "CD276": {
+              "linear_fold": 0.6777696146179426,
+              "detection_ratio": 1.1640944881889763,
+              "mannwhitney_p": 0.7468269252136519
+            },
+            "ACTB": {
+              "linear_fold": 1.966854051090754,
+              "detection_ratio": 1.1199999999999999,
+              "mannwhitney_p": 1.1198162545615632e-13
+            },
+            "KRT14": {
+              "linear_fold": null,
+              "detection_ratio": null,
+              "mannwhitney_p": 0.02027937081008188
+            },
+            "KRT15": {
+              "linear_fold": 2.7319472554932394,
+              "detection_ratio": 6.525984251968503,
+              "mannwhitney_p": 3.468477516760713e-14
+            }
+          }
+        }
+      ],
+      "tests": {
+        "KCNN4": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 5.151923039156576,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.5969487562142313,
+            "null_sd": 0.5225831587641966,
+            "effect_in_null_sd": 6.802695845287359,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.5732748590115706
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 4.47417592951102
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 3.5102288648991884
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 1.2707732354900267
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 1.5667856367218607
+              },
+              {
+                "accession": "GSM10173940",
+                "z": -0.12447272492966678
+              },
+              {
+                "accession": "GSM10173945",
+                "z": 2.0773648296594254
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 0.4131362569924537
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 1.6945022301138497
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 9,
+            "spearman_rho_vs_programme_strength": 0.33333333333333337,
+            "permutation_p": 0.373134328358209
+          }
+        },
+        "PIEZO1": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 0.85383756624908,
+            "permutation_p": 0.9303482587064676,
+            "null_mean": 1.6261980180776976,
+            "null_sd": 0.5085410482188396,
+            "effect_in_null_sd": -1.5187770083335514,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": -0.03722048116399522
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.19969622471393497
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 0.09660393686917622
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 1.2274364536821587
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 0.2671393633742828
+              },
+              {
+                "accession": "GSM10173940",
+                "z": 0.36096199321484235
+              },
+              {
+                "accession": "GSM10173945",
+                "z": 0.009473788249205441
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 0.31527632882263656
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 0.1221450909849982
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 9,
+            "spearman_rho_vs_programme_strength": -0.18333333333333335,
+            "permutation_p": 0.6965174129353234
+          }
+        },
+        "CACNA1E": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 7,
+            "stouffer_z": -0.24444060074279664,
+            "permutation_p": 0.6019900497512438,
+            "null_mean": 0.023422625981498992,
+            "null_sd": 0.4452042152556519,
+            "effect_in_null_sd": -0.6016637254220047,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": -0.13453455879926246
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.6720868100715182
+              },
+              {
+                "accession": "GSM10173937",
+                "z": -0.6441566264008309
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 0.08362420100070922
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 0.08362420100070922
+              },
+              {
+                "accession": "GSM10173940",
+                "z": -0.17503501050350123
+              },
+              {
+                "accession": "GSM10173945",
+                "z": null
+              },
+              {
+                "accession": "GSM10173946",
+                "z": -0.5323380562620124
+              },
+              {
+                "accession": "GSM10173947",
+                "z": null
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 4,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "KCNA3": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 8,
+            "stouffer_z": 0.32395819458523395,
+            "permutation_p": 0.4228855721393035,
+            "null_mean": 0.01106788170731359,
+            "null_sd": 0.4362092240772473,
+            "effect_in_null_sd": 0.7172941231121497,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 0.5811651794507319
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 1.028910958319668
+              },
+              {
+                "accession": "GSM10173940",
+                "z": -0.558883178705433
+              },
+              {
+                "accession": "GSM10173945",
+                "z": null
+              },
+              {
+                "accession": "GSM10173946",
+                "z": -0.13490081421628677
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 0.0
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 6,
+            "spearman_rho_vs_programme_strength": 0.2,
+            "permutation_p": 0.736318407960199
+          }
+        },
+        "TMEM150C": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 1.0044349577308849,
+            "permutation_p": 0.39303482587064675,
+            "null_mean": 0.9157713567670069,
+            "null_sd": 0.522276864887504,
+            "effect_in_null_sd": 0.16976360035203866,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.6478599877644793
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.1822194700936717
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 0.7005891049023404
+              },
+              {
+                "accession": "GSM10173938",
+                "z": -0.07216663586412023
+              },
+              {
+                "accession": "GSM10173939",
+                "z": -0.5734154639722717
+              },
+              {
+                "accession": "GSM10173940",
+                "z": -0.04888364132928722
+              },
+              {
+                "accession": "GSM10173945",
+                "z": -0.2587513376990526
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 1.137028943729142
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 1.2988244455677533
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 8,
+            "spearman_rho_vs_programme_strength": -0.4523809523809524,
+            "permutation_p": 0.3034825870646766
+          }
+        },
+        "STOML3": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 7,
+            "stouffer_z": 0.9205183363800516,
+            "permutation_p": 0.04477611940298507,
+            "null_mean": 0.18398529909441513,
+            "null_sd": 0.4113449087678515,
+            "effect_in_null_sd": 1.7905485678474986,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM10173935",
+                "z": null
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 1.7332964393786165
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 1.1734773880769365
+              },
+              {
+                "accession": "GSM10173939",
+                "z": null
+              },
+              {
+                "accession": "GSM10173940",
+                "z": -0.17503501050350123
+              },
+              {
+                "accession": "GSM10173945",
+                "z": -0.11126062960372368
+              },
+              {
+                "accession": "GSM10173946",
+                "z": -0.18501559201181064
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 0.0
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 7,
+            "spearman_rho_vs_programme_strength": -0.28571428571428575,
+            "permutation_p": 0.6169154228855721
+          }
+        },
+        "PIEZO2": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 8,
+            "stouffer_z": 0.8527052105409993,
+            "permutation_p": 0.07462686567164178,
+            "null_mean": 0.20613319698206567,
+            "null_sd": 0.42199540933271,
+            "effect_in_null_sd": 1.532177837150742,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.0
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.30425605537923195
+              },
+              {
+                "accession": "GSM10173937",
+                "z": -0.0912870929175277
+              },
+              {
+                "accession": "GSM10173938",
+                "z": null
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 1.636827321131853
+              },
+              {
+                "accession": "GSM10173940",
+                "z": 1.3277100198099605
+              },
+              {
+                "accession": "GSM10173945",
+                "z": -0.1884445903611023
+              },
+              {
+                "accession": "GSM10173946",
+                "z": -0.5772471661358417
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 0.0
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 4,
+            "spearman_rho_vs_programme_strength": NaN,
+            "permutation_p": NaN
+          }
+        },
+        "CD276": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 1.8409702185723855,
+            "permutation_p": 0.31343283582089554,
+            "null_mean": 1.572058444582588,
+            "null_sd": 0.5230928864578449,
+            "effect_in_null_sd": 0.5140803496884652,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.21985946054055636
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 1.1580246396236493
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 0.6446778064821129
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 0.1110372528165781
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 1.0642057696950793
+              },
+              {
+                "accession": "GSM10173940",
+                "z": 0.3406808569331301
+              },
+              {
+                "accession": "GSM10173945",
+                "z": 0.246848546771699
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 0.6572991677791528
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 1.0802771550751997
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 9,
+            "spearman_rho_vs_programme_strength": -0.06666666666666667,
+            "permutation_p": 0.8606965174129353
+          }
+        },
+        "ACTB": {
+          "role": "specificity control",
+          "within_state_cells": {
+            "n_libraries": 5,
+            "stouffer_z": -0.10086691525372535,
+            "permutation_p": 0.8208955223880597,
+            "null_mean": 0.12498579932979322,
+            "null_sd": 0.4604069816739284,
+            "effect_in_null_sd": -0.49055015143856584,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": -0.050477126072168754
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 0.5896012462924632
+              },
+              {
+                "accession": "GSM10173937",
+                "z": null
+              },
+              {
+                "accession": "GSM10173938",
+                "z": null
+              },
+              {
+                "accession": "GSM10173939",
+                "z": -0.30948218168292213
+              },
+              {
+                "accession": "GSM10173940",
+                "z": null
+              },
+              {
+                "accession": "GSM10173945",
+                "z": -0.2645018418110262
+              },
+              {
+                "accession": "GSM10173946",
+                "z": -0.19068537591438653
+              },
+              {
+                "accession": "GSM10173947",
+                "z": null
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 9,
+            "spearman_rho_vs_programme_strength": 0.6166666666666666,
+            "permutation_p": 0.07960199004975124
+          }
+        },
+        "KRT14": {
+          "role": "power control",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 15.703380849614796,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.1340910369196548,
+            "null_sd": 0.49726112910558895,
+            "effect_in_null_sd": 29.29907237853189,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 0.7043747206880252
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 20.696761742217326
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 6.575994143278162
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 2.5972246095457
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 2.701794699919198
+              },
+              {
+                "accession": "GSM10173940",
+                "z": 2.3289940583177975
+              },
+              {
+                "accession": "GSM10173945",
+                "z": 4.30215920350037
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 5.127098195774029
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 2.075741175603784
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 6,
+            "spearman_rho_vs_programme_strength": 0.6,
+            "permutation_p": 0.25870646766169153
+          }
+        },
+        "KRT15": {
+          "role": "candidate channel",
+          "within_state_cells": {
+            "n_libraries": 9,
+            "stouffer_z": 31.419040779947,
+            "permutation_p": 0.004975124378109453,
+            "null_mean": 1.7088776312360319,
+            "null_sd": 0.547187064411403,
+            "effect_in_null_sd": 54.29617233490257,
+            "per_library_z": [
+              {
+                "accession": "GSM10173933",
+                "z": 6.923558943398784
+              },
+              {
+                "accession": "GSM10173935",
+                "z": 16.98349043508131
+              },
+              {
+                "accession": "GSM10173937",
+                "z": 13.289059406622991
+              },
+              {
+                "accession": "GSM10173938",
+                "z": 8.934630264572302
+              },
+              {
+                "accession": "GSM10173939",
+                "z": 8.124473238554225
+              },
+              {
+                "accession": "GSM10173940",
+                "z": 9.62180443219957
+              },
+              {
+                "accession": "GSM10173945",
+                "z": 6.947141408280214
+              },
+              {
+                "accession": "GSM10173946",
+                "z": 14.855907964369235
+              },
+              {
+                "accession": "GSM10173947",
+                "z": 8.577056246762364
+              }
+            ]
+          },
+          "across_libraries": {
+            "n_libraries": 9,
+            "spearman_rho_vs_programme_strength": 0.6333333333333333,
+            "permutation_p": 0.07960199004975124
+          }
+        }
+      }
+    }
+  }
+}

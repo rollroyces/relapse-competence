@@ -264,6 +264,20 @@ quantities those projections assume.
   measured in the pilot, not assumed here.
 - **It does not make the readout clinical.** Every number remains a
   measurement on a public deposit or a projection informed by one.
+- **It does not establish that the channel is more than a shadow of the
+  transcriptional programme.** The driver-versus-passenger audit
+  ([`KCNN4-DRIVER-OR-PASSENGER.md`](KCNN4-DRIVER-OR-PASSENGER.md)) finds
+  that, in EGFR-mutant NSCLC state cells, KCNN4's expression co-allocates
+  with the basaloid programme beyond what cell complexity explains — the
+  channel is the only candidate for which that holds, and the housekeeping
+  control stays flat. If the channel is simply a transcriptional output of
+  the programme, then a plasma panel measuring the programme's own keratins
+  would carry the same information and more of it, and the electrical
+  framing adds nothing. That reading is not excluded: co-expression is also
+  what a shared upstream cause would look like, and only a perturbation
+  experiment settles it. The premise of this specification is therefore
+  conditional on that experiment, which is why it should precede the EEMS
+  application rather than follow it.
 
 ## 11. What the data-access applications are for
 

@@ -1656,6 +1656,93 @@ def main(argv: list[str] | None = None) -> int:
                 "not a mechanism" in readme,
             )
 
+    # --- the driver-versus-passenger audit must agree with its artefact ---
+    dpa_artefact = Path(
+        "results/driver_passenger_audit/driver_passenger_audit.json"
+    )
+    dpa_doc = Path("docs/KCNN4-DRIVER-OR-PASSENGER.md")
+    chk("the driver-passenger audit artefact exists", dpa_artefact.exists())
+    chk("the driver-passenger audit document exists", dpa_doc.exists())
+    if dpa_artefact.exists() and dpa_doc.exists():
+        dpa = json.loads(dpa_artefact.read_text())
+        dpa_text = dpa_doc.read_text()
+        nsclc = dpa["datasets"].get("GSE353299", {})
+
+        def _within(gene: str, dataset: dict) -> dict:
+            return (
+                dataset.get("tests", {})
+                .get(gene, {})
+                .get("within_state_cells", {})
+            )
+
+        # The cohort the document quotes has to be one where the controls
+        # hold: a specificity control that fails makes every number in that
+        # cohort unreadable, which is why one cohort is set aside.
+        actb = _within("ACTB", nsclc)
+        krt14 = _within("KRT14", nsclc)
+        kcnn4 = _within("KCNN4", nsclc)
+        chk(
+            "the specificity control holds in the cohort the document quotes",
+            actb.get("permutation_p", 1.0) > 0.05,
+            str(actb.get("permutation_p")),
+        )
+        chk(
+            "the power control holds in the cohort the document quotes",
+            krt14.get("permutation_p", 1.0) < 0.05,
+            str(krt14.get("permutation_p")),
+        )
+        chk(
+            "KCNN4 is coupled to the programme in that cohort",
+            kcnn4.get("permutation_p", 1.0) < 0.05,
+            str(kcnn4.get("permutation_p")),
+        )
+        for label, entry in (
+            ("KCNN4", kcnn4),
+            ("the power control", krt14),
+            ("the specificity control", actb),
+        ):
+            value = entry.get("stouffer_z")
+            if value is None:
+                continue
+            chk(
+                f"the driver-passenger document quotes {label}'s z-score {value:.2f}",
+                f"{value:.2f}" in dpa_text,
+            )
+        sCLC = dpa["datasets"].get("GSE299684", {})
+        sactb = _within("ACTB", sCLC)
+        chk(
+            "the SCLC cohort's specificity control fails, as the document says",
+            sactb.get("permutation_p", 1.0) < 0.05,
+            str(sactb.get("permutation_p")),
+        )
+        chk(
+            "the document records the SCLC cohort as uninterpretable",
+            "not interpretable" in dpa_text,
+        )
+        chk(
+            "the document states the result is not causal",
+            "Not settled" in dpa_text
+            and "Causation, and the reason matters" in dpa_text,
+        )
+        chk(
+            "the document states the falsifiable perturbation test",
+            "knocking KCNN4 down" in dpa_text,
+        )
+        spec_path = Path("docs/PLASMA-ASSAY-SPECIFICATION.md")
+        if spec_path.exists():
+            spec_text = spec_path.read_text()
+            chk(
+                "the assay specification records that the channel may be a "
+                "shadow of the transcriptional programme",
+                "KCNN4-DRIVER-OR-PASSENGER.md" in spec_text
+                and "shadow of the" in spec_text,
+            )
+            chk(
+                "the assay specification says the premise is conditional on the "
+                "perturbation experiment",
+                "conditional on that experiment" in spec_text,
+            )
+
     # --- the gate review must agree with its artefact ---
     gate_artefact_path = Path("results/gate_review/gate_review.json")
     gate_doc_path = Path("docs/GATE-REVIEW.md")
