@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T09:00:25.831155+00:00",
-    "git_commit": "a192581a83b13adc23bcea5cac43372533c1ca04",
+    "generated_at": "2026-11-11T09:23:09.660276+00:00",
+    "git_commit": "8271797a69277527b48ce34b3070c4ceeece48d2",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -117,22 +117,29 @@
       "Application": "PLCO-EEMS",
       "Step": "Confirm the EEMS preliminary application deadline",
       "Owner": "PI",
-      "Status": "done \u2014 Feb 18, 11:59 PM EST",
-      "Depends on": "the CDAS PLCO page, read 2026-11-11"
+      "Status": "done \u2014 preliminary applications are rolling; Feb 18 is the final-application deadline for the January/February round",
+      "Depends on": "the EEMS policies, read 2026-11-11"
     },
     {
       "Application": "PLCO-EEMS",
       "Step": "Prepare the EEMS preliminary application",
       "Owner": "PI",
-      "Status": "not started",
+      "Status": "not started \u2014 it is rolling, so it does not have to wait for Feb 18",
       "Depends on": "PLCO-DATA scoping"
     },
     {
       "Application": "PLCO-EEMS",
-      "Step": "Submit the EEMS preliminary application before the deadline",
+      "Step": "Submit the EEMS preliminary application",
       "Owner": "PI",
       "Status": "blocked",
-      "Depends on": "deadline, application text"
+      "Depends on": "the scoping answers, the application text"
+    },
+    {
+      "Application": "PLCO-EEMS",
+      "Step": "Submit the EEMS final application by Feb 18, 11:59 PM EST",
+      "Owner": "PI",
+      "Status": "blocked",
+      "Depends on": "preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member"
     },
     {
       "Application": "TZL-EGA",
@@ -308,7 +315,21 @@
       "Prerequisite": "An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal",
       "Owner": "PI",
       "Status": "not started",
-      "Applies to": "PLCO-DATA, PLCO-EEMS"
+      "Applies to": "PLCO-DATA"
+    },
+    {
+      "#": "11",
+      "Prerequisite": "An institution willing to execute the NCI Material Transfer Agreement for the specimens",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "PLCO-EEMS"
+    },
+    {
+      "#": "12",
+      "Prerequisite": "A laboratory to run the transcript assay on the aliquots, blinded, with pilot QC",
+      "Owner": "PI",
+      "Status": "not started",
+      "Applies to": "PLCO-EEMS"
     }
   ],
   "external_facts": [
@@ -416,8 +437,50 @@
     },
     {
       "Fact": "PLCO EEMS biospecimen application deadline",
-      "Value": "Feb 18, 11:59 PM EST",
-      "Source": "CDAS PLCO study page",
+      "Value": "Feb 18, 11:59 PM EST \u2014 the final-application round; preliminary applications are rolling",
+      "Source": "CDAS PLCO page, and the EEMS policies",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO EEMS eligibility",
+      "Value": "a self-funded applicant may register and apply: \"If you have your own source of funding and wish to obtain PLCO biospecimens\"; the resource is \"available to the entire scientific community\"",
+      "Source": "PLCO EEMS Application Process and Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO biospecimens in the repository",
+      "Value": "about 2.9 million specimens; plasma banked at T0, T3, T4, T5 but not T1 or T2",
+      "Source": "PLCO EEMS Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO lung tumour collection",
+      "Value": "435 PLCO cases in 3,773 cores, plus 446 NLST-LSS cases in 3,951 cores",
+      "Source": "PLCO EEMS Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO tissue with matched prediagnostic blood",
+      "Value": "nearly all tissue samples have prediagnostic blood samples or buccal cells from the same patient",
+      "Source": "PLCO EEMS Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO serial-sample approval",
+      "Value": "a higher bar than non-serial applications, and time-related evaluations are expected only after the disease-proximate analysis performs adequately",
+      "Source": "PLCO EEMS Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO new-assay pilot",
+      "Value": "a pilot is required for assay reproducibility and its data must be approved by NCI before full analytic samples are released",
+      "Source": "PLCO EEMS Policies & Procedures",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO phenotype-data sequencing",
+      "Value": "laboratory results are submitted before the investigator is given phenotype data; only the PLCO team links them",
+      "Source": "PLCO EEMS Policies & Procedures",
       "Verified on": "2026-11-11"
     },
     {

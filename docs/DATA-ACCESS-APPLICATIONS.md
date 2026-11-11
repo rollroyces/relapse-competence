@@ -160,22 +160,77 @@ expected time for a new project to have data delivered is 1–4 weeks.
 ### 2.2 PLCO — EEMS biospecimen application (CDAS)
 
 **Route:** [cdas.cancer.gov/plco](https://cdas.cancer.gov/plco/) → "Begin an
-EEMS Biospecimens Application" (preliminary application). **Verified
-2026-11-10.**
+EEMS Biospecimens Application". The governing documents are the *PLCO EEMS
+Application Process* (updated June 30, 2025) and the *PLCO EEMS Policies &
+Procedures* (updated June 16, 2025). **Verified 2026-11-11.**
 
-**Deadline:** the CDAS PLCO study page carries the EEMS application period
-closing on **Feb 18 at 11:59 PM EST** (read 2026-11-11). That is the date
-the preliminary application has to be in, so the scoping inquiry's answers
-have to arrive, and the institutional PI has to be in place, well before it.
+**This is the route that does not require an institutional PI.** The
+professor-level requirement is in the *data* instructions — "Instructions for
+Accessing Data Through the CDAS Website" — and not in the EEMS instructions.
+The EEMS process says: "If you have your own source of funding and wish to
+obtain PLCO biospecimens, then you should register with CDAS and begin the
+EEMS Application for Biospecimens." The policies say the resource "is
+available to the entire scientific community" and that access "is based on a
+peer review process". What the EEMS application asks for is "contact
+information for your Principal Investigator" — it does not restate the
+employment or rank requirement that the data route does.
 
-**Why it is a separate application.** The Data-Only route delivers the
-phenotype data. The plasma itself is a biospecimen, and aliquots are
-released through the NCI's Etiologic and Early Marker Studies programme, whose
-first step is a preliminary application. **Expected time to a review outcome:
-4–6 months from the preliminary application deadline.** Preliminary-application
-deadlines are announced on the CDAS home page; data-only projects are not
-listed among the dated deadlines, so they appear to be open continuously, but
-that should be confirmed with the coordinating centre rather than assumed.
+**Two deadlines, not one.** Preliminary applications are "accepted on a
+rolling basis" and are reviewed for feasibility by NCI PLCO EEMS staff; on
+acceptance of the preliminary application, a final application may be
+submitted. Final proposals are "accepted on a twice yearly basis
+(June/July and January/February)". The Feb 18 date on the CDAS PLCO page is
+therefore the **final application** deadline for the January/February round,
+not a preliminary deadline. The tracker previously said otherwise, and that
+was wrong: the preliminary application can go in at any time, but the
+research plan and an NIH biosketch for every member of the investigative team
+have to be in by Feb 18, which means the preliminary application has to be
+accepted first.
+
+**Why this programme fits the EEMS programme's own priorities.** The
+policies say PLCO resources "are most suitable for Phase III studies", which
+are "retrospective longitudinal repository studies to determine if a biomarker
+can detect cancer before clinical diagnosis", and they name the questions:
+how well a biomarker distinguishes people who later developed cancer from
+those who did not, and how early, before clinical diagnosis, it can detect
+cancer — the lead time. That is the design in
+[`PLASMA-ASSAY-SPECIFICATION.md`](PLASMA-ASSAY-SPECIFICATION.md).
+
+**What the specimens allow.** Plasma is banked at T0, T3, T4 and T5; at T1
+and T2 the plasma, red-cell and buffy-coat fractions were not. Nearly all
+tissue samples have corresponding prediagnostic blood samples or buccal cells
+from the same patient, which is what the per-molecule attribution needs. The
+lung tumour collection is 435 PLCO cases in 3,773 cores, plus 446 NLST-LSS
+cases in 3,951 cores, with additional tissue cores for DNA, RNA and protein.
+
+**Three requirements to plan around.**
+- *Serial samples face a higher bar.* Applications "requesting the use of
+  serial samples will be subjected to additional scrutiny during scientific
+  review and a higher bar for approval", and the policies hold that
+  time-related evaluations "should occur only after PLCO studies demonstrate
+  that the analysis from the disease-proximate samples shows adequate
+  performance results". A disease-proximate-first design, with serial
+  sampling as a later step, is the shape the policies point at.
+- *A new assay needs a pilot first.* "Pilot studies will be required for new
+  assays to establish assay reproducibility", and pilot data "must be
+  evaluated and approved by NCI before full analytic samples can be
+  released".
+- *The phenotype data comes after the assay.* "Investigators are expected to
+  submit laboratory analysis results before they are provided with phenotype
+  data for their population", and the linking of laboratory data to
+  individual data "shall only be performed by the NCI PLCO team". The
+  analysis is therefore blinded, which is exactly why the panel, the
+  operating point and the thresholds are fixed in advance.
+
+**The one institutional thing an individual cannot sign.** Specimen shipment
+requires a Material Transfer Agreement with NCI, and the Technology Transfer
+Center contacts "extramural investigators" to execute one. An MTA is a legal
+instrument for an institution, so this needs a counterparty — but it does not
+have to be the institution that employs the applicant, and it does not have
+to be the PI's institution.
+
+**Expected time to a review outcome:** 4–6 months from the final application
+deadline.
 
 **The number of lung-cancer participants with usable serial plasma and a
 matched tumour is the scoping question that has to be answered first.** It
@@ -247,7 +302,14 @@ published practice is to answer an initial request within two weeks.
 | CDAS PI eligibility | permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
-| PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST | CDAS PLCO study page | 2026-11-11 |
+| PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; preliminary applications are rolling | CDAS PLCO page, and the EEMS policies | 2026-11-11 |
+| PLCO EEMS eligibility | a self-funded applicant may register and apply: "If you have your own source of funding and wish to obtain PLCO biospecimens"; the resource is "available to the entire scientific community" | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
+| PLCO biospecimens in the repository | about 2.9 million specimens; plasma banked at T0, T3, T4, T5 but not T1 or T2 | PLCO EEMS Policies & Procedures | 2026-11-11 |
+| PLCO lung tumour collection | 435 PLCO cases in 3,773 cores, plus 446 NLST-LSS cases in 3,951 cores | PLCO EEMS Policies & Procedures | 2026-11-11 |
+| PLCO tissue with matched prediagnostic blood | nearly all tissue samples have prediagnostic blood samples or buccal cells from the same patient | PLCO EEMS Policies & Procedures | 2026-11-11 |
+| PLCO serial-sample approval | a higher bar than non-serial applications, and time-related evaluations are expected only after the disease-proximate analysis performs adequately | PLCO EEMS Policies & Procedures | 2026-11-11 |
+| PLCO new-assay pilot | a pilot is required for assay reproducibility and its data must be approved by NCI before full analytic samples are released | PLCO EEMS Policies & Procedures | 2026-11-11 |
+| PLCO phenotype-data sequencing | laboratory results are submitted before the investigator is given phenotype data; only the PLCO team links them | PLCO EEMS Policies & Procedures | 2026-11-11 |
 | CDAS contact form: message field limit, enforced by the field | 10,000 characters | CDAS contact form | 2026-11-11 |
 | CDAS contact form: inquiry reference number issued | none — the form returns only a confirmation banner | CDAS contact form | 2026-11-11 |
 | CDAS contact form: topic list appears only after a subject is chosen | yes | CDAS contact form | 2026-11-11 |
@@ -284,9 +346,10 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Accept the CDAS data use agreement | PI | blocked | — |
 | PLCO-DATA | List project staff | PI | blocked | — |
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
-| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — Feb 18, 11:59 PM EST | the CDAS PLCO page, read 2026-11-11 |
-| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started | PLCO-DATA scoping |
-| PLCO-EEMS | **Submit the EEMS preliminary application before the deadline** | PI | blocked | deadline, application text |
+| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — preliminary applications are rolling; Feb 18 is the final-application deadline for the January/February round | the EEMS policies, read 2026-11-11 |
+| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, so it does not have to wait for Feb 18 | PLCO-DATA scoping |
+| PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, the application text |
+| PLCO-EEMS | **Submit the EEMS final application by Feb 18, 11:59 PM EST** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |
 | TZL-EGA | Create and validate an EGA user account on an institutional address | PI | not started | — |
 | TZL-EGA | Identify the dataset, its EGAD accession and its DAC | PI | blocked | a deposit existing |
@@ -320,7 +383,9 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | 7 | Statement of where the data will be stored and who will access it | PI | not started | TZL-EGA, TZL-DIRECT |
 | 8 | Pre-specified analysis plan | programme | prepared; §2.1 aims 1–3 | all |
 | 9 | Confirmation that the panel and operating point will not be re-tuned after the data are opened | programme | prepared | all |
-| 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started | PLCO-DATA, PLCO-EEMS |
+| 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started | PLCO-DATA |
+| 11 | An institution willing to execute the NCI Material Transfer Agreement for the specimens | PI | not started | PLCO-EEMS |
+| 12 | A laboratory to run the transcript assay on the aliquots, blinded, with pilot QC | PI | not started | PLCO-EEMS |
 
 ## 5. What these applications cannot deliver, and what would
 

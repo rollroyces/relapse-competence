@@ -2486,6 +2486,58 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(sorted(fact_rows)),
         )
+        # The EEMS route is the one that does not require an institutional
+        # PI, and its deadline means something different from the one the
+        # tracker used to state. Both are load-bearing, so both are checked.
+        chk(
+            "the tracker says the EEMS preliminary application is rolling",
+            any(
+                "rolling" in step["Status"]
+                for step in tracker["steps"]
+                if step["Step"] == "Confirm the EEMS preliminary application deadline"
+            ),
+            str(
+                [
+                    step["Status"]
+                    for step in tracker["steps"]
+                    if step["Step"]
+                    == "Confirm the EEMS preliminary application deadline"
+                ]
+            ),
+        )
+        chk(
+            "the tracker has a separate final-application step for Feb 18",
+            any(
+                "final application" in step["Step"]
+                and "2026-11-11" not in step["Status"]
+                for step in tracker["steps"]
+            )
+            and any(
+                "Feb 18" in step["Step"] for step in tracker["steps"]
+            ),
+            str([step["Step"] for step in tracker["steps"]]),
+        )
+        # The document is line-wrapped, so the phrases are matched against a
+        # whitespace-normalised copy: a rule that is quoted correctly but
+        # broken across two lines is still there.
+        flat = " ".join(tracker_text.split())
+        for phrase in (
+            "your own source of funding",
+            "entire scientific community",
+            "accepted on a rolling basis",
+            "higher bar for approval",
+            "before they are provided with phenotype data",
+        ):
+            chk(
+                f"the data-access document records the EEMS rule {phrase!r}",
+                phrase in flat,
+            )
+        for figure in ("2.9 million", "435 PLCO cases", "3,773 cores", "446 NLST-LSS"):
+            chk(
+                f"the data-access document records the PLCO specimen figure "
+                f"{figure!r}",
+                figure in flat,
+            )
 
         # The host invitation is outbound correspondence rather than a
         # submission document, so it is checked here instead of in the
