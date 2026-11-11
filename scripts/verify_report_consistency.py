@@ -2538,6 +2538,18 @@ def main(argv: list[str] | None = None) -> int:
                 f"{figure!r}",
                 figure in flat,
             )
+        # Where the pool of people who can be the PI comes from has to be
+        # recorded, because it is what turns "find a host" from a vague
+        # intention into a list that can be worked through.
+        chk(
+            "the data-access document records where the host pool comes from",
+            "approved-projects/plco/" in flat
+            and "bio_types=plco_bio_eems" in flat,
+        )
+        chk(
+            "the data-access document records the pilot precedent",
+            "Analytical Suitability and Storage-Stability Pilot" in flat,
+        )
 
         # The host invitation is outbound correspondence rather than a
         # submission document, so it is checked here instead of in the

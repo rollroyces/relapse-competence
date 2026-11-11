@@ -232,6 +232,22 @@ to be the PI's institution.
 **Expected time to a review outcome:** 4–6 months from the final application
 deadline.
 
+**Where the pool of people who can be that PI comes from.** CDAS publishes
+every approved PLCO project with its Principal Investigator and institution,
+and the list can be filtered to biospecimen studies:
+`https://cdas.cancer.gov/approved-projects/plco/?data&data_types=plco_data_images&bio_types=plco_bio_eems&bio_types=plco_bio_par`.
+Those investigators have already been through EEMS, hold the biosketches,
+and know what the review asks. Two of the recent entries are instructive. A
+project approved on 2026-09-15 is titled "Analytical Suitability and
+Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early
+Detection Assay Using Pre-Diagnostic PLCO Specimens" — a new multi-omics
+early-detection assay on pre-diagnostic PLCO specimens, brought to NCI as a
+pilot, which is exactly the shape the policies describe for an assay that
+has not been validated. And one prostate project appears twice, once as an
+original and once as a continuation credited to a different Principal
+Investigator, which shows the role can change hands inside a project's life
+rather than being fixed for its duration.
+
 **The number of lung-cancer participants with usable serial plasma and a
 matched tumour is the scoping question that has to be answered first.** It
 determines whether this application is worth the 4–6 months, and it can be
@@ -303,6 +319,7 @@ published practice is to answer an initial request within two weeks.
 | CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; preliminary applications are rolling | CDAS PLCO page, and the EEMS policies | 2026-11-11 |
+| CDAS: PLCO approved-project list | public, with the Principal Investigator and institution for every project, and filterable by biospecimen type | CDAS approved projects | 2026-11-11 |
 | PLCO EEMS eligibility | a self-funded applicant may register and apply: "If you have your own source of funding and wish to obtain PLCO biospecimens"; the resource is "available to the entire scientific community" | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
 | PLCO biospecimens in the repository | about 2.9 million specimens; plasma banked at T0, T3, T4, T5 but not T1 or T2 | PLCO EEMS Policies & Procedures | 2026-11-11 |
 | PLCO lung tumour collection | 435 PLCO cases in 3,773 cores, plus 446 NLST-LSS cases in 3,951 cores | PLCO EEMS Policies & Procedures | 2026-11-11 |

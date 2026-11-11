@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T09:23:09.660276+00:00",
-    "git_commit": "8271797a69277527b48ce34b3070c4ceeece48d2",
+    "generated_at": "2026-11-11T09:30:38.488972+00:00",
+    "git_commit": "44ddcfbef810379a914bd215d36ba6f1a3fa1493",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -439,6 +439,12 @@
       "Fact": "PLCO EEMS biospecimen application deadline",
       "Value": "Feb 18, 11:59 PM EST \u2014 the final-application round; preliminary applications are rolling",
       "Source": "CDAS PLCO page, and the EEMS policies",
+      "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "CDAS: PLCO approved-project list",
+      "Value": "public, with the Principal Investigator and institution for every project, and filterable by biospecimen type",
+      "Source": "CDAS approved projects",
       "Verified on": "2026-11-11"
     },
     {
