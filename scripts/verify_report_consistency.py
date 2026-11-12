@@ -3036,6 +3036,125 @@ def main(argv: list[str] | None = None) -> int:
                         f"the host invitation tells the PI about {phrase!r}",
                         phrase in letter,
                     )
+
+        # The Taizhou collaboration request is outbound correspondence to a
+        # different institution, so it is checked here too. Its numbers have
+        # to be this repository's own, and its central question has to be the
+        # germline one, because that is what decides whether the requested
+        # material would be usable.
+        tzl_doc = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md")
+        chk("the Taizhou collaboration request exists", tzl_doc.exists())
+        if tzl_doc.exists():
+            tzl = tzl_doc.read_text()
+            chk(
+                "the Taizhou request is marked as a draft, not sent",
+                "draft, not sent" in tzl,
+            )
+            chk(
+                "the Taizhou request is not part of the submission package",
+                "not part of the PLCO submission package" in tzl,
+            )
+            begin = "<!-- BEGIN TAIZHOU LETTER -->"
+            end = "<!-- END TAIZHOU LETTER -->"
+            chk(
+                "the Taizhou request delimits the letter",
+                begin in tzl and end in tzl,
+            )
+            if begin in tzl and end in tzl:
+                tzl_letter = tzl.split(begin)[1].split(end)[0].strip()
+                chk("the Taizhou letter is plain text", "**" not in tzl_letter)
+                chk(
+                    "the Taizhou letter names its two recipients",
+                    "Dr Ye" in tzl_letter and "Jin" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter is short enough to read",
+                    len(tzl_letter) <= 9_000,
+                    str(len(tzl_letter)),
+                )
+                # The consent question has to come before the sample
+                # request: the published consent excluded the genetic
+                # sequencing, so the material has to be usable before it is
+                # asked for.
+                germline_at = tzl_letter.find("germline material exist")
+                samples_at = tzl_letter.find("Serial plasma aliquots")
+                chk(
+                    "the Taizhou letter asks the germline question before it "
+                    "asks for samples",
+                    germline_at != -1
+                    and samples_at != -1
+                    and germline_at < samples_at,
+                    f"germline at {germline_at}, samples at {samples_at}",
+                )
+                for phrase in (
+                    "not included in the informed consent",
+                    "matched primary tumour",
+                    "US62/657,544",
+                    "ncomms-20-10056-t",
+                    "different one",
+                    "no institutional appointment",
+                    "123,115",
+                    "one to four years",
+                ):
+                    chk(
+                        f"the Taizhou letter states {phrase!r}",
+                        phrase in tzl_letter,
+                    )
+                # The figures it quotes have to be the repository's own, so
+                # they are read out of the tracker, which records them with
+                # the date they were checked.
+                tzl_counts = {row["Fact"]: row["Value"] for row in tracker["external_facts"]}
+                above_one = next(
+                    (
+                        value
+                        for fact, value in tzl_counts.items()
+                        if "within-tumour fold above 1" in fact
+                    ),
+                    None,
+                )
+                residual = next(
+                    (
+                        value
+                        for fact, value in tzl_counts.items()
+                        if "Residual-disease libraries clearing" in fact
+                    ),
+                    None,
+                )
+                chk(
+                    "the tracker records the NSCLC library counts the letter quotes",
+                    above_one == "20 of 23" and residual == "7 of 7",
+                    f"{above_one}, {residual}",
+                )
+                chk(
+                    "the Taizhou letter quotes the tracker's library counts",
+                    "20 of 23" in tzl_letter and "7 residual-disease libraries" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter does not quote an unverified AUC",
+                    "0.9929" not in tzl_letter and "0.9091" not in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter points at the assay specification",
+                    "PLASMA-ASSAY-SPECIFICATION.md" in tzl,
+                )
+                chk(
+                    "the Taizhou letter points at the localisation audit",
+                    "LOCALISATION-AUDIT.md" in tzl,
+                )
+                readme_text = Path("README.md").read_text()
+                chk(
+                    "the README links the Taizhou collaboration request",
+                    "TAIZHOU-COLLABORATION-REQUEST.md" in readme_text,
+                )
+                chk(
+                    "the tracker points at the Taizhou collaboration request",
+                    "TAIZHOU-COLLABORATION-REQUEST.md" in tracker_text,
+                )
+                roadmap_text = Path("docs/ROADMAP.md").read_text()
+                chk(
+                    "the roadmap links the Taizhou collaboration request",
+                    "TAIZHOU-COLLABORATION-REQUEST.md" in roadmap_text,
+                )
                 for figure in ("2.97", "20 of 23", "7 of 7", "155,000"):
                     chk(
                         f"the host invitation quotes the repository's figure "

@@ -260,6 +260,14 @@ magnitude apart in that share.
    what they can settle is the per-participant state fraction rather than the
    post-treatment MRD claim.
 
+   The Taizhou request is now written
+   ([`TAIZHOU-COLLABORATION-REQUEST.md`](TAIZHOU-COLLABORATION-REQUEST.md)),
+   drafted and not sent. It asks the question the published consent raises
+   first: the informed consent did not include full genetic sequencing, so
+   the per-molecule attribution the readout depends on has no source in that
+   cohort, and whether germline consent exists decides whether the requested
+   material would be usable at all.
+
    The PLCO side now has a **package ready to sign**:
    [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)
    holds the pre-filled CDAS fields, the proposal narrative, the PI cover

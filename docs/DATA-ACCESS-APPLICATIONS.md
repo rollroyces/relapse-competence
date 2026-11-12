@@ -458,7 +458,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | TZL-EGA | Accept the Data Access Agreement | PI | blocked | — |
 | TZL-DIRECT | Identify the current contact for collaboration at the Taizhou Institute | PI | not started | — |
 | TZL-DIRECT | **Establish whether germline consent exists for the lung-cancer stratum** | PI | not started — the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source | the answer |
-| TZL-DIRECT | Prepare the collaboration request from §2.3, with the conflict disclosure | PI | prepared | — |
+| TZL-DIRECT | Prepare the collaboration request from §2.3, with the conflict disclosure | PI | prepared — `docs/TAIZHOU-COLLABORATION-REQUEST.md` | — |
 | TZL-DIRECT | **Send the request** | PI | blocked | contact identified, germline consent established |
 | TZL-DIRECT | Register the EGA account in parallel | PI | not started | — |
 

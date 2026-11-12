@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-12T07:19:53.592296+00:00",
-    "git_commit": "499d5792356e404375df81e83078a7f7edcf21ec",
+    "generated_at": "2026-11-12T07:31:26.491273+00:00",
+    "git_commit": "a814f8ebb80ed0695697fb40e9a4ba1b7777f7b4",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -208,7 +208,7 @@
       "Application": "TZL-DIRECT",
       "Step": "Prepare the collaboration request from \u00a72.3, with the conflict disclosure",
       "Owner": "PI",
-      "Status": "prepared",
+      "Status": "prepared \u2014 docs/TAIZHOU-COLLABORATION-REQUEST.md",
       "Depends on": "\u2014"
     },
     {
