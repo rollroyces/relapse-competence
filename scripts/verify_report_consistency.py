@@ -3414,6 +3414,221 @@ def main(argv: list[str] | None = None) -> int:
                         cells[6],
                     )
 
+    # --- the localisation audit must agree with its artefacts ---
+    loc_artefact = Path("results/localisation_audit/localisation_audit.json")
+    loc_doc = Path("docs/LOCALISATION-AUDIT.md")
+    chk("the localisation audit artefact exists", loc_artefact.exists())
+    chk("the localisation audit report exists", loc_doc.exists())
+    if loc_artefact.exists() and loc_doc.exists():
+        loc = json.loads(loc_artefact.read_text())
+        loc_text = loc_doc.read_text()
+
+        # The control: with the attribution off, the raw statistic is the
+        # published one, and it has to reproduce the published AUCs exactly.
+        for entry in loc["control"]:
+            chk(
+                f"the localisation audit's control reproduces the published "
+                f"AUC for {entry['dataset']}/{entry['channel']}",
+                entry["matches"] is True,
+                entry,
+            )
+            chk(
+                f"the localisation audit's control finds the attributed "
+                f"statistic undefined with the attribution off for "
+                f"{entry['dataset']}/{entry['channel']}",
+                entry["auc_localised_with_attribution_off"] is None,
+                entry["auc_localised_with_attribution_off"],
+            )
+
+        # The state control: the floor-corrected statistic has to collapse to
+        # chance when the state is matched away, or it is measuring burden.
+        for row in loc["state_control"]:
+            chk(
+                f"the localised floor-corrected statistic collapses when the "
+                f"state is matched away, for {row['dataset']}/{row['channel']}",
+                abs(row["auc_localised_corrected_matched_state"] - 0.5) < 0.1,
+                row["auc_localised_corrected_matched_state"],
+            )
+            chk(
+                f"the localised floor-corrected statistic separates when the "
+                f"state differs, for {row['dataset']}/{row['channel']}",
+                row["auc_localised_corrected_realistic"]
+                > row["auc_localised_corrected_matched_state"],
+                row["auc_localised_corrected_realistic"],
+            )
+
+        # The claims the report makes, which the artefact has to support.
+        for claim in (
+            "byte-identical",
+            "default-off",
+            "by construction",
+            "the state, not the burden",
+            "attribution rate",
+            "informative position",
+        ):
+            chk(
+                f"the localisation audit report states {claim!r}",
+                claim in loc_text,
+            )
+
+        def _loc_row(dataset: str, channel: str, **filters):
+            for row in loc["sweep"] + loc["cost"]:
+                if row["dataset"] != dataset or row["channel"] != channel:
+                    continue
+                if all(row.get(key) == value for key, value in filters.items()):
+                    return row
+            return None
+
+        operating = _loc_row(
+            "NSCLC",
+            "KCNN4",
+            leukocyte_fraction=0.99,
+            attribution_rate=1.0,
+            informative_position_rate=1.0,
+            sequencing_depth=200000,
+        )
+        chk(
+            "the localisation audit has the NSCLC operating-point row",
+            operating is not None,
+        )
+        if operating is not None:
+            chk(
+                "the localisation audit report quotes the NSCLC floor-corrected "
+                "AUC",
+                f"{operating['auc_localised_corrected']:.4f}" in loc_text,
+                f"{operating['auc_localised_corrected']:.4f}",
+            )
+            chk(
+                "the localisation audit report quotes the NSCLC attributed AUC",
+                f"{operating['auc_localised']:.4f}" in loc_text,
+                f"{operating['auc_localised']:.4f}",
+            )
+            chk(
+                "the localisation audit report quotes the NSCLC raw AUC",
+                f"{operating['auc_raw']:.4f}" in loc_text,
+                f"{operating['auc_raw']:.4f}",
+            )
+            chk(
+                "the localisation audit records that the NSCLC readout clears K3 "
+                "under attribution",
+                operating["clears_k3"] is True,
+            )
+
+        # The attributed statistic must be insensitive to the leukocyte
+        # compartment, which is the structural claim the mechanism makes.
+        # The comparison is between the bulk-plasma regimes, where the
+        # compartment is present: the published model's regime has no
+        # compartment at all, so its floor sits in the numerator as well and
+        # the two statistics are not comparable there.
+        invariant = [
+            _loc_row(
+                "NSCLC",
+                "KCNN4",
+                leukocyte_fraction=fraction,
+                attribution_rate=1.0,
+                informative_position_rate=1.0,
+                sequencing_depth=200000,
+            )
+            for fraction in (0.5, 0.9, 0.99)
+        ]
+        if all(row is not None for row in invariant):
+            values = [row["auc_localised_corrected"] for row in invariant]
+            chk(
+                "the attributed statistic does not move with the leukocyte "
+                "compartment",
+                max(values) - min(values) < 0.02,
+                f"{min(values):.4f} to {max(values):.4f}",
+            )
+            raws = [row["auc_raw"] for row in invariant]
+            chk(
+                "the raw statistic is inverted throughout the bulk-plasma "
+                "regimes",
+                max(raws) < 0.1,
+                f"{min(raws):.4f} to {max(raws):.4f}",
+            )
+            # The compartment-free regime is reported separately, because
+            # there the error floor is in the numerator as well and the two
+            # statistics are not comparable.
+            no_compartment = _loc_row(
+                "NSCLC",
+                "KCNN4",
+                leukocyte_fraction=0.0,
+                attribution_rate=1.0,
+                informative_position_rate=1.0,
+                sequencing_depth=200000,
+            )
+            chk(
+                "the compartment-free regime is reported separately",
+                no_compartment is not None
+                and no_compartment["auc_localised_corrected"]
+                != invariant[0]["auc_localised_corrected"],
+            )
+            if no_compartment is not None:
+                # The collapse the leukocyte audit found: the raw statistic
+                # falls from its published value to an inverted one once the
+                # compartment is present, while the attributed one does not.
+                chk(
+                    "the raw statistic collapses when the compartment appears",
+                    no_compartment["auc_raw"] > 0.9
+                    and max(raws) < 0.1,
+                    f"{no_compartment['auc_raw']:.4f} to {max(raws):.4f}",
+                )
+                chk(
+                    "the attributed statistic survives the compartment",
+                    no_compartment["auc_localised_corrected"] > 0.85
+                    and max(values) > 0.85,
+                    f"{no_compartment['auc_localised_corrected']:.4f} to "
+                    f"{max(values):.4f}",
+                )
+
+        # The SCLC candidates must not be rescued: the per-patient audit had
+        # already excluded them, and the attributed statistic agrees.
+        for dataset, channel in (("SCLC", "KCNN4"), ("SCLC", "PIEZO1")):
+            row = _loc_row(
+                dataset,
+                channel,
+                leukocyte_fraction=0.99,
+                attribution_rate=1.0,
+                informative_position_rate=1.0,
+                sequencing_depth=200000,
+            )
+            chk(
+                f"the localisation audit does not rescue {dataset}/{channel}",
+                row is not None and row["clears_k3"] is False,
+                row,
+            )
+
+        # The gate review and the README have to carry the qualification, or
+        # the plasma arm's status is misreported at the front of the
+        # repository.
+        gate_doc = Path("docs/GATE-REVIEW.md")
+        chk("the gate review exists", gate_doc.exists())
+        if gate_doc.exists():
+            gate_text = gate_doc.read_text()
+            chk(
+                "the gate review records the localisation audit",
+                "LOCALISATION-AUDIT.md" in gate_text,
+            )
+            chk(
+                "the gate review distinguishes the bulk statistic from the "
+                "attributed one",
+                "bulk statistic" in gate_text,
+            )
+        readme = Path("README.md")
+        if readme.exists():
+            readme_text = readme.read_text()
+            chk(
+                "the README links the localisation audit",
+                "LOCALISATION-AUDIT.md" in readme_text,
+            )
+        roadmap = Path("docs/ROADMAP.md")
+        if roadmap.exists():
+            roadmap_text = roadmap.read_text()
+            chk(
+                "the roadmap links the localisation audit",
+                "LOCALISATION-AUDIT.md" in roadmap_text,
+            )
+
     # --- the plasma assay specification must agree with the artefacts ---
     spec_doc = Path("docs/PLASMA-ASSAY-SPECIFICATION.md")
     chk("the plasma assay specification exists", spec_doc.exists())

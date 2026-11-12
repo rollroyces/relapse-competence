@@ -198,6 +198,52 @@ class SimulationConfig:
     model without one bit for bit.
     """
 
+    attribution_rate: float = 0.0
+    """The probability that a tumour-derived channel-transcript read carries an
+    informative tumour signature and is therefore countable per molecule.
+
+    Zero (the default) disables the attribution model entirely, and the
+    simulator is then unchanged bit for bit.
+
+    This is the summary parameter for the whole attribution mechanism, and it
+    bundles four things the assay specification leaves to the pilot:
+
+    * how much of the channel transcript's footprint is informative at all;
+    * whether the participant's own tumour shifted the germline position;
+    * whether a cfRNA fragment spans both the channel position and the
+      informative one (the specification assumes this rather than modelling
+      the fragmentation);
+    * whether the shift is per-molecule identifiable, which a somatic
+      variant is and a loss of heterozygosity on its own is not.
+
+    It is a property of the participant, not of the panel, so the audit
+    sweeps it rather than assuming a value.
+    """
+
+    informative_position_rate: float = 1.0
+    """The probability that a participant has at least one informative position.
+
+    A participant without one has no readable channel molecule at all, so the
+    readout does not apply to them and the assay specification's first stop
+    rule is about this number.
+
+    It only has an effect when ``attribution_rate`` is above zero: with the
+    attribution model off, the simulator makes no draw for it and is
+    unchanged bit for bit.
+    """
+
+    informative_positions_mean: float = 1.0
+    """Mean number of informative positions per participant, given one or more.
+
+    One is the single-transcript case the assay specification describes.
+    Above one, the multi-gene fallback: several channel transcripts are read
+    together and the union of the participant's informative positions across
+    them is what carries the attribution, so a participant with more
+    positions has a larger share of their channel molecules attributable.
+
+    Only has an effect when ``attribution_rate`` is above zero.
+    """
+
     state_fraction_resistant: float = 0.25
     """Mean fraction of the resistant clone that is relapse-competent."""
 

@@ -196,6 +196,33 @@ tumour-specific variant on the same molecule, or read it after a leukocyte
 correction. Neither is in the proposal yet, and the proposal is what the
 data-access applications are for.
 
+### The localisation audit — done: the specification's own correction works
+
+Executed 2026-11-12. See [`LOCALISATION-AUDIT.md`](LOCALISATION-AUDIT.md).
+The leukocyte audit searched the space of background-*subtraction* statistics.
+The assay specification's answer is different and had never been simulated:
+per-molecule attribution, counting the channel-transcript reads that carry an
+informative tumour signature. A leukocyte-derived channel molecule carries the
+germline allele, not the tumour's shift of it, so it is never counted, and the
+compartment is removed by construction rather than by subtraction.
+
+For the one readout the programme has — KCa3.1 in EGFR-mutant NSCLC — the
+attributed statistic clears K1 and K3 at the published operating point
+(0.9091 against a 0.65 bar) where the bulk one inverts to 0.0053, and it is
+insensitive to the leukocyte compartment by construction. A matched-state
+control establishes that it measures the state and not the burden: with the two
+arms carrying the same state fraction it falls back to chance (0.5170). The
+raw-VAF form of the same statistic does not, which is why the denominator has
+to be the participant's estimated tumour cfDNA fraction — which is what the
+specification asks for anyway.
+
+So **the plasma arm is not dead**, and the gate review's K3 verdict stands for
+the bulk statistic rather than for the readout. What remains unmeasured is the
+attribution rate and the fraction of participants with an informative
+position; the audit says the statistic survives across the plausible range of
+both, which is a statement about the arithmetic and not about the biology. The
+SCLC candidates are not rescued, which agrees with the per-patient audit.
+
 ### The assay specification — done: what is measured, and what would stop us
 
 Executed 2026-11-11. See [`PLASMA-ASSAY-SPECIFICATION.md`](PLASMA-ASSAY-SPECIFICATION.md).

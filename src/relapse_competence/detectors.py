@@ -255,6 +255,86 @@ class ElectricalChannelDetector:
         return electrical_vaf / mutation_vaf
 
     @staticmethod
+    def state_enrichment_localised(
+        measurements: tuple[Measurement, ...] | list[Measurement],
+    ) -> float:
+        """The enrichment with the channel's tumour-derived molecules counted.
+
+        The statistic the assay specification defines: the numerator is the
+        channel-transcript reads that carry an informative tumour signature,
+        counted directly, and the denominator is the mutation channel's
+        per-locus VAF.
+
+        This is the same shape as ``state_enrichment`` with one change: the
+        numerator is *counted* tumour-derived rather than *inferred* by
+        subtraction, so the leukocyte compartment does not enter it at all.
+        The noise is therefore proportional to the square root of the
+        tumour's own share rather than to the whole pool, and the division by
+        the mutation channel cancels it as it did in the published model.
+
+        Returns 0.0 when the participant has no attributable reads, which is
+        the case for every participant when the attribution model is off, and
+        for a participant with no informative position when it is on.
+        """
+        mutation_reads = 0
+        total_reads = 0
+        attributed_reads = 0
+        channel_total_reads = 0
+        for m in measurements[1:]:
+            mutation_reads += m.mutant_reads
+            total_reads += m.total_reads
+            attributed_reads += m.attributed_reads
+            channel_total_reads += m.electrical_total_reads
+        if total_reads <= 0 or mutation_reads <= 0 or channel_total_reads <= 0:
+            return 0.0
+        mutation_vaf = mutation_reads / total_reads
+        if mutation_vaf <= 0.0:
+            return 0.0
+        channel_attributed_p = attributed_reads / channel_total_reads
+        return channel_attributed_p / mutation_vaf
+
+    @staticmethod
+    def state_enrichment_localised_corrected(
+        measurements: tuple[Measurement, ...] | list[Measurement],
+        background_vaf: float = 0.0,
+    ) -> float:
+        """The localised enrichment with the error floor out of the denominator.
+
+        The assay specification requires the denominator to be the
+        participant's *tumour* cfDNA fraction, estimated from the somatic
+        variants the mutation panel reads (section 4.2), rather than the raw
+        observed per-locus VAF. The two differ by the panel's sequencing-error
+        floor, and the difference matters: the floor sits in the denominator
+        of both statistics, but only in the numerator of the published one.
+
+        So the published statistic has the floor in numerator and denominator
+        and the floor partly cancels, while the localised one has it in the
+        denominator only. Removing it from the denominator is what makes the
+        two comparable, and it is what the specification's own denominator
+        requires.
+
+        Returns 0.0 when the participant has no attributable reads or no
+        measurable tumour share.
+        """
+        mutation_reads = 0
+        total_reads = 0
+        attributed_reads = 0
+        channel_total_reads = 0
+        for m in measurements[1:]:
+            mutation_reads += m.mutant_reads
+            total_reads += m.total_reads
+            attributed_reads += m.attributed_reads
+            channel_total_reads += m.electrical_total_reads
+        if total_reads <= 0 or channel_total_reads <= 0:
+            return 0.0
+        observed_vaf = mutation_reads / total_reads
+        tumour_share = max(0.0, observed_vaf - background_vaf)
+        if tumour_share <= 0.0:
+            return 0.0
+        channel_attributed_p = attributed_reads / channel_total_reads
+        return channel_attributed_p / tumour_share
+
+    @staticmethod
     def state_enrichment_reference_corrected(
         measurements: tuple[Measurement, ...] | list[Measurement],
     ) -> float:

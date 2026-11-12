@@ -254,6 +254,16 @@ quantities those projections assume.
 - **It does not establish that the assay works.** It states what would have
   to be true, and what would make it stop. The published AUCs are an upper
   bound for a localised assay; the pilot is the first measurement.
+- **It does not establish that the localisation works either.** The
+  localisation audit
+  ([`LOCALISATION-AUDIT.md`](LOCALISATION-AUDIT.md)) simulated this
+  specification's own mechanism for the first time and found it clears K3 for
+  the NSCLC readout at the published operating point, and it established by a
+  matched-state control that the attributed statistic measures the state
+  rather than the burden. That is a projection like every other one here. It
+  does not establish that participants have informative positions, or how
+  often a tumour-derived channel molecule carries one, and those are what the
+  pilot's first three measurements are for.
 - **It does not settle which channel.** KCa3.1 in EGFR-mutant NSCLC is the
   readout that survives the per-tumour audit, but the pilot's channel set is
   chosen from the per-tumour measurements, and the panel must carry more than

@@ -32,9 +32,10 @@ stands:
 | [State-resolved, NSCLC](docs/GSE353299-STATE-EXPRESSION.md) | Does it cross to EGFR-mutant lung adenocarcinoma? | **Yes, through a different channel** — KCa3.1 at 2.97×, in 25 of 25 patients |
 | [Plasma readability](docs/PLASMA-READABILITY.md) | What does the measured per-cell enrichment mean in blood? | The assay-design result is **disease-specific**: enrichment AUC 0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed |
 | [Transferability](docs/CHANNEL-TRANSFERABILITY.md) | Does the readout carry to a third dataset? | **Not universally.** A third relapsed-SCLC tumour expresses neither channel at all |
-| [**Gate review**](docs/GATE-REVIEW.md) | Do the programme's own kill conditions fire on the measured evidence? | **K1, K3 and K4 have fired** — no plasma readout survives, and no candidate has a systemic window; K2 and K5 remain untested. The readout that survives is a **tissue-level** one: KCa3.1 in EGFR-mutant NSCLC |
+| [**Gate review**](docs/GATE-REVIEW.md) | Do the programme's own kill conditions fire on the measured evidence? | **K1, K3 and K4 have fired** on the *bulk* statistic — no bulk plasma readout survives, and no candidate has a systemic window; K2 and K5 remain untested. The readout that survives is a **tissue-level** one: KCa3.1 in EGFR-mutant NSCLC. The [localisation audit](docs/LOCALISATION-AUDIT.md) then simulated the specification's own per-molecule correction and found it clears K3 for that readout |
 | [**Assay specification**](docs/PLASMA-ASSAY-SPECIFICATION.md) | What is physically measured in plasma, and what would stop us? | **Written down before any plasma is opened**: cfRNA for the channel, cfDNA for the mutation panel, per-molecule tumour attribution, the statistic, and six numeric stop rules. The audit showed the readout as modelled was a tumour-purified measurement; this says what the assay has to do instead, and what would make it stop |
 | [**Leukocyte audit**](docs/LEUKOCYTE-AUDIT.md) | Can a *bulk* plasma measurement read the state at all? | **Not as modelled.** The plasma pool had no leukocyte compartment; with one, the published statistic inverts (0.9929 → 0.0053) and correcting for it stays at chance (0.5111). The readout needs to localise the channel transcript to the tumour, and that is a design requirement the proposal does not yet carry |
+| [**Localisation audit**](docs/LOCALISATION-AUDIT.md) | Does the specification's own correction — per-molecule attribution — rescue the readout? | **Yes, for the NSCLC readout.** Counting the channel molecules that carry an informative tumour signature removes the leukocyte compartment by construction, and the attributed statistic clears K1 and K3 at the published operating point (0.9091 against a 0.65 bar) where the bulk one inverts. It measures the state rather than the burden: with the state matched away it falls back to chance (0.5170). What it does not do is measure the attribution rate, which is the pilot's to establish |
 | [**Per-patient audit**](docs/PER-PATIENT-AUDIT.md) | Does the readout work for the individual patients, or only on average? | **Only for NSCLC.** The pooled fold is a contrast between metastatic sites: per tumour, SCLC/KCNN4 clears the bar in 1 of 12 libraries and SCLC/PIEZO1 in 4 of 14, while all 7 NSCLC MRD libraries clear it (AUC 0.949–0.999). The programme has **one** readout, not three |
 | [**Driver-versus-passenger audit**](docs/KCNN4-DRIVER-OR-PASSENGER.md) | Is the channel an electrical axis of its own, or a shadow of the transcriptional programme? | **Coupled, in the cells where the readout works.** In EGFR-mutant NSCLC state cells, KCNN4's expression co-allocates with the basaloid programme beyond cell complexity (6.8 null standard deviations); the housekeeping control stays flat. Causation is not settled, and the assay's premise depends on it — so the perturbation experiment should precede the EEMS application |
 | [**Copy-number audit**](docs/KCNN4-COPY-NUMBER.md) | Is the elevation just an amplified gene? | **The broad routes are out.** The KCNN4 region rises ×1.05 and the genome ×1.04 while the gene rises ×3.53, and the locus shows no significant excess among control loci (p = 0.139). A *focal* amplification cannot be told from transcriptional regulation in RNA, and would need DNA — the same tumour profiling the scoping inquiry already asks about |
@@ -120,12 +121,25 @@ Four things follow.
   the leukocyte term divided by the tumour's cfDNA share is inversely related
   to tumour burden — and subtracting the leukocyte reads leaves 0.5111, which
   is chance. The readout as modelled is a tumour-purified measurement; plasma
-  is not tumour-purified. Localising the channel transcript to the tumour, by
-  co-occurrence with a tumour-specific variant on the same molecule, is a
-  design requirement the programme now has to carry.
-  The compartment was added default-off, and with it off the golden fixture is
-  byte-identical on the machine that captured it, so the published model is
-  untouched.
+  is not tumour-purified. The compartment was added default-off, and with it
+  off the golden fixture is byte-identical on the machine that captured it, so
+  the published model is untouched.
+- **But the specification's own correction does work, and it had not been
+  simulated.** Counting the channel molecules that carry an informative tumour
+  signature — per-molecule attribution — removes the leukocyte compartment
+  **by construction**, because a leukocyte's channel transcript carries the
+  germline allele and not the tumour's shift of it. The attributed statistic
+  clears K1 and K3 for the NSCLC readout at the published operating point
+  (0.9091 against a 0.65 bar) where the bulk one inverts, and it is
+  insensitive to the compartment: across leukocyte fractions of 0.5 to 0.99
+  it moves only between 0.9043 and 0.9091. It measures the state and not the
+  burden — with the state matched away it falls back to chance (0.5170) —
+  and the raw-VAF form of the same statistic does not, which is why the
+  denominator has to be the participant's estimated tumour cfDNA fraction.
+  This is a projection like every other one here: the attribution rate and
+  the fraction of participants who have an informative position are the
+  pilot's to measure, and the audit says the statistic survives across the
+  plausible range of both.
 - **The readout works for the individual patient in NSCLC, and not yet in
   SCLC.** The fold and state fraction the plasma projection uses are
   cell-count weighted: in the relapsed-SCLC deposit three libraries hold
@@ -385,6 +399,7 @@ exercise:
 - [`docs/GATE-REVIEW.md`](docs/GATE-REVIEW.md) — **the gate review**: the programme's own five kill conditions applied to the measured evidence. K4 has fired (the systemic drug arm is dead), the readout is named per disease, and the two conditions that remain untested are recorded as untested
 - [`docs/PLASMA-ASSAY-SPECIFICATION.md`](docs/PLASMA-ASSAY-SPECIFICATION.md) — **the assay specification**: what is measured, in which analyte, how the signal is attributed to the tumour, the statistic, the panel, the controls and the stop rules — written down before any plasma is opened, and the document the data-access applications are for
 - [`docs/LEUKOCYTE-AUDIT.md`](docs/LEUKOCYTE-AUDIT.md) — **the bulk-plasma audit**: the plasma model had no leukocyte compartment, and adding one inverts the published statistic and leaves the tumour-attributable one at chance — so the assay has to localise the channel transcript to the tumour, which is a requirement the proposal must now carry
+- [`docs/LOCALISATION-AUDIT.md`](docs/LOCALISATION-AUDIT.md) — **the localisation audit**: the specification's own per-molecule attribution, simulated for the first time. It removes the leukocyte compartment by construction, clears K1 and K3 for the NSCLC readout at the published operating point, and is shown by a matched-state control to measure the state rather than the burden
 - [`docs/PER-PATIENT-AUDIT.md`](docs/PER-PATIENT-AUDIT.md) — **the per-tumour audit**: the gate review's projection re-run for each library with that library's own fold and state fraction. The pooled fold turns out to be a contrast between metastatic sites, so the SCLC readout does not survive per patient while the NSCLC one does — the programme has one readout, not three
 - [`docs/CHANNEL-TRANSFERABILITY.md`](docs/CHANNEL-TRANSFERABILITY.md) — **the third-dataset test**: the ion-channel readout does **not** transfer — a third relapsed-SCLC tumour expresses neither channel at all, so a plasma assay keyed on one channel needs a tumour-expression gate
 - [`docs/PLASMA-READABILITY.md`](docs/PLASMA-READABILITY.md) — **what the measured state enrichment means in blood**: the per-cell fold and the state fraction, measured, replace the simulator's assumptions — and D1's enrichment AUC turns out to be disease-specific (0.99 in NSCLC-MRD, 0.70 in SCLC, against 0.93 assumed)

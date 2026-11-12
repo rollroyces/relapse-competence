@@ -510,6 +510,36 @@ class PatientOutcome:
     floor in it, so it is what the electrical channel has to be read against.
     """
 
+    electrical_enrichment_localised: float = 0.0
+    """The enrichment with the channel's tumour-derived molecules counted.
+
+    The statistic the assay specification defines, where the numerator is the
+    channel-transcript reads carrying an informative tumour signature rather
+    than every read at the channel locus.
+
+    Zero when the attribution model is off, and for a participant with no
+    informative position when it is on: the readout does not apply to them.
+    """
+
+    electrical_enrichment_localised_corrected: float = 0.0
+    """The localised enrichment over the participant's estimated tumour share.
+
+    Same numerator, but the denominator is the mutation channel's per-locus
+    VAF with the sequencing-error floor removed, which is the estimate of the
+    participant's tumour cfDNA fraction that the assay specification asks for.
+
+    The distinction is not cosmetic. The floor sits in the denominator of
+    both statistics but only in the numerator of the published one, so the
+    raw-VAF version of the localised statistic acquires a separation that
+    tracks burden rather than the state.
+    """
+
+    has_informative_position: bool = False
+    """Whether this participant has at least one informative position.
+
+    Whether the localised readout applies to this participant at all.
+    """
+
 
 def _auc(scores: list[float], labels: list[bool]) -> float:
     """Tie-corrected Mann-Whitney AUC. Pure numpy, no sklearn dependency."""
@@ -621,6 +651,18 @@ def collect_outcomes(
                             patient.measurements
                         )
                     ),
+                    electrical_enrichment_localised=(
+                        ElectricalChannelDetector.state_enrichment_localised(
+                            patient.measurements
+                        )
+                    ),
+                    electrical_enrichment_localised_corrected=(
+                        ElectricalChannelDetector.state_enrichment_localised_corrected(
+                            patient.measurements,
+                            background_vaf=cfg.background_vaf_mean,
+                        )
+                    ),
+                    has_informative_position=patient.has_informative_position,
                     mutation_vaf=_pooled_mutation_vaf(patient.measurements),
                     state_fraction=patient.state_fraction,
                     split="calibration" if index % 2 == 0 else "evaluation",

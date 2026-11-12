@@ -67,6 +67,13 @@ echo "==> application tracker"
 echo "==> leukocyte audit control"
 "$PY" scripts/leukocyte_audit.py --patients 800 --control-only
 
+echo "==> localisation audit control"
+# The attribution model is default-off, so the control has to reproduce the
+# published AUCs exactly and show that the attributed statistic is undefined
+# with it off. The full sweep takes minutes and is checked by the
+# report-consistency step below.
+"$PY" scripts/localisation_audit.py --patients 800 --control-only
+
 echo "==> driver-versus-passenger audit"
 # The audit reads the cached public deposits, which are gitignored and
 # therefore absent on a CI runner. Where the cache is there the audit is

@@ -78,6 +78,35 @@ K3 has fired for all three state candidates. Where the two differ, the
 verdicts table governs, and the audit is the document to read for the plasma
 arm.
 
+### A third qualification added after the localisation audit
+
+The leukocyte audit searched the space of *background-subtraction* statistics.
+The assay specification's own answer is different: per-molecule attribution,
+counting the channel-transcript reads that carry an informative tumour
+signature. That mechanism had never been simulated, and the leukocyte audit
+said so: the projection under localisation was "an argument from the structure
+of the statistic rather than a simulated measurement".
+
+The localisation audit ([`LOCALISATION-AUDIT.md`](LOCALISATION-AUDIT.md))
+simulated it. A leukocyte-derived channel molecule carries the germline
+allele, not the tumour's shift of it, so it is never counted, and the
+compartment is removed **by construction** rather than by subtraction. For the
+one readout the programme has — KCa3.1 in EGFR-mutant NSCLC — the attributed
+statistic clears K1 and K3 at the published operating point (0.9091 against
+K3's 0.65), where the bulk statistic inverts to 0.0053.
+
+So **K3's verdict in section 2 stands for the bulk statistic, and the plasma
+arm is not dead.** The gate review's own kill condition is not about whether
+the state can be read from plasma; it is about whether the programme's
+published statistic can read it. A different statistic, which the assay
+specification already prescribes, does.
+
+What the localisation audit does not do is measure the attribution rate or
+the fraction of participants who have an informative position. Those are the
+pilot's to establish, and the specification's first stop rule is about the
+second. The audit says the statistic survives across the plausible range of
+both, which is a statement about the arithmetic and not about the biology.
+
 ## 2. The verdicts
 
 | Condition | What it kills | Status | Fires for |

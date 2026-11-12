@@ -106,6 +106,15 @@ class Measurement:
     electrical channel sees only its diluted effect on bulk marker abundance.
     """
 
+    attributed_reads: int = 0
+    """Channel-transcript reads that carry an informative tumour signature.
+
+    Zero when the attribution model is off, which is the default. With it
+    on, these are the channel reads that are attributable to the tumour
+    because they carry a tumour-shifted heterozygous germline position, and
+    they are what the localised enrichment reads.
+    """
+
 
 @dataclass(frozen=True)
 class PatientTrajectory:
@@ -127,6 +136,22 @@ class PatientTrajectory:
 
     relapse_site: str = ""
     """Metastatic site the relapse is assigned to. Empty when site shedding is off."""
+
+    has_informative_position: bool = False
+    """Whether this participant has at least one informative position.
+
+    A property of the participant, not of the panel: the assay
+    specification's first stop rule is about the fraction of participants
+    who have one. Only meaningful when the attribution model is on.
+    """
+
+    informative_positions: int = 0
+    """How many informative positions this participant has.
+
+    More than one widens the set of channel molecules that can carry a
+    signature, which is the mechanism by which the multi-gene fallback
+    rescues a participant with too few positions in one transcript.
+    """
 
 
 #: Which arms are simulated in which regime.
@@ -155,6 +180,7 @@ class LongitudinalSimulator:
         self._clone_rngs: dict[PatientArm, np.random.Generator] = {}
         self._site_rngs: dict[PatientArm, np.random.Generator] = {}
         self._locus_rngs: dict[PatientArm, np.random.Generator] = {}
+        self._attribution_rngs: dict[PatientArm, np.random.Generator] = {}
 
     # ------------------------------------------------------------------
     # public API
@@ -220,6 +246,20 @@ class LongitudinalSimulator:
                 [self.config.seed, zlib.crc32(arm.value.encode()), 17]
             )
         return self._locus_rngs[arm]
+
+    def _attribution_rng(self, arm: PatientArm):
+        """RNG for the per-molecule attribution draws.
+
+        Kept separate from every other stream, so that turning the
+        attribution model on cannot perturb the volumes, shedding, read
+        counts or state fractions that earlier runs already fixed. The
+        draws it carries are made only when the attribution model is on.
+        """
+        if arm not in self._attribution_rngs:
+            self._attribution_rngs[arm] = np.random.default_rng(
+                [self.config.seed, zlib.crc32(arm.value.encode()), 19]
+            )
+        return self._attribution_rngs[arm]
 
     def _generate_arm(self, arm: PatientArm) -> list[PatientTrajectory]:
         cfg = self.config
@@ -296,6 +336,31 @@ class LongitudinalSimulator:
                         )
                     )
 
+        # --- per-molecule attribution ------------------------------------------
+        # Whether this participant has an informative position at all, and how
+        # many. Both are properties of the participant and the panel, not of
+        # the assay's read budget, so they are drawn here and held fixed for
+        # the participant's whole trajectory.
+        #
+        # The draw is made on its own stream and only when the attribution
+        # model is on, so the published model's draws are untouched either
+        # way. With the model off, the participant has no informative position
+        # and no attributable reads, which is the same state the model was in
+        # before this extension existed.
+        has_informative_position = False
+        informative_positions = 0
+        if cfg.attribution_rate > 0.0:
+            attribution_rng = self._attribution_rng(arm)
+            has_informative_position = (
+                attribution_rng.random() < cfg.informative_position_rate
+            )
+            if has_informative_position:
+                informative_positions = 1 + int(
+                    attribution_rng.poisson(
+                        max(0.0, cfg.informative_positions_mean - 1.0)
+                    )
+                )
+
         # --- fidelity structure -------------------------------------------------
         # Clone shares, per-clone doubling times and per-clone shedding. With
         # the default configuration these are exactly one clone carrying the
@@ -319,6 +384,8 @@ class LongitudinalSimulator:
                 shedding,
                 has_chip,
                 state_fraction,
+                has_informative_position,
+                informative_positions,
             )
             for draw_index, (volume, shed_volume) in enumerate(volumes)
         )
@@ -336,6 +403,8 @@ class LongitudinalSimulator:
             state_fraction=state_fraction,
             clone_doubling_times=tuple(clone_doublings),
             relapse_site=relapse_site,
+            has_informative_position=has_informative_position,
+            informative_positions=informative_positions,
         )
 
     def _clones(
@@ -475,6 +544,8 @@ class LongitudinalSimulator:
         shedding: float,
         has_chip: bool,
         state_fraction: float,
+        has_informative_position: bool = False,
+        informative_positions: int = 0,
     ) -> Measurement:
         cfg = self.config
         rng = self._rng
@@ -520,17 +591,19 @@ class LongitudinalSimulator:
         electrical_leukocyte_reads = 0
         leukocyte_reference_reads = 0
         leukocyte_reference_total_reads = 0
+        attributed_reads = 0
         if cfg.n_electrical_loci > 0:
             # Bulk feature: present in all tumour cells, so its per-locus signal
             # is not reduced by clonality. The state boosts it in the
             # state-bearing fraction only, which is where the dilution lives.
-            electrical_vaf = min(
+            tumour_channel_vaf = min(
                 cfg.tumor_vaf_per_mm3
                 * shed_volume
                 * shedding
                 * (1.0 + cfg.electrical_fold_change * state_fraction),
                 1.0,
             )
+            electrical_vaf = tumour_channel_vaf
             # The leukocyte compartment of the plasma cfDNA pool. It carries
             # the channel too when the immune cells express it, and in bulk
             # plasma it is most of the pool. The two contributions are drawn
@@ -599,6 +672,52 @@ class LongitudinalSimulator:
                     )
                 )
 
+            # --- per-molecule attribution ---
+            # The channel reads that are attributable to the tumour: those
+            # carrying an informative tumour signature. The leukocyte
+            # compartment contributes nothing to this count, because a
+            # leukocyte's channel transcript carries the germline allele, not
+            # the tumour's shift of it. That is the whole point of the
+            # mechanism: the background is removed by construction rather than
+            # inferred by subtraction.
+            #
+            # The count is a thinning of the tumour's own channel reads:
+            # only a fraction ``attribution_rate`` of them span an
+            # informative position and carry the tumour's allele there. The
+            # thinning is applied to the tumour's channel signal only, so the
+            # effective depth of the attributed count is the depth times that
+            # rate -- which is the quantity the leukocyte audit named and
+            # could not evaluate.
+            #
+            # The draw is made only when the attribution model is on, so the
+            # model without it is unchanged bit for bit.
+            if cfg.attribution_rate > 0.0 and has_informative_position:
+                attribution_rng = self._attribution_rng(arm)
+                # Each informative position is an independent chance for a
+                # channel-transcript molecule to be attributable, so the
+                # participant's attribution rate rises with the number of
+                # positions they have. This is the multi-gene fallback: a
+                # participant with too few positions in one transcript
+                # acquires more by reading several transcripts together.
+                participant_rate = 1.0 - (1.0 - cfg.attribution_rate) ** (
+                    informative_positions
+                )
+                # The attributable molecules are a *subset* of the channel
+                # reads, so they are drawn by thinning the drawn reads rather
+                # than by an independent Poisson: the thinning rate is the
+                # tumour's share of the channel signal times the participant's
+                # attribution rate. Thinning keeps the attributable count
+                # consistent with the channel count it is drawn from.
+                if electrical_total_vaf > 0.0:
+                    thinning = min(
+                        1.0,
+                        max(0.0, tumour_channel_vaf * participant_rate)
+                        / electrical_total_vaf,
+                    )
+                    attributed_reads = int(
+                        attribution_rng.binomial(electrical_reads, thinning)
+                    )
+
         day = draw_index * cfg.sampling_interval_days
         is_relapse = volume >= cfg.relapse_volume_threshold_mm3
 
@@ -620,4 +739,5 @@ class LongitudinalSimulator:
             leukocyte_reference_total_reads=leukocyte_reference_total_reads,
             electrical_total_reads=electrical_total_reads,
             state_fraction=state_fraction,
+            attributed_reads=attributed_reads,
         )
