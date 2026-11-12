@@ -2712,12 +2712,19 @@ def main(argv: list[str] | None = None) -> int:
             row["Application"]: row for row in tracker["applications"]
         }
         chk(
-            "the tracker covers both applications",
-            {"PLCO-DATA", "PLCO-EEMS", "TZL-EGA", "TZL-DIRECT"} == set(applications),
+            "the tracker covers every application",
+            {
+                "PLCO-DATA",
+                "PLCO-EEMS",
+                "PLCO-PAR",
+                "TZL-EGA",
+                "TZL-DIRECT",
+            }
+            == set(applications),
             str(sorted(applications)),
         )
         chk(
-            "the tracker records every step of both applications",
+            "the tracker records every step of the applications",
             len(tracker["steps"]) >= 20,
             str(len(tracker["steps"])),
         )
@@ -2726,7 +2733,13 @@ def main(argv: list[str] | None = None) -> int:
             len(tracker["prerequisites"]) >= 8,
             str(len(tracker["prerequisites"])),
         )
-        for application in ("PLCO-DATA", "PLCO-EEMS", "TZL-EGA", "TZL-DIRECT"):
+        for application in (
+            "PLCO-DATA",
+            "PLCO-EEMS",
+            "PLCO-PAR",
+            "TZL-EGA",
+            "TZL-DIRECT",
+        ):
             chk(
                 f"the tracker document names {application}",
                 application in tracker_text,
@@ -2985,9 +2998,101 @@ def main(argv: list[str] | None = None) -> int:
         # so: a data-access request is an institutional act, and the record
         # of it belongs to the person who makes it.
         chk(
-            "the document states that neither application has been submitted",
-            "Neither application has been submitted" in tracker_text,
+            "the document states that no application has been submitted",
+            "No application has been submitted" in tracker_text,
         )
+        # The PAR-25-248 route was found on 2026-11-12 by re-reading CDAS's
+        # own project-type list: it is the only PLCO route that brings
+        # funding with it, and its first step has a window that closes in
+        # weeks. Every claim below is tied to a fact in the table.
+        chk(
+            "the tracker records the PAR-25-248 route",
+            "PLCO-PAR" in applications
+            and applications["PLCO-PAR"]["Access route"].find("PAR-25-248") != -1,
+            str(applications.get("PLCO-PAR")),
+        )
+        # The narrative and the fact table are checked separately: a phrase
+        # that survives in one of them must not pass for the other. The
+        # narrative is everything before the fact table.
+        par_prose = " ".join(
+            tracker_text.split("### 2.4")[0].replace(">", " ").split()
+        )
+        chk(
+            "the document states the PAR request form window",
+            "Dec. 8, 2026 until Jan. 8, 2027" in par_prose,
+        )
+        chk(
+            "the document states the PAR verification turnaround",
+            "no later than 3 weeks after it is submitted" in par_prose,
+        )
+        chk(
+            "the document states the PAR grant deadline",
+            "Oct 8, 2027" in par_prose,
+        )
+        chk(
+            "the document states that the PAR and EEMS routes are mutually "
+            "exclusive",
+            "prohibited from submitting an application to both" in par_prose,
+        )
+        chk(
+            "the document states the confirmatory letter requirement",
+            "Confirmatory Letter must be included in the grant application"
+            in par_prose,
+        )
+        chk(
+            "the fact table records the PAR window as well as the narrative",
+            any(
+                "PAR-25-248 request form window" in fact
+                and "Dec. 8, 2026" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the PAR exclusivity as well as the narrative",
+            any(
+                "exclusivity" in fact and "prohibited" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        par_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "PLCO-PAR"
+                and "Request Form for Specimen Verification" in row["Step"]
+                and "Submit" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker records the step that submits the PAR request form",
+            par_step is not None,
+        )
+        if par_step is not None:
+            chk(
+                "the PAR request form step carries its window",
+                "Dec 8, 2026" in par_step["Step"]
+                and "Jan 8, 2027" in par_step["Step"],
+                par_step["Step"],
+            )
+            chk(
+                "the PAR request form step is not recorded as done",
+                not par_step["Status"].startswith("done"),
+                par_step["Status"],
+            )
+        par_facts = [
+            fact
+            for fact in facts
+            if "PAR-25-248" in fact
+        ]
+        chk(
+            "the tracker records seven PAR-25-248 facts",
+            len(par_facts) == 7,
+            str(len(par_facts)),
+        )
+
         chk(
             "the document states that neither cohort is post-treatment",
             "Neither PLCO nor TZL is a" in tracker_text,

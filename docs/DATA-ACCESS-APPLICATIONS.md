@@ -13,7 +13,7 @@ Two data-access applications stand between this programme and its first real
 plasma measurement. Both are prepared here: the route, the fields the forms ask
 for, the data we would ask for, and the steps only a person can take.
 
-**Neither application has been submitted, and this document does not submit
+**No application has been submitted, and this document does not submit
 them.** A data-access request is an institutional act. CDAS requires the
 proposal to be submitted by the Principal Investigator with a Signing
 Official's signature; the EGA requires a validated account under an
@@ -274,6 +274,54 @@ matched tumour is the scoping question that has to be answered first.** It
 determines whether this application is worth the 4–6 months, and it can be
 asked of the coordinating centre without an application.
 
+**The fourth project type, and the one that brings funding with it.** CDAS
+lists four PLCO project types and this repository had three of them recorded.
+The fourth is the **Request Form for Specimen Verification for PAR-25-248**,
+the FOA "Utilizing the PLCO Biospecimens Resource to Bridge Gaps in Cancer
+Etiology and Early Detection Research (U01, Clinical Trial Not Allowed)". It
+exists because of this resource and this programme's question: the FOA
+supports "discovery and validation of early detection biomarkers", and states
+that "research projects that do not involve the use of PLCO biospecimens will
+not be supported". Its structure is what makes it worth a place here.
+
+- **The verification comes first, and it is cheap.** "Prior to submitting a
+  grant application, applicants must first submit a Request Form for
+  Specimen Verification through the CDAS... If your Request Form for
+  Specimen Verification is approved, you will receive a Confirmatory Letter no
+  later than 3 weeks after it is submitted. If PLCO cannot provide the
+  specimens and/or data that meet your needs, you will receive an email to
+  inform you so. **This Confirmatory Letter must be included in the grant
+  application.**" So the order is: find out in three weeks whether the
+  specimens exist, then write the grant with the letter in it. A programme
+  that cannot answer whether the specimens exist should not spend a year
+  writing the grant.
+- **The window is open now.** "New PAR Request Forms for Specimen Verification
+  may be submitted from: Dec. 8, 2026 until Jan. 8, 2027, 11:59 PM, US
+  Eastern time." The form "must be submitted within 3 months of, but no later
+  than 30 days before, the grant due date, and is only valid for that grant
+  cycle", so a later window will open for the same cycle and this one is the
+  early one.
+- **The grant deadline is far enough away to prepare for.** The FOA closes
+  **Oct 8, 2027**, as a U01 cooperative agreement — organisation applicants
+  only, no individuals — and the award carries the money that the EEMS route
+  does not. That matters here: the blocker on the data route is that the
+  Principal Investigator has to be a permanent employee at professor level,
+  and this programme has no such person attached to it.
+- **The two routes are mutually exclusive.** "Investigators are prohibited
+  from submitting an application to both PAR-25-248 and PLCO EEMS at the same
+  time." That is a decision and not a formality: it decides whether this
+  programme asks for access or asks for funding, and only one can be filed.
+- **The form asks for exactly what the scoping inquiry is asking CDAS
+  about.** Project and PI information, then "Case Definitions" with their
+  requirements and distributions, "Controls and Matchings" with the number of
+  controls and the variables to match on, and "Specimen Requirements" by type
+  and amount. The answers to A1 and B1–B5 are therefore not side
+  information — they are the fields.
+- **One condition to know before filling it in.** Agreeing to the usage
+  policies includes agreeing that "the abstract of your research proposal and
+  your contact information (provided in your application)" will be displayed
+  publicly on the CDAS website.
+
 ### 2.3 Taizhou Longitudinal Study — route unverified, direct request first
 
 **Route:** the EGA Data Access Committee, **as recorded in
@@ -476,7 +524,14 @@ published practice is to answer an initial request within two weeks.
 | CDAS PI eligibility | permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
-| PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; preliminary applications are rolling | CDAS PLCO page, and the EEMS policies | 2026-11-11 |
+| PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; the EEMS policies describe preliminary applications as accepted on a rolling basis, and the CDAS instructions page now states the current preliminary window as Aug 5, 2026 until Feb 18, 2027, 11:59 PM US Eastern | CDAS PLCO page, the CDAS instructions page, and the EEMS policies | 2026-11-12 |
+| PLCO PAR-25-248 request form window | New PAR Request Forms for Specimen Verification may be submitted from Dec. 8, 2026 until Jan. 8, 2027, 11:59 PM US Eastern | CDAS PLCO instructions page | 2026-11-12 |
+| PLCO PAR-25-248 verification turnaround | A Confirmatory Letter is issued no later than 3 weeks after the Request Form is submitted; if the specimens cannot be provided, an e-mail says so | CDAS PAR Request Form instructions | 2026-11-12 |
+| PLCO PAR-25-248 FOA deadline | The grant application closes Oct 8, 2027; U01 cooperative agreement, organisation applicants only | Grants.gov opportunity 357307 | 2026-11-12 |
+| PLCO PAR-25-248 and EEMS exclusivity | Investigators are prohibited from submitting an application to both PAR-25-248 and PLCO EEMS at the same time | CDAS PAR Request Form instructions | 2026-11-12 |
+| PLCO PAR-25-248 confirmatory letter | The Confirmatory Letter must be included in the grant application, and the Request Form must be submitted within 3 months of, and no later than 30 days before, the grant due date | CDAS PAR Request Form instructions | 2026-11-12 |
+| PLCO PAR-25-248 form contents | Project and PI information, Case Definitions, Controls and Matchings, and Specimen Requirements; the abstract and the applicant's contact information are displayed publicly on the CDAS website | CDAS PAR Request Form instructions | 2026-11-12 |
+| PLCO PAR-25-248 FOA scope | Supports cancer etiology and early detection biomarker research using PLCO biospecimens; projects that do not use PLCO biospecimens will not be supported | Grants.gov opportunity 357307 | 2026-11-12 |
 | CDAS: PLCO approved-project list | public, with the Principal Investigator and institution for every project, and filterable by biospecimen type | CDAS approved projects | 2026-11-11 |
 | PLCO EEMS investigative team | every member is listed and supplies an NIH biosketch; EEMS panel members may be co-investigators, with recusal | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
 | PLCO EEMS eligibility | a self-funded applicant may register and apply: "If you have your own source of funding and wish to obtain PLCO biospecimens"; the resource is "available to the entire scientific community" | PLCO EEMS Application Process and Policies & Procedures | 2026-11-11 |
@@ -527,6 +582,11 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | D sent 2026-11-12; E drafted and held until the first answer to D | the answer to D1 |
 | PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, the application text |
 | PLCO-EEMS | **Submit the EEMS final application by Feb 18, 11:59 PM EST** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
+| PLCO-PAR | Choose between the PAR-25-248 grant route and the PLCO EEMS route — they cannot be run at the same time | PI | not started — CDAS prohibits submitting to both at the same time, and the grant route is the one that carries funding and an institutional PI | the scoping answers |
+| PLCO-PAR | Register with CDAS (ID.me, Login.gov or the NIH Login Service) | PI | not started | — |
+| PLCO-PAR | Prepare the Request Form for Specimen Verification | PI | not started — its fields are the case definitions, the controls and matchings, and the specimen requirements, which is what the scoping inquiry is asking CDAS about | the scoping answers |
+| PLCO-PAR | **Submit the Request Form for Specimen Verification in the Dec 8, 2026 – Jan 8, 2027 window** | PI | not started — the Confirmatory Letter is issued no later than 3 weeks after submission, and the letter must be included in the grant application | the form |
+| PLCO-PAR | Draft the U01 application for PAR-25-248 by Oct 8, 2027 | PI | not started — organisation applicants only, so it needs an institutional PI | the Confirmatory Letter, the route decision |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |
 | TZL-EGA | Create and validate an EGA user account on an institutional address | PI | not started | — |
 | TZL-EGA | Identify the dataset, its EGAD accession and its DAC | PI | blocked | a deposit existing |
@@ -547,10 +607,11 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 |---|---|---|---|---|---|
 | PLCO-DATA | PLCO | CDAS Data-Only Project | yes, 2026-11-10 | 1–4 weeks to data delivery | blocked on PI submission |
 | PLCO-EEMS | PLCO | CDAS EEMS biospecimen preliminary application | yes, 2026-11-10 | 4–6 months from the deadline | blocked on PI submission |
+| PLCO-PAR | PLCO | CDAS Request Form for Specimen Verification, then the PAR-25-248 U01 grant application | yes, 2026-11-12 | 3 weeks to the verification letter; the grant cycle closes 2027-10-08 | blocked on the route decision |
 | TZL-EGA | Taizhou Longitudinal Study | EGA Data Access Committee | **no**, 2026-11-10 | no published turnaround; DAC practice is a reply within 2 weeks | blocked on the route |
 | TZL-DIRECT | Taizhou Longitudinal Study | direct request to the study investigators | n/a | unknown | not started |
 
-## 4. Prerequisites, shared by both applications
+## 4. Prerequisites, shared by all the applications
 
 | # | Prerequisite | Owner | Status | Applies to |
 |---|---|---|---|---|

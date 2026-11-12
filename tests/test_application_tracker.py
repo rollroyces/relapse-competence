@@ -49,9 +49,15 @@ def test_the_artefact_matches_the_document(tracker: dict, document: dict) -> Non
     assert tracker_script._comparable(tracker) == tracker_script._comparable(document)
 
 
-def test_the_tracker_covers_both_applications(tracker: dict) -> None:
+def test_the_tracker_covers_every_application(tracker: dict) -> None:
     applications = {row["Application"] for row in tracker["applications"]}
-    assert applications == {"PLCO-DATA", "PLCO-EEMS", "TZL-EGA", "TZL-DIRECT"}
+    assert applications == {
+        "PLCO-DATA",
+        "PLCO-EEMS",
+        "PLCO-PAR",
+        "TZL-EGA",
+        "TZL-DIRECT",
+    }
     assert {row["Application"] for row in tracker["steps"]} == applications
 
 
@@ -82,7 +88,7 @@ def test_no_application_is_recorded_as_submitted(tracker: dict) -> None:
     for name, row in applications.items():
         assert "submitted" not in row["Status"].lower(), (name, row)
     text = REPORT.read_text()
-    assert "Neither application has been submitted" in text
+    assert "No application has been submitted" in text
 
 
 def test_the_quoted_measurements_match_the_artefacts(tracker: dict) -> None:

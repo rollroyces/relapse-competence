@@ -278,12 +278,12 @@ magnitude apart in that share.
 ### Medium term — empirical validation
 
 6. **A real cohort.** See `DATASETS.md`. Nothing here becomes evidence until
-   it runs on real serial plasma. **The two applications are prepared and
+   it runs on real serial plasma. **The applications are prepared and
    tracked**: [`DATA-ACCESS-APPLICATIONS.md`](DATA-ACCESS-APPLICATIONS.md)
    holds the drafted CDAS fields, the drafted Taizhou collaboration request,
    the prerequisite list and the approval tracker, and
    `results/application_tracker/application_tracker.json` is its machine-
-   readable state, checked in CI. Neither application has been submitted --
+   readable state, checked in CI. No application has been submitted --
    both need the PI's account, the PI's submission and a signature.
    The review also corrected the route: the Taizhou study has **no EGA
    deposit** (the catalogue holds 10,814 studies and 21,922 datasets, none of
@@ -303,6 +303,21 @@ magnitude apart in that share.
    unknown — collected before modern plasma preservation, 1 mL of plasma per
    sample, twelve to nineteen years old — so the ask is a pilot rather than
    the stratum.
+
+   **A fourth PLCO route was found on 2026-11-12, and it is the only one
+   that brings funding with it.** CDAS lists four PLCO project types; the
+   repository had three of them recorded. The fourth is the Request Form for
+   Specimen Verification for PAR-25-248, the NCI funding opportunity for
+   using the PLCO biorepository for cancer etiology and early detection
+   biomarker research. Its first step is the cheap one: a specimen
+   verification request that is answered in three weeks, without an award,
+   and whose Confirmatory Letter has to be included in the grant application.
+   The request window is **Dec 8, 2026 to Jan 8, 2027**; the grant cycle
+   closes **Oct 8, 2027**. The form asks for the case definitions, the
+   controls and matchings, and the specimen requirements -- which is what
+   the scoping inquiry is already asking CDAS about. The two routes are
+   mutually exclusive: CDAS prohibits filing for PAR-25-248 and PLCO EEMS
+   at the same time.
 
    The PLCO side now has a **package ready to sign**:
    [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)

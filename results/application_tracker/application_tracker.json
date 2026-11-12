@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-12T07:48:00.219881+00:00",
-    "git_commit": "08bc992754d969bd5073f93cde96f127fac5f372",
+    "generated_at": "2026-11-12T13:41:19.826087+00:00",
+    "git_commit": "c95fdfcb09b82a12771420876c7a682669facef4",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -149,6 +149,41 @@
       "Depends on": "preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member"
     },
     {
+      "Application": "PLCO-PAR",
+      "Step": "Choose between the PAR-25-248 grant route and the PLCO EEMS route \u2014 they cannot be run at the same time",
+      "Owner": "PI",
+      "Status": "not started \u2014 CDAS prohibits submitting to both at the same time, and the grant route is the one that carries funding and an institutional PI",
+      "Depends on": "the scoping answers"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Step": "Register with CDAS (ID.me, Login.gov or the NIH Login Service)",
+      "Owner": "PI",
+      "Status": "not started",
+      "Depends on": "\u2014"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Step": "Prepare the Request Form for Specimen Verification",
+      "Owner": "PI",
+      "Status": "not started \u2014 its fields are the case definitions, the controls and matchings, and the specimen requirements, which is what the scoping inquiry is asking CDAS about",
+      "Depends on": "the scoping answers"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Step": "Submit the Request Form for Specimen Verification in the Dec 8, 2026 \u2013 Jan 8, 2027 window",
+      "Owner": "PI",
+      "Status": "not started \u2014 the Confirmatory Letter is issued no later than 3 weeks after submission, and the letter must be included in the grant application",
+      "Depends on": "the form"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Step": "Draft the U01 application for PAR-25-248 by Oct 8, 2027",
+      "Owner": "PI",
+      "Status": "not started \u2014 organisation applicants only, so it needs an institutional PI",
+      "Depends on": "the Confirmatory Letter, the route decision"
+    },
+    {
       "Application": "TZL-EGA",
       "Step": "Re-check the EGA catalogue for a Taizhou or PanSeer deposit",
       "Owner": "PI",
@@ -256,6 +291,14 @@
       "Route verified": "yes, 2026-11-10",
       "Expected turnaround": "4\u20136 months from the deadline",
       "Status": "blocked on PI submission"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Dataset": "PLCO",
+      "Access route": "CDAS Request Form for Specimen Verification, then the PAR-25-248 U01 grant application",
+      "Route verified": "yes, 2026-11-12",
+      "Expected turnaround": "3 weeks to the verification letter; the grant cycle closes 2027-10-08",
+      "Status": "blocked on the route decision"
     },
     {
       "Application": "TZL-EGA",
@@ -531,9 +574,51 @@
     },
     {
       "Fact": "PLCO EEMS biospecimen application deadline",
-      "Value": "Feb 18, 11:59 PM EST \u2014 the final-application round; preliminary applications are rolling",
-      "Source": "CDAS PLCO page, and the EEMS policies",
-      "Verified on": "2026-11-11"
+      "Value": "Feb 18, 11:59 PM EST \u2014 the final-application round; the EEMS policies describe preliminary applications as accepted on a rolling basis, and the CDAS instructions page now states the current preliminary window as Aug 5, 2026 until Feb 18, 2027, 11:59 PM US Eastern",
+      "Source": "CDAS PLCO page, the CDAS instructions page, and the EEMS policies",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 request form window",
+      "Value": "New PAR Request Forms for Specimen Verification may be submitted from Dec. 8, 2026 until Jan. 8, 2027, 11:59 PM US Eastern",
+      "Source": "CDAS PLCO instructions page",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 verification turnaround",
+      "Value": "A Confirmatory Letter is issued no later than 3 weeks after the Request Form is submitted; if the specimens cannot be provided, an e-mail says so",
+      "Source": "CDAS PAR Request Form instructions",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 FOA deadline",
+      "Value": "The grant application closes Oct 8, 2027; U01 cooperative agreement, organisation applicants only",
+      "Source": "Grants.gov opportunity 357307",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 and EEMS exclusivity",
+      "Value": "Investigators are prohibited from submitting an application to both PAR-25-248 and PLCO EEMS at the same time",
+      "Source": "CDAS PAR Request Form instructions",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 confirmatory letter",
+      "Value": "The Confirmatory Letter must be included in the grant application, and the Request Form must be submitted within 3 months of, and no later than 30 days before, the grant due date",
+      "Source": "CDAS PAR Request Form instructions",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 form contents",
+      "Value": "Project and PI information, Case Definitions, Controls and Matchings, and Specimen Requirements; the abstract and the applicant's contact information are displayed publicly on the CDAS website",
+      "Source": "CDAS PAR Request Form instructions",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO PAR-25-248 FOA scope",
+      "Value": "Supports cancer etiology and early detection biomarker research using PLCO biospecimens; projects that do not use PLCO biospecimens will not be supported",
+      "Source": "Grants.gov opportunity 357307",
+      "Verified on": "2026-11-12"
     },
     {
       "Fact": "CDAS: PLCO approved-project list",

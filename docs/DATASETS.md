@@ -34,7 +34,7 @@ than a registry application.
 
 | Source | Access | Serial? | Scale | Notes |
 |---|---|:--:|---:|---|
-| **PLCO** (Prostate, Lung, Colorectal, Ovarian Screening Trial) | CDAS: a data-only project for the phenotype data, **plus a separate EEMS preliminary application for the plasma aliquots** | Yes, at screening visits | n=154,900 | Serial plasma, pre-diagnosis available. Named as the most valuable route in the predecessor benchmark's own dataset survey. The two CDAS routes have different lead times: 1–4 weeks for data, 4–6 months for biospecimens. |
+| **PLCO** (Prostate, Lung, Colorectal, Ovarian Screening Trial) | CDAS: a data-only project for the phenotype data, **plus a separate EEMS preliminary application for the plasma aliquots**, **plus the PAR-25-248 specimen-verification form that precedes the U01 grant application** | Yes, at screening visits | n=154,900 | Serial plasma, pre-diagnosis available. Named as the most valuable route in the predecessor benchmark's own dataset survey. The two CDAS routes have different lead times: 1–4 weeks for data, 4–6 months for biospecimens. |
 | **Taizhou Longitudinal Study** (PanSeer) | **Direct request to the study investigators** — see the note below | Yes, 2–3 year sampling | n=123,115 enrolled, 575 cancers | The only published dataset that directly validates a longitudinal pre-diagnosis paradigm. 4-year lead time. Methylation, 595 regions. |
 | **DELFI** (dbGaP phs0034536) | dbGaP application | No | n=481 | Fragmentomics parameter extraction only. Not serial. |
 
