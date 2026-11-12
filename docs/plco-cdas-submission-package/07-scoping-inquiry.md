@@ -326,3 +326,107 @@ roycelam@umich.edu
   is attached, nothing is committed, and no signature is asked for.
 
 
+---
+
+## 9. The reply — what came back
+
+**Three of the four inquiries were answered, on 2026-11-12.** The answers
+arrived by e-mail at `roycelam@umich.edu` and are quoted in full below, so
+that what CDAS said and what this repository does about it can be checked
+against each other.
+
+| Inquiry | Topic | Ticket | Answered by | Answered (US Eastern) |
+|---|---|---|---|---|
+| B — the archived material | Biospecimen Availability | #1563 | Shannon Merkle | Nov. 12, 2026, 7:41 a.m. |
+| C — the data route's eligibility | Data Access/Availability | not in the pasted record | Dayanna Sorto | Nov. 12, 2026, 7:11 a.m. |
+| D — the biospecimen route | Biospecimen Application Process | #1565 | Shannon Merkle | Nov. 12, 2026, 7:48 a.m. |
+
+**Message A has not been answered.** It was submitted first, at 23:27 US
+Eastern on 2026-11-10, and it is the one that asks for the clinical-data
+counts — the lung-cancer participants with serial plasma and the matched
+comparators. That is still outstanding.
+
+### 9.1 The reply to C — the data route's eligibility
+
+<!-- BEGIN REPLY C -->
+Dear Royce,
+
+Unfortunately, you will need to find a professor to submit this data request and you must be part of the institution to be able to have access to CDAS data.
+<!-- END REPLY C -->
+
+### 9.2 The reply to B — the archived material
+
+<!-- BEGIN REPLY B -->
+Dear Royce,
+
+We can get you exact numbers once you put in an application but you can find information about tissue in these tables here: https://cdas.cancer.gov/files/download/kx3yxvf4m8/silver_CDAS_chapter2.aug21.d050322.pdf
+
+These are from primary lung tumors. To date, nothing has been done with the lung tissue so no markers exist.
+
+We do have genotyping data available for most of PLCO and it can be obtained here: https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001286.v5.p2
+
+We will be happy to hone your numbers further if you put in an application, the current round that is open the preliminary application is due by 2/18/27 and the full application is due 4/1/27
+<!-- END REPLY B -->
+
+### 9.3 The reply to D — the biospecimen route
+
+<!-- BEGIN REPLY D -->
+Dear Royce,
+
+May an applicant who holds no current institutional appointment submit an EEMS preliminary application, provided the funding is their own? An MTA is required so we would need to be employed by a private company, a academic or research institution capable of executing that MTA.
+
+2. If the Principal Investigator named on an EEMS application must be a permanent employee at professor level of some institution, must that institution also be the one that holds the transfer agreement for the specimens, or may the applicant be a member of an investigative team based elsewhere? The institution for the MTA is always that of the lead PI, others may be named on that MTA at different institutions, or they can get a DTUA to access the data, but the DTUA will be between their institution and NCI.
+
+3. What does the preliminary application require from an applicant in that position — an institutional e-mail address, a CV, an NIH biosketch, an ethics determination, and if so, from which body?
+institutional email, and NIH biosketch is required. and ethics determination is not needed.
+
+4. Is there a route by which a researcher without an institutional appointment can take part in a PLCO biospecimen study, whether as the applicant or as a member of the investigative team? They can be listed as a collaborator, but they may not access the data without being at the institution with the MTA to have their own DTUA.
+<!-- END REPLY D -->
+
+### 9.4 What each answer settles
+
+| Question | The answer | What it changes |
+|---|---|---|
+| C1 — must the Data Access Requestor be a current permanent employee at professor level | **Yes.** "You will need to find a professor to submit this data request" | The data-only route is closed to the requester as an applicant |
+| C2 — may a professor register and submit while someone else fills in the fields | **Yes**, by implication of the same sentence | The delegation the package already assumes is permitted |
+| C3 — must an approved user hold a current appointment at the PI's institution | **Yes.** "You must be part of the institution to be able to have access to CDAS data" | An address at an institution where the person no longer holds an appointment is **not** acceptable |
+| C4 — any route for a researcher without an appointment | **Not for data access.** The reply is a flat no | The host has to give the requester a standing at their institution, not just carry the proposal |
+| B1 — how many lung-cancer participants have plasma from more than one visit | **Not answered.** "We can get you exact numbers once you put in an application" | Still outstanding; message A is the inquiry for it |
+| B2 — is the archived lung tissue primary tumour rather than recurrence | **Yes.** "These are from primary lung tumors" | The tissue is usable for the tumour-expression gate |
+| B3 — what profiling exists on the lung tissue | **None.** "To date, nothing has been done with the lung tissue so no markers exist" | There is tumour material and tumour DNA, and no somatic profile; the application has to ask for the profiling |
+| B4 — is a germline sample or genotype set available | **Yes, for most of PLCO, but through dbGaP**, at phs001286.v5.p2 — not through CDAS | The germline half of the per-molecule attribution is a second, separate application |
+| B5 — is the material requested through the EEMS preliminary application, and what are the deadlines | **Yes**, and: "the preliminary application is due by 2/18/27 and the full application is due 4/1/27" | The full application for the current round is due **2027-04-01**, not on the February date |
+| D1 — may an applicant with no institutional appointment submit an EEMS preliminary application | **No.** "An MTA is required so we would need to be employed by a private company, a academic or research institution capable of executing that MTA" | The biospecimen route is closed to the requester as an applicant |
+| D2 — must the PI's institution hold the MTA | **Yes.** "The institution for the MTA is always that of the lead PI"; collaborators at other institutions may be named on that MTA, or "get a DTUA to access the data" between their institution and NCI | One institution has to carry the whole route |
+| D3 — what the preliminary application requires | "Institutional email, and NIH biosketch is required. and ethics determination is not needed" | Two documents come off the checklist: the institutional e-mail address is required, and the **ethics determination is not** |
+| D4 — any route for a researcher without an appointment | "They can be listed as a collaborator, but they may not access the data without being at the institution with the MTA to have their own DTUA" | The requester can be named on the application; the data come through the lead PI's institution |
+
+### 9.5 Two consequences that are not answers to anything
+
+**Message E must not be sent.** It asked who may sign the transfer agreement,
+and D1 and D2 answer it: an MTA is required, the applicant must be employed
+by an institution capable of executing one, and the MTA institution is always
+that of the lead PI. There is no longer a question, so the message that
+would have asked it has nothing to ask. The draft stays in §7 as a record of
+what was considered, and §8's condition — "Send E only if D's first answer
+opens the route" — is now met in the negative: the answer closed the route.
+
+**The requester's own standing is now the whole of the PLCO problem.** Every
+PLCO route that CDAS administers requires an institution: the data route
+requires a professor to submit *and* the requester to be part of that
+institution; the biospecimen route requires an employer capable of
+executing an MTA; the PAR-25-248 grant route requires an organisation. A
+researcher with no affiliation can be named as a collaborator on somebody
+else's application, and cannot reach the data at all. That is the shape of the
+remaining problem, and the letters have to be written to it.
+
+### 9.6 What the reply did not answer
+
+Message A — the clinical data — is unanswered, and it is the one that asks
+for the numbers the programme's design needs: how many lung-cancer
+participants have plasma archived from more than one screening visit, and how
+many matched participants without cancer are available as comparators. The
+tissue tables Shannon Merkle linked do answer the tissue half of the
+question, and their numbers are recorded in
+[`../DATA-ACCESS-APPLICATIONS.md`](../DATA-ACCESS-APPLICATIONS.md) §2.4. The
+plasma half is still open.

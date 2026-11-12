@@ -2707,6 +2707,9 @@ def main(argv: list[str] | None = None) -> int:
     if tracker_artefact.exists() and tracker_doc.exists():
         tracker = json.loads(tracker_artefact.read_text())
         tracker_text = tracker_doc.read_text()
+        # Quoted sentences are wrapped across lines in the report, so they are
+        # compared against the whitespace-flattened text.
+        tracker_flat = " ".join(tracker_text.replace(">", " ").split())
 
         applications = {
             row["Application"]: row for row in tracker["applications"]
@@ -3056,6 +3059,85 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(sorted(facts)),
         )
+        # The reply closed both PLCO routes for the requester as a solo
+        # applicant, and the record has to say so rather than leave the
+        # applications looking open.
+        chk(
+            "the document states that a professor must submit the data request",
+            "you will need to find a professor to submit this data request"
+            in tracker_flat,
+        )
+        chk(
+            "the document states that the requester must be part of the "
+            "institution",
+            "you must be part of the institution to be able to have access to "
+            "CDAS data" in tracker_flat,
+        )
+        chk(
+            "the document states that the biospecimen route needs an "
+            "MTA-capable employer",
+            "An MTA is required so we would need to be employed by a private "
+            "company" in tracker_flat,
+        )
+        chk(
+            "the document states that message E is moot",
+            "Message E is therefore moot" in tracker_flat,
+        )
+        chk(
+            "the document records the lung tissue counts the reply pointed at",
+            any(
+                "PLCO lung tissue participants selected" in fact
+                and "434" in value
+                and "433" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the document records the germline genotyping route",
+            "phs001286.v5.p2" in tracker_flat,
+        )
+        chk(
+            "the document records the current round's full-application deadline",
+            "2027-04-01" in tracker_flat,
+        )
+        reply_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "PLCO-EEMS"
+                and "biospecimen eligibility questions" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker records that message E is moot",
+            reply_step is not None and "E is moot" in reply_step["Status"],
+            reply_step["Status"] if reply_step else "missing",
+        )
+        final_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "PLCO-EEMS"
+                and "EEMS final application" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker carries the corrected full-application deadline",
+            final_step is not None and "Apr 1, 2027" in final_step["Step"],
+            final_step["Step"] if final_step else "missing",
+        )
+        for needle in (
+            "whole-exome profiling",
+            "phs001286.v5.p2",
+            "Size the attribution set",
+        ):
+            chk(
+                f"the tracker records the step {needle!r}",
+                any(needle in row["Step"] for row in tracker["steps"]),
+            )
         par_step = next(
             (
                 row
@@ -3167,14 +3249,16 @@ def main(argv: list[str] | None = None) -> int:
             ),
         )
         chk(
-            "the tracker has a separate final-application step for Feb 18",
+            "the tracker has a final-application step with the corrected date",
             any(
                 "final application" in step["Step"]
+                and "Apr 1, 2027" in step["Step"]
                 and "2026-11-11" not in step["Status"]
                 for step in tracker["steps"]
             )
             and any(
-                "Feb 18" in step["Step"] for step in tracker["steps"]
+                "2027-02-18" in step["Step"] or "2027-02-18" in step["Status"]
+                for step in tracker["steps"]
             ),
             str([step["Step"] for step in tracker["steps"]]),
         )
@@ -3419,6 +3503,19 @@ def main(argv: list[str] | None = None) -> int:
                         f"{figure!r}",
                         figure in letter,
                     )
+                chk(
+                    "the host invitation asks for a standing at the "
+                    "institution, not only a signature",
+                    "standing at your institution" in letter,
+                )
+                chk(
+                    "the host invitation names the funded route",
+                    "PAR-25-248" in letter,
+                )
+                chk(
+                    "the host invitation is plain text with no markdown link",
+                    "](" not in letter,
+                )
 
         # The treatment-naive SCLC comparator. The gate review names it as
         # the way K2 could be tested, so the numbers in the report have to be
@@ -4346,6 +4443,67 @@ def main(argv: list[str] | None = None) -> int:
                     f"scoping inquiry message {tag} has no unfilled field",
                     "[TO FILL:" not in body,
                 )
+
+            # The reply is part of the record. What CDAS said, who said it
+            # and when is quoted in full, so that what this repository does
+            # about the answer can be checked against the answer itself.
+            for tag in ("B", "C", "D"):
+                begin = f"<!-- BEGIN REPLY {tag} -->"
+                end = f"<!-- END REPLY {tag} -->"
+                chk(
+                    f"the scoping inquiry records the reply to message {tag}",
+                    begin in inquiry and end in inquiry,
+                )
+                if begin in inquiry and end in inquiry:
+                    body = inquiry.split(begin)[1].split(end)[0].strip()
+                    chk(
+                        f"the reply to message {tag} is plain text",
+                        "**" not in body,
+                    )
+                    chk(
+                        f"the reply to message {tag} is not empty",
+                        len(body) > 40,
+                        str(len(body)),
+                    )
+            chk(
+                "the reply record quotes the data-route answer verbatim",
+                "you will need to find a professor to submit this data request"
+                in inquiry
+                and "you must be part of the institution to be able to have "
+                "access to CDAS data" in inquiry,
+            )
+            chk(
+                "the reply record quotes the biospecimen answer verbatim",
+                "An MTA is required so we would need to be employed by a private "
+                "company" in inquiry
+                and "The institution for the MTA is always that of the lead PI"
+                in inquiry
+                and "ethics determination is not needed" in inquiry,
+            )
+            chk(
+                "the reply record quotes the archived-material answer verbatim",
+                "These are from primary lung tumors" in inquiry
+                and "nothing has been done with the lung tissue so no markers "
+                "exist" in inquiry
+                and "phs001286.v5.p2" in inquiry
+                and "2/18/27" in inquiry
+                and "4/1/27" in inquiry,
+            )
+            chk(
+                "the reply record names who answered and which tickets",
+                "Dayanna Sorto" in inquiry
+                and "Shannon Merkle" in inquiry
+                and "#1563" in inquiry
+                and "#1565" in inquiry,
+            )
+            chk(
+                "the reply record says which inquiry is still unanswered",
+                "Message A has not been answered" in inquiry,
+            )
+            chk(
+                "the reply record says that message E is moot",
+                "Message E must not be sent" in inquiry,
+            )
 
             # The sending record has to bind the counts it quotes to the
             # text that was actually submitted, so that the record cannot

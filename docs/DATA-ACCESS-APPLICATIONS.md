@@ -116,6 +116,25 @@ missing there is marked `[PI]` or `[SO]` and is listed in the checklist.
 Signing Official and project staff; the proposal must be submitted by the PI;
 expected time for a new project to have data delivered is 1–4 weeks.
 
+**What CDAS answered on 2026-11-12.** The eligibility question was asked on
+2026-11-11 and answered the next morning, and the answer is a flat no to the
+route as it stood:
+
+> Unfortunately, you will need to find a professor to submit this data
+> request and you must be part of the institution to be able to have access to
+> CDAS data.
+
+Two conditions, not one. A professor must submit — so the delegation the
+package already assumes is permitted — and the requester must be *part of that
+institution* to have access to the data. An address at an institution where
+the person no longer holds an appointment does not qualify, which answers the
+approved-users question as well. **The data-only route is therefore closed to
+the requester as an applicant and open only through a host who is both the PI
+and the institution that employs or affiliates the requester.** The full
+reply, its date, its sender and its ticket are recorded in
+[`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
+§9.
+
 **Pre-drafted form fields:**
 
 - **Title.** Validating an electrical-channel readout of the relapse-competent
@@ -204,6 +223,24 @@ from the same patient, which is what the per-molecule attribution needs. The
 lung tumour collection is 435 PLCO cases in 3,773 cores, plus 446 NLST-LSS
 cases in 3,951 cores, with additional tissue cores for DNA, RNA and protein.
 
+**What CDAS said about the material.** The reply to the archived-material
+inquiry answers the tissue and germline questions in two sentences:
+
+> These are from primary lung tumors. To date, nothing has been done with the
+> lung tissue so no markers exist.
+
+and, on the germline:
+
+> We do have genotyping data available for most of PLCO
+
+— through dbGaP rather than CDAS, which is a separate application with its own
+data-use certification. The tissue tables CDAS pointed at are recorded in §2.4:
+1,030 lung-cancer participants selected for tissue, 434 with tumour microarray
+cores, 433 with tumour DNA, and 348 of those 434 already in the PLCO GWAS.
+Two things follow. The tissue is primary, so it can carry the
+tumour-expression gate; and the tissue carries **no somatic profile**, so the
+application has to ask for the whole-exome work rather than assume it.
+
 **Three requirements to plan around.**
 - *Serial samples face a higher bar.* Applications "requesting the use of
   serial samples will be subjected to additional scrutiny during scientific
@@ -238,6 +275,33 @@ sign the transfer agreement — are in
 §7, as messages D and E. The answer to D1 decides whether the rest of this
 section is worth doing, which is why it goes before the deadline rather than
 with the application.
+
+**And it was answered on 2026-11-12, and the answer is no.**
+
+> May an applicant who holds no current institutional appointment submit an
+> EEMS preliminary application, provided the funding is their own? An MTA is
+> required so we would need to be employed by a private company, a academic or
+> research institution capable of executing that MTA.
+
+So the route needs an employer that can execute a Material Transfer
+Agreement, and the rest of the answer follows from that:
+
+- **The MTA institution is always the lead PI's institution.** "Others may be
+  named on that MTA at different institutions, or they can get a DTUA to
+  access the data, but the DTUA will be between their institution and NCI."
+  One institution carries the route; people elsewhere are named on it or get
+  their own data agreement.
+- **A researcher without an appointment can be listed as a collaborator**, but
+  "may not access the data without being at the institution with the MTA to
+  have their own DTUA."
+- **The preliminary application needs an institutional e-mail address and an
+  NIH biosketch, and an ethics determination is not needed.** The last of
+  those three removes a document from the package's checklist.
+- **The deadlines for the current round are 2027-02-18 for the preliminary
+  application and 2027-04-01 for the full application.**
+
+**Message E is therefore moot.** It asked who may sign the transfer
+agreement, and D1 and D2 answered it. It will not be sent.
 
 **Expected time to a review outcome:** 4–6 months from the final application
 deadline.
@@ -524,6 +588,19 @@ published practice is to answer an initial request within two weeks.
 | CDAS PI eligibility | permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS approved users | names and institutional e-mail addresses, at the PI's institution; a collaborator from another institution needs a separate proposal | CDAS instructions for accessing data (PDF) | 2026-11-11 |
+| CDAS reply to the data route's eligibility question | "you will need to find a professor to submit this data request and you must be part of the institution to be able to have access to CDAS data" | CDAS reply, Dayanna Sorto, 2026-11-12 | 2026-11-12 |
+| CDAS reply to the biospecimen route | an MTA is required, so the applicant must be employed by a private company, an academic or research institution capable of executing it; the MTA institution is always that of the lead PI; collaborators at other institutions may be named on that MTA or get their own DTUA; a researcher without an appointment can be listed as a collaborator but may not access the data without being at the MTA institution | CDAS reply, Shannon Merkle, 2026-11-12 | 2026-11-12 |
+| CDAS reply to the archived-material inquiry | the archived lung tissue is from primary lung tumours; nothing has been done with the lung tissue so no markers exist; genotyping data are available for most of PLCO through dbGaP phs001286.v5.p2; the preliminary application is due by 2/18/27 and the full application by 4/1/27 | CDAS reply, Shannon Merkle, 2026-11-12 | 2026-11-12 |
+| CDAS reply on the preliminary application's requirements | an institutional e-mail address and an NIH biosketch are required, and an ethics determination is not needed | CDAS reply, Shannon Merkle, 2026-11-12 | 2026-11-12 |
+| CDAS tickets for the scoping inquiry | #1563 (biospecimen availability) and #1565 (biospecimen application process); the data-access ticket number is not in the record | CDAS ticket thread, 2026-11-12 | 2026-11-12 |
+| PLCO EEMS deadlines for the current round | the preliminary application is due 2027-02-18 and the full application 2027-04-01 | CDAS reply, Shannon Merkle, 2026-11-12 | 2026-11-12 |
+| PLCO lung tissue participants selected | 1,030 lung-cancer participants were selected for tissue in Fall 2009; 434 have tumour microarray cores, 433 have tumour DNA and 492 have H&E slides | PLCO CDAS silver Chapter 2, Table 2.2.1 (2021–2022 version) | 2026-11-12 |
+| PLCO lung tissue selection criteria | never smokers, interval cancers, small aggressive lung cancers and African Americans | PLCO CDAS silver Chapter 2, Table 2.1 | 2026-11-12 |
+| PLCO lung tissue by histology, with tumour cores | adenocarcinoma 172, squamous 115, bronchioalveolar 50, adenosquamous 25, large cell 20 and small cell 7, out of 434 | PLCO CDAS silver Chapter 2, Table 2.5.2 | 2026-11-12 |
+| PLCO lung tissue participants also in the GWAS | 348 of the 434 with lung tumour cores, and 347 of the 433 with tumour DNA, are in the PLCO GWAS | PLCO CDAS silver Chapter 2, Table 2.3 | 2026-11-12 |
+| PLCO lung-cancer participants with tissue, by plasma available | pre-diagnosis EDTA plasma 129 and heparin plasma 160; post-diagnosis EDTA plasma 93 and heparin plasma 61; plasma alone 67 pre-diagnosis and 55 post-diagnosis | PLCO CDAS silver Chapter 2, Table 2.3 | 2026-11-12 |
+| PLCO lung tissue molecular profiling | none: "To date, nothing has been done with the lung tissue so no markers exist" | CDAS reply, Shannon Merkle, 2026-11-12 | 2026-11-12 |
+| PLCO germline genotyping route | dbGaP phs001286.v5.p2, the PLCO harmonised GWAS and exome dataset: 110,559 consented subjects, Illumina GSA, Oncoarray and historical OmniExpress, Omni2.5M and Omni5M, TOPMED 5b imputation, GRCh37, accessed through dbGaP Authorized Access with a Data Use Certification — a separate application from CDAS | CDAS reply and the dbGaP study record | 2026-11-12 |
 | PLCO EEMS biospecimen application deadline | Feb 18, 11:59 PM EST — the final-application round; the EEMS policies describe preliminary applications as accepted on a rolling basis, and the CDAS instructions page now states the current preliminary window as Aug 5, 2026 until Feb 18, 2027, 11:59 PM US Eastern | CDAS PLCO page, the CDAS instructions page, and the EEMS policies | 2026-11-12 |
 | PLCO PAR-25-248 request form window | New PAR Request Forms for Specimen Verification may be submitted from Dec. 8, 2026 until Jan. 8, 2027, 11:59 PM US Eastern | CDAS PLCO instructions page | 2026-11-12 |
 | PLCO PAR-25-248 verification turnaround | A Confirmatory Letter is issued no later than 3 weeks after the Request Form is submitted; if the specimens cannot be provided, an e-mail says so | CDAS PAR Request Form instructions | 2026-11-12 |
@@ -566,9 +643,9 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Check the package: 500-word cap, fields, numbers, signature blocks | programme | done — `scripts/check_plco_cdas_package.py` | the package |
 | PLCO-DATA | Write the submission runbook and the scoping inquiry | programme | done — `06-submission-runbook.md`, `07-scoping-inquiry.md` | the package |
 | PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
-| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number | the scoping inquiry |
-| PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — the PI must be a permanent employee at professor level and is the person who submits | an institutional relationship |
-| PLCO-DATA | Approach a host PI with the invitation letter | PI | draft prepared, not sent — `docs/HOST-INVITATION.md` | the eligibility answer |
+| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number; three of the four were answered on 2026-11-12 (tickets #1563 and #1565) and the replies are recorded in 07-scoping-inquiry.md §9; the clinical-data inquiry (message A) is still unanswered | the scoping inquiry |
+| PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — CDAS has confirmed that a professor must submit the request and that the requester must be part of that institution to have access to the data, so one institution has to carry both the PI and the requester's standing | an institutional relationship |
+| PLCO-DATA | Approach a host PI with the invitation letter | PI | draft prepared, not sent — `docs/HOST-INVITATION.md`; CDAS answered on 2026-11-12 and the answer requires the host to give the requester a standing at their institution, not only to carry the proposal | the eligibility answer (received 2026-11-12) |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
@@ -577,16 +654,19 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Accept the CDAS data use agreement | PI | blocked | — |
 | PLCO-DATA | List project staff | PI | blocked | — |
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
-| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — preliminary applications are rolling; Feb 18 is the final-application deadline for the January/February round | the EEMS policies, read 2026-11-11 |
-| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, so it does not have to wait for Feb 18 | PLCO-DATA scoping |
-| PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | D sent 2026-11-12; E drafted and held until the first answer to D | the answer to D1 |
-| PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, the application text |
-| PLCO-EEMS | **Submit the EEMS final application by Feb 18, 11:59 PM EST** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
-| PLCO-PAR | Choose between the PAR-25-248 grant route and the PLCO EEMS route — they cannot be run at the same time | PI | not started — CDAS prohibits submitting to both at the same time, and the grant route is the one that carries funding and an institutional PI | the scoping answers |
+| PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — the EEMS policies describe preliminary applications as accepted on a rolling basis, and CDAS confirmed on 2026-11-12 that for the round now open the preliminary application is due 2027-02-18 and the full application 2027-04-01 | the EEMS policies and CDAS's reply |
+| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, and the current round's preliminary application is due 2027-02-18 with the full application due 2027-04-01; CDAS has confirmed that the applicant must be employed by an institution capable of executing an MTA | PLCO-DATA scoping |
+| PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | done — D sent 2026-11-12 and answered the same day (ticket #1565); E is moot, because D's answers settled who may sign the transfer agreement, so it will not be sent | the answer to D1 |
+| PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, an institutional PI and an MTA-capable employer |
+| PLCO-EEMS | **Submit the EEMS final application by Apr 1, 2027** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
+| PLCO-PAR | Choose between the PAR-25-248 grant route and the PLCO EEMS route — they cannot be run at the same time | PI | not started — CDAS prohibits submitting to both at the same time; the reply has confirmed that both routes need an institutional PI, and the grant route adds funding | the scoping answers (received 2026-11-12) |
 | PLCO-PAR | Register with CDAS (ID.me, Login.gov or the NIH Login Service) | PI | not started | — |
-| PLCO-PAR | Prepare the Request Form for Specimen Verification | PI | not started — its fields are the case definitions, the controls and matchings, and the specimen requirements, which is what the scoping inquiry is asking CDAS about | the scoping answers |
+| PLCO-PAR | Prepare the Request Form for Specimen Verification | PI | not started — its fields are the case definitions, the controls and matchings, and the specimen requirements; the published tissue tables answer the tissue half, and the tissue carries no molecular profile, so the request has to include the profiling | the scoping answers |
 | PLCO-PAR | **Submit the Request Form for Specimen Verification in the Dec 8, 2026 – Jan 8, 2027 window** | PI | not started — the Confirmatory Letter is issued no later than 3 weeks after submission, and the letter must be included in the grant application | the form |
 | PLCO-PAR | Draft the U01 application for PAR-25-248 by Oct 8, 2027 | PI | not started — organisation applicants only, so it needs an institutional PI | the Confirmatory Letter, the route decision |
+| PLCO-EEMS | Request whole-exome profiling of the lung tumour DNA | PI | not started — CDAS confirms that nothing has been done with the lung tissue, so no somatic profile exists, and the per-molecule attribution needs one | the scoping answers |
+| PLCO-EEMS | Request the PLCO germline genotyping through dbGaP (phs001286.v5.p2) | PI | not started — a second application, separate from CDAS, needing an institutional PI and a Data Use Certification | the scoping answers |
+| PLCO-EEMS | Size the attribution set: lung-cancer participants with tumour DNA, germline genotype and serial plasma | PI | not started — the published tables give 434 with tumour cores, 433 with tumour DNA and 348 of them in the GWAS, but the plasma half is still open | message A |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |
 | TZL-EGA | Create and validate an EGA user account on an institutional address | PI | not started | — |
 | TZL-EGA | Identify the dataset, its EGAD accession and its DAC | PI | blocked | a deposit existing |
