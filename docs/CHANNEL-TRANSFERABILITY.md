@@ -55,6 +55,33 @@ channels track the loss of the neuroendocrine programme itself — the
 general-plasticity reading of the hypothesis, which the two patient datasets
 cannot separate from the relapse-state-specific reading.
 
+**The second check: the authors' own repository does not carry the data
+either.** The preprint (bioRxiv, doi 10.64898/2026.09.26.754526, formerly
+PPR1330822) points to `github.com/smgroves/Bhattacharya2026` in its
+footnotes. That repository holds the analysis code — 6,843 files, the
+BoBa-T network construction, the attractor and perturbation outputs, and the
+four analysis notebooks — and its README states:
+
+> The repository contains only analysis code and manuscript material; raw data
+> are not included.
+
+The notebooks read the analysis objects from a cluster path that is not
+public: `readRDS("/oak/stanford/scg/lab_julsage/Debbie/multiome_data/analysis_2/TKO_final_arc.rds")`,
+with the state marker genes at
+`/labs/julsage/Debbie/multiome_data/analysis_2/Arc.marker_genes.csv`
+(commented in the notebook as *Supplemental Table S1*), and the lineage
+trajectories at `palantir_data.csv`. The only publicly reachable gene-level
+artefact is therefore a list of state-defining genes in the paper's
+supplementary tables, not cell-level expression: a gene list says which
+genes mark the Intermediate state, and cannot say how much of the channel is
+in it or in which cells.
+
+So the dataset is unmeasurable from two independent directions — the deposit
+has no gene names, and the code that would have used them reads data that
+is not published. **K5 is unchanged by this check, and the reason it is
+unchanged is now evidenced rather than assumed:** the closest available
+perturbation system exists, is public, and cannot carry the measurement.
+
 This is the third submission-side defect in these deposits (after the
 file-name swap in GSE299684 and the two file names in GSE299684 that belong to
 the other accession): GEO deposits in this programme are not uniformly

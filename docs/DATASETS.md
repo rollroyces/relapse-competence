@@ -70,6 +70,19 @@ years old. How much usable RNA they contain is unmeasured, so the first
 material ask is a pilot rather than the stratum.
 
 
+**A treatment-naive SCLC comparator was searched for and found on
+2026-11-12.** The gate review's second open condition names one as the way to
+test whether the state is relapse-associated, and this repository had none.
+GSE138474 (Stewart et al., Cancer Res 2021) is the closest public SCLC
+comparator that carries a treatment label: 22 solid-tissue libraries from
+patient-derived models, 13 untreated, 2 vehicle-treated and 7 relapsed, with
+several models sampled before and after treatment. Measured on the relapsed
+cohort's own ruler, the YAP1(+) state fraction is a median of 0.00193 in the
+untreated arm and 0.00239 in the relapsed arm, against 0.104 in the relapsed
+human cohort — the state is absent in both arms, so the cohort cannot answer
+the question. See
+[`GSE138474-TREATMENT-NAIVE-SCLC.md`](GSE138474-TREATMENT-NAIVE-SCLC.md).
+
 ### Open, small, immediately usable
 
 | Accession | Contents | Use |

@@ -107,6 +107,50 @@ pilot's to establish, and the specification's first stop rule is about the
 second. The audit says the statistic survives across the plausible range of
 both, which is a statement about the arithmetic and not about the biology.
 
+### A fourth qualification added after the treatment-naive SCLC audit
+
+K2 is the condition that says the state is not present in lung, or is not
+relapse-associated. The gate review names two ways it could be tested, and
+one of them is "a treatment-naive SCLC cohort showing the state is already
+present before therapy". That cohort did not exist in this repository, and
+the section 3 note says why: for relapsed SCLC there was no treatment-naive
+comparator at all.
+
+The search for it is now done
+([`GSE138474-TREATMENT-NAIVE-SCLC.md`](GSE138474-TREATMENT-NAIVE-SCLC.md)).
+GSE138474 is the closest public SCLC comparator that carries a treatment
+label: 22 solid-tissue libraries from patient-derived models, 13 of them
+untreated, 2 vehicle-treated and 7 relapsed, with several models appearing in
+more than one arm. Measured on the relapsed cohort's own ruler — the same
+state call, the same validation signature, imported rather than
+reimplemented — the YAP1(+) state fraction is a median of **0.00193** in the
+untreated arm and **0.00239** in the relapsed arm of the same deposit
+(rank-sum p = 0.8051), against **0.104** in the relapsed human cohort.
+
+**So the route is closed with evidence, and the condition is still not
+evaluable.** The reason is not that the state is absent before therapy — it
+cannot be read that way, because the relapsed arm of the same cohort is just
+as low. It is that this cohort does not carry the state at all, so a null
+from it says nothing about relapse-association. The complexity control rules
+out the obvious alternative: the libraries detect a median of 3,246 genes per
+cell, against 3,787 in the relapsed human cohort, so the low fraction is not
+a depth artefact.
+
+K5's closest system is closed on the same kind of grounds and for the same
+reason. GSE325242, the RORB-loss organoid dataset, carries no gene
+annotation in its deposit — and the authors' own analysis repository, which
+the preprint points to, states that it contains only code and manuscript
+material, with the analysis objects on a cluster path that is not public
+([`CHANNEL-TRANSFERABILITY.md`](CHANNEL-TRANSFERABILITY.md) §2). The dataset
+exists, is public, and cannot carry the measurement, from two independent
+directions.
+
+**What this changes is the size of what is unknown, not the verdicts.** Both
+open conditions now have a documented, evidenced reason for being open, and
+both reasons are about the data rather than about the programme's biology. A
+reader should not read "not evaluable" as a soft pass: it means a public
+measurement was tried, and the public data could not carry it.
+
 ## 2. The verdicts
 
 | Condition | What it kills | Status | Fires for |
@@ -196,17 +240,21 @@ minimal-residual-disease library has a KRT17+ fraction between 0.28 and 0.65,
 against a treatment-naive pooled fraction of 0.137. That is not the methylation
 delta the condition names, and there is no primary-versus-relapsed methylation
 comparison in this repository, so it is recorded as not evaluable rather than
-passed. For relapsed SCLC there is no treatment-naive comparator at all. K5
+passed. The SCLC branch of the same condition now has its comparator — the
+treatment-naive cohort GSE138474 — and the cohort does not carry the state in
+either arm, so it cannot separate "absent before therapy" from "absent in this
+model system"; the route is closed with evidence rather than left open. K5
 needs a perturbation experiment; the closest available system was the
 RORB-loss organoid dataset GSE325242, whose deposit carries no gene annotation
-and cannot be measured.
+and whose authors' own analysis repository carries no data either, so it cannot
+be measured from two independent directions.
 
 ## 4. What would change each verdict
 
 | Condition | What would change it |
 |---|---|
 | **K1** | A measured plasma cohort in which the matched channel separates relapsers from MRD-positive non-relapsers with an enrichment AUC above 0.6. The projection that reached 0.9929 for NSCLC/KCNN4 had no leukocyte compartment, so what a measured cohort would have to beat is the audit's inverted 0.0053 with an oracle ceiling of 0.5111, not 0.9929 |
-| **K2** | A primary-versus-relapsed tissue comparison showing no state-associated methylation delta, or a treatment-naive SCLC cohort showing the state is already present before therapy |
+| **K2** | A primary-versus-relapsed tissue comparison showing no state-associated methylation delta, or a treatment-naive SCLC cohort showing the state is already present before therapy — the SCLC branch of the second route is now closed with evidence: the cohort found (GSE138474) carries the state in neither arm |
 | **K3** | A measured plasma cohort in which the matched channel clears AUC 0.65. The projection cleared it at every configuration tested, but only because the pool had no leukocyte compartment; with one, no configuration in the searched space clears it, the best being 0.5815 |
 | **K4** | A modality that reaches the state selectively: a state-directed conjugate, a tumour-localised agent, or an allele-selective channel modulator. Bulk-tissue specificity alone will not rescue it |
 | **K5** | A patient-derived model in which suppressing the state does **not** reduce relapse competence. No such experiment has been run |

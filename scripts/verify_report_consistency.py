@@ -3315,6 +3315,147 @@ def main(argv: list[str] | None = None) -> int:
                         figure in letter,
                     )
 
+        # The treatment-naive SCLC comparator. The gate review names it as
+        # the way K2 could be tested, so the numbers in the report have to be
+        # the artefact's numbers and the verdict has to stay honest about
+        # what the cohort could and could not show.
+        naive_path = Path("results/gse138474/state_expression.json")
+        naive_doc = Path("docs/GSE138474-TREATMENT-NAIVE-SCLC.md")
+        chk("the treatment-naive SCLC artefact exists", naive_path.exists())
+        chk("the treatment-naive SCLC report exists", naive_doc.exists())
+        if naive_path.exists() and naive_doc.exists():
+            naive = json.loads(naive_path.read_text())
+            naive_text = naive_doc.read_text()
+            naive_arms = naive["arms"]["detected"]["arms"]
+            naive_decision = naive["decision"]
+            chk(
+                "the treatment-naive SCLC artefact records its dataset",
+                naive["dataset"]["accession"] == "GSE138474"
+                and naive["dataset"]["organism"] == "Homo sapiens"
+                and naive["dataset"]["state_gene"] == "YAP1",
+            )
+            chk(
+                "the report states the treatment-naive cohort's decision",
+                naive_decision["status"] in naive_text,
+                naive_decision["status"],
+            )
+            chk(
+                "the report states the untreated arm's median state fraction",
+                f"{naive_arms['untreated']['median_state_fraction']:.5f}"
+                in naive_text,
+                f"{naive_arms['untreated']['median_state_fraction']:.5f}",
+            )
+            chk(
+                "the report states the relapsed arm's median state fraction",
+                f"{naive_arms['relapsed']['median_state_fraction']:.5f}"
+                in naive_text,
+                f"{naive_arms['relapsed']['median_state_fraction']:.5f}",
+            )
+            chk(
+                "the report states the threshold the decision used",
+                f"{naive_decision['threshold']:.3f}" in naive_text
+                and "0.104" in naive_text,
+                f"{naive_decision['threshold']:.3f}",
+            )
+            naive_contrast = naive["arms"]["detected"]["contrast"][
+                "untreated_or_vehicle_vs_relapsed"
+            ]
+            chk(
+                "the report states the untreated-versus-relapsed rank-sum test",
+                f"{naive_contrast['mannwhitney_p']:.4f}" in naive_text,
+                f"{naive_contrast['mannwhitney_p']:.4f}",
+            )
+            chk(
+                "the report says the cohort cannot answer the question",
+                "not evaluable" in naive_text
+                and naive_decision["route_evaluable"] is False,
+            )
+            chk(
+                "the report states the depth the complexity control compares",
+                "3,246" in naive_text and "3,787" in naive_text,
+            )
+            chk(
+                "the report records the deposit's three defects",
+                "dense" in naive_text
+                and "SC68_veh" in naive_text
+                and "SC53cis.genes.tsv" in naive_text,
+            )
+            chk(
+                "the report separates the circulating tumour-cell series",
+                "circulating" in naive_text.lower(),
+            )
+            solid = [
+                lib
+                for lib in naive["libraries"]
+                if lib["compartment"] == "pdx"
+            ]
+            counted = sum(
+                naive_arms[arm]["n_libraries"]
+                for arm in ("untreated", "vehicle", "relapsed")
+            )
+            chk(
+                "the arms partition the solid-tissue libraries",
+                counted == len(solid),
+                f"{counted} of {len(solid)}",
+            )
+            relapsed_naive_path = Path("results/gse299684/state_expression.json")
+            if relapsed_naive_path.exists():
+                relapsed_naive = json.loads(relapsed_naive_path.read_text())
+                sweep = relapsed_naive["state_definition_sweep"]
+                primary_sweep = next(
+                    entry for entry in sweep if entry["definition"] == "detected"
+                )
+                pooled = primary_sweep["n_yap1_positive"] / (
+                    primary_sweep["n_yap1_positive"]
+                    + primary_sweep["n_yap1_negative"]
+                )
+                chk(
+                    "the threshold is half the relapsed cohort's pooled state "
+                    "fraction",
+                    abs(naive_decision["threshold"] - pooled / 2) < 1e-12,
+                    f"{naive_decision['threshold']} against {pooled / 2}",
+                )
+        gate_review_text = Path("docs/GATE-REVIEW.md").read_text()
+        k2_row = next(
+            (
+                line
+                for line in gate_review_text.splitlines()
+                if line.startswith("| **K2**")
+            ),
+            "",
+        )
+        chk(
+            "the gate review still records K2 as not evaluable",
+            "not evaluable" in k2_row,
+            k2_row,
+        )
+        chk(
+            "the gate review records the treatment-naive comparator's result",
+            "GSE138474" in gate_review_text,
+        )
+        transfer_text = Path("docs/CHANNEL-TRANSFERABILITY.md").read_text()
+        # The quoted sentence is wrapped across lines in the report, so the
+        # comparison is made on the whitespace-flattened text.
+        transfer_flat = " ".join(transfer_text.replace(">", " ").split())
+        chk(
+            "the transferability report records the authors' repository check",
+            "smgroves/Bhattacharya2026" in transfer_flat
+            and "raw data are not included" in transfer_flat,
+        )
+        chk(
+            "the README links the treatment-naive SCLC report",
+            "GSE138474-TREATMENT-NAIVE-SCLC.md" in Path("README.md").read_text(),
+        )
+        chk(
+            "the roadmap links the treatment-naive SCLC report",
+            "GSE138474-TREATMENT-NAIVE-SCLC.md"
+            in Path("docs/ROADMAP.md").read_text(),
+        )
+        chk(
+            "the dataset survey records the treatment-naive comparator",
+            "GSE138474" in Path("docs/DATASETS.md").read_text(),
+        )
+
         # The numbers the applications are justified by are this repository's
         # own measurements, and they have to match those artefacts.
         folds_path = Path("results/per_library_folds/per_library_folds.json")

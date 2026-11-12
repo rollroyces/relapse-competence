@@ -223,6 +223,38 @@ position; the audit says the statistic survives across the plausible range of
 both, which is a statement about the arithmetic and not about the biology. The
 SCLC candidates are not rescued, which agrees with the per-patient audit.
 
+### The treatment-naive SCLC audit — done: the K2 route, searched and closed
+
+Executed 2026-11-12. See
+[`GSE138474-TREATMENT-NAIVE-SCLC.md`](GSE138474-TREATMENT-NAIVE-SCLC.md).
+The gate review's second open condition names the way it could be tested: "a
+treatment-naive SCLC cohort showing the state is already present before
+therapy". No such cohort was in this repository, and the review said why —
+for relapsed SCLC there was no treatment-naive comparator at all. The
+comparator is GSE138474: 22 solid-tissue libraries from patient-derived SCLC
+models, 13 untreated, 2 vehicle-treated and 7 relapsed, with several models
+sampled before and after treatment.
+
+Measured on the relapsed cohort's own ruler — the same state call, the same
+validation signature, imported rather than reimplemented — the YAP1(+)
+state fraction is a median of **0.00193** in the untreated arm and **0.00239**
+in the relapsed arm of the same deposit (rank-sum p = 0.8051), against
+**0.104** in the relapsed human cohort. The complexity control rules out a
+depth artefact: these libraries detect a median of 3,246 genes per cell
+against 3,787 in the relapsed cohort.
+
+So the cohort does not carry the state in either arm, and a null from it
+cannot be read as "absent before therapy". **The route is closed with
+evidence and K2 remains not evaluable** — what changed is that the gap is no
+longer an unsearched one.
+
+The same week closed the K5 search from the other side: the RORB-loss
+organoid dataset GSE325242 carries no gene annotation in its deposit, and the
+authors' own analysis repository — which the preprint points to — states that
+it holds only code and manuscript material, with the analysis objects on a
+cluster path that is not public. The closest available perturbation system
+exists, is public, and cannot carry the measurement.
+
 ### The assay specification — done: what is measured, and what would stop us
 
 Executed 2026-11-11. See [`PLASMA-ASSAY-SPECIFICATION.md`](PLASMA-ASSAY-SPECIFICATION.md).

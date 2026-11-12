@@ -1,0 +1,26 @@
+accession	title	model	tissue	treatment	arm	compartment	n_cells_passing_qc	n_malignant	n_state_cells	state_fraction
+GSM4104144	SC16.LB17028	SC16	CDX flank	untreated	untreated	pdx	6320	6300	5	0.000794
+GSM4104145	SC16.LB17029	SC16	CDX flank	untreated	untreated	pdx	3890	3870	10	0.002584
+GSM4104146	SC39.LB17018	SC39	CDX flank	untreated	untreated	pdx	2582	2582	1	0.000387
+GSM4104147	SC39.LB17019	SC39	CDX flank	untreated	untreated	pdx	34498	31394	2	0.000064
+GSM4104148	SC39.LB17020	SC39	CDX flank	untreated	untreated	pdx	1196	948	1	0.001055
+GSM4104149	SC49.LB17023	SC49	CDX flank	untreated	untreated	pdx	2589	2485	17	0.006841
+GSM4104150	SC49.LB17024	SC49	CDX flank	untreated	untreated	pdx	502	337	4	0.011869
+GSM4104151	SC49.LB17025	SC49	CDX flank	untreated	untreated	pdx	1838	1793	16	0.008924
+GSM4104152	SC4.LB17009	SC4	CDX flank	untreated	untreated	pdx	5596	5586	11	0.001969
+GSM4104153	SC4.LB17013	SC4	CDX flank	untreated	untreated	pdx	5298	5293	9	0.001700
+GSM4104154	SC4.LB17014	SC4	CDX flank	untreated	untreated	pdx	3595	3591	9	0.002506
+GSM4104155	SC55-1.LB17001	SC55	CTC	untreated	untreated	ctc	112	18	1	0.055556
+GSM4104156	SC55-2.LB17002	SC55	CTC	cisplatin	other	ctc	107	13	0	0.000000
+GSM4104157	SC55-3.LB17026	SC55	CTC	cisplatin, relapsed	relapsed	ctc	405	333	1	0.003003
+GSM4104158	SC4_LY2606368.LB17003	SC4	CDX flank	prexasertib, relapsed	relapsed	pdx	4102	4101	30	0.007315
+GSM4104159	SC4_LY2606368.LB17016	SC4	CDX flank	prexasertib, relapsed	relapsed	pdx	3836	3769	9	0.002388
+GSM4104160	SC4_Talazoparib.LB17004	SC4	CDX flank	talazoparib, relapsed	relapsed	pdx	2635	2635	4	0.001518
+GSM4104161	SC4_Talazoparib.LB17011	SC4	CDX flank	talazoparib, relapsed	relapsed	pdx	5851	5849	7	0.001197
+GSM4104162	SC4_Talazoparib.LB17015	SC4	CDX flank	talazoparib, relapsed	relapsed	pdx	1968	1956	8	0.004090
+GSM4104163	SC55.LB19001	SC55	CDX flank	untreated	untreated	pdx	4678	4664	9	0.001930
+GSM4104164	SC68_cr.LB19003	SC68	CDX flank	cisplatin, relapsed	relapsed	pdx	2172	2115	0	0.000000
+GSM4104165	SC68. LB19002	SC68	CDX flank	vehicle-treated	vehicle	pdx	4282	4257	0	0.000000
+GSM4104166	SC75.LB19004	SC75	CDX flank	untreated	untreated	pdx	3953	3931	3	0.000763
+GSM4851437	SC53cis	SC53	CDX flank	cisplatin, relapsed	relapsed	pdx	2427	1970	10	0.005076
+GSM4851438	SC53	SC53	CDX flank	vehicle-treated	vehicle	pdx	6031	5898	30	0.005086
