@@ -315,8 +315,10 @@ question, and it is the half nobody is running.
 | D5 preclinical | 4–6 months | D2 tissue |
 
 **The critical path is data access, not computation.** PLCO (CDAS) and
-Taizhou (EGA DAC) applications have month-scale lead times and gate D3 and
-D4. **They should be submitted in parallel with D0, not after it.**
+Taizhou (a direct request to the investigators — the EGA route was checked
+in full on 2026-11-10 and holds no deposit) have month-scale lead times and
+gate D3 and D4. **They should be submitted in parallel with D0, not after
+it.**
 
 ---
 
@@ -333,6 +335,7 @@ D4. **They should be submitted in parallel with D0, not after it.**
 | The electrical readout is weaker than D1 assumed in SCLC | **Measured.** The relapsed-SCLC state fraction is 0.104, not the assumed 0.25, so the bulk plasma elevation is 1.25× and the enrichment AUC 0.69, against 0.93 under the assumption; in EGFR-mutant NSCLC the same calculation gives 2.06× and 0.99 | High for SCLC, low for NSCLC-MRD | Use the measured values per disease and channel; the readout is designed for the disease it is validated in | Do not quote a single AUC for the programme; quote the disease-specific one |
 | The electrical channel is not expressed in every tumour | **Measured.** In a third relapsed-SCLC tumour (GSE324849, tarlatamab-treated adrenal metastasis) neither KCNN4 nor PIEZO1 is detected in any of the 424 malignant cells, while both are detected in 9% and 12% of the immune cells of the same library; the tumour cells are covered more deeply than the immune cells, so this is not a depth artefact | High for a plasma assay keyed on one channel | Measure the channel in the tumour before using it as a plasma marker; a plasma assay needs a tumour-expression gate, as targeted therapies gate on EGFR or PD-L1 | Use a multi-channel signature, or restrict the claim to tumours that express the channel |
 | The error floor varies across loci, not only in level | **Unknown, and consequential** — the fidelity audit shows a threshold calibrated on a flat floor collapses to 1.8% specificity under a per-locus-varying floor | **High** | Measure the per-locus background spread of the actual panel; prefer a per-locus-aware statistic (support at *k* independent loci) over an aggregate count | Re-derive the threshold on the measured floor; if the panel cannot support per-locus counts, the mutation channel has to be re-specified |
+| The cohort cannot supply the germline information the attribution needs | **Measured for Taizhou.** The published informed consent did not include full genetic sequencing, so only methylation status per position was released; the per-molecule attribution reads a heterozygous germline SNP that the participant's own tumour shifts, and that was never collected for those participants | High for the Taizhou route, unknown for PLCO | Ask about germline consent before sending any request, and make it the first question rather than a footnote; PLCO's own consent terms are a separate question that the CDAS scoping inquiry is already asking | If no cohort can supply germline information, the readout falls back to a tumour-expression gate without per-molecule attribution, which is the state of the field before this audit and is not a plasma readout |
 
 ---
 

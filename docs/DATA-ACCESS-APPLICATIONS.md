@@ -298,16 +298,71 @@ bulk transcript measurement of two ion channels. The two are complementary
 rather than competing, and TZL has the sample collection and the outcome
 follow-up that the programme cannot obtain any other way.
 
-**What to ask for.** Serial plasma aliquots for the lung-cancer stratum in the
-pre-diagnosis window, with the clinical data needed to align each draw to
-the outcome, and with the methylation measurements if the collaborators are
-willing -- so that the two readouts can be compared in the same participants.
+**What to ask for, and in what order.** The order matters, because the first
+question is about consent rather than samples, and everything else is
+conditional on its answer.
 
-**What must be disclosed.** The PanSeer assay was funded by Singlera
-Genomics, and Kun Zhang is a co-founder, equity holder and paid consultant of
-it. A request to that group has to carry that disclosure, and the request
-should also state plainly that the proposed readout is a different measurement
-from theirs, not a competing implementation of PanSeer.
+1. **Is there germline consent, or a way to obtain it, for participants in
+   the lung-cancer stratum?** The per-molecule attribution reads a heterozygous
+   germline SNP that the participant's own tumour shifts, so a participant
+   without germline genotype is not measurable by this assay at all. The
+   programme's own pilot measures the fraction of participants with an
+   informative position, and this is where that fraction comes from.
+2. **Is the matched tumour tissue available for those participants?** It is
+   what establishes which germline positions this tumour shifts, and it is
+   the tumour-expression gate.
+3. **Serial plasma aliquots for the lung-cancer stratum** in the
+   pre-diagnosis window, with the clinical data needed to align each draw to
+   the outcome.
+4. **The methylation measurements**, if the collaborators are willing, so the
+   two readouts can be compared in the same participants.
+
+**Why the consent question comes first.** The data availability statement
+carries a constraint that bears directly on this programme's assay design:
+
+> Full genetic sequencing data was not included in the informed consent, hence
+> only the methylation status at each genomic position has been released.
+
+**No participant germline genotype was consented for.** That is decisive for
+the per-molecule attribution the assay specification depends on, which reads a
+heterozygous germline SNP that the participant's own tumour shifts. TZL cannot
+supply that per participant for the participants already in the study. It is a
+question to put to the collaborators -- whether a *new* cohort with germline
+consent exists, or whether the archived material was banked under consents
+that would permit it -- and it has to be asked before the request is sent,
+because if the answer is no, the collaboration cannot deliver the attribution
+the readout rests on.
+
+**What must be disclosed.** The funding is narrower than it first looks, and
+the request should say so precisely rather than over-disclose. The paper's
+acknowledgements read: *"The TZL study was supported by the National Key
+Research and Development Program of China, the National Natural Science
+Foundation of China, the Key Basic Research grants from the Science and
+Technology Commission of Shanghai Municipality, the International S&T
+Cooperation Program of China, the Shanghai Municipal Science and Technology
+Major Project program, and the 111 Project. **Funding for the DNA methylation
+assays was provided by Singlera Genomics.**"
+
+The qualifier is **the DNA methylation assays**, not the cohort: the Taizhou
+Longitudinal Study itself was funded by the Chinese national and municipal
+programmes, while Singlera funded the assay. So the assay carries the
+Singlera funding; the cohort does not.
+
+The competing-interest statement is fuller, and it is the part that has to be
+disclosed: thirteen authors are employees of Singlera Genomics, Yuan Gao and
+Rui Liu are board members of it, and Jeffrey Gole, Athurva Gore and Rui Liu
+are inventors on patent US62/657,544, which is held by Singlera Genomics and
+covers basic aspects of the library preparation method the paper uses. Kun
+Zhang is a co-founder, equity holder and paid consultant, and the terms are
+managed by UC San Diego under its conflict-of-interest policies.
+
+**What must be acknowledged.** The PanSeer Python code is public, deposited
+in `https://github.com/ncomms-20-10056-t/ncomms-20-10056-t`. Two things
+follow. The programme can use it, and it can check its own implementation
+against the published one. And the request has to state plainly that the
+proposed readout is a different measurement from PanSeer, not a competing
+implementation of it -- a distinction that is easier to make credibly when the
+request acknowledges the released code rather than appearing unaware of it.
 
 **If an EGA deposit appears.** The route is short and is worth doing in
 parallel: register as an EGA user with an institutional email address and
@@ -332,6 +387,11 @@ published practice is to answer an initial request within two weeks.
 | TZL participants providing plasma for long-term storage | 123,115 | Chen X et al. 2020 | 2026-11-10 |
 | PanSeer sensitivity in asymptomatic participants diagnosed within 4 years | 95% (95% CI 89–98) | Chen X et al. 2020 | 2026-11-10 |
 | PanSeer specificity | 96% (95% CI 93–98) | Chen X et al. 2020 | 2026-11-10 |
+| PanSeer assay funding | Funding for the DNA methylation assays was provided by Singlera Genomics; the cohort was funded by the Chinese national and municipal programmes (National Key R&D Program, NSFC, Shanghai Key Basic Research, International S&T Cooperation, Shanghai Major Project, 111 Project) | Chen X et al. 2020, acknowledgements | 2026-11-12 |
+| TZL genetic sequencing consent | Full genetic sequencing data was not included in the informed consent, hence only the methylation status at each genomic position has been released | Chen X et al. 2020, data availability statement | 2026-11-12 |
+| PanSeer Python code | Public, at https://github.com/ncomms-20-10056-t/ncomms-20-10056-t | Chen X et al. 2020, data availability statement; repository reachable, HTTP 200 | 2026-11-12 |
+| PanSeer competing interests | 13 authors are Singlera Genomics employees; Yuan Gao and Rui Liu are board members; Jeffrey Gole, Athurva Gore and Rui Liu are inventors on patent US62/657,544; Kun Zhang is a co-founder, equity holder and paid consultant, managed by UC San Diego under its conflict-of-interest policies | Chen X et al. 2020, competing interests statement | 2026-11-12 |
+| PanSeer correspondence | Weimin Ye (weimin.ye@ki.se), Yuan Gao (gary.gao@singleragenomics.com), Kun Zhang (kzhang@bioeng.ucsd.edu), Rui Liu (rliu@singleragenomics.com), Li Jin (lijin@fudan.edu.cn) | Chen X et al. 2020, author notes | 2026-11-12 |
 | CDAS contact form: message length limit | 10,000 characters | CDAS contact form | 2026-11-10 |
 | CDAS contact form: subject for PLCO | PLCO | CDAS contact form | 2026-11-10 |
 | CDAS contact form: topics | Data Access/Availability, Biospecimen Availability | CDAS contact form | 2026-11-10 |
@@ -397,8 +457,9 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | TZL-EGA | **Email the DAC directly** | PI | blocked | the above |
 | TZL-EGA | Accept the Data Access Agreement | PI | blocked | — |
 | TZL-DIRECT | Identify the current contact for collaboration at the Taizhou Institute | PI | not started | — |
+| TZL-DIRECT | **Establish whether germline consent exists for the lung-cancer stratum** | PI | not started — the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source | the answer |
 | TZL-DIRECT | Prepare the collaboration request from §2.3, with the conflict disclosure | PI | prepared | — |
-| TZL-DIRECT | **Send the request** | PI | blocked | contact identified |
+| TZL-DIRECT | **Send the request** | PI | blocked | contact identified, germline consent established |
 | TZL-DIRECT | Register the EGA account in parallel | PI | not started | — |
 
 **Application-level status:**

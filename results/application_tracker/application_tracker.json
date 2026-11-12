@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-12T01:14:39.593429+00:00",
-    "git_commit": "88f8b847e9f7637eeb2417e7abc3f7f2c6acf636",
+    "generated_at": "2026-11-12T07:19:53.592296+00:00",
+    "git_commit": "499d5792356e404375df81e83078a7f7edcf21ec",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -199,6 +199,13 @@
     },
     {
       "Application": "TZL-DIRECT",
+      "Step": "Establish whether germline consent exists for the lung-cancer stratum",
+      "Owner": "PI",
+      "Status": "not started \u2014 the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source",
+      "Depends on": "the answer"
+    },
+    {
+      "Application": "TZL-DIRECT",
       "Step": "Prepare the collaboration request from \u00a72.3, with the conflict disclosure",
       "Owner": "PI",
       "Status": "prepared",
@@ -209,7 +216,7 @@
       "Step": "Send the request",
       "Owner": "PI",
       "Status": "blocked",
-      "Depends on": "contact identified"
+      "Depends on": "contact identified, germline consent established"
     },
     {
       "Application": "TZL-DIRECT",
@@ -399,6 +406,36 @@
       "Value": "96% (95% CI 93\u201398)",
       "Source": "Chen X et al. 2020",
       "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "PanSeer assay funding",
+      "Value": "Funding for the DNA methylation assays was provided by Singlera Genomics; the cohort was funded by the Chinese national and municipal programmes (National Key R&D Program, NSFC, Shanghai Key Basic Research, International S&T Cooperation, Shanghai Major Project, 111 Project)",
+      "Source": "Chen X et al. 2020, acknowledgements",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL genetic sequencing consent",
+      "Value": "Full genetic sequencing data was not included in the informed consent, hence only the methylation status at each genomic position has been released",
+      "Source": "Chen X et al. 2020, data availability statement",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PanSeer Python code",
+      "Value": "Public, at https://github.com/ncomms-20-10056-t/ncomms-20-10056-t",
+      "Source": "Chen X et al. 2020, data availability statement; repository reachable, HTTP 200",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PanSeer competing interests",
+      "Value": "13 authors are Singlera Genomics employees; Yuan Gao and Rui Liu are board members; Jeffrey Gole, Athurva Gore and Rui Liu are inventors on patent US62/657,544; Kun Zhang is a co-founder, equity holder and paid consultant, managed by UC San Diego under its conflict-of-interest policies",
+      "Source": "Chen X et al. 2020, competing interests statement",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PanSeer correspondence",
+      "Value": "Weimin Ye (weimin.ye@ki.se), Yuan Gao (gary.gao@singleragenomics.com), Kun Zhang (kzhang@bioeng.ucsd.edu), Rui Liu (rliu@singleragenomics.com), Li Jin (lijin@fudan.edu.cn)",
+      "Source": "Chen X et al. 2020, author notes",
+      "Verified on": "2026-11-12"
     },
     {
       "Fact": "CDAS contact form: message length limit",

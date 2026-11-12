@@ -2753,6 +2753,106 @@ def main(argv: list[str] | None = None) -> int:
             str(facts),
         )
 
+        # The Taizhou record has three load-bearing claims, each of which came
+        # from the paper's own text. They are the funding wording, the consent
+        # constraint, and the released code, and each is checked against the
+        # tracker rather than trusted.
+        chk(
+            "the tracker records the PanSeer assay funding as the assays only",
+            any(
+                "PanSeer assay funding" in fact
+                and "DNA methylation assays" in value
+                and "Singlera" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records that the cohort was funded separately",
+            any(
+                "PanSeer assay funding" in fact and "cohort was funded" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records the genetic sequencing consent limit",
+            any(
+                "genetic sequencing consent" in fact
+                and "not included in the informed consent" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records that the PanSeer code is public",
+            any(
+                "PanSeer Python code" in fact
+                and "ncomms-20-10056-t" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        # The consent limit decides whether the collaboration can deliver the
+        # attribution the readout rests on, so the document has to put it
+        # first rather than buried among the sample requests.
+        chk(
+            "the document states the consent limit on the genetic sequencing",
+            "Full genetic sequencing data was not included in the informed "
+            "consent" in tracker_text,
+        )
+        chk(
+            "the document asks about germline consent before samples",
+            tracker_text.index("Is there germline consent")
+            < tracker_text.index("Serial plasma aliquots for the lung-cancer stratum"),
+        )
+        chk(
+            "the document records the public PanSeer code",
+            "ncomms-20-10056-t/ncomms-20-10056-t" in tracker_text,
+        )
+        chk(
+            "the document discloses the competing interests precisely",
+            "US62/657,544" in tracker_text
+            and "co-founder, equity holder and paid consultant" in tracker_text,
+        )
+        # The consent limit is a tracker step, not a footnote: it decides
+        # whether the collaboration can deliver the attribution.
+        germline_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "TZL-DIRECT"
+                and "germline consent" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker records the germline consent question as a step",
+            germline_step is not None,
+        )
+        if germline_step is not None:
+            chk(
+                "the germline consent step is not recorded as done",
+                not germline_step["Status"].startswith("done"),
+                germline_step["Status"],
+            )
+        chk(
+            "the dataset survey records the consent constraint",
+            "did not include full genetic sequencing"
+            in Path("docs/DATASETS.md").read_text(),
+        )
+        plan = Path("docs/RESEARCH-PLAN.md")
+        if plan.exists():
+            plan_text = plan.read_text()
+            chk(
+                "the research plan records the germline-information risk",
+                "cannot supply the germline information" in plan_text,
+            )
+            chk(
+                "the research plan does not still route Taizhou through the EGA",
+                "Taizhou (EGA DAC)" not in plan_text,
+            )
+
         # Neither application has been submitted, and the document has to say
         # so: a data-access request is an institutional act, and the record
         # of it belongs to the person who makes it.

@@ -48,6 +48,15 @@ Health Sciences and the authors of Chen X et al., *Nature Communications*
 has to carry, and the tracker for both applications are in
 [`DATA-ACCESS-APPLICATIONS.md`](DATA-ACCESS-APPLICATIONS.md).
 
+**One constraint on that cohort was recorded on 2026-11-12.** The published
+informed consent did not include full genetic sequencing, so only methylation
+status per genomic position was released. The programme's per-molecule
+attribution reads a heterozygous germline SNP that the participant's own
+tumour shifts, so that germline information was never collected for these
+participants. Whether it can be consented for going forward is the first
+question the request has to ask, because the answer decides whether the
+collaboration can deliver the attribution the readout rests on.
+
 
 ### Open, small, immediately usable
 
