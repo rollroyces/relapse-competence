@@ -2784,6 +2784,65 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(facts),
         )
+        # The consent limit has a companion: the cohort has a general written
+        # consent, and what it covers is a question the published record
+        # cannot answer, because PanSeer never worked with RNA.
+        chk(
+            "the tracker records that the cohort has a general written consent",
+            any(
+                "ethics approval and consent" in fact
+                and "Written informed consent was obtained" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records that the consent scope for RNA is unestablished",
+            any(
+                "consent scope for RNA" in fact
+                and "do not occur in the article" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records the plasma collection protocol",
+            any(
+                "plasma collection protocol" in fact
+                and "K2 EDTA" in value
+                and "2007" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records the sample-quality limitation",
+            any(
+                "sample-quality limitation" in fact
+                and "high sample failure rate" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records the cfDNA input volume",
+            any(
+                "cfDNA input volume" in fact
+                and "1 mL" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
+        chk(
+            "the tracker records the biobank sample counts",
+            any(
+                "biobank samples drawn" in fact
+                and "578" in value
+                and "221" in value
+                for fact, value in facts.items()
+            ),
+            str(facts),
+        )
         chk(
             "the tracker records that the PanSeer code is public",
             any(
@@ -2805,6 +2864,34 @@ def main(argv: list[str] | None = None) -> int:
             "the document asks about germline consent before samples",
             tracker_text.index("Is there germline consent")
             < tracker_text.index("Serial plasma aliquots for the lung-cancer stratum"),
+        )
+        # There are two consent questions now. The RNA-scope one is prior to
+        # the germline one, because it decides whether the aliquots can be
+        # used for this programme at all.
+        chk(
+            "the document states that the cohort has a general written consent",
+            "Written informed consent was obtained from all study participants"
+            in tracker_text,
+        )
+        chk(
+            "the document asks whether the consent covers RNA analysis",
+            "molecular analysis of RNA" in tracker_text,
+        )
+        chk(
+            "the document asks about the RNA consent scope before the germline "
+            "question",
+            tracker_text.index("molecular analysis of RNA")
+            < tracker_text.index("Is there germline consent"),
+        )
+        chk(
+            "the document records the collection protocol and the sample-quality "
+            "limit",
+            "modern plasma preservation techniques were not" in tracker_text
+            and "K2 EDTA" in tracker_text,
+        )
+        chk(
+            "the document asks for a pilot before the stratum",
+            "a pilot on a handful of aliquots" in tracker_text,
         )
         chk(
             "the document records the public PanSeer code",
@@ -2835,6 +2922,47 @@ def main(argv: list[str] | None = None) -> int:
                 "the germline consent step is not recorded as done",
                 not germline_step["Status"].startswith("done"),
                 germline_step["Status"],
+            )
+        # Two further questions decide whether the route is open at all: the
+        # scope of the consent for RNA, and whether the archive still holds
+        # usable RNA. Neither is answered by the published record.
+        rna_scope_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "TZL-DIRECT"
+                and "molecular analysis of RNA" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker records the RNA consent-scope question as a step",
+            rna_scope_step is not None,
+        )
+        if rna_scope_step is not None:
+            chk(
+                "the RNA consent-scope step is not recorded as done",
+                not rna_scope_step["Status"].startswith("done"),
+                rna_scope_step["Status"],
+            )
+        rna_material_step = next(
+            (
+                row
+                for row in tracker["steps"]
+                if row["Application"] == "TZL-DIRECT"
+                and "usable RNA" in row["Step"]
+            ),
+            None,
+        )
+        chk(
+            "the tracker records the archived-RNA feasibility question as a step",
+            rna_material_step is not None,
+        )
+        if rna_material_step is not None:
+            chk(
+                "the archived-RNA feasibility step is not recorded as done",
+                not rna_material_step["Status"].startswith("done"),
+                rna_material_step["Status"],
             )
         chk(
             "the dataset survey records the consent constraint",
@@ -3039,9 +3167,9 @@ def main(argv: list[str] | None = None) -> int:
 
         # The Taizhou collaboration request is outbound correspondence to a
         # different institution, so it is checked here too. Its numbers have
-        # to be this repository's own, and its central question has to be the
-        # germline one, because that is what decides whether the requested
-        # material would be usable.
+        # to be this repository's own, and its consent questions have to come
+        # before the sample request, because they are what decide whether the
+        # requested material would be usable.
         tzl_doc = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md")
         chk("the Taizhou collaboration request exists", tzl_doc.exists())
         if tzl_doc.exists():
@@ -3072,7 +3200,7 @@ def main(argv: list[str] | None = None) -> int:
                     len(tzl_letter) <= 9_000,
                     str(len(tzl_letter)),
                 )
-                # The consent question has to come before the sample
+                # The consent questions have to come before the sample
                 # request: the published consent excluded the genetic
                 # sequencing, so the material has to be usable before it is
                 # asked for.
@@ -3086,6 +3214,28 @@ def main(argv: list[str] | None = None) -> int:
                     and germline_at < samples_at,
                     f"germline at {germline_at}, samples at {samples_at}",
                 )
+                # The RNA-scope question is prior to the germline one: if the
+                # consent does not cover molecular analysis of RNA, the
+                # aliquots cannot carry this programme at all.
+                rna_scope_at = tzl_letter.find("molecular analysis of RNA")
+                chk(
+                    "the Taizhou letter asks the RNA-scope question before the "
+                    "germline question",
+                    rna_scope_at != -1
+                    and germline_at != -1
+                    and rna_scope_at < germline_at,
+                    f"RNA scope at {rna_scope_at}, germline at {germline_at}",
+                )
+                # The archive's own limitations decide the shape of the ask:
+                # a pilot before the stratum.
+                pilot_at = tzl_letter.find("pilot")
+                chk(
+                    "the Taizhou letter proposes a pilot before the stratum",
+                    pilot_at != -1
+                    and samples_at != -1
+                    and pilot_at < samples_at,
+                    f"pilot at {pilot_at}, samples at {samples_at}",
+                )
                 for phrase in (
                     "not included in the informed consent",
                     "matched primary tumour",
@@ -3095,6 +3245,9 @@ def main(argv: list[str] | None = None) -> int:
                     "no institutional appointment",
                     "123,115",
                     "one to four years",
+                    "written informed consent",
+                    "modern plasma preservation techniques",
+                    "1 mL of plasma",
                 ):
                     chk(
                         f"the Taizhou letter states {phrase!r}",

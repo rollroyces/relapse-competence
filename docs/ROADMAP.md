@@ -262,11 +262,15 @@ magnitude apart in that share.
 
    The Taizhou request is now written
    ([`TAIZHOU-COLLABORATION-REQUEST.md`](TAIZHOU-COLLABORATION-REQUEST.md)),
-   drafted and not sent. It asks the question the published consent raises
-   first: the informed consent did not include full genetic sequencing, so
+   drafted and not sent. It asks two consent questions before it asks for
+   samples. The informed consent did not include full genetic sequencing, so
    the per-molecule attribution the readout depends on has no source in that
-   cohort, and whether germline consent exists decides whether the requested
-   material would be usable at all.
+   cohort; and because PanSeer read cell-free DNA methylation while this
+   programme reads cell-free RNA, the published record cannot say whether the
+   consent covers molecular analysis of RNA at all. The archive is a third
+   unknown — collected before modern plasma preservation, 1 mL of plasma per
+   sample, twelve to nineteen years old — so the ask is a pilot rather than
+   the stratum.
 
    The PLCO side now has a **package ready to sign**:
    [`plco-cdas-submission-package/`](plco-cdas-submission-package/README.md)

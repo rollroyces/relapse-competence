@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-12T07:31:26.491273+00:00",
-    "git_commit": "a814f8ebb80ed0695697fb40e9a4ba1b7777f7b4",
+    "generated_at": "2026-11-12T07:48:00.219881+00:00",
+    "git_commit": "08bc992754d969bd5073f93cde96f127fac5f372",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -199,9 +199,23 @@
     },
     {
       "Application": "TZL-DIRECT",
+      "Step": "Establish whether the consent permits molecular analysis of RNA from the archived plasma",
+      "Owner": "PI",
+      "Status": "not started \u2014 PanSeer read cell-free DNA methylation and cfRNA does not appear in the article, so the published record cannot answer it; the answer decides whether the aliquots are usable at all",
+      "Depends on": "the answer"
+    },
+    {
+      "Application": "TZL-DIRECT",
       "Step": "Establish whether germline consent exists for the lung-cancer stratum",
       "Owner": "PI",
       "Status": "not started \u2014 the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source",
+      "Depends on": "the answer"
+    },
+    {
+      "Application": "TZL-DIRECT",
+      "Step": "Establish whether the archived plasma still yields usable RNA",
+      "Owner": "PI",
+      "Status": "not started \u2014 PanSeer records 1 mL per sample, no modern plasma preservation and a high sample failure rate, and the aliquots are twelve to nineteen years old",
       "Depends on": "the answer"
     },
     {
@@ -216,7 +230,7 @@
       "Step": "Send the request",
       "Owner": "PI",
       "Status": "blocked",
-      "Depends on": "contact identified, germline consent established"
+      "Depends on": "contact identified, the two consent questions answered"
     },
     {
       "Application": "TZL-DIRECT",
@@ -417,6 +431,42 @@
       "Fact": "TZL genetic sequencing consent",
       "Value": "Full genetic sequencing data was not included in the informed consent, hence only the methylation status at each genomic position has been released",
       "Source": "Chen X et al. 2020, data availability statement",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL ethics approval and consent",
+      "Value": "The study was approved by the Human Ethics Committee of Fudan University. Written informed consent was obtained from all study participants prior to inclusion in the TZL",
+      "Source": "Chen X et al. 2020, Methods (ethics)",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL consent scope for RNA",
+      "Value": "Not established by the published record: the strings cfRNA and cell-free RNA do not occur in the article, and the only mentions of RNA are the extraction kit's carrier RNA and one cited reference title",
+      "Source": "Chen X et al. 2020, full text",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL plasma collection protocol",
+      "Value": "10 mL of blood drawn into a K2 EDTA vacutainer and held at 4 \u00b0C until the end of the business day, then centrifuged, with plasma aliquoted into barcoded cryovials for long-term storage at \u221280 \u00b0C or below; samples collected 2007\u20132014",
+      "Source": "Chen X et al. 2020, Methods (plasma sample collection)",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL cfDNA input volume",
+      "Value": "1 mL of plasma per sample, extracted with the QIAamp Circulating Nucleic Acid kit (Qiagen 55114)",
+      "Source": "Chen X et al. 2020, Methods",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL sample-quality limitation",
+      "Value": "Modern plasma preservation techniques were not used during collection, leading to genomic DNA contamination and in some cases a high sample failure rate, and only 1 mL of plasma was available per sample; the authors state that better collection would have yielded more and higher quality DNA molecules",
+      "Source": "Chen X et al. 2020, Discussion (limitations)",
+      "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "TZL biobank samples drawn for PanSeer",
+      "Value": "578 healthy and 221 pre-diagnosis plasma samples from the TZL biobank, plus 357 post-diagnosis plasma samples from local Taizhou hospital biobanks processed the same way",
+      "Source": "Chen X et al. 2020, Methods",
       "Verified on": "2026-11-12"
     },
     {

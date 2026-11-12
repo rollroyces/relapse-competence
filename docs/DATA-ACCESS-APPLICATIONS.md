@@ -298,27 +298,18 @@ bulk transcript measurement of two ion channels. The two are complementary
 rather than competing, and TZL has the sample collection and the outcome
 follow-up that the programme cannot obtain any other way.
 
-**What to ask for, and in what order.** The order matters, because the first
-question is about consent rather than samples, and everything else is
-conditional on its answer.
+**What the published consent does and does not cover.** Two facts from the
+paper, and they point in opposite directions.
 
-1. **Is there germline consent, or a way to obtain it, for participants in
-   the lung-cancer stratum?** The per-molecule attribution reads a heterozygous
-   germline SNP that the participant's own tumour shifts, so a participant
-   without germline genotype is not measurable by this assay at all. The
-   programme's own pilot measures the fraction of participants with an
-   informative position, and this is where that fraction comes from.
-2. **Is the matched tumour tissue available for those participants?** It is
-   what establishes which germline positions this tumour shifts, and it is
-   the tumour-expression gate.
-3. **Serial plasma aliquots for the lung-cancer stratum** in the
-   pre-diagnosis window, with the clinical data needed to align each draw to
-   the outcome.
-4. **The methylation measurements**, if the collaborators are willing, so the
-   two readouts can be compared in the same participants.
+The study has a general written informed consent. The Methods section states:
+"The study was approved by the Human Ethics Committee of Fudan University.
+Written informed consent was obtained from all study participants prior to
+inclusion in the TZL." So this is not a cohort without consent, and the
+request is not an attempt to re-open an ethics question: the participants
+were consented for the study and the samples were banked under that consent.
 
-**Why the consent question comes first.** The data availability statement
-carries a constraint that bears directly on this programme's assay design:
+The limit is specific, and it is the limit that bears directly on this
+programme's assay design. The data availability statement carries:
 
 > Full genetic sequencing data was not included in the informed consent, hence
 > only the methylation status at each genomic position has been released.
@@ -332,6 +323,86 @@ consent exists, or whether the archived material was banked under consents
 that would permit it -- and it has to be asked before the request is sent,
 because if the answer is no, the collaboration cannot deliver the attribution
 the readout rests on.
+
+**And there is a second consent question that the published record cannot
+answer.** The assay proposed here does not read the analyte PanSeer read.
+PanSeer read cell-free DNA methylation; the measurement in this programme
+reads channel transcripts in cell-free RNA. That difference is not cosmetic --
+it changes what the consent has to permit -- and it has a sharp consequence
+for the record. The strings "cfRNA" and "cell-free RNA" do not occur anywhere
+in the paper; the only mentions of RNA are the extraction kit's carrier RNA
+and the title of one cited reference. PanSeer never worked with RNA, so the
+published record cannot say whether the Taizhou consent covers molecular
+analysis of RNA. That the consent excluded *full genetic sequencing* is
+evidence that it enumerated permitted analyses rather than covering research
+use of the samples in general, which is a reason to ask rather than a reason
+to assume.
+
+So the question is: **does the informed consent used for the Taizhou
+participants permit molecular analysis of RNA from the archived plasma?** It
+comes before the germline question, because it decides whether the archived
+aliquots can be used for this programme at all. If the answer is no, the
+germline question does not need asking.
+
+**What is known about the archived material, and what is not.** The Methods
+section is explicit about the collection protocol:
+
+> Ten milliliter of blood were drawn from each patient into a K2 EDTA
+> vacutainer and stored at 4 °C until the end of the business day. Blood
+> samples were then centrifuged, and plasma was aliquoted into a barcoded
+> cryovial for long-term storage at −80 °C or below.
+
+and about the volume the assay actually received:
+
+> Cell free DNA (cfDNA) was extracted from 1 mL plasma using the QIAamp
+> Circulating Nucleic Acid kit
+
+The paper's own limitations section records the consequence:
+
+> due to the TZL timeframe, modern plasma preservation techniques were not
+> used during sample collection, leading to various degrees of genomic DNA
+> contamination and in some cases a high sample failure rate; additionally,
+> only 1 mL of plasma was available for each sample ... It is likely that with
+> the 10 mL blood draws typically used in current protocols and better plasma
+> preservation techniques, more and higher quality DNA molecules would be
+> available for the assay and detection sensitivity could be further increased.
+
+**What that means for a cfRNA assay, and what is unknown.** The aliquots are
+real and retrievable at scale: PanSeer drew 578 healthy and 221 pre-diagnosis
+plasma samples from the TZL biobank on this protocol, plus 357 post-diagnosis
+samples from local Taizhou hospital biobanks. What is not known is how much
+usable RNA is in them, and there are published reasons to expect less than
+PanSeer found for DNA. The whole-blood hold at 4 °C until the end of the
+business day is a specific liability for a circulating-RNA assay; cfRNA is
+scarcer and less stable than cfDNA; and the archive is now twelve to nineteen
+years old. Nobody has measured it, because nobody needed to.
+
+**Therefore the first material ask should be small.** Not the lung-cancer
+stratum, and not a serial series: a pilot on a handful of aliquots, run to
+establish that cell-free RNA can be recovered and sequenced from this archive
+at all. That pilot is a question about feasibility, and it is the only way to
+find out before asking for the stratum.
+
+**What to ask for, and in what order.** The order matters, because the first
+two questions are about consent rather than samples, and everything else is
+conditional on their answers.
+
+1. **Does the consent permit molecular analysis of RNA from the archived
+   plasma?** If it does not, there is no measurement to discuss. See above.
+2. **Is there germline consent, or a way to obtain it, for participants in
+   the lung-cancer stratum?** The per-molecule attribution reads a heterozygous
+   germline SNP that the participant's own tumour shifts, so a participant
+   without germline genotype is not measurable by this assay at all. The
+   programme's own pilot measures the fraction of participants with an
+   informative position, and this is where that fraction comes from.
+3. **Is the matched tumour tissue available for those participants?** It is
+   what establishes which germline positions this tumour shifts, and it is
+   the tumour-expression gate.
+4. **Serial plasma aliquots for the lung-cancer stratum** in the
+   pre-diagnosis window, with the clinical data needed to align each draw to
+   the outcome.
+5. **The methylation measurements**, if the collaborators are willing, so the
+   two readouts can be compared in the same participants.
 
 **What must be disclosed.** The funding is narrower than it first looks, and
 the request should say so precisely rather than over-disclose. The paper's
@@ -389,6 +460,12 @@ published practice is to answer an initial request within two weeks.
 | PanSeer specificity | 96% (95% CI 93–98) | Chen X et al. 2020 | 2026-11-10 |
 | PanSeer assay funding | Funding for the DNA methylation assays was provided by Singlera Genomics; the cohort was funded by the Chinese national and municipal programmes (National Key R&D Program, NSFC, Shanghai Key Basic Research, International S&T Cooperation, Shanghai Major Project, 111 Project) | Chen X et al. 2020, acknowledgements | 2026-11-12 |
 | TZL genetic sequencing consent | Full genetic sequencing data was not included in the informed consent, hence only the methylation status at each genomic position has been released | Chen X et al. 2020, data availability statement | 2026-11-12 |
+| TZL ethics approval and consent | The study was approved by the Human Ethics Committee of Fudan University. Written informed consent was obtained from all study participants prior to inclusion in the TZL | Chen X et al. 2020, Methods (ethics) | 2026-11-12 |
+| TZL consent scope for RNA | Not established by the published record: the strings cfRNA and cell-free RNA do not occur in the article, and the only mentions of RNA are the extraction kit's carrier RNA and one cited reference title | Chen X et al. 2020, full text | 2026-11-12 |
+| TZL plasma collection protocol | 10 mL of blood drawn into a K2 EDTA vacutainer and held at 4 °C until the end of the business day, then centrifuged, with plasma aliquoted into barcoded cryovials for long-term storage at −80 °C or below; samples collected 2007–2014 | Chen X et al. 2020, Methods (plasma sample collection) | 2026-11-12 |
+| TZL cfDNA input volume | 1 mL of plasma per sample, extracted with the QIAamp Circulating Nucleic Acid kit (Qiagen 55114) | Chen X et al. 2020, Methods | 2026-11-12 |
+| TZL sample-quality limitation | Modern plasma preservation techniques were not used during collection, leading to genomic DNA contamination and in some cases a high sample failure rate, and only 1 mL of plasma was available per sample; the authors state that better collection would have yielded more and higher quality DNA molecules | Chen X et al. 2020, Discussion (limitations) | 2026-11-12 |
+| TZL biobank samples drawn for PanSeer | 578 healthy and 221 pre-diagnosis plasma samples from the TZL biobank, plus 357 post-diagnosis plasma samples from local Taizhou hospital biobanks processed the same way | Chen X et al. 2020, Methods | 2026-11-12 |
 | PanSeer Python code | Public, at https://github.com/ncomms-20-10056-t/ncomms-20-10056-t | Chen X et al. 2020, data availability statement; repository reachable, HTTP 200 | 2026-11-12 |
 | PanSeer competing interests | 13 authors are Singlera Genomics employees; Yuan Gao and Rui Liu are board members; Jeffrey Gole, Athurva Gore and Rui Liu are inventors on patent US62/657,544; Kun Zhang is a co-founder, equity holder and paid consultant, managed by UC San Diego under its conflict-of-interest policies | Chen X et al. 2020, competing interests statement | 2026-11-12 |
 | PanSeer correspondence | Weimin Ye (weimin.ye@ki.se), Yuan Gao (gary.gao@singleragenomics.com), Kun Zhang (kzhang@bioeng.ucsd.edu), Rui Liu (rliu@singleragenomics.com), Li Jin (lijin@fudan.edu.cn) | Chen X et al. 2020, author notes | 2026-11-12 |
@@ -457,9 +534,11 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | TZL-EGA | **Email the DAC directly** | PI | blocked | the above |
 | TZL-EGA | Accept the Data Access Agreement | PI | blocked | — |
 | TZL-DIRECT | Identify the current contact for collaboration at the Taizhou Institute | PI | not started | — |
+| TZL-DIRECT | **Establish whether the consent permits molecular analysis of RNA from the archived plasma** | PI | not started — PanSeer read cell-free DNA methylation and cfRNA does not appear in the article, so the published record cannot answer it; the answer decides whether the aliquots are usable at all | the answer |
 | TZL-DIRECT | **Establish whether germline consent exists for the lung-cancer stratum** | PI | not started — the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source | the answer |
+| TZL-DIRECT | **Establish whether the archived plasma still yields usable RNA** | PI | not started — PanSeer records 1 mL per sample, no modern plasma preservation and a high sample failure rate, and the aliquots are twelve to nineteen years old | the answer |
 | TZL-DIRECT | Prepare the collaboration request from §2.3, with the conflict disclosure | PI | prepared — `docs/TAIZHOU-COLLABORATION-REQUEST.md` | — |
-| TZL-DIRECT | **Send the request** | PI | blocked | contact identified, germline consent established |
+| TZL-DIRECT | **Send the request** | PI | blocked | contact identified, the two consent questions answered |
 | TZL-DIRECT | Register the EGA account in parallel | PI | not started | — |
 
 **Application-level status:**

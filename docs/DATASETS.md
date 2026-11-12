@@ -48,14 +48,26 @@ Health Sciences and the authors of Chen X et al., *Nature Communications*
 has to carry, and the tracker for both applications are in
 [`DATA-ACCESS-APPLICATIONS.md`](DATA-ACCESS-APPLICATIONS.md).
 
-**One constraint on that cohort was recorded on 2026-11-12.** The published
+**Two constraints on that cohort were recorded on 2026-11-12.** The published
 informed consent did not include full genetic sequencing, so only methylation
 status per genomic position was released. The programme's per-molecule
 attribution reads a heterozygous germline SNP that the participant's own
 tumour shifts, so that germline information was never collected for these
-participants. Whether it can be consented for going forward is the first
-question the request has to ask, because the answer decides whether the
+participants. Whether it can be consented for going forward is one of the two
+questions the request has to ask, because the answer decides whether the
 collaboration can deliver the attribution the readout rests on.
+
+The second constraint is the one the published record cannot answer. The
+measurement reads cell-free RNA; PanSeer read cell-free DNA methylation, and
+neither "cfRNA" nor "cell-free RNA" occurs anywhere in the paper, so the
+consent's coverage of molecular analysis of RNA is unknown. It gates the
+germline question, because if the consent does not permit RNA analysis the
+archived aliquots cannot be used for this programme at all. The archive is a
+second unknown: the samples were collected before modern plasma preservation,
+the blood was held at 4 °C until the end of the business day, only 1 mL of
+plasma was available per sample, and the aliquots are twelve to nineteen
+years old. How much usable RNA they contain is unmeasured, so the first
+material ask is a pilot rather than the stratum.
 
 
 ### Open, small, immediately usable
