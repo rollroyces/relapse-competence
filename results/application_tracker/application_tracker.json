@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-11T14:40:32.998905+00:00",
-    "git_commit": "8b930537d9e00412d1ab9554b48a57a69f159718",
+    "generated_at": "2026-11-12T01:14:39.593429+00:00",
+    "git_commit": "88f8b847e9f7637eeb2417e7abc3f7f2c6acf636",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -40,7 +40,7 @@
       "Application": "PLCO-DATA",
       "Step": "Send the scoping inquiry to CDAS (subject: PLCO)",
       "Owner": "PI",
-      "Status": "done \u2014 three messages sent 2026-11-11; the form issues no inquiry number",
+      "Status": "done \u2014 four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number",
       "Depends on": "the scoping inquiry"
     },
     {
@@ -131,7 +131,7 @@
       "Application": "PLCO-EEMS",
       "Step": "Send the biospecimen eligibility questions to CDAS (messages D and E)",
       "Owner": "PI",
-      "Status": "drafted, not sent \u2014 07-scoping-inquiry.md \u00a77",
+      "Status": "D sent 2026-11-12; E drafted and held until the first answer to D",
       "Depends on": "the answer to D1"
     },
     {
@@ -534,9 +534,9 @@
     },
     {
       "Fact": "Scoping inquiries sent to CDAS",
-      "Value": "3 \u2014 Data Access/Availability, Biospecimen Availability, and the PI eligibility question",
+      "Value": "4 \u2014 Data Access/Availability twice, Biospecimen Availability, and Biospecimen Application Process",
       "Source": "this repository's sending record",
-      "Verified on": "2026-11-11"
+      "Verified on": "2026-11-12"
     },
     {
       "Fact": "KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries",

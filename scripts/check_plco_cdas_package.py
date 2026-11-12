@@ -386,6 +386,7 @@ def main(argv: list[str] | None = None) -> int:
         ("A", "Data Access/Availability"),
         ("B", "Biospecimen Availability"),
         ("C", "Data Access/Availability"),
+        ("D", "Biospecimen Application Process"),
     ):
         begin = f"<!-- BEGIN MESSAGE {tag} -->"
         end = f"<!-- END MESSAGE {tag} -->"

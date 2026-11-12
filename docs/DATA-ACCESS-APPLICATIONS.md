@@ -26,14 +26,15 @@ What this document does instead is remove everything that does not need the
 PI's identity or signature, so that what remains is a short list of human
 actions with nothing else to prepare.
 
-**Three things have been sent: the scoping inquiry, on 2026-11-11.** It went
-through CDAS's public contact form as three messages — the clinical-data
-scope question, the biospecimen scope question, and, later the same day, a
-question about who is allowed to submit a proposal at all. They are
-questions, not applications: they ask what exists and what the rules are
-before anything is requested, and they commit the PI to nothing. The
-proposals and the EEMS application are untouched and still require the PI's
-own submission and the Signing Official's signature. The sending record is in
+**Four things have been sent: the scoping inquiry.** It went through CDAS's
+public contact form as four messages — the clinical-data scope question, the
+biospecimen scope question, a question about who is allowed to submit a
+proposal at all, and, the next morning, a question about whether such an
+applicant may submit an EEMS application. They are questions, not
+applications: they ask what exists and what the rules are before anything is
+requested, and they commit the PI to nothing. The proposals and the EEMS
+application are untouched and still require the PI's own submission and the
+Signing Official's signature. The sending record is in
 [`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
 §0, and the CDAS form issues no inquiry number, so there is no reference to
 quote until the reply arrives.
@@ -230,9 +231,9 @@ have to be the institution that employs the applicant, and it does not have
 to be the PI's institution.
 
 **Whether the route is open to an applicant with no institutional appointment
-at all is the first question, and it has been drafted and not sent.** The two
-questions — whether such an applicant may submit a preliminary application,
-and who may sign the transfer agreement — are in
+at all is the first question, and it has been asked.** The two questions —
+whether such an applicant may submit a preliminary application, and who may
+sign the transfer agreement — are in
 [`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
 §7, as messages D and E. The answer to D1 decides whether the rest of this
 section is worth doing, which is why it goes before the deadline rather than
@@ -353,7 +354,7 @@ published practice is to answer an initial request within two weeks.
 | CDAS contact form: topic list appears only after a subject is chosen | yes | CDAS contact form | 2026-11-11 |
 | CDAS contact form: hidden decoy submit buttons | 10, plus the visible one | CDAS contact form | 2026-11-11 |
 | CDAS contact form: anti-spam traps, both left empty at submission | `id_name` in `antispam1`; `id_phone` in `antispam2` | CDAS contact form | 2026-11-11 |
-| Scoping inquiries sent to CDAS | 3 — Data Access/Availability, Biospecimen Availability, and the PI eligibility question | this repository's sending record | 2026-11-11 |
+| Scoping inquiries sent to CDAS | 4 — Data Access/Availability twice, Biospecimen Availability, and Biospecimen Application Process | this repository's sending record | 2026-11-12 |
 | KCa3.1 within-tumour fold above 1 in EGFR-mutant NSCLC libraries | 20 of 23 | this repository's per-library folds | 2026-11-09 |
 | Residual-disease libraries clearing the programme's K3 threshold | 7 of 7 | this repository's per-patient audit | 2026-11-09 |
 
@@ -373,7 +374,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Check the package: 500-word cap, fields, numbers, signature blocks | programme | done — `scripts/check_plco_cdas_package.py` | the package |
 | PLCO-DATA | Write the submission runbook and the scoping inquiry | programme | done — `06-submission-runbook.md`, `07-scoping-inquiry.md` | the package |
 | PLCO-DATA | Re-derive the operating point with the leukocyte reference loci, and re-run the audit at it | programme | done — nothing in the search space clears K3; the reference set is a check, not a correction | the leukocyte audit |
-| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — three messages sent 2026-11-11; the form issues no inquiry number | the scoping inquiry |
+| PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number | the scoping inquiry |
 | PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — the PI must be a permanent employee at professor level and is the person who submits | an institutional relationship |
 | PLCO-DATA | Approach a host PI with the invitation letter | PI | draft prepared, not sent — `docs/HOST-INVITATION.md` | the eligibility answer |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
@@ -386,7 +387,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
 | PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — preliminary applications are rolling; Feb 18 is the final-application deadline for the January/February round | the EEMS policies, read 2026-11-11 |
 | PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, so it does not have to wait for Feb 18 | PLCO-DATA scoping |
-| PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | drafted, not sent — `07-scoping-inquiry.md` §7 | the answer to D1 |
+| PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | D sent 2026-11-12; E drafted and held until the first answer to D | the answer to D1 |
 | PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, the application text |
 | PLCO-EEMS | **Submit the EEMS final application by Feb 18, 11:59 PM EST** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
 | TZL-EGA | Re-check the EGA catalogue for a Taizhou or PanSeer deposit | PI | done — no deposit found | — |

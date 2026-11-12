@@ -29,10 +29,20 @@ soon as possible."*
 | A | PLCO | Data Access/Availability | 1152 | 2026-11-11 12:27 |
 | B | PLCO | Biospecimen Availability | 1789 | 2026-11-11 12:28 |
 | C | PLCO | Data Access/Availability | 2121 | 2026-11-11 16:45 |
+| D | PLCO | Biospecimen Application Process | 1866 | 2026-11-12 09:11 |
 
 Message C asked about the data route's own eligibility requirement; it is in
-§6. Messages D and E, which ask about the biospecimen route, are drafted in
-§7 and **have not been sent**.
+§6. Message D, which asks whether an applicant with no institutional
+appointment may submit an EEMS application at all, was sent on 2026-11-11 US
+Eastern and is in §7. Message E, which asks who may sign the transfer
+agreement, is drafted in the same section and **has not been sent**: it is
+conditional on the first answer to D.
+
+**The timing, for anyone reading the record.** A, B and C were all sent
+outside CDAS's working hours — 23:27, 23:28 and 03:45 US Eastern — so they
+were all queued for the same morning. D was sent at 20:11 US Eastern and is
+queued for the next one. The form forwards each message by Topic, so D went
+to the EEMS programme desk rather than to whoever answers A or C.
 
 The character counts are the lengths of the two message blocks below, and
 `scripts/verify_report_consistency.py` checks them against those blocks, so
@@ -220,7 +230,7 @@ Royce Lam
 roycelam@umich.edu
 <!-- END MESSAGE C -->
 
-## 7. Messages D and E — the biospecimen route (drafted, not sent)
+## 7. Messages D and E — the biospecimen route
 
 These two ask whether the **biospecimen** route is open to an applicant
 with no current institutional appointment. They are separate messages because
@@ -229,12 +239,12 @@ able to answer it: who may apply is a question for the EEMS programme, and
 who may sign the transfer agreement is a question for the agreements side.
 A and B were split for the same reason.
 
-Neither has been sent. Both need a decision on the row marked "send" in the
-tracker, and D is the one that decides whether the EEMS route is open at
-all: if an applicant with no institutional appointment may not apply, the
-transfer-agreement question does not arise.
+**D was sent on 2026-11-12 09:11 HKT (2026-11-11 US Eastern). E is
+drafted and held**, because it is conditional on D's first answer: if an
+applicant with no institutional appointment may not apply, the question of
+who signs the transfer agreement is not yet a live one.
 
-### Message D — who may apply
+### Message D — who may apply — sent
 
 Subject: **PLCO** · Topic: **Biospecimen Application Process** · Message:
 
@@ -263,7 +273,7 @@ Royce Lam
 roycelam@umich.edu
 <!-- END MESSAGE D -->
 
-### Message E — who may sign the transfer agreement
+### Message E — who may sign the transfer agreement — drafted, not sent
 
 Subject: **PLCO** · Topic: **Biospecimen Transfer Agreements** · Message:
 
@@ -298,20 +308,21 @@ roycelam@umich.edu
 | E1 — the MTA counterparty must be the applicant's employer | The specimen route cannot be run by the requester alone, and the host has to be the employer |
 | E3 — approved users must hold appointments at the MTA institution | The requester needs an institutional email at that institution, which is a condition the application would have to satisfy |
 
-## 8. Before you send
+## 8. Before you send E
 
-- **Both messages are plain text.** The field is a plain textarea; markdown
-  will not render, and asterisks around a word look like noise.
-- **The limit is 10,000 characters** per message. Both are well inside it.
+- **E is plain text.** The field is a plain textarea; markdown will not
+  render, and asterisks around a word look like noise.
+- **The limit is 10,000 characters.** E is 1,402.
 - **The fields are filled.** The name, the e-mail address and the form's own
   e-mail field carry `Royce Lam` and `roycelam@umich.edu`.
 - **The two unlabelled boxes stay empty.** They are anti-spam traps; a
   submission carrying a value in one of them can be discarded without a
   reply.
-- **Send D first.** E is conditional on D: if an applicant with no
-  institutional appointment may not apply, the question of who signs the
-  transfer agreement is not yet a live question.
-- **Neither is a request for access.** These ask about eligibility. No
-  proposal is attached, nothing is committed, and no signature is asked for.
+- **Send E only if D's first answer opens the route.** If an applicant with
+  no institutional appointment may not apply, there is no transfer
+  agreement for them to be the counterparty of, and the route needs a host
+  Principal Investigator instead.
+- **E is not a request for access.** It asks about eligibility. No proposal
+  is attached, nothing is committed, and no signature is asked for.
 
 

@@ -28,6 +28,7 @@ import json
 import re
 import subprocess
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 #: Query IDs whose hit counts are asserted in the report, with the value that
@@ -2790,7 +2791,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         chk(
             "the document records that the scoping inquiry was sent",
-            "the scoping inquiry, on 2026-11-11" in tracker_text,
+            "Four things have been sent: the scoping inquiry" in tracker_text,
         )
         fact_rows = {row["Fact"]: row for row in tracker["external_facts"]}
         chk(
@@ -2804,11 +2805,11 @@ def main(argv: list[str] | None = None) -> int:
             str(sorted(fact_rows)),
         )
         chk(
-            "the tracker records that three scoping inquiries were sent",
+            "the tracker records that four scoping inquiries were sent",
             any(
                 "Scoping inquiries sent to CDAS" in fact
-                and fact_rows[fact]["Value"].startswith("3")
-                and fact_rows[fact]["Verified on"] == "2026-11-11"
+                and fact_rows[fact]["Value"].startswith("4")
+                and fact_rows[fact]["Verified on"] == "2026-11-12"
                 for fact in fact_rows
             ),
             str(sorted(fact_rows)),
@@ -3520,6 +3521,7 @@ def main(argv: list[str] | None = None) -> int:
                 "A": "Data Access/Availability",
                 "B": "Biospecimen Availability",
                 "C": "Data Access/Availability",
+                "D": "Biospecimen Application Process",
             }
             for tag, topic in topics.items():
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
@@ -3557,27 +3559,43 @@ def main(argv: list[str] | None = None) -> int:
                     f"recorded {cells[3] if len(cells) > 3 else ''}, "
                     f"actual {len(body)}",
                 )
+                # The date has to parse, and it has to fall in the window
+                # the enquiries were sent in: the first three went on
+                # 2026-11-11 and the eligibility question on the 12th,
+                # because the first three were all queued for the same
+                # morning on CDAS's side.
+                stamp = cells[4] if len(cells) > 4 else ""
+                try:
+                    sent = datetime.strptime(stamp, "%Y-%m-%d %H:%M")
+                except ValueError:
+                    sent = None
                 chk(
                     f"the sending record for message {tag} carries the date it "
                     "was sent",
-                    len(cells) == 5 and cells[4].startswith("2026-11-11"),
-                    cells[4] if len(cells) > 4 else "",
+                    sent is not None
+                    and sent.date() in {date(2026, 11, 11), date(2026, 11, 12)},
+                    stamp,
                 )
             chk(
                 "the scoping inquiry records that the form issues no inquiry number",
                 "no inquiry number" in inquiry,
             )
-            # Messages D and E are drafted, not sent, so they must not appear
-            # in the sending record, and the document has to say so.
+            # Message E is drafted, not sent, so it must not appear in the
+            # sending record, and the document has to say so. Message D was
+            # sent, so it does appear.
             record = inquiry.split("## 1.")[0]
             chk(
                 "the sending record has no row for a message that was not sent",
-                "| D |" not in record and "| E |" not in record,
+                "| E |" not in record,
             )
             chk(
-                "the scoping inquiry records that the biospecimen questions "
-                "are drafted, not sent",
-                "have not been sent" in inquiry,
+                "the sending record has a row for the message that was sent",
+                "| D |" in record,
+            )
+            chk(
+                "the scoping inquiry records that the transfer-agreement "
+                "question is drafted, not sent",
+                "has not been sent" in inquiry,
             )
             chk(
                 "the drafted messages carry the two different topics",
