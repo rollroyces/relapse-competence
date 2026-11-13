@@ -59,7 +59,7 @@ reference in the reply, that belongs with the reply, not here.
 |---|---|
 | **Your Email Address** | `roycelam@umich.edu` — required, and CDAS forwards the message to it, so it has to be one you read |
 | **Select a Subject** | **PLCO** — required, and it is the only subject that routes the message to the PLCO team. Choose it **first**: the topic list is not on the page until a subject has been picked, and it appears with `-------` and the five topics. |
-| **Select a Topic** | Message A: **Data Access/Availability**. Message B: **Biospecimen Availability** |
+| **Select a Topic** | Message A: **Data Access/Availability**. Message B: **Biospecimen Availability**. The five topics are `Data Access/Availability`, `Biospecimen Availability`, `Biospecimen Application Process`, `Biospecimen Transfer Agreements` and `Tech Support` (read from the live form on 2026-11-13). **There is a dedicated topic for transfer agreements**, which is where message E would have gone: E asked who may sign the transfer agreement, and it would have been filed under `Biospecimen Transfer Agreements` rather than under `Biospecimen Application Process` |
 | **Message** | the block for that message, copied in full. The field carries `maxlength="10000"`, so the limit is enforced by the browser as well as by the server. |
 | the box next to *Your Email Address* but with no label | **leave it empty** |
 | the other box with no label | **leave it empty** |
@@ -72,6 +72,8 @@ reply. Do not fill in your name there — put it in the message.
 
 Read from the live form on 2026-11-11, the two are `id_name` (class
 `antispam1`) and `id_phone` (class `antispam2`), both with `tabindex="-1"`.
+Re-read on 2026-11-13, both were still present and still empty, and the
+field ids are `id_email`, `id_subject`, `id_topic` and `id_message`.
 
 **The form also renders ten hidden decoy submit buttons.** All of them are
 labelled *Send Message*, and they differ only in their `name` and in whether

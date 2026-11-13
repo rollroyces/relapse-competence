@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T06:26:07.100738+00:00",
-    "git_commit": "1179d1631ef546dba28af6f67cc2cbbe7f3a4406",
+    "generated_at": "2026-11-13T09:14:40.261661+00:00",
+    "git_commit": "d9a4a6867476346278d2c3f38dc4933380620836",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
