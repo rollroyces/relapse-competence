@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T06:15:15.352259+00:00",
-    "git_commit": "db8b1484608713faff69e3e5a7d4829c14510571",
+    "generated_at": "2026-11-13T06:26:07.100738+00:00",
+    "git_commit": "1179d1631ef546dba28af6f67cc2cbbe7f3a4406",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -61,7 +61,7 @@
       "Application": "PLCO-DATA",
       "Step": "Approach a host PI with the invitation letter",
       "Owner": "PI",
-      "Status": "drafted with the host chosen \u2014 Professor Bryant, University of Michigan \u2014 and not sent; the letter now asks for a standing at the institution as well as a signature, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data",
+      "Status": "drafted with the host chosen \u2014 Dr Alex Bryant, University of Michigan \u2014 and not sent; the letter now asks for a standing at the institution as well as a signature, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data",
       "Depends on": "the eligibility answer (received 2026-11-12)"
     },
     {
@@ -630,6 +630,24 @@
       "Value": "an institutional e-mail address and an NIH biosketch are required, and an ethics determination is not needed",
       "Source": "CDAS reply, Shannon Merkle, 2026-11-12",
       "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO host candidate: identity and rank",
+      "Value": "Alex K Bryant, MD, MAS \u2014 Assistant Professor of Radiation Oncology, University of Michigan; staff physician and research investigator, VA Ann Arbor Healthcare System; research interests are precision screening for lung and prostate cancer, cancer epidemiology and oncology data science; CDAS lists the contact as bralex@med.umich.edu and the university page gives bralex@umich.edu",
+      "Source": "CDAS approved-project 6312 and the University of Michigan faculty pages, 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "PLCO host eligibility, by precedent",
+      "Value": "every candidate on CDAS's list is the named Principal Investigator of an approved PLCO project, which is the evidence that CDAS accepts them in that role on the data route; the list cannot be used to show that they have been through the biospecimen review",
+      "Source": "CDAS approved-projects list and the project pages, 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "PLCO PAR pilot and the EEMS application",
+      "Value": "they are two steps, not one: the Wholomics project summary says the case-control validation study, including the formal assay reproducibility assessment, is to be submitted as a separate EEMS application",
+      "Source": "CDAS approved-project 6246, 2026-11-13",
+      "Verified on": "2026-11-13"
     },
     {
       "Fact": "PLCO projects with a company as Principal Investigator",

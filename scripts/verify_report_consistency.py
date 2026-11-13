@@ -3335,7 +3335,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 chk(
                     "the host invitation names the chosen host",
-                    "Professor Bryant" in letter,
+                    "Dr Bryant" in letter,
                 )
                 chk(
                     "the host invitation is short enough to read",
@@ -3595,6 +3595,16 @@ def main(argv: list[str] | None = None) -> int:
                         "fallback order",
                         "Alex Bryant" in shortlist_flat
                         and "fallback order" in shortlist_flat.lower(),
+                    )
+                    chk(
+                        "the shortlist records the chosen host's identity",
+                        "Alex K Bryant" in shortlist_flat
+                        and "Assistant Professor" in shortlist_flat,
+                    )
+                    chk(
+                        "the shortlist records that the PAR pilot and the EEMS "
+                        "application are two steps",
+                        "separate EEMS application" in shortlist_flat,
                     )
                     chk(
                         "the shortlist corrects the filter claim",

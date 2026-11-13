@@ -96,12 +96,19 @@ def test_the_tracker_records_the_shortlist_step() -> None:
     )
 
 
+def test_the_chosen_host_is_identified_with_a_rank(shortlist: str) -> None:
+    flat = " ".join(shortlist.split())
+    assert "Alex K Bryant" in flat
+    assert "Assistant Professor" in flat
+    assert "separate EEMS application" in flat
+
+
 def test_the_choices_are_recorded_in_the_letters() -> None:
     """The decisions taken on 2026-11-13 have to be visible in the letters."""
     host = INVITATION.read_text()
     host_letter = host.split("<!-- BEGIN HOST LETTER -->")[1]
     host_letter = host_letter.split("<!-- END HOST LETTER -->")[0]
-    assert "Professor Bryant" in host_letter
+    assert "Dr Bryant" in host_letter
     assert "I studied at Michigan" in host_letter
 
     tzl_doc = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md").read_text()

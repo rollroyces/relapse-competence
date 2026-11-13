@@ -142,5 +142,5 @@ def test_the_host_invitation_asks_for_a_standing_not_only_a_signature() -> None:
     assert "](" not in letter, "the letter is pasted as plain text"
     assert "standing at your institution" in letter
     assert "PAR-25-248" in letter
-    assert "Professor Bryant" in letter
+    assert "Dr Bryant" in letter
     assert "[HOST]" not in letter

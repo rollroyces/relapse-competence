@@ -31,11 +31,14 @@ checker does not treat it as a submission document. Its own gate is in
 
 ## 1. Before you send — seven things to set
 
-1. **`[HOST]`** — the professor's name and the salutation. **Decided: Professor
-   Bryant, at the University of Michigan** (PLCO-2077). The reasoning and the
-   fallback order are in [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md). What is
-   still yours to confirm is the form of the name and the title, and the
-   address to send it to.
+1. **`[HOST]`** — the name and the salutation. **Decided: Dr Bryant**, Alex K
+   Bryant, MD, MAS, Assistant Professor of Radiation Oncology at the
+   University of Michigan and staff physician at the VA Ann Arbor
+   Healthcare System (PLCO-2077). "Dr" rather than "Professor" because the
+   title is Assistant Professor, and because CDAS's rule is about the rank
+   and the letter should not appear to assert one. The reasoning, the
+   fallback order and the contact address are in
+   [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md).
 
 2. **How you know of them, or why you chose them.** One line. This is the
    line that makes the ask reasonable rather than cold: a shared lab, a
@@ -102,7 +105,7 @@ separately because it is the subject line.
 plasma project?
 
 <!-- BEGIN HOST LETTER -->
-Dear Professor Bryant,
+Dear Dr Bryant,
 
 I am writing to ask whether you would be willing to be the Principal Investigator on a data-access proposal to the National Cancer Institute's Cancer Data Access System for the PLCO trial, the Prostate, Lung, Colorectal and Ovarian Cancer Screening Trial. I studied at Michigan, which is why I am writing to you rather than to a stranger. If you are not the right person, I would be grateful for a pointer to whoever is.
 

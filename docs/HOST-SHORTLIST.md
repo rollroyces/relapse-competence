@@ -45,6 +45,17 @@ and is not in the table below.
 | Aug 24, 2026 | Olmo Zavala Romero | Florida State University | External Validation of Foundation Model-Derived Histologic Phenotypes in Prostate Pathology Images | PLCOI-2063 |
 | Aug 24, 2026 | Samantha Rincon Sabatino | InfotechSoft | Digital Twin–Enabled Prediction of Toxicity and Tumor Control in Prostate Cancer Radiotherapy | PLCOI-2075 |
 
+**The chosen first recipient, in full.** Alex Bryant is **Alex K Bryant,
+MD, MAS** — Assistant Professor in the Department of Radiation Oncology at the
+University of Michigan, staff physician and research investigator at the VA
+Ann Arbor Healthcare System, and a radiation oncologist practising
+genitourinary and thoracic radiation oncology. His stated research interests
+are "precision screening for lung and prostate cancer", cancer epidemiology,
+oncology data science, and microsimulation of screening and diagnosis. CDAS
+lists him as the Principal Investigator of PLCO-2077 with the contact
+address bralex@med.umich.edu; the university's own page gives
+bralex@umich.edu.
+
 **Three things in it are worth noticing.**
 
 - **A company can be the Principal Investigator.** Five of these twenty are
@@ -111,6 +122,24 @@ biospecimen review, and the request type of a project is on that project's
 own page rather than in the list. The shortlist above is consequently a list
 of PLCO investigators, some of whom have used specimens and some of whom
 have not.
+
+**Two more things the project pages say, which the list does not.**
+
+- **Being the Principal Investigator of an approved PLCO project is the
+  evidence of eligibility, and the list is enough to establish it.** Every
+  candidate on it has had a PLCO proposal approved with them as the named
+  PI, which means CDAS has already accepted them in that role on the data
+  route — whatever the rank requirement turns out to be. That is a better
+  argument than the one this document used to make, and it is one the record
+  can stand on: the list is a list of PIs, not a list of people who have
+  been through the biospecimen review.
+- **The PAR pilot and the EEMS application are two steps, not one.** The
+  Wholomics project's own summary says that the case-control validation
+  study, including a formal assay reproducibility assessment, is "to be
+  submitted as a separate EEMS application". So a PAR pilot is compatible
+  with a later EEMS application by the same investigator, and the
+  prohibition on submitting to both at once is a question about sequencing
+  rather than a bar. That is what message F asks.
 
 **What this document does not do.** It does not rank the candidates, and it
 does not record a decision about which of them to approach. Those need
