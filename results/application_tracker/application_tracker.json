@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T14:11:31.441153+00:00",
-    "git_commit": "692142e29fd41235e9a7417190c83ab3a9c6959d",
+    "generated_at": "2026-11-13T15:29:30.228803+00:00",
+    "git_commit": "ea098895b7e835ca0c4071b9147c1131fc562b41",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -82,7 +82,7 @@
       "Application": "PLCO-DATA",
       "Step": "Approach Wholomics GmbH on the identical pilot",
       "Owner": "PI",
-      "Status": "not started \u2014 their PLCO project 2026-0185 is the requester's own experiment on the same resource, with matched controls and storage strata, and the company has an inbound \"Become a Partner\" route",
+      "Status": "drafted, not sent \u2014 the letter asks for a ten-tube feasibility pilot, not a stratum, and discloses both the programme's standing and the fact that it needs an institution for CDAS's purposes; it is in docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md",
       "Depends on": "the hosting routes"
     },
     {

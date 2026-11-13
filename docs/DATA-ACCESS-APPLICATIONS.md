@@ -243,6 +243,22 @@ is no route that needs a *second* institution, and the data-only route is the
 cheapest of the three — no specimen shipment, no Material Transfer
 Agreement, and one to four weeks from approval to data.
 
+**A company would carry all three at once, and one is running the same
+experiment.** The routes in
+[`HOSTING-ROUTES.md`](HOSTING-ROUTES.md) set out four ways the requester
+could be "part of the institution", and the one that resolves everything at
+once is employment by a company, because the germline route's dbGaP
+application requires the institution to verify "the investigators are full time
+employees" and no affiliation satisfies that. Wholomics GmbH holds PLCO
+project 2026-0185, whose Principal Investigator is its own chief executive and
+whose design is the requester's own: an analytical-suitability pilot on
+archived pre-diagnostic specimens, with matched controls, split by storage
+temperature, established before any irreplaceable specimens are requested.
+The approach letter, which asks for a ten-tube feasibility pilot rather than a
+stratum and states the programme's standing and its commercial motive, is in
+[`WHOLOMICS-PARTNERSHIP-ENQUIRY.md`](WHOLOMICS-PARTNERSHIP-ENQUIRY.md). It
+is a draft and it has not been sent.
+
 ### 2.2 PLCO — EEMS biospecimen application (CDAS)
 
 **Route:** [cdas.cancer.gov/plco](https://cdas.cancer.gov/plco/) → "Begin an
@@ -758,7 +774,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Approach a host PI with the invitation letter | PI | drafted with the host chosen — Dr Alex Bryant, University of Michigan — and not sent; the letter now names a standing rather than asking an open question about one, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data, and U-M's SPG 601.42 provides a departmental, non-employment mechanism that covers a U-M alum | the eligibility answer (received 2026-11-12) |
 | PLCO-DATA | Establish the requester's standing under U-M SPG 601.42 | PI | not started — the mechanism exists and is departmental: a faculty sponsor and the sponsoring unit's sponsorship administrator create a sponsored academic affiliation, a regular uniqname with a UMID and an institutional address, renewable for up to two years; whether CDAS accepts it is message G, and the sponsor is message to the host in the invitation letter | the host letter |
 | PLCO-DATA | Choose the route by which the requester is "part of the institution" | programme | four routes identified and evidenced in docs/HOSTING-ROUTES.md: be the institution (consultancy), a visiting appointment at a university, the company route, or UM SPG 601.42; the germline half needs employment, so affiliation alone does not cover the programme | the hosting routes |
-| PLCO-DATA | Approach Wholomics GmbH on the identical pilot | PI | not started — their PLCO project 2026-0185 is the requester's own experiment on the same resource, with matched controls and storage strata, and the company has an inbound "Become a Partner" route | the hosting routes |
+| PLCO-DATA | Approach Wholomics GmbH on the identical pilot | PI | drafted, not sent — the letter asks for a ten-tube feasibility pilot, not a stratum, and discloses both the programme's standing and the fact that it needs an institution for CDAS's purposes; it is in `docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md` | the hosting routes |
 | PLCO-DATA | Approach a second PLCO PI at the University of Michigan | PI | not started — Brian Denton, PLCO-2057, on composite biomarker tests and the cost of early detection; his e-mail address is not on the CDAS page and is not yet established | the hosting routes |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |

@@ -5139,6 +5139,106 @@ def main(argv: list[str] | None = None) -> int:
                 else ""),
         )
 
+    # --- the Wholomics partnership enquiry ---
+    # It is outbound correspondence to a company in another country, so it
+    # is checked here rather than in the package checker. A letter that
+    # overstates the programme's plasma evidence, or that hides the
+    # commercial motive, is worse than no letter.
+    whol = Path("docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md")
+    chk("the Wholomics enquiry document exists", whol.exists())
+    if whol.exists():
+        wl = whol.read_text()
+        chk(
+            "the Wholomics enquiry is marked as a draft, not sent",
+            "draft, not sent" in wl,
+        )
+        chk(
+            "the Wholomics enquiry is not part of the submission package",
+            "not part of the PLCO submission package" in wl,
+        )
+        wb = "<!-- BEGIN WHOLOMICS LETTER -->"
+        we = "<!-- END WHOLOMICS LETTER -->"
+        chk(
+            "the Wholomics enquiry delimits the letter",
+            wb in wl and we in wl,
+        )
+        if wb in wl and we in wl:
+            letter = wl.split(wb)[1].split(we)[0].strip()
+            chk("the Wholomics letter is plain text", "**" not in letter)
+            chk(
+                "the Wholomics letter carries no unfilled placeholder",
+                letter.count("[HOST]") == 0,
+            )
+            # The ask, and its limits. Ten tubes, not a stratum; and the
+            # letter has to say that ten cannot estimate a rate.
+            for phrase in (
+                "a ten-tube pilot and not a stratum",
+                "It is not enough to estimate a recovery rate",
+                "and I am not asking for one",
+                "PLCO's plasma is banked at T0, T3, T4 and T5 and not at "
+                "T1 or T2",
+            ):
+                chk(
+                    f"the Wholomics letter carries {phrase!r}",
+                    phrase in letter,
+                )
+            # The programme's evidence has to be stated with its own
+            # limits, including the one that goes against the programme.
+            for phrase in (
+                "it inverts, from 0.9929 to 0.0053",
+                "clears the programme's own bar at 0.9091 against a "
+                "threshold of 0.65",
+                "collapses to chance, 0.5170",
+                "That is a simulation and not a measurement",
+                "Every plasma number published so far is a projection",
+            ):
+                chk(
+                    f"the Wholomics letter states {phrase!r}",
+                    phrase in letter,
+                )
+            # The standing and the motive, stated plainly.
+            for phrase in (
+                "I hold no current institutional appointment",
+                "I am employed by nobody",
+                "no funding is attached to this work",
+                "the institution that submits it",
+                "not asking you to sponsor an unfunded interest",
+                "Singlera Genomics",
+                "co-founder, equity holder and paid consultant",
+            ):
+                chk(
+                    f"the Wholomics letter discloses {phrase!r}",
+                    phrase in letter,
+                )
+            chk(
+                "the Wholomics letter names its recipient",
+                "Dear Mr Strasser" in letter,
+            )
+            chk(
+                "the Wholomics letter is short enough to read",
+                len(letter) <= 9_000,
+                str(len(letter)),
+            )
+        chk(
+            "the applications document links the Wholomics enquiry",
+            "WHOLOMICS-PARTNERSHIP-ENQUIRY.md" in tracker_flat,
+        )
+        # The section that says what the letter deliberately does not do
+        # is not decoration: each item is a claim about the letter.
+        wl_flat = " ".join(wl.split())
+        for limit in (
+            "does not ask for the stratum",
+            "does not claim that the programme's readout works in plasma",
+            "does not present the attributed statistic as the programme's own",
+            "does not hide the commercial motive",
+            "does not promise an exclusive arrangement",
+            "does not describe the requester as a member of Wholomics",
+        ):
+            chk(
+                f"the Wholomics enquiry records its limit: {limit!r}",
+                limit in wl_flat,
+            )
+
     # --- the research plan must exist and agree with the executed results ---
     plan_path = Path("docs/RESEARCH-PLAN.md")
     chk("research plan exists", plan_path.exists())
