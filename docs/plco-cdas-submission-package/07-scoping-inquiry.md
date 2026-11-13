@@ -430,3 +430,49 @@ tissue tables Shannon Merkle linked do answer the tissue half of the
 question, and their numbers are recorded in
 [`../DATA-ACCESS-APPLICATIONS.md`](../DATA-ACCESS-APPLICATIONS.md) §2.4. The
 plasma half is still open.
+
+---
+
+## 10. Message F — the PAR route's mechanics — drafted, not sent
+
+**Status: drafted, not sent.** It is a question about how two forms work, and
+it commits nothing: no application is filed, no specimen is requested, and no
+principal investigator is named. It waits for the go because a message sent to
+CDAS is his to send.
+
+**Subject:** PLCO
+**Topic:** Biospecimen Application Process
+**Characters:** 2,534
+**Why it exists.** The PAR-25-248 route was found on 2026-11-12, and four
+mechanical questions about it cannot be answered from the published
+instructions. Two of them decide whether the route is available at all on the
+programme's own timeline, and one of them decides whether the route and the
+EEMS route can be run at the same time.
+
+<!-- BEGIN MESSAGE F -->
+Dear CDAS team,
+
+I am scoping two applications for PLCO — the EEMS preliminary application for biospecimens, and the Request Form for Specimen Verification for PAR-25-248 — and there are four mechanical questions about the PAR route that I cannot answer from the published instructions. I am not filing either application yet; these are questions about how the forms work.
+
+1. The Request Form for Specimen Verification asks for project and PI information, and you state that "Prior to submitting a grant application, applicants must first submit a Request Form for Specimen Verification through the CDAS". Does that request form itself require the Principal Investigator to be a permanent employee of an academic or research institution, or may it name any investigator with a contact address, including an investigator at a company? And must the person filing the form be employed by the same institution as the Principal Investigator?
+
+2. You state that "Investigators are prohibited from submitting an application to both PAR-25-248 and PLCO EEMS at the same time". If an investigator files a Request Form for Specimen Verification but does not submit a grant application, has that investigator submitted "an application to PAR-25-248" for the purposes of that rule?
+
+3. The PAR Request Form instructions state that the form "must be submitted within 3 months of, but no later than 30 days before, the grant due date, and is only valid for that grant cycle", while the CDAS PLCO page states that new PAR Request Forms may be submitted from December 8, 2026 until January 8, 2027. The PAR-25-248 FOA lists an application deadline of October 8, 2027. Which grant cycle does the December 8, 2026 to January 8, 2027 window belong to, and would a Confirmatory Letter issued in that window still be valid for an application due on October 8, 2027?
+
+4. For the EEMS preliminary application, does the named Principal Investigator have to be a permanent employee at professor level of the institution that will hold the Material Transfer Agreement, or may the Principal Investigator be another employee of that institution?
+
+Context, in case it helps: the work is a plasma assay for an electrical marker of a drug-tolerant tumour state, with the per-molecule attribution pre-specified. I am asking these four questions before choosing between the two routes, because the choice depends on the answers and I would rather not take up a reviewer's time with a form that cannot be filed.
+
+Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE F -->
+
+**Before it goes.** It is plain text, the field limit is 10,000 characters
+and this is 2,534; the name and the address fields carry `Royce Lam` and
+`roycelam@umich.edu`; the two unlabelled boxes stay empty, because they are
+anti-spam traps and a submission carrying a value in one of them can be
+discarded without a reply; and the topic is Biospecimen Application Process,
+which is the desk that answered the biospecimen route.

@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T00:26:40.864959+00:00",
-    "git_commit": "bbf5572fa9292c610a8f02e9fac5496d6af6bb93",
+    "generated_at": "2026-11-13T00:33:31.889798+00:00",
+    "git_commit": "fd8388f40233e9b8c1d9d31450868410f8aa0f46",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -189,6 +189,13 @@
       "Owner": "PI",
       "Status": "not started \u2014 organisation applicants only, so it needs an institutional PI",
       "Depends on": "the Confirmatory Letter, the route decision"
+    },
+    {
+      "Application": "PLCO-PAR",
+      "Step": "Ask CDAS the four mechanical questions about the PAR route (message F)",
+      "Owner": "PI",
+      "Status": "drafted, not sent \u2014 the form's own PI requirement, whether filing it counts as an application to PAR-25-248 for the exclusivity rule, which grant cycle the December window belongs to, and whether an EEMS Principal Investigator must be at professor level; it is in 07-scoping-inquiry.md \u00a710",
+      "Depends on": "the go to send it"
     },
     {
       "Application": "PLCO-EEMS",

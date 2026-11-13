@@ -4476,6 +4476,43 @@ def main(argv: list[str] | None = None) -> int:
                     f"the scoping inquiry asks {phrase!r}",
                     phrase in inquiry,
                 )
+            chk(
+                "the scoping inquiry drafts message F and says it is not sent",
+                "Message F" in inquiry and "drafted, not sent" in inquiry,
+            )
+            begin_f = "<!-- BEGIN MESSAGE F -->"
+            end_f = "<!-- END MESSAGE F -->"
+            chk(
+                "the scoping inquiry delimits message F",
+                begin_f in inquiry and end_f in inquiry,
+            )
+            if begin_f in inquiry and end_f in inquiry:
+                body_f = inquiry.split(begin_f)[1].split(end_f)[0].strip()
+                chk(
+                    "message F is inside the form's 10,000-character limit",
+                    len(body_f) <= 10_000,
+                    str(len(body_f)),
+                )
+                chk("message F is plain text", "**" not in body_f)
+                chk(
+                    "message F has no unfilled field",
+                    "[TO FILL:" not in body_f,
+                )
+                chk(
+                    "message F commits to no application",
+                    "I am not filing either application yet" in body_f,
+                )
+                stated = re.search(
+                    r"\*\*Characters:\*\*\s*([\d,]+)", inquiry
+                )
+                chk(
+                    "the record states message F's length, and it is the "
+                    "length of the message",
+                    stated is not None
+                    and stated.group(1).replace(",", "") == str(len(body_f)),
+                    f"stated {stated.group(1) if stated else 'nothing'}, "
+                    f"actual {len(body_f)}",
+                )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
