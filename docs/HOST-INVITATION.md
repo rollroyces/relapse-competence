@@ -14,6 +14,13 @@ so the role cannot be filled by the person doing the research. The route's
 real dependency is therefore an institutional PI who agrees to carry the
 proposal, and this is the letter that asks.
 
+**Who it could go to.** CDAS publishes every approved PLCO project with its
+Principal Investigator and institution, and the twenty most recently approved
+are listed with their institutions in
+[`HOST-SHORTLIST.md`](HOST-SHORTLIST.md). Five of those twenty are companies,
+which CDAS permits as the counterparty of the transfer agreement, so this
+letter is not restricted to academic departments.
+
 **It is not part of the submission package.** The package under
 `plco-cdas-submission-package/` is what CDAS receives; this is outbound
 correspondence, so it is not printed into the package PDF and the package

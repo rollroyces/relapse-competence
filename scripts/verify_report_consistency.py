@@ -3516,6 +3516,60 @@ def main(argv: list[str] | None = None) -> int:
                     "the host invitation is plain text with no markdown link",
                     "](" not in letter,
                 )
+                # The shortlist is the pool the letter could be sent to, and
+                # it is built from CDAS's own published approvals, so the
+                # names in it have to be the names CDAS publishes.
+                shortlist_path = Path("docs/HOST-SHORTLIST.md")
+                chk("the host shortlist exists", shortlist_path.exists())
+                if shortlist_path.exists():
+                    shortlist = shortlist_path.read_text()
+                    chk(
+                        "the host shortlist is marked as a shortlist, not an "
+                        "approach",
+                        "Nothing has been sent to anyone" in shortlist,
+                    )
+                    rows = [
+                        line
+                        for line in shortlist.splitlines()
+                        if line.startswith("| ")
+                        and "Principal Investigator" not in line
+                        and not line.startswith("|---")
+                    ]
+                    chk(
+                        "the host shortlist lists twenty approved projects",
+                        len(rows) == 20,
+                        str(len(rows)),
+                    )
+                    for company in (
+                        "Wholomics GmbH",
+                        "Pictor Labs",
+                        "AIRA Matrix",
+                        "Artera Inc.",
+                        "InfotechSoft",
+                    ):
+                        chk(
+                            f"the host shortlist records {company!r} as a "
+                            "Principal Investigator's institution",
+                            company in shortlist,
+                        )
+                    chk(
+                        "the host shortlist records the University of Michigan",
+                        "University of Michigan" in shortlist,
+                    )
+                    shortlist_flat = " ".join(shortlist.replace(">", " ").split())
+                    chk(
+                        "the host shortlist records that a company may be the "
+                        "counterparty",
+                        "private company" in shortlist_flat,
+                    )
+                    chk(
+                        "the host invitation points at the shortlist",
+                        "HOST-SHORTLIST.md" in invitation,
+                    )
+                    chk(
+                        "the README links the host shortlist",
+                        "HOST-SHORTLIST.md" in Path("README.md").read_text(),
+                    )
 
         # The treatment-naive SCLC comparator. The gate review names it as
         # the way K2 could be tested, so the numbers in the report have to be

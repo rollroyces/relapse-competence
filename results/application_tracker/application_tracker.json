@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-12T15:16:58.239449+00:00",
-    "git_commit": "ffedc9864bbf9e13a4bcc02b2152647744576fe0",
+    "generated_at": "2026-11-13T00:26:40.864959+00:00",
+    "git_commit": "bbf5572fa9292c610a8f02e9fac5496d6af6bb93",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -49,6 +49,13 @@
       "Owner": "PI",
       "Status": "not started \u2014 CDAS has confirmed that a professor must submit the request and that the requester must be part of that institution to have access to the data, so one institution has to carry both the PI and the requester's standing",
       "Depends on": "an institutional relationship"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Build the host shortlist from CDAS's published approvals",
+      "Owner": "programme",
+      "Status": "done \u2014 the twenty most recently approved PLCO projects are recorded with their Principal Investigators and institutions in docs/HOST-SHORTLIST.md; five of them are companies, which CDAS permits as the MTA counterparty",
+      "Depends on": "\u2014"
     },
     {
       "Application": "PLCO-DATA",
@@ -616,6 +623,18 @@
       "Value": "an institutional e-mail address and an NIH biosketch are required, and an ethics determination is not needed",
       "Source": "CDAS reply, Shannon Merkle, 2026-11-12",
       "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "PLCO projects with a company as Principal Investigator",
+      "Value": "five of the twenty most recently approved PLCO projects have a company as PI: Wholomics GmbH, Pictor Labs, AIRA Matrix, Artera Inc. and InfotechSoft; CDAS permits a private company as the MTA counterparty",
+      "Source": "CDAS approved-projects list, 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "PLCO precedent for a new-assay pilot on pre-diagnostic specimens",
+      "Value": "Analytical Suitability and Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early Detection Assay Using Pre-Diagnostic PLCO Specimens, approved 2026-09-15",
+      "Source": "CDAS approved-projects list, 2026-11-13",
+      "Verified on": "2026-11-13"
     },
     {
       "Fact": "CDAS tickets for the scoping inquiry",
