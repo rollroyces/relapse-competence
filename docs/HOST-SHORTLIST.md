@@ -68,6 +68,50 @@ and is not in the table below.
   there, so the institution where CDAS wants him to hold a standing is one he
   already has a connection to and an address at.
 
+## The order, and the choice
+
+The first letter goes to **Alex Bryant, Regents of the University of
+Michigan** (PLCO-2077, "Estimating prostate cancer screening, diagnostic
+follow-up, and detection processes for a natural-history microsimulation
+model", approved 2026-09-08).
+
+The reasoning is about the shape of the ask rather than the biology of the
+recipient's own project, which is prostate screening modelling and not lung
+cancer. Three things line up:
+
+1. **The institution is the one CDAS names.** CDAS requires the requester to
+   be "part of the institution" that submits, and the University of Michigan
+   is where the requester already has an address and has studied. It is the
+   standing he can most plausibly be given without a job, and the letter can
+   say why he is writing to that person at all.
+2. **The machinery is live there.** Bryant holds an approved PLCO project,
+   so the review is not new to the institution and the investigator already
+   has the biosketch.
+3. **The subject is the programme's own question.** Detection processes in a
+   screening cohort — when a signal becomes visible and how early — is what
+   the programme's simulator answers and what the assay is for.
+
+The fallback order, if the first declines or does not answer, is the
+scientific-adjacency order:
+
+| Order | Investigator | Institution | Why |
+|---|---|---|---|
+| 1 | Alex Bryant | University of Michigan | the requester's own address and alma mater; an approved PLCO project; detection and lead time |
+| 2 | Xiao Ou Shu | Vanderbilt University Medical Center | lung cancer with omics in a screening cohort, at a university medical centre that can host a visiting researcher and hold the material |
+| 3 | Bo Li | Children's Hospital of Philadelphia | pre-diagnostic **blood** specimens and a new measurement on them — the closest specimen shape to the programme's |
+| 4 | Patrick Strasser | Wholomics GmbH | the closest *assay* precedent, and a company, which CDAS permits as the counterparty and which can employ the requester |
+| 5 | Akshay Sood | The Ohio State University | plasma-based detection in PLCO |
+
+**A correction to the record.** The data-access document said the list "can
+be filtered to biospecimen studies". It cannot: the biospecimen-only filter,
+the filter the document's own URL carries, and no filter at all all return
+the same 1,735 projects and the same first page. The list is therefore every
+approved PLCO project, not a list of investigators who have been through the
+biospecimen review, and the request type of a project is on that project's
+own page rather than in the list. The shortlist above is consequently a list
+of PLCO investigators, some of whom have used specimens and some of whom
+have not.
+
 **What this document does not do.** It does not rank the candidates, and it
 does not record a decision about which of them to approach. Those need
 knowledge this repository does not have: who would answer an e-mail from a

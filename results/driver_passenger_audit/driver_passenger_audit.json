@@ -2,7 +2,7 @@
   "audit": {
     "id": "driver-passenger-audit-2026-11",
     "generated_by": "scripts/driver_passenger_audit.py",
-    "generated_at": "2026-11-13T00:35:25.768960+00:00",
+    "generated_at": "2026-11-13T06:18:19.482550+00:00",
     "question": "Is the channel's elevation in the relapse-competent state part of the transcriptional programme that defines the state, or a separate axis?",
     "limits": "No measurement here is causal. The within-library test bounds whether the channel and the programme are coupled at all; only a perturbation experiment can settle whether the channel is instructive.",
     "permutations": 200,

@@ -3288,8 +3288,12 @@ def main(argv: list[str] | None = None) -> int:
         # intention into a list that can be worked through.
         chk(
             "the data-access document records where the host pool comes from",
-            "approved-projects/plco/" in flat
-            and "bio_types=plco_bio_eems" in flat,
+            "approved-projects/plco/" in flat,
+        )
+        chk(
+            "the data-access document records that the list cannot be filtered "
+            "to biospecimen studies",
+            "cannot be filtered to biospecimen studies" in flat,
         )
         chk(
             "the data-access document records the pilot precedent",
@@ -3325,9 +3329,13 @@ def main(argv: list[str] | None = None) -> int:
                 letter = invitation.split(begin)[1].split(end)[0].strip()
                 chk("the host invitation is plain text", "**" not in letter)
                 chk(
-                    "the host invitation has one placeholder, the host's name",
-                    letter.count("[HOST]") == 1,
+                    "the host invitation carries no unfilled placeholder",
+                    letter.count("[HOST]") == 0,
                     str(letter.count("[HOST]")),
+                )
+                chk(
+                    "the host invitation names the chosen host",
+                    "Professor Bryant" in letter,
                 )
                 chk(
                     "the host invitation is short enough to read",
@@ -3383,6 +3391,24 @@ def main(argv: list[str] | None = None) -> int:
                 chk(
                     "the Taizhou letter names its two recipients",
                     "Dr Ye" in tzl_letter and "Jin" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter asks for a ten-aliquot pilot",
+                    "pilot on ten aliquots" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter says ten is not enough for a rate",
+                    "not enough to estimate a recovery rate" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter frames the question as feasibility",
+                    "whether a cell-free RNA measurement is possible with this "
+                    "archive at all" in tzl_letter,
+                )
+                chk(
+                    "the Taizhou letter offers to include the archive's "
+                    "sponsor if the Institute says so",
+                    "If the archive's sponsor has to be consulted" in tzl_letter,
                 )
                 chk(
                     "the Taizhou letter is short enough to read",
@@ -3531,9 +3557,11 @@ def main(argv: list[str] | None = None) -> int:
                     rows = [
                         line
                         for line in shortlist.splitlines()
-                        if line.startswith("| ")
-                        and "Principal Investigator" not in line
-                        and not line.startswith("|---")
+                        if re.match(
+                            r"\|\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+                            r"\s+\d{1,2},\s+\d{4}\s*\|",
+                            line,
+                        )
                     ]
                     chk(
                         "the host shortlist lists twenty approved projects",
@@ -3561,6 +3589,16 @@ def main(argv: list[str] | None = None) -> int:
                         "the host shortlist records that a company may be the "
                         "counterparty",
                         "private company" in shortlist_flat,
+                    )
+                    chk(
+                        "the shortlist records the chosen host and the "
+                        "fallback order",
+                        "Alex Bryant" in shortlist_flat
+                        and "fallback order" in shortlist_flat.lower(),
+                    )
+                    chk(
+                        "the shortlist corrects the filter claim",
+                        "A correction to the record" in shortlist_flat,
                     )
                     chk(
                         "the host invitation points at the shortlist",

@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T00:33:31.889798+00:00",
-    "git_commit": "fd8388f40233e9b8c1d9d31450868410f8aa0f46",
+    "generated_at": "2026-11-13T06:15:15.352259+00:00",
+    "git_commit": "db8b1484608713faff69e3e5a7d4829c14510571",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -61,7 +61,7 @@
       "Application": "PLCO-DATA",
       "Step": "Approach a host PI with the invitation letter",
       "Owner": "PI",
-      "Status": "draft prepared, not sent \u2014 docs/HOST-INVITATION.md; CDAS answered on 2026-11-12 and the answer requires the host to give the requester a standing at their institution, not only to carry the proposal",
+      "Status": "drafted with the host chosen \u2014 Professor Bryant, University of Michigan \u2014 and not sent; the letter now asks for a standing at the institution as well as a signature, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data",
       "Depends on": "the eligibility answer (received 2026-11-12)"
     },
     {
@@ -131,7 +131,7 @@
       "Application": "PLCO-EEMS",
       "Step": "Prepare the EEMS preliminary application",
       "Owner": "PI",
-      "Status": "not started \u2014 it is rolling, and the current round's preliminary application is due 2027-02-18 with the full application due 2027-04-01; CDAS has confirmed that the applicant must be employed by an institution capable of executing an MTA",
+      "Status": "not started \u2014 it is rolling, and the current round's preliminary application is due 2027-02-18 with the full application due 2027-04-01; CDAS has confirmed that the applicant must be employed by an institution capable of executing an MTA, which means the EEMS route needs the same host as the data route",
       "Depends on": "PLCO-DATA scoping"
     },
     {
@@ -299,7 +299,7 @@
       "Application": "TZL-DIRECT",
       "Step": "Send the request",
       "Owner": "PI",
-      "Status": "blocked",
+      "Status": "blocked \u2014 the letter is drafted and the decisions on it are taken: it does not copy the Singlera authors, it asks for a ten-aliquot pilot rather than the stratum, and it is framed as a feasibility question",
       "Depends on": "contact identified, the two consent questions answered"
     },
     {

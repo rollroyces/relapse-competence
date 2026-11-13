@@ -1,6 +1,19 @@
 # Invitation to a laboratory: the KCNN4 question
 
 **Status:** draft, not sent. No one has received this.
+**Held rather than sent, and the reason is the host conversation.** This
+letter asks a specific laboratory about a specific system: whether
+perturbing KCa3.1 in a model that carries the relapse-competent state would
+show whether the channel is an axis or a passenger. No such model has been
+identified — the closest available perturbation system, GSE325242, cannot be
+measured at all, from its deposit and from its authors' repository alike
+([`CHANNEL-TRANSFERABILITY.md`](CHANNEL-TRANSFERABILITY.md) §2) — so the
+letter would arrive without a named laboratory, and a question about a
+system nobody has is not one a stranger can act on. It is therefore held
+behind [`HOST-INVITATION.md`](HOST-INVITATION.md): a laboratory carrying the
+state is most likely inside the host's own institution, and one letter to
+one person is a smaller ask than two. The propositions, the perturbation and
+the decision table below are ready to travel as an enclosure.
 **Distinct from** [`HOST-INVITATION.md`](HOST-INVITATION.md), which asks a
 professor to be the institutional Principal Investigator for a data-access
 application. That letter asks for a signature; this one asks for a

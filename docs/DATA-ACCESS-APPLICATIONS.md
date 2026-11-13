@@ -308,10 +308,18 @@ deadline.
 
 **Where the pool of people who can be that PI comes from.** CDAS publishes
 every approved PLCO project with its Principal Investigator and institution,
-and the list can be filtered to biospecimen studies:
-`https://cdas.cancer.gov/approved-projects/plco/?data&data_types=plco_data_images&bio_types=plco_bio_eems&bio_types=plco_bio_par`.
-Those investigators have already been through EEMS, hold the biosketches,
-and know what the review asks. Two of the recent entries are instructive. A
+at `https://cdas.cancer.gov/approved-projects/plco/`.
+**The list cannot be filtered to biospecimen studies.** This document used to
+say it could, and that was wrong: on 2026-11-13 the biospecimen-only filter,
+the filter this document's own URL carries, and no filter at all were each
+queried, and all three return the same 1,735 projects and the same first
+page. The list is therefore every approved PLCO project, and the request type
+of a project is on that project's own page rather than in the list. The
+consequence for the pool is real: it is a list of PLCO investigators, some of
+whom have handled specimens and some of whom have not, so it cannot be said
+of them that they have been through EEMS, hold the biosketches and know what
+the review asks. The extract and the corrected reading are in
+[`HOST-SHORTLIST.md`](HOST-SHORTLIST.md). Two of the recent entries are instructive. A
 project approved on 2026-09-15 is titled "Analytical Suitability and
 Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early
 Detection Assay Using Pre-Diagnostic PLCO Specimens" — a new multi-omics
@@ -321,6 +329,19 @@ has not been validated. And one prostate project appears twice, once as an
 original and once as a continuation credited to a different Principal
 Investigator, which shows the role can change hands inside a project's life
 rather than being fixed for its duration.
+
+**The order, and the choice.** The first letter goes to **Alex Bryant, at
+the University of Michigan** (PLCO-2077). The reasoning is about the shape of
+the ask rather than the biology of the recipient's project, which is prostate
+screening modelling and not lung cancer: the University of Michigan is where
+CDAS wants the requester to hold a standing and where he already has an
+address and has studied, so it is the standing he can most plausibly be given
+without a job; the recipient holds an approved PLCO project, so the review is
+not new there; and detection processes in a screening cohort — when a signal
+becomes visible, and how early — is the programme's own question. The
+fallback order, if that letter is declined or unanswered, is Shu at
+Vanderbilt, Li at CHOP, Strasser at Wholomics and Sood at Ohio State, with
+the reasons in [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md).
 
 **A collaborator does not have to be the PI.** The EEMS application has an
 "Investigative Team": every member is listed and supplies an NIH biosketch,
@@ -648,7 +669,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number; three of the four were answered on 2026-11-12 (tickets #1563 and #1565) and the replies are recorded in 07-scoping-inquiry.md §9; the clinical-data inquiry (message A) is still unanswered | the scoping inquiry |
 | PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — CDAS has confirmed that a professor must submit the request and that the requester must be part of that institution to have access to the data, so one institution has to carry both the PI and the requester's standing | an institutional relationship |
 | PLCO-DATA | Build the host shortlist from CDAS's published approvals | programme | done — the twenty most recently approved PLCO projects are recorded with their Principal Investigators and institutions in `docs/HOST-SHORTLIST.md`; five of them are companies, which CDAS permits as the MTA counterparty | — |
-| PLCO-DATA | Approach a host PI with the invitation letter | PI | draft prepared, not sent — `docs/HOST-INVITATION.md`; CDAS answered on 2026-11-12 and the answer requires the host to give the requester a standing at their institution, not only to carry the proposal | the eligibility answer (received 2026-11-12) |
+| PLCO-DATA | Approach a host PI with the invitation letter | PI | drafted with the host chosen — Professor Bryant, University of Michigan — and not sent; the letter now asks for a standing at the institution as well as a signature, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data | the eligibility answer (received 2026-11-12) |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
@@ -658,7 +679,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | List project staff | PI | blocked | — |
 | PLCO-DATA | Confirm the scope: lung cases with serial plasma and matched tumour | PI | not started | — |
 | PLCO-EEMS | Confirm the EEMS preliminary application deadline | PI | done — the EEMS policies describe preliminary applications as accepted on a rolling basis, and CDAS confirmed on 2026-11-12 that for the round now open the preliminary application is due 2027-02-18 and the full application 2027-04-01 | the EEMS policies and CDAS's reply |
-| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, and the current round's preliminary application is due 2027-02-18 with the full application due 2027-04-01; CDAS has confirmed that the applicant must be employed by an institution capable of executing an MTA | PLCO-DATA scoping |
+| PLCO-EEMS | Prepare the EEMS preliminary application | PI | not started — it is rolling, and the current round's preliminary application is due 2027-02-18 with the full application due 2027-04-01; CDAS has confirmed that the applicant must be employed by an institution capable of executing an MTA, which means the EEMS route needs the same host as the data route | PLCO-DATA scoping |
 | PLCO-EEMS | Send the biospecimen eligibility questions to CDAS (messages D and E) | PI | done — D sent 2026-11-12 and answered the same day (ticket #1565); E is moot, because D's answers settled who may sign the transfer agreement, so it will not be sent | the answer to D1 |
 | PLCO-EEMS | Submit the EEMS preliminary application | PI | blocked | the scoping answers, an institutional PI and an MTA-capable employer |
 | PLCO-EEMS | **Submit the EEMS final application by Apr 1, 2027** | PI | blocked | preliminary acceptance, the research plan, an NIH biosketch for every investigative-team member |
@@ -682,7 +703,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | TZL-DIRECT | **Establish whether germline consent exists for the lung-cancer stratum** | PI | not started — the published consent excluded full genetic sequencing, so the attribution the readout rests on has no source | the answer |
 | TZL-DIRECT | **Establish whether the archived plasma still yields usable RNA** | PI | not started — PanSeer records 1 mL per sample, no modern plasma preservation and a high sample failure rate, and the aliquots are twelve to nineteen years old | the answer |
 | TZL-DIRECT | Prepare the collaboration request from §2.3, with the conflict disclosure | PI | prepared — `docs/TAIZHOU-COLLABORATION-REQUEST.md` | — |
-| TZL-DIRECT | **Send the request** | PI | blocked | contact identified, the two consent questions answered |
+| TZL-DIRECT | **Send the request** | PI | blocked — the letter is drafted and the decisions on it are taken: it does not copy the Singlera authors, it asks for a ten-aliquot pilot rather than the stratum, and it is framed as a feasibility question | contact identified, the two consent questions answered |
 | TZL-DIRECT | Register the EGA account in parallel | PI | not started | — |
 
 **Application-level status:**

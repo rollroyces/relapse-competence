@@ -36,10 +36,17 @@ sources and verification dates in §2.4.
    Diego. The letter is addressed to the first two, and that is a
    deliberate choice: the cohort and its archive belong to the Institute,
    and the disclosure burden sits with the Singlera-affiliated authors
-   rather than with the Institute. **Copying the Singlera authors is a
-   separate decision.** If the material can only be released by a
-   Singlera-affiliated author, they have to be on the message. If not, the
-   narrower address keeps the conflict disclosure where it belongs.
+   rather than with the Institute. **Copying the Singlera authors is
+   decided: do not copy them.** The cohort and its archive belong to the
+   Institute, the ask is a question and a small pilot rather than a material
+   transfer, and the disclosure paragraph of the letter already gives the
+   Institute everything it needs to judge the conflict: the assay funder, the
+   cohort's separate funders, the competing interests, the patent and the
+   released code. The letter then asks the Institute whether the archive's
+   sponsor has to be consulted, and offers to include them if it does. That
+   puts the decision where it belongs -- with the body that holds the
+   archive -- instead of pre-empting it, and it keeps a patent holder who is
+   not a party to the archive from becoming a party to the request.
 
 2. **Whether the two consent questions come before the sample request, and in
    what order.** In this draft they do, and the RNA-scope question comes
@@ -78,15 +85,22 @@ sources and verification dates in §2.4.
    included in it. The RNA-scope half has not been answered at all, and only
    the collaborators can answer it.
 
-6. **Whether to propose a pilot rather than the stratum.** The draft proposes
-   a small pilot. PanSeer's own limitations section records that the archive
-   was collected before modern plasma preservation, that only 1 mL of plasma
-   was available per sample, and that there was a high sample failure rate;
-   cfRNA is scarcer and less stable in plasma than cfDNA, and the aliquots
-   are twelve to nineteen years old. Asking for the lung-cancer stratum before
-   anyone has measured whether usable RNA is recoverable would be asking for
-   the wrong thing first. The pilot size is a decision, and it is recorded as
-   one.
+6. **Whether to propose a pilot rather than the stratum, and how many
+   aliquots.** The draft proposes a pilot rather than the stratum. PanSeer's
+   own limitations section records that the archive was collected before
+   modern plasma preservation, that only 1 mL of plasma was available per
+   sample, and that there was a high sample failure rate; cfRNA is scarcer
+   and less stable in plasma than cfDNA, and the aliquots are twelve to
+   nineteen years old. Asking for the lung-cancer stratum before anyone has
+   measured whether usable RNA is recoverable would be asking for the wrong
+   thing first.
+   **The size is decided: ten aliquots, spanning the archive's age range.**
+   Ten is enough to answer the question the pilot exists to answer -- is
+   cell-free RNA recoverable at all, and does what is recoverable decay with
+   the age of the sample -- and it is small enough that the Institute can
+   decide it is a reasonable thing to do. It is not enough to estimate a
+   recovery rate, and the letter says so rather than implying otherwise. The
+   number is a proposal for them to adjust, not a demand.
 
 ---
 
@@ -100,7 +114,7 @@ separately because it is the subject line.
 <!-- BEGIN TAIZHOU LETTER -->
 Dear Dr Ye and Professor Jin,
 
-I am writing about the Taizhou Longitudinal Study, and about two questions the published consent makes difficult to answer before any samples are involved. If the answers turn out to be no, this message has cost you a few minutes and I will not follow up.
+I am writing about the Taizhou Longitudinal Study, and about two questions the published consent makes difficult to answer before any samples are involved. If the answers turn out to be no, this message has cost you a few minutes and I will not follow up. The underlying question is a smaller one than it first looks: whether a cell-free RNA measurement is possible with this archive at all. I would rather ask that than build a proposal on material that cannot carry it.
 
 Who I am and what this is. I am an independent researcher working on a problem that sits between tumour cell biology and blood measurement, outside the field of cancer screening. The programme is small and self-funded: I hold no institutional appointment, and no commercial party is involved in it.
 
@@ -112,13 +126,13 @@ The first question, and everything else waits on it. Your paper records that the
 
 The second question decides whether the programme is worth anything at all. PanSeer attributes a channel-transcript molecule to the tumour only when that molecule carries a signature the participant's own tumour has shifted — in practice, a heterozygous germline position that the tumour has lost heterozygosity at, or that carries a somatic variant on the other allele. It is the only way I know to attribute a plasma molecule to a tumour rather than to the white cells around it, and without it the measurement is dominated by leukocyte material rather than by the tumour. The data availability statement for your paper records that full genetic sequencing data was not included in the informed consent, and that only the methylation status at each genomic position was released. If that is right, the germline information this measurement needs was never collected for the participants already in the study, and I would rather establish that now than build a request around material that turns out to be unusable. So the question is narrow and answerable: does germline material exist, or could it be consented for going forward, for participants in the lung-cancer stratum? If it exists for the archived participants, I would also want to know whether matched primary tumour tissue is available for them, since that is what establishes which germline positions a given tumour has shifted. If it does not exist, please say so and I will treat Taizhou as unable to support this measurement and look elsewhere.
 
-One thing I should say about the material now rather than discover later. Your paper records that these samples were collected before modern plasma preservation techniques, that the blood was held at 4 °C until the end of the business day before it was centrifuged, and that only 1 mL of plasma was available per sample, and it says plainly that better collection would have given the assay more and higher quality DNA molecules. I am asking about RNA, which is scarcer and less stable in plasma than DNA, and these aliquots are now twelve to nineteen years old. I do not know what is recoverable from them, and neither does the published record. I would therefore want to start with a small pilot on a handful of aliquots rather than with the whole stratum: enough to establish that cell-free RNA can be recovered and sequenced from this archive at all.
+One thing I should say about the material now rather than discover later. Your paper records that these samples were collected before modern plasma preservation techniques, that the blood was held at 4 °C until the end of the business day before it was centrifuged, and that only 1 mL of plasma was available per sample, and it says plainly that better collection would have given the assay more and higher quality DNA molecules. I am asking about RNA, which is scarcer and less stable in plasma than DNA, and these aliquots are now twelve to nineteen years old. I do not know what is recoverable from them, and neither does the published record. I would therefore want to start with a pilot on ten aliquots spanning the age range of the archive, rather than with the lung-cancer stratum: enough to establish that cell-free RNA can be recovered and sequenced from this archive at all, and whether what is recoverable decays with the age of the sample. Ten aliquots is not enough to estimate a recovery rate, and I am not asking for one; it is enough to tell whether the measurement is possible here.
 
-What I would ask for, if the answer is yes. Serial plasma aliquots for the lung-cancer stratum in the pre-diagnosis window, with the clinical data needed to align each draw to the outcome; matched primary tumour tissue where it is archived; and the methylation measurements, if you are willing, so that the two readouts can be compared in the same participants. The ask would start with a pilot on a small number of those aliquots rather than with the stratum, and the protocol would follow it. All the assays would be run on the aliquots, and the analysis would be pre-specified — panel, operating point, thresholds and per-patient applicability rule fixed before any data are opened — with the code behind every figure public.
+What I would ask for, if the answer is yes. Serial plasma aliquots for the lung-cancer stratum in the pre-diagnosis window, with the clinical data needed to align each draw to the outcome; matched primary tumour tissue where it is archived; and the methylation measurements, if you are willing, so that the two readouts can be compared in the same participants. The ask would start with the ten-aliquot pilot rather than with the stratum, and the protocol would follow it. All the assays would be run on the aliquots, and the analysis would be pre-specified — panel, operating point, thresholds and per-patient applicability rule fixed before any data are opened — with the code behind every figure public.
 
 A disclosure, because it is owed. The PanSeer DNA methylation assays were funded by Singlera Genomics; the Taizhou study itself was funded by Chinese national and municipal programmes. The paper's competing-interests statement records thirteen authors as Singlera employees, Yuan Gao and Rui Liu as board members, and Jeffrey Gole, Athurva Gore and Rui Liu as inventors on patent US62/657,544, which covers the library preparation method the study uses; Kun Zhang is a co-founder, equity holder and paid consultant, with those arrangements managed by UC San Diego. The PanSeer analysis code is public at github.com/ncomms-20-10056-t/ncomms-20-10056-t. I am raising all of this because our measurement is a different one — channel transcripts in cell-free RNA, not methylation in cell-free DNA — and because a reader should be able to judge that claim against the published record rather than take it from me.
 
-What I am asking for. Not a commitment, and not a data-transfer agreement at this stage. A short exchange about whether either of those two questions has an answer, and what a collaboration would look like if they do. If either answer is that Taizhou cannot support this measurement, that is a complete answer and I will not follow up. If it can, I will send the full protocol before anything is requested or ordered.
+What I am asking for. Not a commitment, and not a data-transfer agreement at this stage. A short exchange about whether either of those two questions has an answer, and what a collaboration would look like if they do. If the archive's sponsor has to be consulted before even a pilot, tell me and I will include them; the disclosure above is complete enough for that conversation to start without me. If either answer is that Taizhou cannot support this measurement, that is a complete answer and I will not follow up. If it can, I will send the full protocol before anything is requested or ordered.
 
 With thanks for reading this far.
 

@@ -11,12 +11,14 @@ that nothing in it pretends to have been done.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import pytest
 
 SHORTLIST = Path("docs/HOST-SHORTLIST.md")
 INVITATION = Path("docs/HOST-INVITATION.md")
+INQUIRY = Path("docs/plco-cdas-submission-package/07-scoping-inquiry.md")
 README = Path("README.md")
 ARTEFACT = Path("results/application_tracker/application_tracker.json")
 
@@ -32,11 +34,24 @@ def test_the_shortlist_lists_twenty_approved_projects(shortlist: str) -> None:
     rows = [
         line
         for line in shortlist.splitlines()
-        if line.startswith("| ")
-        and "Principal Investigator" not in line
-        and not line.startswith("|---")
+        if re.match(
+            r"\|\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}\s*\|",
+            line,
+        )
     ]
     assert len(rows) == 20, len(rows)
+
+
+def test_the_shortlist_records_the_chosen_host_and_the_order(shortlist: str) -> None:
+    assert "Alex Bryant" in shortlist
+    assert "University of Michigan" in shortlist
+    assert "fallback order" in shortlist.lower()
+
+
+def test_the_shortlist_corrects_the_filter_claim(shortlist: str) -> None:
+    flat = " ".join(shortlist.split())
+    assert "A correction to the record" in flat
+    assert "It cannot" in flat
 
 
 def test_the_shortlist_records_the_companies(shortlist: str) -> None:
@@ -79,3 +94,21 @@ def test_the_tracker_records_the_shortlist_step() -> None:
         "company as Principal Investigator" in name and "Wholomics" in value
         for name, value in facts.items()
     )
+
+
+def test_the_choices_are_recorded_in_the_letters() -> None:
+    """The decisions taken on 2026-11-13 have to be visible in the letters."""
+    host = INVITATION.read_text()
+    host_letter = host.split("<!-- BEGIN HOST LETTER -->")[1]
+    host_letter = host_letter.split("<!-- END HOST LETTER -->")[0]
+    assert "Professor Bryant" in host_letter
+    assert "I studied at Michigan" in host_letter
+
+    tzl_doc = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md").read_text()
+    tzl = tzl_doc.split("<!-- BEGIN TAIZHOU LETTER -->")[1]
+    tzl = tzl.split("<!-- END TAIZHOU LETTER -->")[0]
+    assert "pilot on ten aliquots" in tzl
+    assert "If the archive's sponsor has to be consulted" in tzl
+
+    laboratory = Path("docs/LABORATORY-INVITATION.md").read_text()
+    assert "Held rather than sent" in laboratory

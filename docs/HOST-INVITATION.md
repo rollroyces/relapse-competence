@@ -29,9 +29,13 @@ checker does not treat it as a submission document. Its own gate is in
 
 ---
 
-## 1. Before you send — six things to set
+## 1. Before you send — seven things to set
 
-1. **`[HOST]`** — the professor's name and the salutation. Replace it.
+1. **`[HOST]`** — the professor's name and the salutation. **Decided: Professor
+   Bryant, at the University of Michigan** (PLCO-2077). The reasoning and the
+   fallback order are in [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md). What is
+   still yours to confirm is the form of the name and the title, and the
+   address to send it to.
 
 2. **How you know of them, or why you chose them.** One line. This is the
    line that makes the ask reasonable rather than cold: a shared lab, a
@@ -39,6 +43,9 @@ checker does not treat it as a submission document. Its own gate is in
    personal link, say so plainly — "I have been working on this from
    outside the field and wanted to approach someone whose work is close to
    it" is an acceptable sentence, and inventing a connection would not be.
+   **Decided, and it is in the letter:** the requester studied at the
+   University of Michigan, and the recipient is the PLCO investigator there.
+   That is a true line and it does the work; no other connection is claimed.
 
 3. **Your standing — check all three and amend what is not true.** You have
    no employer; no funding is attached to this work; you have no competing
@@ -58,7 +65,18 @@ checker does not treat it as a submission document. Its own gate is in
    CDAS, so the letter offers the arrangement that makes the standing
    possible and says plainly that it is asking for one.
 
-5. **Whether to raise the funded route in the same letter.** NCI's
+5. **Whether the laboratory question travels with this letter.** It does not
+   have to be a second letter. The programme also wants to know whether a
+   perturbation of the channel is worth running in a model that carries the
+   state, and the only laboratory that can answer it is one with such a
+   model — which is a laboratory inside the host's institution more often than
+   not. [`LABORATORY-INVITATION.md`](LABORATORY-INVITATION.md) holds the
+   question, its propositions and the decision table; it is held rather than
+   sent, because a perturbation question with no route to the material is a
+   question nobody can act on, and because one letter to one person is a
+   smaller ask than two.
+
+6. **Whether to raise the funded route in the same letter.** NCI's
    PAR-25-248 opportunity exists to use the PLCO biorepository for
    early-detection biomarker research, and its first step is a
    specimen-verification request answered in three weeks without any award.
@@ -84,17 +102,17 @@ separately because it is the subject line.
 plasma project?
 
 <!-- BEGIN HOST LETTER -->
-Dear Professor [HOST],
+Dear Professor Bryant,
 
-I am writing to ask whether you would be willing to be the Principal Investigator on a data-access proposal to the National Cancer Institute's Cancer Data Access System for the PLCO trial, the Prostate, Lung, Colorectal and Ovarian Cancer Screening Trial. If you are not the right person, I would be grateful for a pointer to whoever is.
+I am writing to ask whether you would be willing to be the Principal Investigator on a data-access proposal to the National Cancer Institute's Cancer Data Access System for the PLCO trial, the Prostate, Lung, Colorectal and Ovarian Cancer Screening Trial. I studied at Michigan, which is why I am writing to you rather than to a stranger. If you are not the right person, I would be grateful for a pointer to whoever is.
 
 Why I am asking you rather than applying myself: CDAS's instructions require the Principal Investigator, the Data Access Requestor, to be a permanent employee of the submitting institution at professor level or senior-researcher level, to register on CDAS, and to be responsible for the proposal's submission, its renewals and its close-out. I hold no current institutional appointment, so I cannot take that role. I asked CDAS whether any route existed for a researcher in that position, and the answer this week was no: a professor has to submit the request, and the requester has to be part of the submitting institution to have access to the data at all. So what I am asking is that you carry the role, and that we settle between us what standing at your institution would let me reach the data myself rather than through someone else's hands.
 
-The project. The relapse-competent state is a drug-tolerant subpopulation of tumour cells. Its definition is transcriptional rather than electrical, but we have measured, in three public single-cell deposits, that it is electrically marked and disease-specifically so: it over-expresses the potassium channel KCa3.1 at a 2.97-fold detection ratio in EGFR-mutant lung adenocarcinoma, that marking is carried within an individual patient's tumour in 20 of 23 libraries and in 7 of 7 residual-disease libraries, and it does not hold in relapsed small-cell lung cancer. We have also measured that the channel co-allocates with the state's transcriptional programme beyond what cell complexity explains, so the question is the direction of causation, not whether the two travel together. How the same measurement would be made in plasma is written down in the assay specification I will attach. Whether the state can be read in blood at all is the open question, and it has to be settled in a real cohort rather than in a simulation. PLCO can settle it: archived plasma drawn at screening visits, with the clinical data to align them, in a cohort of about 155,000 participants.
+The project. The relapse-competent state is a drug-tolerant subpopulation of tumour cells. Its definition is transcriptional rather than electrical, but we have measured, in three public deposits, that it is electrically marked and specifically so: it over-expresses the potassium channel KCa3.1 at a 2.97-fold detection ratio in EGFR-mutant lung adenocarcinoma, that marking is carried within an individual patient's tumour in 20 of 23 libraries and in 7 of 7 residual-disease libraries, and it does not hold in relapsed SCLC. We have also measured that the channel co-allocates with the state's transcriptional programme beyond what cell complexity explains, so the question is the direction of causation, not whether the two travel together. How the same measurement would be made in plasma is written down in the assay specification I will attach. Whether the state can be read in blood at all is the open question, and it has to be settled in a real cohort rather than in a simulation. PLCO can settle it: archived plasma drawn at screening visits, with the clinical data to align them, in a cohort of about 155,000 participants.
 
 What I would ask you to do. Register on CDAS with RAS, and give CDAS your institution and its location. Review and submit the proposal: the fields are already written, the project description, the aims, the data requested and the reason each element is necessary, and the analysis is pre-specified, with the panel, the operating point, the thresholds and the per-patient applicability rule fixed before any data are opened, and the code behind every published figure public. Be the point of contact for CDAS staff's questions, for the renewal at twelve months, and for the close-out. And settle with me what standing at your institution would put me on the approved-users list with an institutional address, because CDAS will not grant data access to someone outside it. And let your institution's Signing Official execute the Data Transfer and Use Agreement through DocuSign, which is the institution's step and starts from your giving CDAS the contact details.
 
-What I would do. The science, the analysis, the pre-specified plan and the code, and I would write it up whether or not it is favourable. One point I want to be straight about: CDAS have confirmed that the requester has to be part of the submitting institution to have access to the data, so this is not a contingency to be discovered after submission. If the standing we agree cannot be enough for me to be on the approved-users list, the analysis would have to be run by someone at your institution on the pre-specified plan and code. I would want to agree that with you before anything is submitted, not after.
+What I would do. The science, the analysis, the pre-specified plan and the code, and I would write it up whether or not it is favourable. One point I want to be straight about: CDAS have confirmed that the requester has to be part of the submitting institution, so this is not a contingency to be discovered after submission. If the standing we agree cannot be enough for me to be on the approved-users list, the analysis would have to be run by someone at your institution on the pre-specified plan and code. I would want to agree that with you before anything is submitted, not after.
 
 What the proposal asks for. The clinical data that go with PLCO's archived plasma: date and site of diagnosis in a Limited Data Set, treatment, mortality with follow-up time, smoking history, and the visit dates of the blood draws, for participants diagnosed with lung cancer and for matched participants who were not. The archived plasma and the matched tumour material come through NCI's separate biospecimen programme rather than through this proposal. CDAS have told me what is on that side: the lung tissue is from primary lung tumours, 434 participants have tumour cores, 348 of them also in PLCO's genotyping study, and none of the tissue has been profiled, so the request has to include the whole-exome work. The germline genotypes come through dbGaP. Nothing in the proposal is confidential: CDAS publishes it once access is granted.
 
