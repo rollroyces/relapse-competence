@@ -102,6 +102,16 @@ cancer. Three things line up:
    screening cohort — when a signal becomes visible and how early — is what
    the programme's simulator answers and what the assay is for.
 
+**And a second Michigan PI, whose subject is closer.** The sweep of the full
+list found **Brian Denton, Ph.D., "The University of Michigan", Position
+Title Professor, PLCO-2057, approved Jul 14 2026**, "Adaptive Diagnostic
+Testing Algorithms for Design of Cost-sensitive Composite Biomarker Tests" —
+on composite tests, on the cost of early detection, on several biomarkers
+that "no single biomarker is satisfactory on its own". That is the
+programme's own proposal: a composite test of two ion channels, on plasma,
+at a stated cost. **Denton is the better subject match; Bryant is the
+better-documented contact.**
+
 The fallback order, if the first declines or does not answer, is the
 scientific-adjacency order:
 
@@ -141,8 +151,32 @@ have not.
   prohibition on submitting to both at once is a question about sequencing
   rather than a bar. That is what message F asks.
 
-**What this document does not do.** It does not rank the candidates, and it
-does not record a decision about which of them to approach. Those need
-knowledge this repository does not have: who would answer an e-mail from a
-researcher they have never met, and whether the laboratory the programme
-needs exists at that institution at all.
+**What this document does not do.** It does not settle who would answer an
+e-mail from a researcher they have never met, and it does not settle whether
+the laboratory the programme needs exists at that institution at all. Those
+are the reasons the ranking below is about the *shape* of the ask rather
+than about scientific fit. It also does not treat these twenty as the
+universe: they are the twenty most recent, and the full list is larger than
+the record previously said — see the correction below.
+
+**A correction to the record: the pagination works.** This document used to
+say that CDAS's "pagination and keyword filter both require a session this
+machine does not hold, so the extract is the first page rather than all
+1,735". That was wrong: it was a URL-form error. The working form is
+
+```
+https://cdas.cancer.gov/approved-projects/
+  ?data_types=plco_data&data_types=plco_data_images
+  &bio_types=plco_bio_eems&bio_types=plco_bio_par&p=N
+```
+
+Verified 2026-11-13: `p=1` and `p=2` return different rows, and the table
+reports "1-20 of 1735". The `?study=plco` and `/approved-projects/plco/?p=N`
+forms both drop the page parameter, which is what produced the wrong
+conclusion. **The universe of PLCO PIs is 1,735, not 20**, and it can now be
+swept. The first sweep found a second University of Michigan PI whose subject
+matter is closer to the programme's than Bryant's — Brian Denton, PLCO-2057,
+"Adaptive Diagnostic Testing Algorithms for Design of Cost-sensitive
+Composite Biomarker Tests" — and the routes by which the requester could be
+"part of the institution" are worked out in
+[`HOSTING-ROUTES.md`](HOSTING-ROUTES.md).

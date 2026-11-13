@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T09:57:13.364326+00:00",
-    "git_commit": "9b3eda96ab4535af1289b9dd3fbd5794a2a7ffb9",
+    "generated_at": "2026-11-13T14:11:31.441153+00:00",
+    "git_commit": "692142e29fd41235e9a7417190c83ab3a9c6959d",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -70,6 +70,27 @@
       "Owner": "PI",
       "Status": "not started \u2014 the mechanism exists and is departmental: a faculty sponsor and the sponsoring unit's sponsorship administrator create a sponsored academic affiliation, a regular uniqname with a UMID and an institutional address, renewable for up to two years; whether CDAS accepts it is message G, and the sponsor is message to the host in the invitation letter",
       "Depends on": "the host letter"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Choose the route by which the requester is \"part of the institution\"",
+      "Owner": "programme",
+      "Status": "four routes identified and evidenced in docs/HOSTING-ROUTES.md: be the institution (consultancy), a visiting appointment at a university, the company route, or UM SPG 601.42; the germline half needs employment, so affiliation alone does not cover the programme",
+      "Depends on": "the hosting routes"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Approach Wholomics GmbH on the identical pilot",
+      "Owner": "PI",
+      "Status": "not started \u2014 their PLCO project 2026-0185 is the requester's own experiment on the same resource, with matched controls and storage strata, and the company has an inbound \"Become a Partner\" route",
+      "Depends on": "the hosting routes"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Approach a second PLCO PI at the University of Michigan",
+      "Owner": "PI",
+      "Status": "not started \u2014 Brian Denton, PLCO-2057, on composite biomarker tests and the cost of early detection; his e-mail address is not on the CDAS page and is not yet established",
+      "Depends on": "the hosting routes"
     },
     {
       "Application": "PLCO-DATA",
@@ -591,6 +612,54 @@
       "Value": "10,000 characters",
       "Source": "CDAS contact form",
       "Verified on": "2026-11-10"
+    },
+    {
+      "Fact": "CDAS approved PI who is a self-employed consultant",
+      "Value": "NLST-43: Principal Investigator Deborah Goldwasser, PhD, Institution \"Statistical Consultant\", Position Title \"Statistical Consultant\", approved Dec 3 2013; the summary is in the first person (\"I am the sole-author\") and no university is given",
+      "Source": "CDAS approved-project 613, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS approved PI whose title is \"Visiting researcher\", on PLCO",
+      "Value": "PLCO-380: Hilary Robbins, PhD MHS MSPH, Institution Queen Mary University of London, Position Title \"Visiting researcher\", approved Jul 5 2018; \"We plan to use PLCO data to validate our model and examine possible risk thresholds for selecting ever-smokers into lung screening\"",
+      "Source": "CDAS approved-project 1882, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS approved PI who is a company's chief executive, on PLCO",
+      "Value": "Wholomics GmbH: Patrick Strasser, M.Sc., Institution Wholomics GmbH, Position Title CEO, project 2026-0185, approved Sep 15 2026",
+      "Source": "CDAS approved-project 6246, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "PLCO project that is the requester's own experiment",
+      "Value": "Wholomics 2026-0185: \"Analytical Suitability and Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early Detection Assay Using Pre-Diagnostic PLCO Specimens\"; 100 specimens, 50 incident solid-tumour cases and 50 matched cancer-free controls, split equally between -70 C (T0-T2) and -157 C (T4/T5); the stated limitations are \"early-stage sensitivity, specimen volume requirements, and cost\"",
+      "Source": "CDAS approved-project 6246, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "PLCO germline route identity requirement",
+      "Value": "dbGaP application includes \"verification by the institution that the investigators are full time employees\", alongside IT standards, embargo and privacy conditions",
+      "Source": "PLCO EEMS Policies and Procedures section 10, p. 15, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "A second PLCO PI at the University of Michigan, on the requester's subject",
+      "Value": "PLCO-2057: Brian Denton, Ph.D., Institution The University of Michigan, Position Title Professor, approved Jul 14 2026, \"Adaptive Diagnostic Testing Algorithms for Design of Cost-sensitive Composite Biomarker Tests\"",
+      "Source": "CDAS approved-project 6205, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS approved-project pagination",
+      "Value": "works; the form is ?data_types=plco_data&data_types=plco_data_images&bio_types=plco_bio_eems&bio_types=plco_bio_par&p=N, and p=1 and p=2 return different rows of the 1,735 PLCO projects; the ?study=plco and /approved-projects/plco/?p=N forms drop the page parameter",
+      "Source": "CDAS approved-projects index, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "Non-employment affiliations that carry an institutional e-mail, at PLCO institutions",
+      "Value": "Florida State: a courtesy appointment \"does not include compensation or confer employee status\" and permits \"FSU email accounts\"; Arizona State: a visiting scholar receives \"an ASU email address, an ASU ID\" and holds no appointment or employment; Florida Atlantic's live research-misconduct policy covers \"any courtesy (unpaid) appointments, also known as Affiliate or Voluntary appointments\"",
+      "Source": "FSU HR, ASU and FAU policy pages, read 2026-11-13",
+      "Verified on": "2026-11-13"
     },
     {
       "Fact": "CDAS contact form: subject for PLCO",

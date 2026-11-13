@@ -3252,6 +3252,131 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(sorted(facts)),
         )
+        # --- the hosting routes: what "part of the institution" can mean ---
+        # The programme's earlier reading was that the requester had to be
+        # adopted by an institution. CDAS's own approved-project record
+        # says otherwise, and this block binds that record to the facts
+        # table so the claim cannot drift.
+        hosting = Path("docs/HOSTING-ROUTES.md")
+        chk(
+            "the hosting routes document exists",
+            hosting.exists(),
+        )
+        if hosting.exists():
+            host_flat = " ".join(hosting.read_text().split())
+            chk(
+                "the hosting routes document is marked as researched, not "
+                "acted on",
+                "researched and recorded" in host_flat,
+            )
+            for phrase in (
+                "Principal Investigator Name: Deborah Goldwasser",
+                "Institution: **Statistical Consultant**",
+                "Principal Investigator Name: Hilary Robbins",
+                "Position Title:\n> **Visiting researcher**"
+                if "Position Title:\n> **Visiting researcher**" in host_flat
+                else "**Visiting researcher**",
+                "Principal Investigator Name: Patrick Strasser",
+                "Institution: **Wholomics GmbH**",
+                "Position Title: **CEO**",
+                "Principal Investigator Name: Brian Denton",
+                "Position Title: **Professor**",
+                "the investigators are full time employees",
+                "Become a Partner",
+                "does not include compensation or confer employee status",
+                # The SPG number is the load-bearing identifier of the
+                # mechanism; a typo in it must fail the check.
+                "SPG 601.42",
+                # The dead source must stay recorded as dead.
+                "now returns 404",
+            ):
+                chk(
+                    f"the hosting routes document carries {phrase!r}",
+                    phrase in host_flat,
+                )
+            chk(
+                "the hosting routes document names the project ids it rests on",
+                all(
+                    pid in host_flat
+                    for pid in ("NLST-43", "PLCO-380", "2026-0185", "PLCO-2057")
+                ),
+            )
+            chk(
+                "the hosting routes document records the dead FAU policy PDF",
+                "now returns 404" in host_flat,
+            )
+            chk(
+                "the hosting routes document states its limits",
+                "does not establish that CDAS would approve the requester "
+                "today" in host_flat
+                and "does not establish that any institution would actually "
+                "extend an appointment" in host_flat,
+            )
+            chk(
+                "the hosting routes document records the pagination correction",
+                "URL-form error" in host_flat
+                and "data_types=plco_data" in host_flat,
+            )
+        chk(
+            "the applications document records the hosting routes",
+            "HOSTING-ROUTES.md" in tracker_flat,
+        )
+        chk(
+            "the fact table records the self-employed consultant PI",
+            any(
+                "CDAS approved PI who is a self-employed consultant" in fact
+                and "Statistical Consultant" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the visiting-researcher PLCO PI",
+            any(
+                "CDAS approved PI whose title is \"Visiting researcher\"" in fact
+                and "PLCO-380" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the dbGaP full-time-employee requirement",
+            any(
+                "PLCO germline route identity requirement" in fact
+                and "full time employees" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the CDAS pagination that works",
+            any(
+                "CDAS approved-project pagination" in fact
+                and "data_types=plco_data" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        # The shortlist used to carry a stale paragraph saying it did not
+        # rank the candidates, which contradicted the choice it records.
+        shortlist = Path("docs/HOST-SHORTLIST.md")
+        chk("the host shortlist exists", shortlist.exists())
+        if shortlist.exists():
+            sl = " ".join(shortlist.read_text().split())
+            chk(
+                "the host shortlist no longer says it does not rank the "
+                "candidates",
+                "It does not rank the candidates" not in sl,
+            )
+            chk(
+                "the host shortlist records that the pagination works",
+                "URL-form error" in sl
+                and "data_types=plco_data" in sl,
+            )
+            chk(
+                "the host shortlist records the second Michigan PI",
+                "Brian Denton" in sl and "PLCO-2057" in sl,
+            )
         chk(
             "the document records the lung tissue counts the reply pointed at",
             any(
