@@ -203,6 +203,39 @@ needed, then the cheapest route to one is a departmental visiting arrangement
 at the same institution, and the host letter asks for that rather than
 assuming it.
 
+**The fourth item has a candidate answer, found in the University's own
+policy on 2026-11-13.** The question was not an abstract one about
+institutional addresses: the University publishes a mechanism for people who
+hold no appointment, and its eligible categories name the requester's own
+category explicitly. **SPG 601.42, Covered Visitors**, effective 5 November
+2025, applies to the Ann Arbor, Dearborn and Flint campuses and to Michigan
+Medicine, and it is written for people who "do not hold a U-M appointment" —
+it excludes U-M employees, so it is not employment — and it lists **"a U-M
+alum"** among the eligible categories. A sponsoring unit or a faculty sponsor
+can put someone forward for up to two years at a time, renewable, and the
+sponsoring unit's sponsorship administrator then creates the identity through
+the ITS Sponsor System: a regular uniqname with a UMID, a MCommunity profile
+whose affiliation is "Sponsored Affiliate", and the standard computing
+services, which include Google at U-M. The University's own research
+oversight says the same thing in its own words: IRBMED's guidance states that
+"Visiting Scholars ... count as affiliated with U-M during the term of their
+sponsorship/appointment", and the eResearch system records a study team
+member's appointment as "N/A = an appointment is either optional or not
+required" where none is needed. So the obstacle was never employment; it was
+membership, and membership has a documented, no-cost, non-employment route
+whose sponsor is the person the programme is already writing to.
+
+This changes the shape of the ask but not its status. **U-M's policy governs
+U-M's definition of affiliation and does not speak for NCI's**, so whether a
+sponsored affiliate satisfies CDAS's "users at your institution" and "you
+must be part of the institution" is still unanswered, and it is the question
+in message G. What has changed is that the question is now answerable in the
+favourable direction, and the host letter can offer a named arrangement
+rather than an open question. The evidence chain, with quotations, and what it
+does *not* establish, is in
+[`UM-AFFILIATION-MECHANISM.md`](UM-AFFILIATION-MECHANISM.md); the letter that
+carries it is [`HOST-INVITATION.md`](HOST-INVITATION.md).
+
 One institution would then carry all three PLCO routes: the data Transfer and
 Use Agreement for the clinical data, the Material Transfer Agreement for the
 specimens, and the Data Use Certification for the germline genotyping. There
@@ -638,6 +671,12 @@ published practice is to answer an initial request within two weeks.
 | CDAS contact form: message length limit | 10,000 characters | CDAS contact form | 2026-11-10 |
 | CDAS contact form: subject for PLCO | PLCO | CDAS contact form | 2026-11-10 |
 | CDAS contact form: topics | Data Access/Availability, Biospecimen Availability | CDAS contact form | 2026-11-10 |
+| U-M mechanism for a researcher with no appointment | SPG 601.42 Covered Visitors, effective 2025-11-05 and applicable to the Ann Arbor, Dearborn and Flint campuses and to Michigan Medicine: a COVERED VISITOR is someone invited by a sponsoring unit or faculty/staff sponsor who "does not hold a U-M appointment"; U-M employees and students are excluded, so it is not employment; "COVERED VISITING AFFILIATE/COLLEAGUE" expressly includes "a U-M alum" | SPG 601.42 (spg.umich.edu/policy/601.42) and the HR page for it, read 2026-11-13 | 2026-11-13 |
+| U-M Covered Visitor, duration and sponsorship | "COVERED VISITORS may engage with U-M for up to two (2) years at a time (renewable)"; the sponsoring unit is the college, school, department or institute responsible for the visitor, and the unit performs the onboarding, including the Visiting Scholar agreement, the invitation letter, the liability waiver and the non-disclosure agreement, plus Restricted Party Screening and, where the unit requires it, a background screening under SPG 201.95 | SPG 601.42 §III.A.3 and §IV.B, read 2026-11-13 | 2026-11-13 |
+| U-M identity and address for a sponsored affiliate | the ITS Sponsor System lets "units to sponsor people as members of the U-M community"; the affiliation types are "academic affiliate (e.g. research collaborator)", "other university affiliate (e.g. volunteer)" and "short-term guest"; "Regular Uniqnames with UMIDs" are given to academic affiliates and bring a Wolverine Access/M-Pathways entry; the MCommunity Directory lists "sponsored affiliates" among current members of the U-M community; sponsored affiliates are eligible for the standard computing services, which include Google at U-M | ITS documentation, nodes 255 and 256, and ITS Standard Computing Services, read 2026-11-13 | 2026-11-13 |
+| U-M research standing without an appointment | IRBMED: "Active Emeritus Faculty, Adjunct Faculty, Visiting Faculty, Visiting Scholars, Visiting Graduate Students, International Visiting Scholars and Volunteers vetted through Volunteer services count as affiliated with U-M during the term of their sponsorship/appointment", with the request to confirm with the IRB; an external study team member is identified as one who "is not a student and has no Appointment Department selected"; eResearch records the appointment as "N/A = an appointment is either optional or not required", and a sponsored account is enough for the person to appear on the study team | IRBMED External (non-UM) Study Team Members and ITS Regulatory Management: Adding a Study Team Member, read 2026-11-13 | 2026-11-13 |
+| What the U-M mechanism does not settle | it does not establish that CDAS accepts a sponsored affiliate as "part of the institution": U-M's policy governs U-M's own definition of affiliation and does not speak for NCI's, and no U-M page states a processing time for a sponsorship | this repository's reading of the sources above, 2026-11-13 | 2026-11-13 |
+| U-M Library "Register as a Researcher" | a Special Collections request account only — "Students, faculty, and staff: Use your U-M credentials. Guests: Register and create an account" — granting no address, no standing and nothing bearing on restricted data; it is not a route to institutional identity | U-M Library, read 2026-11-13 | 2026-11-13 |
 | CDAS contact form: unlabelled anti-spam fields | 2 | CDAS contact form | 2026-11-10 |
 | CDAS PI eligibility | permanent employee of the institution at professor level or senior researcher; cannot be a post-doc, trainee or lab technician; the PI registers, submits, renews and closes out | CDAS instructions for accessing data (PDF) | 2026-11-11 |
 | CDAS Signing Official eligibility | permanently employed at the institution and authorised to sign legally binding documents | CDAS instructions for accessing data (PDF) | 2026-11-11 |
@@ -708,7 +747,8 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-DATA | Send the scoping inquiry to CDAS (subject: PLCO) | PI | done — four messages sent, three on 2026-11-11 and the eligibility question on 2026-11-12; the form issues no inquiry number; three of the four were answered on 2026-11-12 (tickets #1563 and #1565) and the replies are recorded in 07-scoping-inquiry.md §9; the clinical-data inquiry (message A) is still unanswered | the scoping inquiry |
 | PLCO-DATA | Secure an institutional PI to be the Data Access Requestor, and a Signing Official | PI | not started — CDAS has confirmed that a professor must submit the request and that the requester must be part of that institution to have access to the data, so one institution has to carry both the PI and the requester's standing | an institutional relationship |
 | PLCO-DATA | Build the host shortlist from CDAS's published approvals | programme | done — the twenty most recently approved PLCO projects are recorded with their Principal Investigators and institutions in `docs/HOST-SHORTLIST.md`; five of them are companies, which CDAS permits as the MTA counterparty | — |
-| PLCO-DATA | Approach a host PI with the invitation letter | PI | drafted with the host chosen — Dr Alex Bryant, University of Michigan — and not sent; the letter now asks for a standing at the institution as well as a signature, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data | the eligibility answer (received 2026-11-12) |
+| PLCO-DATA | Approach a host PI with the invitation letter | PI | drafted with the host chosen — Dr Alex Bryant, University of Michigan — and not sent; the letter now names a standing rather than asking an open question about one, because CDAS answered on 2026-11-12 that the requester has to be part of the submitting institution to have access to the data, and U-M's SPG 601.42 provides a departmental, non-employment mechanism that covers a U-M alum | the eligibility answer (received 2026-11-12) |
+| PLCO-DATA | Establish the requester's standing under U-M SPG 601.42 | PI | not started — the mechanism exists and is departmental: a faculty sponsor and the sponsoring unit's sponsorship administrator create a sponsored academic affiliation, a regular uniqname with a UMID and an institutional address, renewable for up to two years; whether CDAS accepts it is message G, and the sponsor is message to the host in the invitation letter | the host letter |
 | PLCO-DATA | Create the CDAS account and log in with RAS | PI | not started | — |
 | PLCO-DATA | Fill the data-only project proposal from the package | PI or delegate | prepared | — |
 | PLCO-DATA | **PI reviews and submits the proposal** | PI | blocked | proposal text |
@@ -770,7 +810,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | 8 | Pre-specified analysis plan | programme | prepared; §2.1 aims 1–3 | all |
 | 9 | Confirmation that the panel and operating point will not be re-tuned after the data are opened | programme | prepared | all |
 | 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started — an assistant professor qualifies, and the instructions suggest approaching an existing PLCO investigator | PLCO-DATA |
-| 13 | The requester's own standing at that institution, for the approved-users list | PI | not started — the question is whether an institutional address is enough or an appointment is required, and message G asks it | PLCO-DATA |
+| 13 | The requester's own standing at that institution, for the approved-users list | PI | not started — the candidate route is a sponsored academic affiliation under U-M SPG 601.42, which covers people who hold no appointment and lists "a U-M alum" as eligible; whether CDAS accepts it is the question in message G, and the sponsorship itself is the question in the host letter | PLCO-DATA |
 | 11 | An institution willing to execute the NCI Material Transfer Agreement for the specimens | PI | not started | PLCO-EEMS |
 | 12 | A laboratory to run the transcript assay on the aliquots, blinded, with pilot QC | PI | not started | PLCO-EEMS |
 

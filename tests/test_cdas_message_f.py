@@ -111,5 +111,8 @@ def test_the_host_letter_asks_for_the_mechanism_not_only_the_signature() -> None
     host = INVITATION.read_text()
     letter = host.split("<!-- BEGIN HOST LETTER -->")[1]
     letter = letter.split("<!-- END HOST LETTER -->")[0]
-    assert "tell me what my standing at your institution has to be" in letter
+    # The letter settles the standing question by naming the arrangement
+    # rather than asking what standing would be needed.
+    assert "what standing at your institution would let me reach the data" in letter
+    assert "would you and your department sponsor me" in letter
     assert "The instructions allow an assistant professor" in letter

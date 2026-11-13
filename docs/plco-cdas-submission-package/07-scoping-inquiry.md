@@ -488,7 +488,7 @@ the whole PLCO route turns on.
 
 **Subject:** PLCO
 **Topic:** Data Access/Availability
-**Characters:** 1,544
+**Characters:** 2,233
 **Why it exists.** The reply to the eligibility question said that a professor
 must submit the request and that "you must be part of the institution to be
 able to have access to CDAS data". The published instructions express the same
@@ -500,6 +500,22 @@ University of Michigan, where he studied, and holds no appointment anywhere.
 Which of the two the list requires decides whether the route opens this month
 or needs a formal appointment first, and no published page settles it.
 
+**What changed on 2026-11-13, and why the second question now has a
+specific form.** The question used to be "appointment or address", because
+those were the only two standing the requester could imagine. The University
+of Michigan's own published policy supplies a third: SPG 601.42, Covered
+Visitors, covers people who hold no appointment, excludes U-M employees, and
+lists "a U-M alum" among the eligible categories. A sponsored academic
+affiliation under it gives an institutional address, a uniqname and a
+directory affiliation, but no HR appointment — so it is neither of the two
+things the form's wording seems to offer, and CDAS has to say which it is.
+The evidence is in [`../../UM-AFFILIATION-MECHANISM.md`](../../UM-AFFILIATION-MECHANISM.md).
+Question 2 now puts that specific arrangement to CDAS, because a question
+that names the arrangement can be answered yes or no, and a question that only
+asks "appointment or address" can only be answered with another question.
+**What CDAS has not been asked is whether a sponsored affiliation counts, and
+the letter does not imply that it does.**
+
 <!-- BEGIN MESSAGE G -->
 Dear CDAS team,
 
@@ -509,7 +525,7 @@ The data-access instructions say: "You must list all users who you approve to ac
 
 1. For the approved-users list, does a researcher need a current appointment at the Principal Investigator's institution, or is a name and an institutional e-mail address at that institution enough? In other words, does "users at your institution" mean people who hold appointments, or people who hold institutional addresses?
 
-2. If a current appointment is required, would a visiting appointment or a formal affiliation satisfy it for this purpose?
+2. If a current appointment is required, would a visiting appointment or a formal affiliation satisfy it for this purpose? I ask in a specific form. The University of Michigan has a published mechanism for people who hold no appointment: Standard Practice Guide 601.42, Covered Visitors, under which a sponsoring unit or a faculty sponsor can establish a sponsored affiliation for an academic affiliate, and the eligible categories name a former student of the institution explicitly. That arrangement is not employment. It gives the person a university e-mail address, a directory affiliation and a uniqname, and it is renewable for up to two years, but it creates no HR appointment. Would a researcher holding a sponsored affiliation in that form satisfy "part of the institution" for the approved-users list?
 
 3. If an institutional address alone is enough, would an address held by a former student of the institution, rather than by an employee, be accepted on the list?
 
@@ -521,7 +537,7 @@ Royce Lam
 roycelam@umich.edu
 <!-- END MESSAGE G -->
 
-**Before it goes.** It is plain text and 1,544 characters; the name and the
+**Before it goes.** It is plain text and 2,233 characters; the name and the
 address fields carry `Royce Lam` and `roycelam@umich.edu`; the two
 unlabelled boxes stay empty; and the topic is Data Access/Availability,
 which is the desk that answered the eligibility question.

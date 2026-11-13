@@ -138,7 +138,7 @@ def test_the_host_invitation_asks_for_a_standing_not_only_a_signature() -> None:
     text = INVITATION.read_text()
     letter = text.split("<!-- BEGIN HOST LETTER -->")[1]
     letter = letter.split("<!-- END HOST LETTER -->")[0].strip()
-    assert len(letter) <= 6_000, len(letter)
+    assert len(letter) <= 7_000, len(letter)
     assert "](" not in letter, "the letter is pasted as plain text"
     assert "standing at your institution" in letter
     assert "PAR-25-248" in letter

@@ -3104,6 +3104,154 @@ def main(argv: list[str] | None = None) -> int:
             "That single question decides whether the route opens this month"
             in tracker_flat,
         )
+        # --- the U-M affiliation mechanism, and what it does not settle ---
+        # The requester's obstacle was never employment; it was membership.
+        # U-M's own policy names a mechanism for people who hold no
+        # appointment, and the record has to carry that mechanism, its
+        # evidence, and the limit on what it establishes.
+        um_mech = Path("docs/UM-AFFILIATION-MECHANISM.md")
+        chk(
+            "the U-M affiliation mechanism document exists",
+            um_mech.exists(),
+        )
+        if um_mech.exists():
+            um_flat = " ".join(um_mech.read_text().split())
+            chk(
+                "the U-M affiliation document is marked as researched, not "
+                "acted on",
+                "researched and recorded" in um_flat,
+            )
+            # The mechanism has to be quoted, not paraphrased, because the
+            # whole point of the document is that the policy says this.
+            for phrase in (
+                "does not hold a U-M appointment",
+                # The quoted form, with its quotation marks. Without them
+                # this check passes on "a U-M alumnus", so the gate would
+                # hold for the wrong reason.
+                '"a U-M alum"',
+                "SPG 601.42",
+                "Covered Visitors",
+                "up to two (2) years at a time (renewable)",
+                "academic affiliate (e.g. research collaborator)",
+                "Regular Uniqnames with UMIDs",
+                "count as affiliated with U-M during the term of their "
+                "sponsorship/appointment",
+                "N/A = an appointment is either optional or not required",
+                "spg.umich.edu/policy/601.42",
+                "documentation.its.umich.edu/node/255",
+                "documentation.its.umich.edu/node/1251",
+                "az.research.umich.edu/medschool/guidance/external-non-um-study-team-members",
+                "its.umich.edu/computing/computers-software/standard-computing-services",
+                "spg-60142-covered-visitors",
+            ):
+                chk(
+                    f"the U-M affiliation document carries {phrase!r}",
+                    phrase in um_flat,
+                )
+            # The document has to say what it does NOT establish. A policy
+            # found at one institution does not decide another body's rule.
+            for limit in (
+                "does not establish that CDAS will accept",
+                "does not establish that the host will sponsor",
+                "does not establish a processing time",
+                "does not establish that the University's own arrangement is "
+                "sufficient",
+            ):
+                chk(
+                    f"the U-M affiliation document states its limit: {limit!r}",
+                    limit in um_flat,
+                )
+            # The SPG quotation itself has to survive as a quotation. The
+            # phrase "a U-M alum" also appears in prose and in the summary
+            # table, so checking the phrase alone would pass with the
+            # policy's own wording deleted.
+            um_raw = um_mech.read_text()
+            spg_quote = ""
+            if "<!-- SPG CATEGORY QUOTE -->" in um_raw:
+                spg_quote = um_raw.split(
+                    "<!-- SPG CATEGORY QUOTE -->"
+                )[1].split("<!-- END SPG CATEGORY QUOTE -->")[0]
+            chk(
+                "the U-M affiliation document quotes the SPG's own category "
+                "list",
+                "COVERED VISITING AFFILIATE/COLLEAGUE - an individual from "
+                "industry or government, a staff member at another institution "
+                "of higher education" in um_flat
+                and "a U-M alum" in " ".join(spg_quote.replace("**", "").split()),
+            )
+            chk(
+                "the U-M affiliation document records that the Library's "
+                "researcher registration is not a route",
+                "Register as a Researcher" in um_flat
+                and "Special Collections request account" in um_flat,
+            )
+            chk(
+                "the U-M affiliation document records the one verification gap",
+                "403" in um_flat,
+            )
+        chk(
+            "the applications document records the U-M mechanism as a "
+            "candidate answer to the standing question",
+            "SPG 601.42, Covered Visitors" in tracker_flat,
+        )
+        chk(
+            "the applications document records that the U-M policy does not "
+            "decide CDAS's rule",
+            "does not speak for NCI's" in tracker_flat,
+        )
+        chk(
+            "the applications document links the U-M affiliation evidence",
+            "UM-AFFILIATION-MECHANISM.md" in tracker_flat,
+        )
+        chk(
+            "the fact table records the U-M Covered Visitor mechanism",
+            any(
+                "U-M mechanism for a researcher with no appointment" in fact
+                and "SPG 601.42" in value
+                and '"a U-M alum"' in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the U-M identity and address for a "
+            "sponsored affiliate",
+            any(
+                "U-M identity and address for a sponsored affiliate" in fact
+                and "Sponsor System" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records U-M research standing without an "
+            "appointment",
+            any(
+                "U-M research standing without an appointment" in fact
+                and "count as affiliated with U-M" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records what the U-M mechanism does not settle",
+            any(
+                "What the U-M mechanism does not settle" in fact
+                and "does not establish" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records that the Library's researcher "
+            "registration is not a route",
+            any(
+                "Register as a Researcher" in fact
+                and "Special Collections" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
         chk(
             "the document records the lung tissue counts the reply pointed at",
             any(
@@ -3359,17 +3507,44 @@ def main(argv: list[str] | None = None) -> int:
                     "Dr Bryant" in letter,
                 )
                 chk(
-                    "the host invitation asks what standing is required",
-                    "tell me what my standing at your institution has to be"
-                    in letter,
+                    "the host invitation settles the standing question",
+                    "what standing at your institution would let me reach the "
+                    "data myself" in letter,
                 )
                 chk(
                     "the host invitation says an assistant professor qualifies",
                     "The instructions allow an assistant professor" in letter,
                 )
+                # The letter must name the mechanism rather than ask an open
+                # question about it: a professor asked to invent a standing
+                # will not invent one.
+                for phrase in (
+                    "601.42",
+                    "Covered Visitors",
+                    '"a U-M alum"',
+                    "who do not hold a U-M appointment",
+                    "Sponsor System",
+                    "uniqname with a UMID",
+                    "would you and your department sponsor me",
+                    "two years at a time, renewable",
+                ):
+                    chk(
+                        f"the host invitation names {phrase!r}",
+                        phrase in letter,
+                    )
+                chk(
+                    "the host invitation says the arrangement is not "
+                    "employment",
+                    "it is not employment" in letter,
+                )
+                chk(
+                    "the host invitation says the attachments carry the "
+                    "policy references",
+                    "I have attached the policy references" in letter,
+                )
                 chk(
                     "the host invitation is short enough to read",
-                    len(letter) <= 6_000,
+                    len(letter) <= 7_000,
                     str(len(letter)),
                 )
                 # The letter has to tell the recipient what they would be
@@ -4626,6 +4801,34 @@ def main(argv: list[str] | None = None) -> int:
                     and stated_g.group(1).replace(",", "") == str(len(body_g)),
                     f"stated {stated_g.group(1) if stated_g else 'nothing'}, "
                     f"actual {len(body_g)}",
+                )
+                # Message G must put the specific arrangement to CDAS, so
+                # that the answer can be yes or no. And it must not imply
+                # that CDAS has already accepted it.
+                for phrase in (
+                    "approved-users list",
+                    "current appointment",
+                    "601.42",
+                    "Covered Visitors",
+                    "sponsored affiliation",
+                    "creates no HR appointment",
+                    "Would a researcher holding a sponsored affiliation",
+                ):
+                    chk(
+                        f"message G puts {phrase!r} to CDAS",
+                        phrase in body_g,
+                    )
+                chk(
+                    "message G does not claim CDAS has accepted the "
+                    "arrangement",
+                    "you have confirmed" not in body_g
+                    and "you have already accepted" not in body_g,
+                )
+                chk(
+                    "the scoping inquiry records that message G names the "
+                    "specific arrangement",
+                    "a question that names the arrangement can be answered "
+                    "yes or no" in " ".join(inquiry.split()),
                 )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
