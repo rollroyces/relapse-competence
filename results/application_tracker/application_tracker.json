@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T09:14:40.261661+00:00",
-    "git_commit": "d9a4a6867476346278d2c3f38dc4933380620836",
+    "generated_at": "2026-11-13T09:26:46.460807+00:00",
+    "git_commit": "6e7f6c8458b00feb5ee69570512134a787cdb0bb",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -195,6 +195,13 @@
       "Step": "Ask CDAS the four mechanical questions about the PAR route (message F)",
       "Owner": "PI",
       "Status": "drafted, not sent \u2014 the form's own PI requirement, whether filing it counts as an application to PAR-25-248 for the exclusivity rule, which grant cycle the December window belongs to, and whether an EEMS Principal Investigator must be at professor level; it is in 07-scoping-inquiry.md \u00a710",
+      "Depends on": "the go to send it"
+    },
+    {
+      "Application": "PLCO-DATA",
+      "Step": "Ask CDAS what \"part of the institution\" requires for the approved-users list (message G)",
+      "Owner": "PI",
+      "Status": "drafted, not sent \u2014 whether an institutional address is enough or a current appointment is required; it is in 07-scoping-inquiry.md \u00a711, and the answer decides whether the data route needs an appointment at all",
       "Depends on": "the go to send it"
     },
     {
@@ -420,7 +427,14 @@
       "#": "10",
       "Prerequisite": "An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal",
       "Owner": "PI",
-      "Status": "not started",
+      "Status": "not started \u2014 an assistant professor qualifies, and the instructions suggest approaching an existing PLCO investigator",
+      "Applies to": "PLCO-DATA"
+    },
+    {
+      "#": "13",
+      "Prerequisite": "The requester's own standing at that institution, for the approved-users list",
+      "Owner": "PI",
+      "Status": "not started \u2014 the question is whether an institutional address is enough or an appointment is required, and message G asks it",
       "Applies to": "PLCO-DATA"
     },
     {
@@ -647,6 +661,24 @@
       "Fact": "PLCO PAR pilot and the EEMS application",
       "Value": "they are two steps, not one: the Wholomics project summary says the case-control validation study, including the formal assay reproducibility assessment, is to be submitted as a separate EEMS application",
       "Source": "CDAS approved-project 6246, 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS data-only approved-users rule",
+      "Value": "\"You must list all users who you approve to access the data at your institution. You will be asked to provide their names and institutional e-mail addresses. Additional approved users may be added following project submission. Collaborators from other institutions will need to complete a separate project proposal submission with the same project details\"",
+      "Source": "CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS data-only PI rank, in full",
+      "Value": "\"a permanent employee of your institution at a level equivalent to, but not limited to, that of an academic professor (e.g., assistant, associate, or non-tenure or tenure-track professor) or senior researcher\"",
+      "Source": "CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13",
+      "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "CDAS's own advice to approach existing investigators",
+      "Value": "\"You may check the list of Approved Projects to determine if someone else is performing similar research and you may consider contacting them to collaborate on the effort\"",
+      "Source": "CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13",
       "Verified on": "2026-11-13"
     },
     {

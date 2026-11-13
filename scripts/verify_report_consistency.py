@@ -3084,6 +3084,27 @@ def main(argv: list[str] | None = None) -> int:
             "Message E is therefore moot" in tracker_flat,
         )
         chk(
+            "the document records the approved-users rule in CDAS's words",
+            "their names and institutional e-mail addresses" in tracker_flat,
+        )
+        chk(
+            "the document records that an assistant professor qualifies as the "
+            "Principal Investigator",
+            "assistant, associate, or non-tenure or tenure-track professor"
+            in tracker_flat,
+        )
+        chk(
+            "the document records what the programme still needs from one "
+            "institution",
+            "What the programme still needs from one institution" in tracker_flat,
+        )
+        chk(
+            "the document records that the requester's own standing is the "
+            "open question",
+            "That single question decides whether the route opens this month"
+            in tracker_flat,
+        )
+        chk(
             "the document records the lung tissue counts the reply pointed at",
             any(
                 "PLCO lung tissue participants selected" in fact
@@ -3336,6 +3357,15 @@ def main(argv: list[str] | None = None) -> int:
                 chk(
                     "the host invitation names the chosen host",
                     "Dr Bryant" in letter,
+                )
+                chk(
+                    "the host invitation asks what standing is required",
+                    "tell me what my standing at your institution has to be"
+                    in letter,
+                )
+                chk(
+                    "the host invitation says an assistant professor qualifies",
+                    "The instructions allow an assistant professor" in letter,
                 )
                 chk(
                     "the host invitation is short enough to read",
@@ -4528,6 +4558,12 @@ def main(argv: list[str] | None = None) -> int:
                 "the scoping inquiry drafts message F and says it is not sent",
                 "Message F" in inquiry and "drafted, not sent" in inquiry,
             )
+            chk(
+                "the scoping inquiry drafts message G and says it is not sent",
+                "Message G" in inquiry
+                and "Message G — what" in inquiry
+                and "drafted, not sent" in inquiry,
+            )
             begin_f = "<!-- BEGIN MESSAGE F -->"
             end_f = "<!-- END MESSAGE F -->"
             chk(
@@ -4560,6 +4596,36 @@ def main(argv: list[str] | None = None) -> int:
                     and stated.group(1).replace(",", "") == str(len(body_f)),
                     f"stated {stated.group(1) if stated else 'nothing'}, "
                     f"actual {len(body_f)}",
+                )
+            begin_g = "<!-- BEGIN MESSAGE G -->"
+            end_g = "<!-- END MESSAGE G -->"
+            chk(
+                "the scoping inquiry delimits message G",
+                begin_g in inquiry and end_g in inquiry,
+            )
+            if begin_g in inquiry and end_g in inquiry:
+                body_g = inquiry.split(begin_g)[1].split(end_g)[0].strip()
+                chk(
+                    "message G is inside the form's 10,000-character limit",
+                    len(body_g) <= 10_000,
+                    str(len(body_g)),
+                )
+                chk("message G is plain text", "**" not in body_g)
+                chk(
+                    "message G has no unfilled field",
+                    "[TO FILL:" not in body_g,
+                )
+                g_section = inquiry.split("## 11. Message G")[-1]
+                stated_g = re.search(
+                    r"\*\*Characters:\*\*\s*([\d,]+)", g_section
+                )
+                chk(
+                    "the record states message G's length, and it is the "
+                    "length of the message",
+                    stated_g is not None
+                    and stated_g.group(1).replace(",", "") == str(len(body_g)),
+                    f"stated {stated_g.group(1) if stated_g else 'nothing'}, "
+                    f"actual {len(body_g)}",
                 )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"

@@ -177,6 +177,39 @@ reply, its date, its sender and its ticket are recorded in
   blood draws. Whole-genome sequencing data is not requested; the programme
   generates its own reads locally.
 
+**What the programme still needs from one institution.** Read on
+2026-11-13 against CDAS's own instructions, the remaining dependency is
+narrower than it looks and it is the same dependency on every PLCO route.
+The data-only proposal needs four things from one institution: the
+institution and its location; a **Principal Investigator** who is a permanent
+employee there at "a level equivalent to, but not limited to, that of an
+academic professor (e.g., assistant, associate, or non-tenure or tenure-track
+professor) or senior researcher", who registers, submits, renews and closes
+out; a **Signing Official** permanently employed there who signs the Data
+Transfer and Use Agreement through DocuSign, whom CDAS contacts rather than
+anyone having to recruit; and the requester himself on the approved-users
+list, for which the instructions ask for "their names and institutional
+e-mail addresses" at that institution.
+
+The first three are institutional and routine. The fourth is the one that has
+no owner: the requester holds an institutional address at the University of
+Michigan, where he studied, and holds no appointment anywhere, and the
+instructions do not say whether "users at your institution" means people who
+hold appointments or people who hold institutional addresses. **That single
+question decides whether the route opens this month or needs a formal
+appointment first**, and it is what message G asks. If an address alone is
+enough, the route needs one professor and one letter. If an appointment is
+needed, then the cheapest route to one is a departmental visiting arrangement
+at the same institution, and the host letter asks for that rather than
+assuming it.
+
+One institution would then carry all three PLCO routes: the data Transfer and
+Use Agreement for the clinical data, the Material Transfer Agreement for the
+specimens, and the Data Use Certification for the germline genotyping. There
+is no route that needs a *second* institution, and the data-only route is the
+cheapest of the three — no specimen shipment, no Material Transfer
+Agreement, and one to four weeks from approval to data.
+
 ### 2.2 PLCO — EEMS biospecimen application (CDAS)
 
 **Route:** [cdas.cancer.gov/plco](https://cdas.cancer.gov/plco/) → "Begin an
@@ -616,6 +649,9 @@ published practice is to answer an initial request within two weeks.
 | PLCO host candidate: identity and rank | Alex K Bryant, MD, MAS — Assistant Professor of Radiation Oncology, University of Michigan; staff physician and research investigator, VA Ann Arbor Healthcare System; research interests are precision screening for lung and prostate cancer, cancer epidemiology and oncology data science; CDAS lists the contact as bralex@med.umich.edu and the university page gives bralex@umich.edu | CDAS approved-project 6312 and the University of Michigan faculty pages, 2026-11-13 | 2026-11-13 |
 | PLCO host eligibility, by precedent | every candidate on CDAS's list is the named Principal Investigator of an approved PLCO project, which is the evidence that CDAS accepts them in that role on the data route; the list cannot be used to show that they have been through the biospecimen review | CDAS approved-projects list and the project pages, 2026-11-13 | 2026-11-13 |
 | PLCO PAR pilot and the EEMS application | they are two steps, not one: the Wholomics project summary says the case-control validation study, including the formal assay reproducibility assessment, is to be submitted as a separate EEMS application | CDAS approved-project 6246, 2026-11-13 | 2026-11-13 |
+| CDAS data-only approved-users rule | "You must list all users who you approve to access the data at your institution. You will be asked to provide their names and institutional e-mail addresses. Additional approved users may be added following project submission. Collaborators from other institutions will need to complete a separate project proposal submission with the same project details" | CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13 | 2026-11-13 |
+| CDAS data-only PI rank, in full | "a permanent employee of your institution at a level equivalent to, but not limited to, that of an academic professor (e.g., assistant, associate, or non-tenure or tenure-track professor) or senior researcher" | CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13 | 2026-11-13 |
+| CDAS's own advice to approach existing investigators | "You may check the list of Approved Projects to determine if someone else is performing similar research and you may consider contacting them to collaborate on the effort" | CDAS Instructions for Accessing Data Through the CDAS Website, read 2026-11-13 | 2026-11-13 |
 | PLCO projects with a company as Principal Investigator | five of the twenty most recently approved PLCO projects have a company as PI: Wholomics GmbH, Pictor Labs, AIRA Matrix, Artera Inc. and InfotechSoft; CDAS permits a private company as the MTA counterparty | CDAS approved-projects list, 2026-11-13 | 2026-11-13 |
 | PLCO precedent for a new-assay pilot on pre-diagnostic specimens | Analytical Suitability and Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early Detection Assay Using Pre-Diagnostic PLCO Specimens, approved 2026-09-15 | CDAS approved-projects list, 2026-11-13 | 2026-11-13 |
 | CDAS tickets for the scoping inquiry | #1563 (biospecimen availability) and #1565 (biospecimen application process); the data-access ticket number is not in the record | CDAS ticket thread, 2026-11-12 | 2026-11-12 |
@@ -692,6 +728,7 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | PLCO-PAR | **Submit the Request Form for Specimen Verification in the Dec 8, 2026 – Jan 8, 2027 window** | PI | not started — the Confirmatory Letter is issued no later than 3 weeks after submission, and the letter must be included in the grant application | the form |
 | PLCO-PAR | Draft the U01 application for PAR-25-248 by Oct 8, 2027 | PI | not started — organisation applicants only, so it needs an institutional PI | the Confirmatory Letter, the route decision |
 | PLCO-PAR | Ask CDAS the four mechanical questions about the PAR route (message F) | PI | drafted, not sent — the form's own PI requirement, whether filing it counts as an application to PAR-25-248 for the exclusivity rule, which grant cycle the December window belongs to, and whether an EEMS Principal Investigator must be at professor level; it is in 07-scoping-inquiry.md §10 | the go to send it |
+| PLCO-DATA | Ask CDAS what "part of the institution" requires for the approved-users list (message G) | PI | drafted, not sent — whether an institutional address is enough or a current appointment is required; it is in 07-scoping-inquiry.md §11, and the answer decides whether the data route needs an appointment at all | the go to send it |
 | PLCO-EEMS | Request whole-exome profiling of the lung tumour DNA | PI | not started — CDAS confirms that nothing has been done with the lung tissue, so no somatic profile exists, and the per-molecule attribution needs one | the scoping answers |
 | PLCO-EEMS | Request the PLCO germline genotyping through dbGaP (phs001286.v5.p2) | PI | not started — a second application, separate from CDAS, needing an institutional PI and a Data Use Certification | the scoping answers |
 | PLCO-EEMS | Size the attribution set: lung-cancer participants with tumour DNA, germline genotype and serial plasma | PI | not started — the published tables give 434 with tumour cores, 433 with tumour DNA and 348 of them in the GWAS, but the plasma half is still open | message A |
@@ -732,7 +769,8 @@ uncertainty. The plasma cohorts would measure that distribution directly.
 | 7 | Statement of where the data will be stored and who will access it | PI | not started | TZL-EGA, TZL-DIRECT |
 | 8 | Pre-specified analysis plan | programme | prepared; §2.1 aims 1–3 | all |
 | 9 | Confirmation that the panel and operating point will not be re-tuned after the data are opened | programme | prepared | all |
-| 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started | PLCO-DATA |
+| 10 | An institutional PI: a permanent employee at professor level, to be the Data Access Requestor and to submit the proposal | PI | not started — an assistant professor qualifies, and the instructions suggest approaching an existing PLCO investigator | PLCO-DATA |
+| 13 | The requester's own standing at that institution, for the approved-users list | PI | not started — the question is whether an institutional address is enough or an appointment is required, and message G asks it | PLCO-DATA |
 | 11 | An institution willing to execute the NCI Material Transfer Agreement for the specimens | PI | not started | PLCO-EEMS |
 | 12 | A laboratory to run the transcript assay on the aliquots, blinded, with pilot QC | PI | not started | PLCO-EEMS |
 

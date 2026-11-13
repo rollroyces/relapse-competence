@@ -478,3 +478,50 @@ and this is 2,534; the name and the address fields carry `Royce Lam` and
 anti-spam traps and a submission carrying a value in one of them can be
 discarded without a reply; and the topic is Biospecimen Application Process,
 which is the desk that answered the biospecimen route.
+
+---
+
+## 11. Message G — what "part of the institution" requires — drafted, not sent
+
+**Status: drafted, not sent.** It asks one question, and it is the question
+the whole PLCO route turns on.
+
+**Subject:** PLCO
+**Topic:** Data Access/Availability
+**Characters:** 1,544
+**Why it exists.** The reply to the eligibility question said that a professor
+must submit the request and that "you must be part of the institution to be
+able to have access to CDAS data". The published instructions express the same
+requirement in a form that can be read two ways: "You must list all users who
+you approve to access the data at your institution. You will be asked to
+provide their names and institutional e-mail addresses." An institutional
+address, or a current appointment. The requester holds an address at the
+University of Michigan, where he studied, and holds no appointment anywhere.
+Which of the two the list requires decides whether the route opens this month
+or needs a formal appointment first, and no published page settles it.
+
+<!-- BEGIN MESSAGE G -->
+Dear CDAS team,
+
+Thank you for the answer on eligibility: that a professor must submit the request, and that I must be part of the institution to have access to the data. I would like to make sure I understand what "part of the institution" means for the approved-users list, because it decides whether I can be listed at all.
+
+The data-access instructions say: "You must list all users who you approve to access the data at your institution. You will be asked to provide their names and institutional e-mail addresses." I hold an e-mail address at the University of Michigan, where I studied, but I hold no current appointment there and I am employed by nobody. Three questions:
+
+1. For the approved-users list, does a researcher need a current appointment at the Principal Investigator's institution, or is a name and an institutional e-mail address at that institution enough? In other words, does "users at your institution" mean people who hold appointments, or people who hold institutional addresses?
+
+2. If a current appointment is required, would a visiting appointment or a formal affiliation satisfy it for this purpose?
+
+3. If an institutional address alone is enough, would an address held by a former student of the institution, rather than by an employee, be accepted on the list?
+
+I ask because I would rather put the right thing in the proposal than have it returned on a formality, and because I do not want to spend a professor's time on a proposal that cannot succeed.
+
+Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE G -->
+
+**Before it goes.** It is plain text and 1,544 characters; the name and the
+address fields carry `Royce Lam` and `roycelam@umich.edu`; the two
+unlabelled boxes stay empty; and the topic is Data Access/Availability,
+which is the desk that answered the eligibility question.
