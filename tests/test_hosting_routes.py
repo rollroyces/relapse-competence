@@ -181,3 +181,20 @@ def test_the_tracker_records_the_route_decision() -> None:
     ]
     assert len(chosen) == 1
     assert "four routes identified" in chosen[0]["Status"]
+
+
+def test_the_second_michigan_pi_is_identified_and_reachable() -> None:
+    """The record previously said his address was not established. It is."""
+    if not ARTEFACT.exists():
+        pytest.skip("the application tracker artefact has not been generated")
+    facts = {
+        row["Fact"]: row["Value"]
+        for row in json.loads(ARTEFACT.read_text())["external_facts"]
+    }
+    row = facts.get("The second Michigan PI's identity and contact", "")
+    assert "btdenton@umich.edu" in row
+    assert "Industrial and Operations Engineering" in row
+    assert "PLCO-2057" in facts.get(
+        "A second PLCO PI at the University of Michigan, on the requester's subject",
+        "",
+    )

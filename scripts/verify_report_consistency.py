@@ -5266,6 +5266,16 @@ def main(argv: list[str] | None = None) -> int:
             str(sorted(facts)),
         )
         chk(
+            "the fact table records the second Michigan PI's identity and "
+            "contact",
+            any(
+                "The second Michigan PI's identity and contact" in fact
+                and "btdenton@umich.edu" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
             "the fact table records the Wholomics published addresses",
             any(
                 "Wholomics published contact addresses" in fact

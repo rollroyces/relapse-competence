@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-14T01:23:13.486261+00:00",
-    "git_commit": "12f9444a9777462e3ba6e24e3953362162f79868",
+    "generated_at": "2026-11-14T01:35:54.477752+00:00",
+    "git_commit": "3abf27e737bcf675ce91758e1feb8a4c99754004",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -89,7 +89,7 @@
       "Application": "PLCO-DATA",
       "Step": "Approach a second PLCO PI at the University of Michigan",
       "Owner": "PI",
-      "Status": "not started \u2014 Brian Denton, PLCO-2057, on composite biomarker tests and the cost of early detection; his e-mail address is not on the CDAS page and is not yet established",
+      "Status": "not started \u2014 Brian Denton, PLCO-2057, on composite biomarker tests and the cost of early detection; his e-mail is btdenton@umich.edu, published on his CDAS project page and on his department page; the letter to him is not drafted, and the choice between him and Bryant is not made",
       "Depends on": "the hosting routes"
     },
     {
@@ -645,9 +645,15 @@
     },
     {
       "Fact": "A second PLCO PI at the University of Michigan, on the requester's subject",
-      "Value": "PLCO-2057: Brian Denton, Ph.D., Institution The University of Michigan, Position Title Professor, approved Jul 14 2026, \"Adaptive Diagnostic Testing Algorithms for Design of Cost-sensitive Composite Biomarker Tests\"",
+      "Value": "PLCO-2057: Brian Denton, Ph.D., Institution The University of Michigan, Position Title Professor, approved Jul 14 2026, \"Adaptive Diagnostic Testing Algorithms for Design of Cost-sensitive Composite Biomarker Tests\"; collaborators are Viswanath Nagarajan and Blake Harris, also at Michigan",
       "Source": "CDAS approved-project 6205, read 2026-11-13",
       "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "The second Michigan PI's identity and contact",
+      "Value": "Brian T. Denton, PhD, Stephen M. Pollock Collegiate Professor of Industrial and Operations Engineering, University of Michigan; also Professor of Electrical Engineering and Computer Science, Professor of Urology by courtesy at Michigan Medicine, a member of the Institute for Healthcare Policy and Innovation and of the Cancer Center; e-mail btdenton@umich.edu, published on his CDAS project page and on his own department page; department phone (734) 763-2060",
+      "Source": "CDAS approved-project 6205 and the College of Engineering IOE faculty page, read 2026-11-14",
+      "Verified on": "2026-11-14"
     },
     {
       "Fact": "Wholomics official research-partnership route",
