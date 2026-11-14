@@ -5275,6 +5275,128 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(sorted(facts)),
         )
+        # --- the partner-facing one-pager ---
+        # The risk in a summary is not that a number is wrong but that it is
+        # filed under the wrong column, so the gates check the columns, not
+        # just the presence of the numbers.
+        partner = Path("docs/PARTNER-SUMMARY.md")
+        chk("the partner summary exists", partner.exists())
+        if partner.exists():
+            pt = partner.read_text()
+            pflat = " ".join(pt.split())
+            chk(
+                "the partner summary is one page",
+                len(pt) <= 8_000,
+                str(len(pt)),
+            )
+            for heading in ("## 1. MEASURED", "## 2. PROJECTED", "## 3. SIMULATED"):
+                chk(
+                    f"the partner summary has the section {heading!r}",
+                    heading in pt,
+                )
+            chk(
+                "the partner summary has a kill-conditions section",
+                "## 4. KILL CONDITIONS THAT HAVE FIRED" in pt,
+            )
+            # The columns must not bleed. A measured number in a projected
+            # column, or a simulation under "measured", is the failure.
+            measured = pt.split("## 1. MEASURED")[1].split("## 2. PROJECTED")[0]
+            projected = pt.split("## 2. PROJECTED")[1].split("## 3. SIMULATED")[0]
+            simulated = pt.split("## 3. SIMULATED")[1].split("## 4.")[0]
+            for wrong, where, label in (
+                ("0.9091", measured, "the attributed AUC"),
+                ("0.5170", measured, "the matched-state control"),
+                ("2.97", projected, "the measured NSCLC fold"),
+                ("0.9929", simulated, "the published projection"),
+                ("0.0053", simulated, "the inverted projection"),
+            ):
+                chk(
+                    f"{label} is not filed under {where.split()[1][:12]}",
+                    wrong not in where,
+                )
+            for right, where, label in (
+                ("2.97", measured, "the measured NSCLC fold"),
+                ("20 of 23", measured, "the within-tumour count"),
+                ("7 of 7", measured, "the residual-disease count"),
+                ("0.9929", projected, "the published projection"),
+                ("0.0053", projected, "the inverted projection"),
+                ("0.5815", projected, "the best reference-corrected AUC"),
+                ("0.9091", simulated, "the attributed AUC"),
+                ("0.5170", simulated, "the matched-state control"),
+                ("0.7848", simulated, "the 1% attribution rate"),
+            ):
+                chk(
+                    f"{label} is filed under {where.split()[1][:12]}",
+                    right in where,
+                )
+            # The kill conditions, with their statuses.
+            kills = pt.split("## 4. KILL CONDITIONS THAT HAVE FIRED")[1]
+            kills = kills.split("## 5.")[0]
+            for pid in ("K1", "K2", "K3", "K4", "K5"):
+                chk(
+                    f"the partner summary lists {pid}",
+                    pid in kills,
+                )
+            chk(
+                "the partner summary says three kill conditions fired",
+                kills.count("**FIRED**") == 3,
+                str(kills.count("**FIRED**")),
+            )
+            chk(
+                "the partner summary records the two that are not evaluable",
+                kills.count("not evaluable") == 2,
+                str(kills.count("not evaluable")),
+            )
+            chk(
+                "the partner summary says what the K3 firing changed",
+                "K3 firing is why the programme changed statistic"
+                in " ".join(kills.split()),
+            )
+            # The summary must not contain the sentence a reader would quote
+            # back. These are the claims the programme has never earned.
+            for forbidden in (
+                "the readout works in blood",
+                "we have measured the electrical signal in blood",
+                "the assay works in plasma",
+                "demonstrates that the state can be read",
+            ):
+                chk(
+                    f"the partner summary does not claim {forbidden!r}",
+                    forbidden not in pflat.lower(),
+                )
+            # The ask and the limits, and the disclosure.
+            for phrase in (
+                "A ten-tube feasibility pilot, and not a stratum",
+                "is not enough to estimate a recovery rate",
+                "Ten cannot settle the readout",
+                "I am not asking for partnership, exclusivity, intellectual "
+                "property, authorship, or a commitment",
+                "Singlera Genomics",
+                "co-founder, equity holder and paid consultant",
+                "no institutional appointment",
+            ):
+                chk(
+                    f"the partner summary carries {phrase!r}",
+                    phrase in pflat,
+                )
+            chk(
+                "the partner summary names the assay's stop rule that has "
+                "never been measured",
+                "that rate has never been measured" in pflat,
+            )
+            # A document that nothing links to is a document nobody finds.
+            # The check is for the markdown link form, not for the path: a
+            # mention in prose is not an index entry.
+            for linked in (
+                "docs/PARTNER-SUMMARY.md",
+                "docs/HOSTING-ROUTES.md",
+                "docs/UM-AFFILIATION-MECHANISM.md",
+                "docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md",
+            ):
+                chk(
+                    f"the README index links {linked}",
+                    f"[`{linked}`]({linked})" in readme_text,
+                )
         chk(
             "the fact table records the Wholomics published addresses",
             any(

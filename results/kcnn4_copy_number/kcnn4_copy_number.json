@@ -2,7 +2,7 @@
   "audit": {
     "id": "kcnn4-copy-number-audit-2026-11",
     "generated_by": "scripts/kcnn4_copy_number_audit.py",
-    "generated_at": "2026-11-14T06:37:45.600676+00:00",
+    "generated_at": "2026-11-14T07:37:43.667988+00:00",
     "question": "Is the KCNN4 locus copy-number-elevated in the state cells, relative to the rest of the genome?",
     "limits": "The proxy is positional and coarse: it reads a regional density, so it can find a broad gain that includes the locus, and it cannot find a focal amplification of the gene itself, nor separate transcriptional regulation from one.",
     "window": 50,
