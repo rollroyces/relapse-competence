@@ -5223,6 +5223,57 @@ def main(argv: list[str] | None = None) -> int:
             "the applications document links the Wholomics enquiry",
             "WHOLOMICS-PARTNERSHIP-ENQUIRY.md" in tracker_flat,
         )
+        # The official route was verified against the company's own site,
+        # and the record has to carry it, because "Became a Partner" and
+        # "Research Partnerships" are different forms and the letter would
+        # be lost in the wrong one.
+        wl_routes = " ".join(
+            Path("docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md").read_text().split()
+        )
+        for phrase in (
+            "wholomics.com/research-partnerships/",
+            "wholomics.com/partner-with-us",
+            "info@wholomics.com",
+            "Information Request",
+            "captcha-protected",
+            "There is no published address for Patrick Strasser",
+            "Affiliation field is optional",
+            "Study Collaboration",
+        ):
+            chk(
+                f"the Wholomics enquiry records {phrase!r}",
+                phrase in wl_routes,
+            )
+        chk(
+            "the Wholomics letter notes the research-use status of the "
+            "company's assay",
+            "currently for research use only and undergoing clinical "
+            "validation" in " ".join(
+                Path("docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md")
+                .read_text()
+                .split("<!-- BEGIN WHOLOMICS LETTER -->")[1]
+                .split("<!-- END WHOLOMICS LETTER -->")[0]
+                .split()
+            ),
+        )
+        chk(
+            "the fact table records the Wholomics official research route",
+            any(
+                "Wholomics official research-partnership route" in fact
+                and "captcha-protected" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the Wholomics published addresses",
+            any(
+                "Wholomics published contact addresses" in fact
+                and "info@wholomics.com" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
         # The section that says what the letter deliberately does not do
         # is not decoration: each item is a claim about the letter.
         wl_flat = " ".join(wl.split())
@@ -5233,6 +5284,7 @@ def main(argv: list[str] | None = None) -> int:
             "does not hide the commercial motive",
             "does not promise an exclusive arrangement",
             "does not describe the requester as a member of Wholomics",
+            "does not claim to have been received through any channel",
         ):
             chk(
                 f"the Wholomics enquiry records its limit: {limit!r}",

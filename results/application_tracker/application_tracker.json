@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-13T15:29:30.228803+00:00",
-    "git_commit": "ea098895b7e835ca0c4071b9147c1131fc562b41",
+    "generated_at": "2026-11-14T01:23:13.486261+00:00",
+    "git_commit": "12f9444a9777462e3ba6e24e3953362162f79868",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -648,6 +648,24 @@
       "Value": "PLCO-2057: Brian Denton, Ph.D., Institution The University of Michigan, Position Title Professor, approved Jul 14 2026, \"Adaptive Diagnostic Testing Algorithms for Design of Cost-sensitive Composite Biomarker Tests\"",
       "Source": "CDAS approved-project 6205, read 2026-11-13",
       "Verified on": "2026-11-13"
+    },
+    {
+      "Fact": "Wholomics official research-partnership route",
+      "Value": "two published entry points carrying the same enquiry form, https://www.wholomics.com/partner-with-us and https://www.wholomics.com/research-partnerships/; fields are First Name, Last Name, Email, an optional Affiliation, \"I am...\" (Clinician, Diagnostics Provider, Research Facility, Investor, Other), Message, and \"I am interested in\" (Clinical Integration, Study Collaboration, Further Information, Other); the form is captcha-protected, so it has to be submitted by a person",
+      "Source": "Wholomics site, read 2026-11-14",
+      "Verified on": "2026-11-14"
+    },
+    {
+      "Fact": "Wholomics published contact addresses",
+      "Value": "info@wholomics.com is the only e-mail address published anywhere on wholomics.com, in the footer of every page, and the site's own \"Request more Information\" link is mailto:info@wholomics.com?subject=Information Request; no address for Patrick Strasser is published on the company site or on his CDAS project page",
+      "Source": "Wholomics site and CDAS approved-project 6246, read 2026-11-14",
+      "Verified on": "2026-11-14"
+    },
+    {
+      "Fact": "Wholomics assay regulatory status",
+      "Value": "\"Wholomics' multi-cancer early detection assay is currently for Research Use Only and is undergoing clinical validation. It is not CE-marked or FDA-cleared. Performance characteristics referenced reflect investigational study data.\"",
+      "Source": "Wholomics site footer, read 2026-11-14",
+      "Verified on": "2026-11-14"
     },
     {
       "Fact": "CDAS approved-project pagination",

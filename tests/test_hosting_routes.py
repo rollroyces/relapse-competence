@@ -81,6 +81,8 @@ def test_the_company_route_is_evidenced(flat: str) -> None:
         "T4/T5",
         "Become a Partner",
         "for Research Use Only",
+        "wholomics.com/research-partnerships/",
+        "info@wholomics.com",
     ):
         assert phrase in flat, phrase
 

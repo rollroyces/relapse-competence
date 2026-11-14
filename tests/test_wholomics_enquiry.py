@@ -116,10 +116,11 @@ def test_the_before_you_send_list_binds_the_decisions(doc: str) -> None:
     flat = " ".join(doc.split())
     for item in (
         "info@wholomics.com",
-        "not the form",
+        "the form at `/research-partnerships/`",
         "no employer, no funding attached to this work",
         "whether this could be a paid collaboration",
         "ten tubes",
+        "It is the commercial route",
     ):
         assert item in flat, item
 
@@ -129,5 +130,39 @@ def test_the_letter_is_anchored_to_the_routes_document() -> None:
     assert ROUTES.exists()
     flat = " ".join(ROUTES.read_text().split())
     assert "Wholomics GmbH" in flat
-    assert "Become a Partner" in flat
+    assert "wholomics.com/research-partnerships/" in flat
+    assert "info@wholomics.com" in flat
     assert "2026-0185" in flat
+
+
+def test_the_official_route_is_recorded_and_is_verified(doc: str) -> None:
+    """The route was verified against the company's own site.
+
+    "Become a Partner" and "Research Partnerships" are different forms, and
+    the letter would lose both the disclosure and the two questions in the
+    wrong one.
+    """
+    flat = " ".join(doc.split())
+    assert "wholomics.com/research-partnerships/" in flat
+    assert "wholomics.com/partner-with-us" in flat
+    assert "captcha-protected" in flat
+    assert "There is no published address for Patrick Strasser" in flat
+    assert "Affiliation field is optional" in flat
+    assert "Study Collaboration" in flat
+    # The only published address, and the site's own subject line.
+    assert "info@wholomics.com" in flat
+    assert "Information Request" in flat
+
+
+def test_the_letter_notes_the_research_use_status_of_the_assay(letter: str) -> None:
+    """It shows the letter was written from their material, and it is true."""
+    assert (
+        "currently for research use only and undergoing clinical validation"
+        in letter
+    )
+    assert "would be a research measurement in the same sense" in letter
+
+
+def test_nothing_was_submitted(doc: str) -> None:
+    flat = " ".join(doc.split())
+    assert "It does not claim to have been received through any channel" in flat

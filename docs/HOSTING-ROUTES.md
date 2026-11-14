@@ -171,14 +171,24 @@ archive at all, and does what is recoverable decay with the age of the
 sample* — asked on PLCO rather than Taizhou, by a company whose PI is its
 chief executive.
 
-Wholomics is small and has an inbound route. Its own site gives "Our
-partners are fundamental to our success … **Become a Partner** — If you would
-like to partner with us, fill out the form below and we will get back to
-you", and its team page lists four people, the first of whom is "Patrick
-Strasser, MSc Co-Founder, CEO — Cancer Research, Strategy, Operations,
-Fundraising, **Partnerships**", with offices in "Boston, USA | Ried i. I.,
-Austria" and a US telephone number (+1 617 222 0055). Its assay is "currently
-for Research Use Only".
+Wholomics is small and has an inbound route, and the route was verified on
+2026-11-14. The company's own site carries two research-partnership entry
+points with the same enquiry form — <https://www.wholomics.com/partner-with-us>
+and <https://www.wholomics.com/research-partnerships/> — and the form asks
+for a name, an e-mail, an optional affiliation, what kind of partner the
+sender is, and what the sender is interested in, with **Study Collaboration**
+among the selectable interests. A third form, "Become a Partner" on
+`/our-partners`, sits under *Strategic Partners*, asks only for a name, a
+phone number, an e-mail and a message, and is the commercial route. It is
+captcha-protected, so it is a person who submits it. The only e-mail address published anywhere on the site is
+`info@wholomics.com`, which is what the site's own "Request more
+Information" link points at, and no address for Patrick Strasser is published
+either on the site or on his CDAS project page. His team page lists four
+people, the first of whom is "Patrick Strasser, MSc Co-Founder, CEO — Cancer
+Research, Strategy, Operations, Fundraising, **Partnerships**", with offices
+in "Boston, USA | Ried i. I., Austria" and a US telephone number
+(+1 617 222 0055). Its assay is "currently for Research Use Only and is
+undergoing clinical validation… not CE-marked or FDA-cleared".
 
 **Why a company is the only route that satisfies everything.** CDAS needs
 affiliation; the germline route needs employment; the biospecimen route
@@ -282,10 +292,10 @@ the universe, and the universe can now be swept.
 politics.** Wholomics is running the requester's own experiment — an
 analytical-suitability pilot on archived pre-diagnostic specimens, with
 matched controls, split by storage temperature — on the same resource, and
-its chief executive is the named PI on it. A four-person company with an
-inbound "Become a Partner" form and a CEO whose remit includes Partnerships
-is a much more answerable recipient than a professor with two hundred
-e-mails a week, and the letter to it is not a cold approach: it is a
+its chief executive is the named PI on it. A four-person company with two
+published research-partnership entry points and a CEO whose remit includes
+Partnerships is a much more answerable recipient than a professor with two
+hundred e-mails a week, and the letter to it is not a cold approach: it is a
 proposal to do the same thing with a different analyte.
 
 **The University of Michigan route in parallel, through Brian Denton rather

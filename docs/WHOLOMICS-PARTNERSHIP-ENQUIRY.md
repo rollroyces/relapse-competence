@@ -1,7 +1,9 @@
 # Partnership enquiry to Wholomics GmbH — a ten-tube feasibility question
 
 **Status: draft, not sent.** Nothing has been sent to Wholomics, to Patrick
-Strasser, or to anyone else. This is a draft for review.
+Strasser, or to anyone else. This is a draft for review. The route it would
+go by, and the field values for it, were verified against the company's own
+site on 2026-11-14 and are in §1 item 1.
 
 **What this document is.** Wholomics GmbH holds an approved PLCO project
 (2026-0185) whose Principal Investigator is its own chief executive, and that
@@ -33,14 +35,49 @@ disclosure about the programme's reference assay is in
 
 ## 1. Before you send — seven things to set
 
-1. **Who it goes to.** Patrick Strasser, MSc, Co-Founder and CEO, Wholomics
-   GmbH, Boston and Ried im Innkreis. The company's own pages give
-   `info@wholomics.com` and +1 617 222 0055, and a "Become a Partner" form
-   on <https://www.wholomics.com/our-partners>. **Decided: an e-mail to the
-   company address, not the form.** The form asks for a partnership in one
-   field; this letter asks two questions and discloses a conflict, and both
-   would be lost in a form. If the answer is to send it to Strasser
-   personally, his address is not on the company's site.
+1. **Who it goes to — the official route, verified 2026-11-14.** Wholomics
+   has two published research-partnership entry points, and they carry the
+   **same enquiry form**: <https://www.wholomics.com/partner-with-us> ("Partner
+   with us", the top-level call to action) and
+   <https://www.wholomics.com/research-partnerships/> ("Explore research
+   opportunities"). **Decided: the form at `/research-partnerships/`**, because
+   that page is explicitly the research route and the form declares what kind
+   of enquiry it is.
+
+   The fields, and what to put in them:
+
+   | Field | Value |
+   |---|---|
+   | First Name / Last Name | `Royce` / `Lam` |
+   | Email | `roycelam@umich.edu` |
+   | Sign up for news and updates | unticked |
+   | Affiliation | optional — see item 3 |
+   | I am... | **Other** (he is not a clinician, a diagnostics provider, a research facility or an investor) |
+   | I am interested in | tick **Study Collaboration**, and **Further Information** if you want it routed as a request for information |
+   | Message | the letter below, verbatim |
+
+   **The form is captcha-protected, so you have to submit it.** It cannot be
+   filled by a script, and a submission is not a draft, which is why nothing
+   here has been put into it.
+
+   **If you would rather use e-mail than the form**, the only address
+   published anywhere on wholomics.com is `info@wholomics.com` — it is in the
+   footer of every page — and the site's own "Request more Information" link
+   is `mailto:info@wholomics.com?subject=Information Request`. Use that
+   address and a subject line naming the research enquiry.
+
+   **There is no published address for Patrick Strasser.** Not on the
+   company's site and not on his CDAS project page, which lists his name,
+   degrees, institution, position title and project but no e-mail. The letter
+   is therefore addressed to him by name and routed through a company
+   channel; if you want it to reach him directly, you will need a route the
+   company has not published.
+
+   **The other form is not this one.** "Become a Partner" on `/our-partners`
+   sits under *Strategic Partners* and asks only for a name, a phone number,
+   an e-mail and a message — no affiliation field and no enquiry type. It is
+   the commercial route, and it would lose both the disclosure and the two
+   questions.
 
 2. **The ask: ten tubes, and why not a stratum.** The letter proposes a
    ten-tube feasibility pilot — five incident cases and five matched
@@ -64,6 +101,12 @@ disclosure about the programme's reference assay is in
    the result. The letter states all three, because the letter also asks
    whether the collaboration could be a paid one, and a letter that asks for
    money while implying an institutional standing would be dishonest.
+
+   **The form's Affiliation field is optional**, and it is the one field
+   where a false answer would be easiest to give by accident. Leaving it
+   blank is consistent with what the letter says. If you fill it in, it has
+   to be true, and "independent researcher" is true; the University of
+   Michigan, where you studied, is not an affiliation you hold.
 
 5. **The disclosure, which is owed.** The programme's reference assay is
    PanSeer, whose DNA methylation work was funded by Singlera Genomics;
@@ -100,7 +143,7 @@ Dear Mr Strasser,
 
 I am writing because your PLCO project, "Analytical Suituality and Storage-Stability Pilot for a Serum NMR-Based Multi-Omics Multi-Cancer Early Detection Assay Using Pre-Diagnostic PLCO Specimens" (2026-0185), asks the same question of an archive that I want to measure something else in, and because whether the answer is yes decides whether the work I am proposing is worth doing at all.
 
-The measurement I want to make is a bulk cell-free transcript measurement of two ion channels, KCa3.1 (KCNN4) and Piezo1, as a marker of a drug-tolerant tumour-cell state. It is orthogonal to a methylation signature and, as far as I can tell, complementary to a serum NMR multi-omics signature rather than competitive with it: I am not proposing an early-detection classifier and I am not proposing to replace your assay. What I am proposing is a second question about the same specimens.
+The measurement I want to make is a bulk cell-free transcript measurement of two ion channels, KCa3.1 (KCNN4) and Piezo1, as a marker of a drug-tolerant tumour-cell state. It is orthogonal to a methylation signature and, as far as I can tell, complementary to a serum NMR multi-omics signature rather than competitive with it: I am not proposing an early-detection classifier and I am not proposing to replace your assay. I note from your site that the multi-cancer early detection assay is currently for research use only and undergoing clinical validation, and the measurement I am proposing would be a research measurement in the same sense. What I am proposing is a second question about the same specimens.
 
 The question is whether cell-free RNA can be recovered and sequenced from these archives at all. That is a feasibility question and not an efficacy one, and it is the question your project is asking for the NMR assay: before any irreplaceable specimens are requested for a full validation study, the suitability of long-term archived pre-diagnostic PLCO serum for that assay has to be established. The same argument applies to a transcript assay, and it applies with more force, because RNA is scarcer and less stable in plasma than DNA is. Your stated motivation names three limits of current approaches, early-stage sensitivity, specimen volume requirements and cost, and the first of the three is moot if the analyte cannot be recovered from the archive at all.
 
@@ -155,6 +198,7 @@ roycelam@umich.edu
   any standing at all. The letter says the opposite, in the plainest terms
   available, because a PI or a chief executive who cannot say who the
   researcher is will be asked the same question again by CDAS.
+- It does not claim to have been received through any channel. The enquiry form is captcha-protected and a submission is not a draft, so nothing has been put into it and nothing has been sent.
 - It does not cite the Singlera disclosure as though it were a material
   obstacle. It is a disclosure, and it is made so that the recipient can
   judge the claim against the published record.
