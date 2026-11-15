@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-15T02:16:12.335025+00:00",
-    "git_commit": "0d8ae7c4b3e9a76bd34650a7113868276b76ebdb",
+    "generated_at": "2026-11-15T10:02:23.991978+00:00",
+    "git_commit": "6e719e61f74ca5916fa19e074a1e5b9c81d0a955",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -606,6 +606,24 @@
       "Value": "Weimin Ye (weimin.ye@ki.se), Yuan Gao (gary.gao@singleragenomics.com), Kun Zhang (kzhang@bioeng.ucsd.edu), Rui Liu (rliu@singleragenomics.com), Li Jin (lijin@fudan.edu.cn)",
       "Source": "Chen X et al. 2020, author notes",
       "Verified on": "2026-11-12"
+    },
+    {
+      "Fact": "CDAS publishes the collaborators named on an approved project",
+      "Value": "the collaborators are listed on the project page with their institutions: PLCO-2057 lists Brian Denton, Viswanath Nagarajan and Blake Harris, all at The University of Michigan; PLCO-380 lists Stephen Duffy of Queen Mary University of London and John Field of the University of Liverpool; NLST-621 lists Gary Gao of Singlera Genomics Inc.; projects whose application named no collaborators publish none, as 2026-0185 and NLST-43 do",
+      "Source": "CDAS approved-project pages 6205, 1882, 2455, 6246 and 613, decoded and read 2026-11-15",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "PLCO EEMS application review time",
+      "Value": "\"It typically takes 4-6 months from application submission to review outcome\"; the preliminary application is reviewed for feasibility, resubmission and duplication, and the full application then waits 2-4 months for the panel",
+      "Source": "PLCO EEMS Application Process instructions, p. 2 and p. 4",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "NIH biosketch for a researcher with no appointment",
+      "Value": "eRA Commons: \"Only officials from your own organization can create a new eRA Commons account. If you are a principal investigator (PI), co-PI, trainee, researcher, post-doctoral student or any other similar scientific role, you CANNOT create your own eRA Commons account\"; and \"All Senior/Key Personnel and Other Significant Contributors listed on an application are required to have active eRA Commons usernames (Commons IDs)\". NIH's route for the person with no organisation: \"Individual applicants not affiliated with an organization or who want to submit a grant application independently must complete all the required registrations as though they are an organization. There is NO cost associated with ANY of these registrations\", and that route \"is an option for independent consultants or other individuals not affiliated with an organization\"",
+      "Source": "eRA Commons pages and the NIH instructions for unaffiliated and independent applicants, read 2026-11-15",
+      "Verified on": "2026-11-15"
     },
     {
       "Fact": "CDAS contact form: message length limit",

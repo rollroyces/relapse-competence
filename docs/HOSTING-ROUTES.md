@@ -88,7 +88,53 @@ only one of the four that does not depend on a stranger reading an e-mail
 and saying yes. It has two real costs. The "senior researcher" test has to
 be argued rather than assumed, and it is argued on a publication record
 rather than on a job title. And it does not by itself satisfy the germline
-route (§5).
+route (section 5).
+
+**And on 2026-11-15 the machinery for it turned out to exist, in NIH's own
+documents.** eRA Commons will not let a scientist create their own account:
+"Only officials from your own organization can create a new eRA Commons
+account. If you are a principal investigator (PI), co-PI, trainee,
+researcher, post-doctoral student or any other similar scientific role, you
+CANNOT create your own eRA Commons account"
+(<https://www.era.nih.gov/manage-accounts/create-and-edit-an-account.htm>,
+read 2026-11-15). But NIH publishes a route for exactly the people who have no
+organisation to create one: its instructions for unaffiliated and independent
+applicants say that "Individual applicants not affiliated with an organization
+or who want to submit a grant application independently must complete all the
+required registrations as though they are an organization. There is NO cost
+associated with ANY of these registrations", and that the route "is an option
+for independent consultants or other individuals not affiliated with an
+organization" (<https://grants.nih.gov/grants/ElectronicReceipt/UnaffiliatedUserRegistration.pdf>;
+quoted from two independent university research offices reproducing the NIH
+FAQ, because that PDF is behind a bot challenge for this machine).
+
+What that buys, in order:
+
+1. **An ORCID iD.** Required, because a Commons ID "must be linked to an
+   ORCID iD" for everyone listed as Senior/Key Personnel.
+2. **A Commons ID**, by registering as the organisation. "NIH typically awards
+   grants to organizations, not individuals. In rare cases ... an individual
+   who is not affiliated with a research organization may need to register"
+   (eRA's footnote, pointing at the same instructions).
+3. **A certified NIH biosketch**, which is what the EEMS application demands
+   for every member of the investigative team, and what an investigator list
+   on a data-only application needs.
+4. **A named institution for CDAS to read.** The precedent is on the record:
+   NLST-43's Institution field reads "Statistical Consultant". A
+   self-registered organisation is not the same as a self-description on a
+   form, and whether CDAS accepts it is a question for CDAS, which is message
+   G's subject.
+
+**None of this requires a sponsor, a host, a grant or a signature.** It
+requires an organisation registration, and NIH states there is no cost. The
+lead time is the real constraint: NIH advises starting "at least six weeks
+prior to a deadline", and the EEMS preliminary application for the current
+round is due 2027-02-18.
+
+**What it does not do.** It does not settle whether CDAS accepts such an
+organisation as "part of the institution", which is message G; and it does
+not settle whether it can be the institution that verifies full-time
+employment for a dbGaP application, which is the germline half of section 5.
 
 ## 3. Route B — a visiting appointment at a university
 

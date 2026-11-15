@@ -153,7 +153,7 @@ Ten also keeps the ask in the shape PLCO's own policies describe. Your pilot is 
 
 One difference in the material, which is why the pilot is not a request for serum. PLCO's plasma is banked at T0, T3, T4 and T5 and not at T1 or T2, whereas serum is available for every screening year. A plasma pilot therefore cannot use the T0 to T2 stratum as a single block: it would have to span T0 and T3 at minus seventy against T4 and T5 at minus one hundred and fifty-seven. If the archive is workable for a transcript assay then that is a workable design, and I would want the allocation to reflect the strata PLCO actually holds rather than the strata that are convenient.
 
-Two things I would be grateful for. First, whether you would be willing to consider including ten plasma tubes for a transcript feasibility pilot in your PLCO request, and to have the aliquoting done so that RNA is preserved at that point rather than after two decades of storage, with the storage-stratum metadata and the handling protocol shared with me afterwards. Second, whether you would point me to the sequencing route you use, if you use one.
+Two things I would be grateful for. First, whether you would be willing to consider including ten plasma tubes for a transcript feasibility pilot in your PLCO request, and to have the aliquoting done so that RNA is preserved at that point rather than after two decades of storage, with the storage-stratum metadata and the handling protocol shared with me afterwards. Second, whether you would point me to the sequencing route you use, if you use one. And a third, which is the one that matters most to me: that the application name me, with the role that is actually mine. CDAS publishes the collaborators named on an approved project with their institutions, and your own project publishes none today, so a name there would be the first on it. It is a public and permanent record of who did what, and it is made now, when authorship cannot honestly be discussed.
 
 What I am bringing is a public programme. The analysis behind every number I have published is in a public repository under an open licence; the panel, the operating point and the thresholds are fixed before any data are opened; and the assay specification, which states what would be counted, what would stop it and what the pilot would measure, is written down in advance. I would send you the full protocol before anything is requested or ordered.
 
@@ -190,7 +190,11 @@ roycelam@umich.edu
   to exist for CDAS's purposes, the letter says so, and it says it will not
   be an unfunded interest.
 - It does not promise an exclusive arrangement, an IP position, a first
-  refusal, or authorship. Those are the programme's to give or withhold
+  refusal, or authorship. It does ask to be named on the application, which is
+  a different request: an application names the investigators and is
+  published, while a paper's author list is settled by the paper's own
+  conventions, and asking for a place on a paper that does not exist yet is
+  what makes a chief executive say no. Those are the programme's to give or withhold
   after there is something to give, and offering them in a first letter
   would trade the only thing this letter has, which is that its ask is
   small and its interest is real.

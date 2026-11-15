@@ -5512,6 +5512,173 @@ def main(argv: list[str] | None = None) -> int:
             ),
             str(sorted(facts)),
         )
+        # --- where a contribution is recorded ---
+        # The requester's worry is that the contribution goes unrecorded.
+        # The answer is that PLCO applications record it publicly, and the
+        # letters have to ask for it.
+        contrib = Path("docs/CONTRIBUTION-TERMS.md")
+        chk("the contribution terms document exists", contrib.exists())
+        if contrib.exists():
+            cflat = " ".join(contrib.read_text().split())
+            chk(
+                "the contribution terms document is marked as a plan, not an "
+                "agreement",
+                "a plan, not an agreement" in cflat,
+            )
+            # The three records, and the verified evidence for the public one.
+            for phrase in (
+                "The collaborators line on the approved-project page",
+                "the abstract of your research proposal and your contact "
+                "information",
+                "You must list all members of your investigative team and "
+                "upload an NIH biosketch for each member",
+                "PLCO-2057",
+                "PLCO-380",
+                "NLST-621",
+                "2026-0185",
+                "NLST-43",
+                "settle it at filing, not after the result",
+            ):
+                chk(
+                    f"the contribution terms document carries {phrase!r}",
+                    phrase in cflat,
+                )
+            # The CRediT draft, and the roles the requester does not hold.
+            for role in (
+                "Conceptualization",
+                "Methodology",
+                "Software",
+                "Formal analysis",
+                "Investigation",
+                "Data curation",
+                "Writing – original draft",
+                "Funding acquisition",
+                "Supervision",
+            ):
+                chk(
+                    f"the contribution statement has the role {role!r}",
+                    role in cflat,
+                )
+            chk(
+                "the contribution terms document states that a collaborators "
+                "line is not authorship",
+                "A collaborators line is not authorship" in cflat,
+            )
+            chk(
+                "the contribution terms document leaves the roles the "
+                "requester does not hold blank",
+                "He holds no funding, supervises nobody" in cflat
+                and "Those rows are left blank deliberately" in cflat,
+            )
+            chk(
+                "the contribution terms document records the biosketch "
+                "route",
+                "the biosketch route is open to a researcher with no "
+                "appointment" in cflat
+                and "NIH's own route for unaffiliated individuals" in cflat
+                and "There is NO cost associated with ANY of these "
+                "registrations" in cflat
+                and "What this does not settle" in cflat,
+            )
+            chk(
+                "the contribution terms document records the HTML-entity trap",
+                "HTML numeric entities" in cflat
+                and "found by a mutation test" in cflat,
+            )
+            for limit in (
+                "does not claim the requester will be an author of anything",
+                "does not treat a collaborators line as equivalent to "
+                "authorship",
+                "does not put a name against a role the requester does not hold",
+                "does not presume any route will be accepted",
+            ):
+                chk(
+                    f"the contribution terms document records its limit: "
+                    f"{limit!r}",
+                    limit in cflat,
+                )
+        # Each of the four letters now asks to be named on the application,
+        # and each still says it is not asking for authorship. The two have
+        # to stay together or the ask becomes dishonest.
+        for name, path in (
+            ("the Denton letter", "docs/DENTON-COLLABORATION-REQUEST.md"),
+            ("the Wholomics letter", "docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md"),
+            ("the host letter", "docs/HOST-INVITATION.md"),
+        ):
+            lp = Path(path)
+            if not lp.exists():
+                continue
+            lflat = " ".join(lp.read_text().split())
+            chk(
+                f"{name} asks to be named on the application",
+                "that the application name me" in lflat
+                or "the application name me" in lflat,
+            )
+            chk(
+                f"{name} says a name on the application is not a request for "
+                "authorship",
+                "while a paper's author list is settled by the paper's own "
+                "conventions" in lflat,
+            )
+        tzl = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md")
+        if tzl.exists():
+            zflat = " ".join(tzl.read_text().split())
+            chk(
+                "the Taizhou letter asks how the contribution would be "
+                "recorded",
+                "how the contribution would be recorded" in zflat
+                and "agree the roles in writing while the collaboration is "
+                "still a proposal" in zflat,
+            )
+        chk(
+            "the fact table records that CDAS publishes the collaborators "
+            "named on an approved project",
+            any(
+                "CDAS publishes the collaborators named on an approved project"
+                in fact
+                and "PLCO-2057" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the fact table records the PLCO EEMS review time",
+            any(
+                "PLCO EEMS application review time" in fact
+                and "4-6 months" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the README index links the contribution terms",
+            "[`docs/CONTRIBUTION-TERMS.md`](docs/CONTRIBUTION-TERMS.md)"
+            in readme_text,
+        )
+        # --- the unaffiliated registration route ---
+        # The eRA rules were read from NIH's own pages, and the route they
+        # point at is the one that changes what the requester can do alone.
+        routes_flat = " ".join(
+            Path("docs/HOSTING-ROUTES.md").read_text().split()
+        )
+        for phrase in (
+            "you CANNOT create your own eRA Commons account",
+            "There is NO cost associated with ANY of these registrations",
+            "is an option for independent consultants or other individuals not "
+            "affiliated with an organization",
+            "at least six weeks prior to a deadline",
+            "None of this requires a sponsor, a host, a grant or a signature",
+        ):
+            chk(
+                f"the hosting routes document records {phrase!r}",
+                phrase in routes_flat,
+            )
+        chk(
+            "the hosting routes document says what the registration route does "
+            "not do",
+            "It does not settle whether CDAS accepts such an organisation"
+            in routes_flat,
+        )
         chk(
             "the fact table records the Wholomics published addresses",
             any(
