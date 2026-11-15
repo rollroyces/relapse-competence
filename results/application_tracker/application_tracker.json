@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-15T10:48:44.315413+00:00",
-    "git_commit": "fd0f9389cfc156839052b295dcf20cc5f328e3e9",
+    "generated_at": "2026-11-15T11:19:32.523381+00:00",
+    "git_commit": "9d099b7177d130fb2126727f707e6b4755aaec72",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -663,9 +663,33 @@
     },
     {
       "Fact": "PLCO germline route identity requirement",
-      "Value": "dbGaP application includes \"verification by the institution that the investigators are full time employees\", alongside IT standards, embargo and privacy conditions",
-      "Source": "PLCO EEMS Policies and Procedures section 10, p. 15, read 2026-11-13",
-      "Verified on": "2026-11-13"
+      "Value": "dbGaP application includes \"verification by the institution that the investigators are full time employees\", alongside IT standards, embargo and privacy conditions; this is not PLCO's requirement alone, because dbGaP's own Authorized Access page states a stricter rule of its own, that the investigator must be a permanent employee of their institution at the level of a tenure-track professor or senior scientist",
+      "Source": "PLCO EEMS Policies and Procedures section 10, p. 15, read 2026-11-13, and the dbGaP Authorized Access page, read 2026-11-15",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "dbGaP's own eligibility rule for an Authorized Access request",
+      "Value": "\"Extramural Investigators must be permanent employees of their institution at a level equivalent to a tenure-track professor or senior scientist with responsibilities that most likely include laboratory administration and oversight. Laboratory staff and trainees such as graduate students and postdoctoral fellows are not permitted to submit project requests\"",
+      "Source": "dbGaP Authorized Access page, read 2026-11-15",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "dbGaP's personnel errors on a data access request",
+      "Value": "the common reasons for rejection include \"PI has identified him/herself as the signing official or the IT director for the project\"; \"the signing official's and IT director's emails must be from their organization, instead of a personal email address (for example, a personal gmail address.)\"; and \"For all non-intramural investigators, dbGaP receives information on the signing official through eRA\"",
+      "Source": "NIH \"How to Request and Access Datasets from dbGaP\", page last updated September 16, 2026, read 2026-11-15 from the Internet Archive capture of the live page, which is behind a bot check that blocks non-browser clients",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "The PLCO Data Use Certification's Institutional Signing Official",
+      "Value": "\"Institutional Signing Official: The label, 'Signing Official,' is used in conjunction with the NIH eRA Commons and refers to the individual that has institutional authority to legally bind the institution in grants administration matters\"",
+      "Source": "PLCO Data Use Certification, version January 25, 2025, p. 9, read 2026-11-15",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "dbGaP contact route",
+      "Value": "the contact form at https://dbgap.ncbi.nlm.nih.gov/classic/aa/wga.cgi?page=email is public, asks for Name, E-mail, Phone (optional) and Question / Comment, and carries no captcha and no token; the published address is dbgap-help@ncbi.nlm.nih.gov; the legacy site is to be replaced by the new NCBI registration system in fall 2026",
+      "Source": "dbGaP contact form and dbGaP submission-system page, read 2026-11-15",
+      "Verified on": "2026-11-15"
     },
     {
       "Fact": "A second PLCO PI at the University of Michigan, on the requester's subject",

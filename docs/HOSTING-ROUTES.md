@@ -135,6 +135,13 @@ round is due 2027-02-18.
 organisation as "part of the institution", which is message G; and it does
 not settle whether it can be the institution that verifies full-time
 employment for a dbGaP application, which is the germline half of section 5.
+**Both questions are now drafted and neither has been sent.** Message H asks
+CDAS the first, in
+[`plco-cdas-submission-package/07-scoping-inquiry.md`](plco-cdas-submission-package/07-scoping-inquiry.md)
+§12, and puts CDAS's own record of a self-employed consultant in front of
+it; the dbGaP question is drafted in
+[`DBGAP-SCOPING-INQUIRY.md`](DBGAP-SCOPING-INQUIRY.md), and §5 of this
+document now says why it may not have the answer the route map would like.
 
 ## 3. Route B — a visiting appointment at a university
 
@@ -263,6 +270,35 @@ resolves it.
 This is the finding that reorders the routes. It was not in the programme's
 record before this document, and it is the reason Route C is not merely
 another option.
+
+**The requirement is dbGaP's own, and it is stricter than PLCO's.** Read on
+2026-11-15, dbGaP's Authorized Access page says: "Extramural Investigators
+must be permanent employees of their institution at a level equivalent to a
+tenure-track professor or senior scientist with responsibilities that most
+likely include laboratory administration and oversight. Laboratory staff and
+trainees such as graduate students and postdoctoral fellows are not permitted
+to submit project requests." PLCO's policy restates the rule in the words
+above and adds the IT standards; it does not create it, and it cannot relax
+it.
+
+**And the request needs two people who may not be the PI.** The NIH guide to
+requesting access lists, among the common reasons for rejection, that the
+"PI has identified him/herself as the signing official or the IT director for
+the project", and states that "the signing official's and IT director's
+emails must be from their organization, instead of a personal email address
+(for example, a personal gmail address.)" The Institutional Signing Official
+has to be "the individual that has institutional authority to legally bind the
+institution in grants administration matters".
+
+**What this does to Route A.** An organisation of one satisfies "permanent
+employee of their institution" on its face — the requester is its only
+employee — but it has nobody who can be the signing official, because the one
+person in it is the PI, and nobody who can be the IT Director either.
+**That is an inference from the rules and not a ruling**, and it is why the
+question has been put to dbGaP instead of being answered here. The letter is drafted
+in [`DBGAP-SCOPING-INQUIRY.md`](DBGAP-SCOPING-INQUIRY.md). If the answer is
+no, then the germline half of the attribution needs employment, and Route C
+is the only route that reaches it.
 
 ## 6. The University of Michigan route, which is still real and now has two candidates
 

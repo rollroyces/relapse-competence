@@ -5134,6 +5134,142 @@ def main(argv: list[str] | None = None) -> int:
                     "Three more messages are drafted, and none of them has "
                     "been sent" in h_flat,
                 )
+                # The germline half has its own inquiry, to a different
+                # desk, because dbGaP's rules are the ones that decide it.
+                gap = Path("docs/DBGAP-SCOPING-INQUIRY.md")
+                chk("the dbGaP scoping inquiry document exists", gap.exists())
+                if gap.exists():
+                    gap_raw = gap.read_text()
+                    dg = " ".join(gap_raw.split())
+                    chk(
+                        "the dbGaP inquiry is marked as a draft, not sent",
+                        "draft, not sent" in dg,
+                    )
+                    chk(
+                        "the dbGaP inquiry says it is not part of the CDAS "
+                        "submission package",
+                        "not part of the PLCO submission package" in dg,
+                    )
+                    begin_gap = "<!-- BEGIN DBGAP MESSAGE -->"
+                    end_gap = "<!-- END DBGAP MESSAGE -->"
+                    chk(
+                        "the dbGaP inquiry delimits the message",
+                        begin_gap in gap_raw and end_gap in gap_raw,
+                    )
+                    if begin_gap in gap_raw and end_gap in gap_raw:
+                        body_gap = (
+                            gap_raw.split(begin_gap)[1]
+                            .split(end_gap)[0]
+                            .strip()
+                        )
+                        chk(
+                            "the dbGaP message is inside the 10,000-character "
+                            "limit",
+                            len(body_gap) <= 10_000,
+                            str(len(body_gap)),
+                        )
+                        chk(
+                            "the dbGaP message is plain text",
+                            "**" not in body_gap,
+                        )
+                        chk(
+                            "the dbGaP message has no unfilled field",
+                            "[TO FILL:" not in body_gap,
+                        )
+                        stated_gap = re.search(
+                            r"Plain text, ([\d,]+) characters", dg
+                        )
+                        chk(
+                            "the dbGaP record states the message length, and "
+                            "it is the length of the message",
+                            stated_gap is not None
+                            and stated_gap.group(1).replace(",", "")
+                            == str(len(body_gap)),
+                            f"stated "
+                            f"{stated_gap.group(1) if stated_gap else 'nothing'}, "
+                            f"actual {len(body_gap)}",
+                        )
+                        for phrase in (
+                            "Extramural Investigators must be permanent "
+                            "employees of their institution",
+                            "PI has identified him/herself as the signing "
+                            "official or the IT director for the project",
+                            "the signing official's and IT director's emails "
+                            "must be from their organization",
+                            "institutional authority to legally bind the "
+                            "institution",
+                            "phs001286.v5.p2",
+                            "must complete all the required registrations as "
+                            "though they are an organization",
+                        ):
+                            chk(
+                                f"the dbGaP message puts {phrase!r} to dbGaP",
+                                phrase in body_gap,
+                            )
+                        chk(
+                            "the dbGaP message says that a no is a complete "
+                            "answer",
+                            "that is a complete answer and it settles the "
+                            "question for me" in body_gap,
+                        )
+                        chk(
+                            "the dbGaP message does not ask for an exception",
+                            "I am not asking for an exception to any rule"
+                            in body_gap,
+                        )
+                    # The route, and the two addresses it can go to.
+                    for phrase in (
+                        "https://dbgap.ncbi.nlm.nih.gov/classic/aa/wga.cgi"
+                        "?page=email",
+                        "dbgap-help@ncbi.nlm.nih.gov",
+                        "carries no bot check and no token",
+                    ):
+                        chk(
+                            f"the dbGaP inquiry records {phrase!r}",
+                            phrase in dg,
+                        )
+                    gap_artefact = Path(
+                        "results/application_tracker/application_tracker.json"
+                    )
+                    gap_facts = {}
+                    if gap_artefact.exists():
+                        gap_facts = {
+                            row["Fact"]: row["Value"]
+                            for row in json.loads(
+                                gap_artefact.read_text()
+                            )["external_facts"]
+                        }
+                    chk(
+                        "the fact table records dbGaP's own eligibility rule, "
+                        "not only PLCO's",
+                        any(
+                            "dbGaP's own eligibility rule" in fact
+                            and "permanent employees of their institution"
+                            in value
+                            for fact, value in gap_facts.items()
+                        ),
+                        str(sorted(gap_facts)),
+                    )
+                    chk(
+                        "the fact table records the personnel errors that stop "
+                        "a one-person organisation",
+                        any(
+                            "dbGaP's personnel errors" in fact
+                            and "signing official or the IT director" in value
+                            for fact, value in gap_facts.items()
+                        ),
+                        str(sorted(gap_facts)),
+                    )
+                    routes_flat = " ".join(
+                        Path("docs/HOSTING-ROUTES.md").read_text().split()
+                    )
+                    chk(
+                        "the hosting routes record the dbGaP inference as an "
+                        "inference and not a ruling",
+                        "That is an inference from the rules and not a ruling"
+                        in routes_flat
+                        and "DBGAP-SCOPING-INQUIRY.md" in routes_flat,
+                    )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
@@ -5586,6 +5722,7 @@ def main(argv: list[str] | None = None) -> int:
                 "docs/HOSTING-ROUTES.md",
                 "docs/UM-AFFILIATION-MECHANISM.md",
                 "docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md",
+                "docs/DBGAP-SCOPING-INQUIRY.md",
             ):
                 chk(
                     f"the README index links {linked}",
