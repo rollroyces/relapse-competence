@@ -53,6 +53,14 @@ issues no reference: the only thing it returns is the banner quoted above,
 and the reply arrives by e-mail at `roycelam@umich.edu`. If CDAS quotes a
 reference in the reply, that belongs with the reply, not here.
 
+**Three more messages are drafted, and none of them has been sent.** Message
+F (§10) asks how the PAR route's forms work, message G (§11) asks what
+"part of the institution" requires for a researcher sponsored by a university,
+and message H (§12) asks whether CDAS accepts an organisation the requester
+has registered himself. All three are paste-ready and all three wait for the
+go, because a message sent to CDAS is his to send. **G is the one to send
+first**, because its answer decides whether H is a question worth asking.
+
 ## 1. The form, field by field
 
 | Form field | What to do |
@@ -559,3 +567,68 @@ between the markers, so an edit to the message breaks the check instead
 of passing unnoticed. **Nothing has been submitted.** The form is filled
 and ready; sending it is a separate and irreversible action, and it needs
 an explicit instruction.
+
+---
+
+## 12. Message H — whether CDAS accepts an organisation the requester has registered himself — drafted, not sent
+
+**Status: drafted, not sent.** It asks three yes-or-no questions about one
+arrangement, and it commits nothing: no application is filed, no organisation
+is registered, and no principal investigator is named. It waits for the go,
+and it waits for the answer to message G — if a sponsored affiliation is
+enough, this question is not worth asking.
+
+**Subject:** PLCO
+**Topic:** Data Access/Availability
+**Characters:** 3,625
+**Why it exists.** Two questions in the programme are still open and neither
+has been asked. One is whether CDAS accepts an organisation the requester has
+registered himself; the other is a dbGaP question and it is in §13. Both of
+them sit on the one route that does not depend on anybody else saying yes,
+and the programme cannot choose between the routes until they are answered.
+
+The precedent it puts in front of CDAS is on CDAS's own site, and was read
+on 2026-11-15: NLST-43, approved-project 613, approved 3 December 2013,
+names Deborah Goldwasser, PhD, as Principal Investigator, with Institution
+"Statistical Consultant", Position Title "Statistical Consultant", and the
+e-mail address `deborah.l.goldwasser@gmail.com` — a personal address rather
+than an institutional one. The record's own point is that a self-employed
+consultant can be the named Principal Investigator, and that the institution
+field can name that status.
+
+<!-- BEGIN MESSAGE H -->
+Dear CDAS team,
+
+Two of your replies have settled the parts of this that I could check by reading, and one question is left that I cannot check by myself. I would like to ask it in a specific form, so that it can be answered yes or no.
+
+What I have established. On 12 November 2026 you told me that a professor must submit the request, that I must be part of the institution to have access to CDAS data, and that a researcher without an appointment can be named as a collaborator but may not access the data without being at the institution that holds the transfer agreement. I understand all three, and I am not asking you to change any of them.
+
+What I am asking about is the third possibility, which is neither a university nor an employer. NIH provides a route for it: an applicant who is not affiliated with an organisation, or who wants to submit independently, "must complete all the required registrations as though they are an organization", there is no cost for any of those registrations, and NIH describes that route as an option for "independent consultants or other individuals not affiliated with an organization". The registration produces an organisation with its own institutional e-mail address and its own institutional signing official. In my case that organisation would consist of me alone, and I would be its principal investigator.
+
+Two records on your own site bear on this. I am not drawing a conclusion from them; I am putting them in front of you so that you can answer in terms of the rule.
+
+First, NLST-43, "Size-Driven Simulation Model for Lung Cancer Screening", approved 3 December 2013, names Deborah Goldwasser, PhD, as Principal Investigator, with Institution "Statistical Consultant" and Position Title "Statistical Consultant". A self-employed consultant can therefore be the named Principal Investigator, and the institution field can name that status.
+
+Second, that same record gives the Principal Investigator's e-mail as a personal address at gmail.com rather than an institutional one, so the field for the Principal Investigator itself does not require an institutional domain. That does not tell me what applies to a user on the approved-users list, which is a different list under a later rule, and I am not treating it as though it did.
+
+Three questions.
+
+1. If a researcher holds no appointment, is employed by nobody, and files through an organisation that he has registered himself under the NIH route for unaffiliated and independent applicants, will CDAS accept that organisation as the institution on a data-only application?
+
+2. If it will, can the same researcher be listed on that application's approved-users list as a user at that institution, with that organisation's institutional e-mail address?
+
+3. If it will not, is the obstacle the institution or the rank? The data-only instructions require the Principal Investigator to be "a permanent employee of your institution at a level equivalent to, but not limited to, that of an academic professor... or senior researcher". Where the registered organisation has one employee, who is also its principal investigator, does that satisfy the requirement as it stands, or would you need something further, and if something further, what?
+
+I ask because this is the one route that does not depend on a professor's time, and because I would rather be told no now than after four months of paperwork. Nothing else about my programme depends on the answer: I have a separate inquiry with you about a sponsored affiliation, and either answer leaves me able to proceed.
+
+Thank you for your help.
+
+Royce Lam
+roycelam@umich.edu
+<!-- END MESSAGE H -->
+
+**Before it goes.** It is plain text, the field limit is 10,000 characters
+and this is 3,625; the name and the address fields carry `Royce Lam` and
+`roycelam@umich.edu`; the two unlabelled boxes stay empty, because they are
+anti-spam traps; and the topic is Data Access/Availability, the desk that
+answered the eligibility question and the desk message G goes to as well.

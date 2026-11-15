@@ -206,6 +206,18 @@ def main(argv: list[str] | None = None) -> int:
     def chk(name: str, condition: bool, detail: str = "") -> None:
         checks.append((name, bool(condition), detail))
 
+    def _section(text: str, heading: str) -> str:
+        """The text of one '## ' section, up to the next one.
+
+        Without the boundary, a check on one section also reads the ones
+        after it, and a number that belongs to a later message is silently
+        taken for one that belongs to this one.
+        """
+        if heading not in text:
+            return ""
+        tail = text.split(heading, 1)[1]
+        return re.split(r"\n## ", tail, maxsplit=1)[0]
+
     # --- structural completeness ---
     for section in REQUIRED_SECTIONS:
         chk(f"section present: {section}", section in report)
@@ -4949,7 +4961,7 @@ def main(argv: list[str] | None = None) -> int:
                     "message G has no unfilled field",
                     "[TO FILL:" not in body_g,
                 )
-                g_section = inquiry.split("## 11. Message G")[-1]
+                g_section = _section(inquiry, "## 11. Message G")
                 stated_g = re.search(
                     r"\*\*Characters:\*\*\s*([\d,]+)", g_section
                 )
@@ -5046,6 +5058,82 @@ def main(argv: list[str] | None = None) -> int:
                         f"the record states the verified field {phrase!r}",
                         phrase in g_flat,
                     )
+                # Message H asks the other half of the same question: not
+                # what a sponsored affiliation is worth, but whether an
+                # organisation the requester registered himself counts as an
+                # institution at all. It has to put that arrangement to CDAS
+                # so that the answer can be yes or no, it has to rest on a
+                # record CDAS itself publishes, and it must not imply that
+                # CDAS has already accepted it.
+                begin_h = "<!-- BEGIN MESSAGE H -->"
+                end_h = "<!-- END MESSAGE H -->"
+                chk(
+                    "the scoping inquiry delimits message H",
+                    begin_h in inquiry and end_h in inquiry,
+                )
+                if begin_h in inquiry and end_h in inquiry:
+                    body_h = inquiry.split(begin_h)[1].split(end_h)[0].strip()
+                    chk(
+                        "message H is inside the form's 10,000-character limit",
+                        len(body_h) <= 10_000,
+                        str(len(body_h)),
+                    )
+                    chk("message H is plain text", "**" not in body_h)
+                    chk(
+                        "message H has no unfilled field",
+                        "[TO FILL:" not in body_h,
+                    )
+                    h_section = _section(inquiry, "## 12. Message H")
+                    stated_h = re.search(
+                        r"\*\*Characters:\*\*\s*([\d,]+)", h_section
+                    )
+                    chk(
+                        "the record states message H's length, and it is the "
+                        "length of the message",
+                        stated_h is not None
+                        and stated_h.group(1).replace(",", "") == str(len(body_h)),
+                        f"stated {stated_h.group(1) if stated_h else 'nothing'}, "
+                        f"actual {len(body_h)}",
+                    )
+                    for phrase in (
+                        "NLST-43",
+                        "Deborah Goldwasser",
+                        "Statistical Consultant",
+                        "a personal address at gmail.com",
+                        "must complete all the required registrations as though "
+                        "they are an organization",
+                        "approved-users list",
+                        "a permanent employee of your institution",
+                    ):
+                        chk(
+                            f"message H puts {phrase!r} to CDAS",
+                            phrase in body_h,
+                        )
+                    # The address itself is recorded in the section, not in
+                    # the message: the record needs it, and the message
+                    # does not need to republish somebody else's.
+                    chk(
+                        "the record states the address on the NLST-43 record",
+                        "deborah.l.goldwasser@gmail.com" in h_section,
+                    )
+                    chk(
+                        "message H does not claim CDAS has accepted the "
+                        "arrangement",
+                        "you have confirmed" not in body_h
+                        and "you have already accepted" not in body_h,
+                    )
+                    chk(
+                        "message H does not ask CDAS to change the rules it "
+                        "has already given",
+                        "I am not asking you to change any of them" in body_h,
+                    )
+                # The three drafts that have not been sent have to say so.
+                h_flat = " ".join(inquiry.split())
+                chk(
+                    "the record says that F, G and H are drafted and not sent",
+                    "Three more messages are drafted, and none of them has "
+                    "been sent" in h_flat,
+                )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
