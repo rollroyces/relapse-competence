@@ -5620,6 +5620,23 @@ def main(argv: list[str] | None = None) -> int:
                 "while a paper's author list is settled by the paper's own "
                 "conventions" in lflat,
             )
+        # Each letter also carries the decision about the registration, so
+        # that the letter and the application cannot drift apart.
+        for name, path in (
+            ("the Denton letter", "docs/DENTON-COLLABORATION-REQUEST.md"),
+            ("the Wholomics letter", "docs/WHOLOMICS-PARTNERSHIP-ENQUIRY.md"),
+            ("the host letter", "docs/HOST-INVITATION.md"),
+            ("the Taizhou letter", "docs/TAIZHOU-COLLABORATION-REQUEST.md"),
+        ):
+            lp2 = Path(path)
+            if not lp2.exists():
+                continue
+            l2 = " ".join(lp2.read_text().split())
+            chk(
+                f"{name} flags the registration decision before sending",
+                "AFFILIATION-REGISTRATION.md" in l2
+                and "the letter and the application have to agree" in l2,
+            )
         tzl = Path("docs/TAIZHOU-COLLABORATION-REQUEST.md")
         if tzl.exists():
             zflat = " ".join(tzl.read_text().split())
@@ -5678,6 +5695,93 @@ def main(argv: list[str] | None = None) -> int:
             "not do",
             "It does not settle whether CDAS accepts such an organisation"
             in routes_flat,
+        )
+        # --- the runbook that can be carried out alone ---
+        reg = Path("docs/AFFILIATION-REGISTRATION.md")
+        chk("the affiliation registration runbook exists", reg.exists())
+        if reg.exists():
+            rflat = " ".join(reg.read_text().split())
+            chk(
+                "the registration runbook is marked as a plan, not an action",
+                "a plan, not an action" in rflat
+                and "Nothing here has been started, filed or registered"
+                in rflat,
+            )
+            # The three fields the applications ask for, and the two routes.
+            for phrase in (
+                "an institution, and its location",
+                "a name and an **institutional e-mail address** for each "
+                "approved user",
+                "an **institutional e-mail address** and an **NIH biosketch**",
+                "Route 1 — be sponsored",
+                "Route 2 — be the institution",
+                "requires nobody's agreement",
+                "There is NO cost associated with ANY of these registrations",
+                "ID.me, Login.gov, or the NIH Login Service",
+                "it is not the route for a self-registered organisation",
+            ):
+                chk(
+                    f"the registration runbook carries {phrase!r}",
+                    phrase in rflat,
+                )
+            for step in (
+                "Step 1 — an ORCID iD",
+                "Step 2 — register the organisation",
+                "Step 3 — a Commons ID linked to the ORCID",
+                "Step 4 — a CDAS account",
+                "Step 5 — a SciENv profile and a certified biosketch",
+                "Step 6 — put the identifiers in the places that ask for them",
+            ):
+                chk(
+                    f"the registration runbook has {step!r}",
+                    step in rflat,
+                )
+            chk(
+                "the registration runbook states the cost and the deadline",
+                "NO cost associated with ANY of these registrations" in rflat
+                and "at least six weeks prior to a deadline" in rflat
+                and "2027-02-18" in rflat
+                and "4-6 months from application submission to review outcome"
+                in rflat,
+            )
+            chk(
+                "the registration runbook records what the route does not "
+                "solve",
+                "Whether CDAS accepts such an organisation" in rflat
+                and "Whether it can be the institution that verifies full-time "
+                "employment" in rflat,
+            )
+            chk(
+                "the registration runbook says the registration is not a "
+                "formality",
+                "not a formality" in rflat
+                and "it is his name on it" in rflat,
+            )
+            for limit in (
+                "does not assert that CDAS or dbGaP will accept a "
+                "self-registered organisation",
+                "does not assert that the requester qualifies as a senior "
+                "researcher",
+                "does not claim any part of the registration has been started",
+                "does not treat the absence of a sponsor as a reason to wait",
+            ):
+                chk(
+                    f"the registration runbook records its limit: {limit!r}",
+                    limit in rflat,
+                )
+        chk(
+            "the fact table records the CDAS login services",
+            any(
+                "CDAS login services for a self-registered organisation" in fact
+                and "ID.me, Login.gov, or the NIH Login Service" in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
+        chk(
+            "the README index links the registration runbook",
+            "[`docs/AFFILIATION-REGISTRATION.md`]"
+            "(docs/AFFILIATION-REGISTRATION.md)" in readme_text,
         )
         chk(
             "the fact table records the Wholomics published addresses",

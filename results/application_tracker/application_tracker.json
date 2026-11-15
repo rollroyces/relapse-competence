@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-15T10:02:23.991978+00:00",
-    "git_commit": "6e719e61f74ca5916fa19e074a1e5b9c81d0a955",
+    "generated_at": "2026-11-15T10:10:42.846890+00:00",
+    "git_commit": "6b1ba3aef92e6989d113f81105cee35dd267be76",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -623,6 +623,12 @@
       "Fact": "NIH biosketch for a researcher with no appointment",
       "Value": "eRA Commons: \"Only officials from your own organization can create a new eRA Commons account. If you are a principal investigator (PI), co-PI, trainee, researcher, post-doctoral student or any other similar scientific role, you CANNOT create your own eRA Commons account\"; and \"All Senior/Key Personnel and Other Significant Contributors listed on an application are required to have active eRA Commons usernames (Commons IDs)\". NIH's route for the person with no organisation: \"Individual applicants not affiliated with an organization or who want to submit a grant application independently must complete all the required registrations as though they are an organization. There is NO cost associated with ANY of these registrations\", and that route \"is an option for independent consultants or other individuals not affiliated with an organization\"",
       "Source": "eRA Commons pages and the NIH instructions for unaffiliated and independent applicants, read 2026-11-15",
+      "Verified on": "2026-11-15"
+    },
+    {
+      "Fact": "CDAS login services for a self-registered organisation",
+      "Value": "the EEMS application instructions list \"ID.me, Login.gov, or the NIH Login Service\" and suggest ID.me or Login.gov for anyone without established NIH credentials; the University of Michigan's RAS is an institutional sign-on and so is not the route for an organisation that is not the University",
+      "Source": "PLCO EEMS Application Process instructions, p. 2",
       "Verified on": "2026-11-15"
     },
     {

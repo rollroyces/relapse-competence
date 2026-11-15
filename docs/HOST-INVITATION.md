@@ -112,6 +112,17 @@ checker does not treat it as a submission document. Its own gate is in
    request that carries no prediction is a request for attention rather than
    for work.
 
+8. **Whether to start the organisation registration before this goes out, and
+   if so whether the letter says so.** If the registration in
+   [`AFFILIATION-REGISTRATION.md`](AFFILIATION-REGISTRATION.md) has happened
+   by the time this is sent, then "I hold no current institutional
+   appointment" is still true but no longer the whole of the position: the
+   application could list an organisation that is his own rather than asking
+   someone else to carry him. **Decide before sending, because the letter and
+   the application have to agree.** Nothing in the letter depends on it, and
+   if the registration has not happened, the letter as drafted is correct and
+   should go unchanged.
+
 ## 2. The letter
 
 Plain text, ready to paste into an e-mail. The subject line is given
