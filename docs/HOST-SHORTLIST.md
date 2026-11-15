@@ -56,6 +56,26 @@ lists him as the Principal Investigator of PLCO-2077 with the contact
 address bralex@med.umich.edu; the university's own page gives
 bralex@umich.edu.
 
+**Which of the two addresses to write to.** Both were read again on
+2026-11-15 and both are his. `bralex@med.umich.edu` is the address CDAS
+registers on PLCO-2077 — the project page gives Name ALEX BRYANT, M.D.,
+Institution Regents of the University of Michigan, Position Title
+Principal Investigator, Email bralex@med.umich.edu — and it is the address
+he signs his own research correspondence with. `bralex@umich.edu` is the
+address the university publishes for contact on his faculty profile
+(`ihpi.umich.edu/our-experts/bralex`, under "Email"), which also gives the
+academic affiliations Medical School » Radiation Oncology and Public Health
+» Biostatistics. **Write to `bralex@med.umich.edu`.** It is the address
+CDAS itself uses to reach him in the role the letter is about, and it is
+the one that can be read off CDAS's own record.
+**Hold `bralex@umich.edu` back.** If there is no reply within ten business
+days, write the letter once more to that address. One letter to one
+address and one later to the other, rather than both at once, because a
+second copy to a second address reads as a nuisance rather than as a
+second attempt. The honest limit is that neither address can be
+delivery-tested without sending mail and no published page says which
+mailbox he watches, so this is a rule and not a fact.
+
 **Three things in it are worth noticing.**
 
 - **A company can be the Principal Investigator.** Five of these twenty are

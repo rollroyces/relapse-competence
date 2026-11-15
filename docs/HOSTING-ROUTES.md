@@ -286,10 +286,12 @@ at a stated cost, for early detection of a drug-tolerant state.
 
 Alex Bryant (PLCO-2077, prostate screening microsimulation) was chosen
 because the *institution* lines up with the requester's own address. Brian
-Denton lines up on the institution **and** on the subject. Neither has a
-published e-mail address on their CDAS page; Bryant's is recorded in
-[`HOST-SHORTLIST.md`](HOST-SHORTLIST.md) as `bralex@med.umich.edu` (CDAS) and
-`bralex@umich.edu` (the university's own page).
+Denton lines up on the institution **and** on the subject. The
+approved-projects list does not publish e-mail addresses; each address was
+then read off the recipient's own project page — Denton's is
+`btdenton@umich.edu`, and Bryant's are `bralex@med.umich.edu` on PLCO-2077
+and `bralex@umich.edu` on the university's faculty profile, with the order
+to use them in [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md).
 
 ## 7. A correction to the record: CDAS's pagination works
 

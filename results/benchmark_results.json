@@ -1,8 +1,8 @@
 {
   "metadata": {
     "mode": "simulated",
-    "generated_at": "2026-11-15T10:30:26.946190+00:00",
-    "git_commit": "8c13ee400ca646bdfa74c472425be417675702ea",
+    "generated_at": "2026-11-15T10:57:06.296379+00:00",
+    "git_commit": "fd0f9389cfc156839052b295dcf20cc5f328e3e9",
     "package": "relapse_competence",
     "python": "3.14.4"
   },

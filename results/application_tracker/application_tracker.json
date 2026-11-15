@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-15T10:10:42.846890+00:00",
-    "git_commit": "6b1ba3aef92e6989d113f81105cee35dd267be76",
+    "generated_at": "2026-11-15T10:48:44.315413+00:00",
+    "git_commit": "fd0f9389cfc156839052b295dcf20cc5f328e3e9",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -807,9 +807,9 @@
     },
     {
       "Fact": "PLCO host candidate: identity and rank",
-      "Value": "Alex K Bryant, MD, MAS \u2014 Assistant Professor of Radiation Oncology, University of Michigan; staff physician and research investigator, VA Ann Arbor Healthcare System; research interests are precision screening for lung and prostate cancer, cancer epidemiology and oncology data science; CDAS lists the contact as bralex@med.umich.edu and the university page gives bralex@umich.edu",
-      "Source": "CDAS approved-project 6312 and the University of Michigan faculty pages, 2026-11-13",
-      "Verified on": "2026-11-13"
+      "Value": "Alex K Bryant, MD, MAS \u2014 Assistant Professor of Radiation Oncology, University of Michigan; staff physician and research investigator, VA Ann Arbor Healthcare System; research interests are precision screening for lung and prostate cancer, cancer epidemiology and oncology data science; CDAS registers him as Principal Investigator of PLCO-2077 with the contact bralex@med.umich.edu, and the university faculty profile gives bralex@umich.edu; write to bralex@med.umich.edu, and hold bralex@umich.edu back until ten business days have passed without a reply",
+      "Source": "CDAS approved-project 6312 and the University of Michigan faculty profile, both re-read 2026-11-15",
+      "Verified on": "2026-11-15"
     },
     {
       "Fact": "PLCO host eligibility, by precedent",

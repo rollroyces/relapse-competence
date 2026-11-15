@@ -24,6 +24,7 @@ Exit code is 0 when every check passes, 1 otherwise.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -3377,6 +3378,39 @@ def main(argv: list[str] | None = None) -> int:
                 "the host shortlist records the second Michigan PI",
                 "Brian Denton" in sl and "PLCO-2057" in sl,
             )
+            # The host has two published addresses, and a letter needs one.
+            # The record has to say which, and the letter has to agree.
+            chk(
+                "the host shortlist says which of the two addresses to write "
+                "to",
+                "Which of the two addresses to write to" in sl
+                and "Write to `bralex@med.umich.edu`" in sl,
+            )
+            chk(
+                "the host shortlist holds the second address back, with a "
+                "rule and a limit",
+                "Hold `bralex@umich.edu` back" in sl
+                and "ten business days" in sl
+                and "delivery-tested without sending mail" in sl,
+            )
+            invitation_flat = " ".join(
+                Path("docs/HOST-INVITATION.md").read_text().split()
+            )
+            chk(
+                "the host letter names the address it is to be written to",
+                "To: `bralex@med.umich.edu`" in invitation_flat
+                and "bralex@umich.edu" in invitation_flat,
+            )
+            chk(
+                "the fact table records the same address rule",
+                any(
+                    "PLCO host candidate: identity and rank" in fact
+                    and "write to bralex@med.umich.edu" in value
+                    and "hold bralex@umich.edu back" in value
+                    for fact, value in facts.items()
+                ),
+                str(sorted(facts)),
+            )
         chk(
             "the document records the lung tissue counts the reply pointed at",
             any(
@@ -4955,6 +4989,63 @@ def main(argv: list[str] | None = None) -> int:
                     "a question that names the arrangement can be answered "
                     "yes or no" in " ".join(inquiry.split()),
                 )
+                # The text that was on the live form is recorded by its
+                # digest, so the record cannot drift away from the message
+                # that was actually verified. The comparison is made on
+                # whitespace-flattened text on purpose: a phrase that
+                # straddles a line break in the document is still the
+                # phrase, and a gate that cannot see it is a gate that
+                # fails silently.
+                g_flat = " ".join(g_section.split())
+                digests = re.findall(r"\b[0-9a-f]{64}\b", g_flat)
+                chk(
+                    "the record states message G's digest, and only one",
+                    len(digests) == 1,
+                    f"{len(digests)} digests found",
+                )
+                if len(digests) == 1:
+                    actual_g = hashlib.sha256(body_g.encode("utf-8")).hexdigest()
+                    chk(
+                        "the recorded digest is the digest of the message "
+                        "that was verified",
+                        actual_g == digests[0],
+                        f"recorded {digests[0][:12]}, actual {actual_g[:12]}",
+                    )
+                # The record has to say whether the message has gone, and
+                # say it once: so that the repository can neither claim a
+                # submission that did not happen nor keep claiming one
+                # that has.
+                pending_g = "The submission has not been made."
+                sent_g = "The submission was made on "
+                states_g = sum(1 for m in (pending_g, sent_g) if m in g_flat)
+                chk(
+                    "the record states message G's submission state exactly "
+                    "once",
+                    states_g == 1,
+                    f"{states_g} state markers",
+                )
+                if sent_g in g_flat:
+                    chk(
+                        "a recorded submission carries its date",
+                        re.search(
+                            r"The submission was made on \d{4}-\d{2}-\d{2}",
+                            g_flat,
+                        )
+                        is not None,
+                    )
+                # The fields, as they were read back off the page.
+                for phrase in (
+                    "Subject `PLCO`",
+                    "Topic `Data Access/Availability`",
+                    "`id_name`",
+                    "`id_phone`",
+                    "2026-11-15",
+                    "Nothing has been submitted",
+                ):
+                    chk(
+                        f"the record states the verified field {phrase!r}",
+                        phrase in g_flat,
+                    )
             for tag in ("A", "B", "C", "D", "E"):
                 begin = f"<!-- BEGIN MESSAGE {tag} -->"
                 end = f"<!-- END MESSAGE {tag} -->"
@@ -5155,6 +5246,21 @@ def main(argv: list[str] | None = None) -> int:
         chk(
             "the Wholomics enquiry is not part of the submission package",
             "not part of the PLCO submission package" in wl,
+        )
+        # The one field where a false answer would be easiest to give by
+        # accident, so the decision about it has to be written down and
+        # has to be the decision, not a preference.
+        wl_flat = " ".join(wl.split())
+        chk(
+            "the Wholomics enquiry decides what goes in the Affiliation field",
+            "Decided: leave it blank" in wl_flat
+            and "The form's Affiliation field is optional" in wl_flat,
+        )
+        chk(
+            "the Wholomics enquiry keeps the alternative available and true",
+            "Independent Researcher" in wl_flat
+            and "the University of Michigan, where you studied, is not an "
+            "affiliation you hold" in wl_flat,
         )
         wb = "<!-- BEGIN WHOLOMICS LETTER -->"
         we = "<!-- END WHOLOMICS LETTER -->"

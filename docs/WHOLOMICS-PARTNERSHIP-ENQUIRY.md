@@ -107,6 +107,12 @@ disclosure about the programme's reference assay is in
    blank is consistent with what the letter says. If you fill it in, it has
    to be true, and "independent researcher" is true; the University of
    Michigan, where you studied, is not an affiliation you hold.
+   **Decided: leave it blank.** The letter's first paragraph already says
+   in plain words that the requester holds no institutional appointment,
+   and the field is optional, so a blank field is an answer rather than an
+   omission. If you would rather the form carried the answer on its own,
+   write `Independent Researcher`, which is true and adds nothing false —
+   but it is not required, and it is not better.
 
 5. **The disclosure, which is owed.** The programme's reference assay is
    PanSeer, whose DNA methylation work was funded by Singlera Genomics;

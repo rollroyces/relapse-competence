@@ -119,3 +119,30 @@ def test_the_choices_are_recorded_in_the_letters() -> None:
 
     laboratory = Path("docs/LABORATORY-INVITATION.md").read_text()
     assert "Held rather than sent" in laboratory
+
+
+def test_the_shortlist_says_which_address_to_write_to(shortlist: str) -> None:
+    """Two addresses are published for him; a letter needs one, and a rule."""
+    flat = " ".join(shortlist.split())
+    assert "Which of the two addresses to write to" in flat
+    assert "Write to `bralex@med.umich.edu`" in flat
+    assert "Hold `bralex@umich.edu` back" in flat
+    assert "ten business days" in flat
+    # And the limit of the rule is stated, because a rule with no limit is
+    # a guess dressed up as a finding.
+    assert "delivery-tested without sending mail" in flat
+
+
+def test_the_letter_agrees_with_the_shortlist_about_the_address() -> None:
+    flat = " ".join(INVITATION.read_text().split())
+    assert "To: `bralex@med.umich.edu`" in flat
+
+
+def test_the_fact_table_records_the_same_address_rule() -> None:
+    if not ARTEFACT.exists():
+        pytest.skip("the application tracker artefact has not been generated")
+    tracker = json.loads(ARTEFACT.read_text())
+    facts = {row["Fact"]: row["Value"] for row in tracker["external_facts"]}
+    value = facts["PLCO host candidate: identity and rank"]
+    assert "write to bralex@med.umich.edu" in value
+    assert "hold bralex@umich.edu back" in value

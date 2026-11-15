@@ -163,6 +163,19 @@ def test_the_letter_notes_the_research_use_status_of_the_assay(letter: str) -> N
     assert "would be a research measurement in the same sense" in letter
 
 
+def test_the_affiliation_field_decision_is_written_down(doc: str) -> None:
+    """The one field where a false answer would be easy to give by accident."""
+    flat = " ".join(doc.split())
+    assert "The form's Affiliation field is optional" in flat
+    assert "Decided: leave it blank" in flat
+    # The alternative stays available, and it stays true.
+    assert "Independent Researcher" in flat
+    assert (
+        "the University of Michigan, where you studied, is not an affiliation "
+        "you hold" in flat
+    )
+
+
 def test_nothing_was_submitted(doc: str) -> None:
     flat = " ".join(doc.split())
     assert "It does not claim to have been received through any channel" in flat

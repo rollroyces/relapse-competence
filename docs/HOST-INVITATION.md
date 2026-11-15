@@ -39,6 +39,10 @@ checker does not treat it as a submission document. Its own gate is in
    and the letter should not appear to assert one. The reasoning, the
    fallback order and the contact address are in
    [`HOST-SHORTLIST.md`](HOST-SHORTLIST.md).
+   **To: `bralex@med.umich.edu`** — the address CDAS registers for him on
+   PLCO-2077, and the one he signs his research correspondence with. If
+   there is no reply within ten business days, write once to
+   `bralex@umich.edu`, the address the university publishes for contact.
 
 2. **How you know of them, or why you chose them.** One line. This is the
    line that makes the ask reasonable rather than cold: a shared lab, a

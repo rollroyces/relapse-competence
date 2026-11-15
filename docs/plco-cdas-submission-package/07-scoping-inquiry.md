@@ -541,3 +541,21 @@ roycelam@umich.edu
 address fields carry `Royce Lam` and `roycelam@umich.edu`; the two
 unlabelled boxes stay empty; and the topic is Data Access/Availability,
 which is the desk that answered the eligibility question.
+
+**The form was filled and read back on 2026-11-15 at 18:39 HKT.
+The submission has not been made.** The live form at
+`https://cdas.cancer.gov/contact/` was filled with the text above, and
+every field was read back out of the page rather than assumed: the
+e-mail field `roycelam@umich.edu`, Subject `PLCO`,
+Topic `Data Access/Availability`, the two anti-spam fields `id_name` and
+`id_phone` empty, and the message field holding exactly the text between
+the markers above — 2,233 characters, no CRLF, no trailing newline, and
+the digest
+`d67fc9d3705910bea224ef4d50da71746473e3a75531328edb41526132ec25a1`.
+The digest is recorded so that the text that was on the form can be
+compared with the text in this repository, and
+`scripts/verify_report_consistency.py` recomputes it from the block
+between the markers, so an edit to the message breaks the check instead
+of passing unnoticed. **Nothing has been submitted.** The form is filled
+and ready; sending it is a separate and irreversible action, and it needs
+an explicit instruction.
