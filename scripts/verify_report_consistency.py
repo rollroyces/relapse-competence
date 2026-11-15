@@ -5397,6 +5397,121 @@ def main(argv: list[str] | None = None) -> int:
                     f"the README index links {linked}",
                     f"[`{linked}`]({linked})" in readme_text,
                 )
+        # --- the Denton letter ---
+        # A letter to a PLCO PI at the institution that would submit the
+        # proposal, so it asks for the PI role, a sponsorship and ten
+        # tubes, and it has to carry the two things that are not settled.
+        dent = Path("docs/DENTON-COLLABORATION-REQUEST.md")
+        chk("the Denton request document exists", dent.exists())
+        if dent.exists():
+            dt = dent.read_text()
+            chk(
+                "the Denton request is marked as a draft, not sent",
+                "draft, not sent" in dt,
+            )
+            chk(
+                "the Denton request is not part of the submission package",
+                "not part of the PLCO submission package" in dt,
+            )
+            chk(
+                "the Denton request attaches the partner summary",
+                "PARTNER-SUMMARY.md" in dt,
+            )
+            db = "<!-- BEGIN DENTON LETTER -->"
+            de = "<!-- END DENTON LETTER -->"
+            chk(
+                "the Denton request delimits the letter",
+                db in dt and de in dt,
+            )
+            if db in dt and de in dt:
+                dletter = dt.split(db)[1].split(de)[0].strip()
+                chk("the Denton letter is plain text", "**" not in dletter)
+                chk(
+                    "the Denton letter carries no unfilled placeholder",
+                    dletter.count("[HOST]") == 0,
+                )
+                chk(
+                    "the Denton letter is short enough to read",
+                    len(dletter) <= 8_000,
+                    str(len(dletter)),
+                )
+                # The ask, and its limits.
+                for phrase in (
+                    "I need ten tubes of plasma to start it",
+                    "Five incident lung-cancer cases and five matched "
+                    "cancer-free controls",
+                    "PLCO banks plasma at T0, T3, T4 and T5 and not at T1 or T2",
+                    "Ten tubes do not need germline material or matched tumour",
+                    "Ten is not enough to estimate a recovery rate and I am "
+                    "not asking for one",
+                    "twenty minutes to talk about whether this is worth doing",
+                ):
+                    chk(
+                        f"the Denton letter carries {phrase!r}",
+                        phrase in dletter,
+                    )
+                # The sponsorship, asked as a question rather than asserted.
+                for phrase in (
+                    "601.42",
+                    "do not hold a U-M appointment",
+                    "a former student of the institution",
+                ):
+                    chk(
+                        f"the Denton letter carries {phrase!r}",
+                        phrase in dletter,
+                    )
+                # The two things that are not settled, and the evidence.
+                for phrase in (
+                    "the answer is outstanding",
+                    "full-time employees",
+                    "Nothing has been measured in blood",
+                    "inverts",
+                    "Three of my five kill conditions have fired",
+                ):
+                    chk(
+                        f"the Denton letter states {phrase!r}",
+                        phrase in dletter,
+                    )
+                # What is not being asked for.
+                for phrase in (
+                    "Not a commitment, not funding, not exclusivity, not "
+                    "intellectual property, not authorship",
+                ):
+                    chk(
+                        f"the Denton letter states {phrase!r}",
+                        phrase in dletter,
+                    )
+            # The section that says what the letter deliberately does not do
+            # is a claim about the letter, and it is bound to it.
+            dflat = " ".join(dt.split())
+            for limit in (
+                "does not present the programme's plasma numbers as "
+                "measurements",
+                "does not claim the sponsorship route is settled",
+                "does not claim ten tubes will show the readout works",
+                "does not ask for a partnership",
+                "does not disguise what the sponsorship costs his department",
+                "does not describe the requester as a member of the University",
+            ):
+                chk(
+                    f"the Denton request records its limit: {limit!r}",
+                    limit in dflat,
+                )
+            chk(
+                "the README index links the Denton request",
+                "[`docs/DENTON-COLLABORATION-REQUEST.md`]"
+                "(docs/DENTON-COLLABORATION-REQUEST.md)" in readme_text,
+            )
+        chk(
+            "the fact table records that PLCO pilots need an EEMS application",
+            any(
+                "PLCO pilot studies require an EEMS application" in fact
+                and "an EEMS application is required for all pilot studies"
+                in value
+                for fact, value in facts.items()
+            ),
+            str(sorted(facts)),
+        )
         chk(
             "the fact table records the Wholomics published addresses",
             any(

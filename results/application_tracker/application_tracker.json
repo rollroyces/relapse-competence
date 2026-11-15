@@ -2,8 +2,8 @@
   "audit": {
     "id": "data-access-applications-2026-11",
     "generated_by": "scripts/application_tracker.py",
-    "generated_at": "2026-11-14T01:35:54.477752+00:00",
-    "git_commit": "3abf27e737bcf675ce91758e1feb8a4c99754004",
+    "generated_at": "2026-11-15T02:16:12.335025+00:00",
+    "git_commit": "0d8ae7c4b3e9a76bd34650a7113868276b76ebdb",
     "source_document": "docs/DATA-ACCESS-APPLICATIONS.md",
     "note": "Generated from the tracker tables in the source document. The document is the source of truth; this file is its machine-readable projection and is checked against it in CI."
   },
@@ -972,6 +972,12 @@
       "Value": "a higher bar than non-serial applications, and time-related evaluations are expected only after the disease-proximate analysis performs adequately",
       "Source": "PLCO EEMS Policies & Procedures",
       "Verified on": "2026-11-11"
+    },
+    {
+      "Fact": "PLCO pilot studies require an EEMS application",
+      "Value": "PLCO \"will support limited pilot studies to assess quality of the PLCO specimens or suitability of certain PLCO assays (note that an EEMS application is required for all pilot studies)\", so a ten-tube feasibility pilot is an EEMS preliminary application with a lead PI whose institution holds the MTA, not a specimen added to an existing request",
+      "Source": "PLCO EEMS Policies and Procedures section 4.3, read 2026-11-13",
+      "Verified on": "2026-11-13"
     },
     {
       "Fact": "PLCO new-assay pilot",
