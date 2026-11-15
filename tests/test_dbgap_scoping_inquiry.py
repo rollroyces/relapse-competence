@@ -12,6 +12,7 @@ asks the question instead of asserting the answer.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -140,3 +141,21 @@ def test_the_readme_indexes_the_document() -> None:
     assert "[`docs/DBGAP-SCOPING-INQUIRY.md`](docs/DBGAP-SCOPING-INQUIRY.md)" in (
         README.read_text()
     )
+
+
+def test_the_record_states_the_digest_of_the_message_on_the_form(
+    flat: str, message: str
+) -> None:
+    """The text that was on the live form is pinned by its digest."""
+    digests = re.findall(r"\b[0-9a-f]{64}\b", flat)
+    assert len(digests) == 1, digests
+    actual = hashlib.sha256(message.encode("utf-8")).hexdigest()
+    assert actual == digests[0], (actual, digests[0])
+
+
+def test_the_record_states_that_nothing_has_been_sent(flat: str) -> None:
+    pending = "The submission has not been made."
+    sent = "The submission was made on "
+    assert sum(1 for m in (pending, sent) if m in flat) == 1
+    assert pending in flat
+    assert "Nothing has been sent." in flat

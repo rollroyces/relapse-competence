@@ -156,6 +156,20 @@ Royce Lam
 roycelam@umich.edu
 <!-- END DBGAP MESSAGE -->
 
+**The form was filled and read back on 2026-11-15 at 19:27 HKT.
+The submission has not been made.** The form at
+`https://dbgap.ncbi.nlm.nih.gov/classic/aa/wga.cgi?page=email` was filled
+with the text above, and every field was read back out of the page rather
+than assumed: Name `Royce Lam`, E-mail `roycelam@umich.edu`, Phone left
+empty, and the Question / Comment box holding exactly the text between the
+markers above — 3,392 characters, and the digest
+`a700bd3132af7d53cef49b2328b7be829707edad1891edcef555a0b621417cb7`.
+`scripts/verify_report_consistency.py` recomputes that digest from the
+block between the markers, so an edit to the message breaks the check
+instead of passing unnoticed. **Nothing has been sent.** The form is filled
+and ready; sending it is a separate and irreversible action, and it needs
+an explicit instruction.
+
 ---
 
 ## 4. Before you send

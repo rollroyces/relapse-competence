@@ -5217,6 +5217,40 @@ def main(argv: list[str] | None = None) -> int:
                             "I am not asking for an exception to any rule"
                             in body_gap,
                         )
+                        # The text that was on the live form is recorded by
+                        # its digest, so the record cannot drift away from
+                        # the message that was actually verified.
+                        gap_digests = re.findall(r"\b[0-9a-f]{64}\b", dg)
+                        chk(
+                            "the dbGaP record states the message digest, and "
+                            "only one",
+                            len(gap_digests) == 1,
+                            f"{len(gap_digests)} digests found",
+                        )
+                        if len(gap_digests) == 1:
+                            actual_gap = hashlib.sha256(
+                                body_gap.encode("utf-8")
+                            ).hexdigest()
+                            chk(
+                                "the recorded dbGaP digest is the digest of "
+                                "the message that was verified",
+                                actual_gap == gap_digests[0],
+                                f"recorded {gap_digests[0][:12]}, "
+                                f"actual {actual_gap[:12]}",
+                            )
+                        # And the record has to say whether the message has
+                        # gone, once and only once.
+                        gap_pending = "The submission has not been made."
+                        gap_sent = "The submission was made on "
+                        gap_states = sum(
+                            1 for m in (gap_pending, gap_sent) if m in dg
+                        )
+                        chk(
+                            "the dbGaP record states the submission state "
+                            "exactly once",
+                            gap_states == 1,
+                            f"{gap_states} state markers",
+                        )
                     # The route, and the two addresses it can go to.
                     for phrase in (
                         "https://dbgap.ncbi.nlm.nih.gov/classic/aa/wga.cgi"
