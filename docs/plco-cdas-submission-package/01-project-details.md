@@ -28,7 +28,7 @@ cannot fill this role.
 | Degrees | `[PI]` |
 | Institution | `[PI]` |
 | Position Title | `[PI]` — must show a permanent, professor-level or senior-researcher position |
-| Institutional email | `roycelam@umich.edu` — taken from this repository's git configuration; **confirm** it is the current official address |
+| Institutional email | `[PI]` — the PI's own institutional address, from their institutional record |
 | Contact telephone | `[PI]` |
 
 ## 2. Institution
@@ -130,9 +130,19 @@ cannot be added here.
 
 | Name | Institutional email | Institution | Role |
 |---|---|---|---|
-| `[PI]` | `roycelam@umich.edu` | `[PI]` | Principal Investigator |
+| `[PI]` | `[PI]` | `[PI]` | Principal Investigator |
 | `[PI]` | `[PI]` | `[PI]` | Co-investigator |
-| `[PI]` | `[PI]` | `[PI]` | Analyst |
+| Royce Lam | `roycelam@umich.edu` | `[PI]` | Analyst |
+
+The requester's own row is here because CDAS's list is of users **at the
+PI's institution**, and his institution is the PI's institution. It is the
+analyst row, not the PI's row, because the PI is a permanent employee at
+professor level of that institution and the requester is not. **If the
+requester files his own proposal under his own organisation instead — the
+route in [`AFFILIATION-REGISTRATION.md`](../../AFFILIATION-REGISTRATION.md)
+— then this row is deleted from this table, because a user at another
+institution cannot be added here, and it appears in that proposal instead.**
+
 
 ## 8. Data use policies
 

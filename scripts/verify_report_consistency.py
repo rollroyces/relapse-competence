@@ -5769,6 +5769,85 @@ def main(argv: list[str] | None = None) -> int:
                     f"the registration runbook records its limit: {limit!r}",
                     limit in rflat,
                 )
+        # --- the requester's own row in the submission package ---
+        # His e-mail address was standing in for the PI's institutional
+        # e-mail address in three documents the PI and the institution
+        # sign. That is a false statement on a signed document, and it put
+        # his name in the PI's slot instead of the analyst row where his
+        # contribution actually sits.
+        for pkg in (
+            "docs/plco-cdas-submission-package/01-project-details.md",
+            "docs/plco-cdas-submission-package/03-pi-cover-sheet.md",
+            "docs/plco-cdas-submission-package/04-signing-official-letter.md",
+        ):
+            pp = Path(pkg)
+            if not pp.exists():
+                continue
+            raw_lines = pp.read_text().splitlines()
+            requester_rows = [
+                line.strip() for line in raw_lines
+                if line.strip().startswith("|") and "Royce Lam" in line
+            ]
+            chk(
+                f"{pkg} names the requester in exactly one row",
+                len(requester_rows) == 1,
+                str(len(requester_rows)),
+            )
+            if requester_rows:
+                row = requester_rows[0]
+                chk(
+                    f"{pkg} gives the requester his own e-mail address",
+                    "roycelam@umich.edu" in row,
+                    row,
+                )
+                chk(
+                    f"{pkg} gives the requester the Analyst role",
+                    "Analyst" in row,
+                    row,
+                )
+                # Where the table has an institution column, the
+                # requester's institution is the PI's, because CDAS's list
+                # is of users at the PI's institution. The Signing
+                # Official's letter has no institution column.
+                cells = [c.strip() for c in row.strip("|").split("|")]
+                if len(cells) >= 4:
+                    chk(
+                        f"{pkg} puts the requester at the PI's institution",
+                        "`[PI]`" in cells[2],
+                        row,
+                    )
+            # A row whose NAME is the PI's and whose e-mail is the
+            # requester's would put the requester's address in the PI's
+            # slot. The requester's own row carries his name, so it is not
+            # one of these.
+            pi_rows = [
+                line.strip() for line in raw_lines
+                if line.strip().startswith("|")
+                and "roycelam@umich.edu" in line
+                and [c.strip() for c in line.strip("|").split("|")][0]
+                == "`[PI]`"
+            ]
+            chk(
+                f"{pkg} does not put the requester's address in the PI's row",
+                not pi_rows,
+                str(pi_rows),
+            )
+        details2 = Path(
+            "docs/plco-cdas-submission-package/01-project-details.md"
+        )
+        if details2.exists():
+            dflat = " ".join(details2.read_text().split())
+            chk(
+                "the project details leave the PI's institutional e-mail to "
+                "the PI",
+                "| Institutional email | `[PI]` — the PI's own institutional "
+                "address, from their institutional record |" in dflat,
+            )
+            chk(
+                "the project details record that the requester's row depends "
+                "on the affiliation route",
+                "this row is deleted from this table" in dflat,
+            )
         chk(
             "the fact table records the CDAS login services",
             any(

@@ -39,9 +39,13 @@ checker fails if any of these fields is filled in in the committed package.
 | Position title | `[PI]` |
 | Department and institution | `[PI]` |
 | Institution location | `[PI]` |
-| Institutional email | `roycelam@umich.edu` — confirm it is the current official address |
+| Institutional email | `[PI]` |
 | Telephone | `[PI]` |
 | ORCID | `[PI]` |
+
+Every field above is the PI's own, and each is filled in the local copy from
+their institutional record. The PI's institutional e-mail address is theirs,
+not the requester's.
 
 ## 2. Approved users at this institution
 
@@ -51,9 +55,19 @@ each needs a separate project proposal with the same project details.
 
 | Name | Institutional email | Institution | Role | Access needed |
 |---|---|---|---|---|
-| `[PI]` | `roycelam@umich.edu` | `[PI]` | Principal Investigator | full |
+| `[PI]` | `[PI]` | `[PI]` | Principal Investigator | full |
 | `[PI]` | `[PI]` | `[PI]` | Co-investigator | full |
-| `[PI]` | `[PI]` | `[PI]` | Analyst | data only, no export of participant-level data |
+| Royce Lam | `roycelam@umich.edu` | `[PI]` | Analyst | data only, no export of participant-level data |
+
+The requester's own row is here because CDAS's list is of users **at the
+PI's institution**, and his institution is the PI's institution. It is the
+analyst row, not the PI's row, because the PI is a permanent employee at
+professor level of that institution and the requester is not. **If the
+requester files his own proposal under his own organisation instead — the
+route in [`AFFILIATION-REGISTRATION.md`](../../AFFILIATION-REGISTRATION.md)
+— then this row is deleted from this table, because a user at another
+institution cannot be added here, and it appears in that proposal instead.**
+
 
 Any user added after submission must be recorded here and approved by the
 PI, and must accept the CDAS Data Use Policies.

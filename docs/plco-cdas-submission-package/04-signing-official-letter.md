@@ -34,9 +34,10 @@ are as given in the proposal:
 
 | Name | Institutional email | Role |
 |---|---|---|
-| `[PI]` | `roycelam@umich.edu` | Principal Investigator |
+| `[PI]` | `[PI]` | Principal Investigator |
 | `[PI]` | `[PI]` | Co-investigator |
-| `[PI]` | `[PI]` | Analyst |
+| Royce Lam | `roycelam@umich.edu` | Analyst |
+
 
 The institution confirms that the Principal Investigator is a permanent
 employee at a level equivalent to an academic professor, or a senior

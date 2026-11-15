@@ -515,6 +515,7 @@ def main(argv: list[str] | None = None) -> int:
             "Position title",
             "Department and institution",
             "Institution location",
+            "Institutional email",
             "Telephone",
             "ORCID",
         ):
@@ -534,21 +535,54 @@ def main(argv: list[str] | None = None) -> int:
             len(user_tables) == 1,
             "the cover sheet's approved-users table is not the table this check reads",
         )
+        # One row is the requester's own, because he is a named analyst and
+        # the table is where a contribution is recorded. It is the analyst
+        # row, never the PI's row: the PI is a permanent employee at
+        # professor level of the submitting institution, and putting the
+        # requester's e-mail address in the PI's row would put a false
+        # statement on a document the PI signs.
+        requester_rows = 0
         for row in user_tables[0][1:] if user_tables else []:
-            check(
-                _plain(row[0]) == "[PI]",
-                f"the committed approved-users table fills in a name ({row[0]!r})",
-            )
-            check(
-                _plain(row[1]) in ("[PI]", "roycelam@umich.edu"),
-                f"the committed approved-users table fills in an e-mail address "
-                f"({row[1]!r})",
-            )
-            check(
-                _plain(row[2]) == "[PI]",
-                f"the committed approved-users table fills in an institution "
-                f"({row[2]!r})",
-            )
+            name = _plain(row[0])
+            email = _plain(row[1])
+            if name == "Royce Lam":
+                requester_rows += 1
+                check(
+                    email == "roycelam@umich.edu",
+                    f"the requester's row fills in an e-mail address "
+                    f"({row[1]!r})",
+                )
+                check(
+                    _plain(row[2]) == "[PI]",
+                    f"the requester's row fills in an institution "
+                    f"({row[2]!r})",
+                )
+                check(
+                    "Analyst" in _plain(row[3]),
+                    f"the requester's row does not carry the Analyst role "
+                    f"({row[3]!r})",
+                )
+            else:
+                check(
+                    name == "[PI]",
+                    f"the committed approved-users table fills in a name "
+                    f"({row[0]!r})",
+                )
+                check(
+                    email == "[PI]",
+                    f"the committed approved-users table fills in an e-mail "
+                    f"address ({row[1]!r})",
+                )
+                check(
+                    _plain(row[2]) == "[PI]",
+                    f"the committed approved-users table fills in an "
+                    f"institution ({row[2]!r})",
+                )
+        check(
+            requester_rows == 1,
+            "the committed approved-users table does not name the requester "
+            "exactly once",
+        )
         for label in ("Printed name", "Position title", "Institution"):
             check(
                 f"{label}: `[SO]`" in letter,
